@@ -29,6 +29,9 @@ $('button.uk-ticket-seat').click(function() {
     $(this).addClass('seat_select');
     let selected_seat = $(this).text();
     $('#selected_seat').val(selected_seat);
+    let scrollTop = $('#search_passenger').offset().top;
+    $(document).scrollTop(scrollTop);
+    $('#search_passenger').focus();
 });
 
 

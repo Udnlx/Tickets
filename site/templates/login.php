@@ -14,18 +14,42 @@ $user_password = !empty($_POST['user_password'])?$_POST['user_password']:NULL;
 if($user_login === 'admin-test' && $user_password === '8cLpzQH') {
     $login = 'on';
     $_SESSION['operator'] = 'admin-test';
+    $_SESSION['access'] = 'admin';
+}
+if($user_login === 'Директор' && $user_password === 'K2KC87s') {
+    $login = 'on';
+    $_SESSION['operator'] = 'Директор';
+    $_SESSION['access'] = 'manager';
 }
 if($user_login === 'Люда' && $user_password === 'Fm6krwB') {
     $login = 'on';
     $_SESSION['operator'] = 'Люда';
+    $_SESSION['access'] = 'manager';
 }
 if($user_login === 'Ира' && $user_password === '1LPCodG') {
     $login = 'on';
     $_SESSION['operator'] = 'Ира';
+    $_SESSION['access'] = 'manager';
 }
 if($user_login === 'Юля' && $user_password === 'bMefP14') {
     $login = 'on';
     $_SESSION['operator'] = 'Юля';
+    $_SESSION['access'] = 'manager';
+}
+if($user_login === 'Ира2' && $user_password === 'uJL75Nc') {
+    $login = 'on';
+    $_SESSION['operator'] = 'Ира2';
+    $_SESSION['access'] = 'operator';
+}
+if($user_login === 'Дмитрий' && $user_password === '262dDbj') {
+    $login = 'on';
+    $_SESSION['operator'] = 'Дмитрий';
+    $_SESSION['access'] = 'operator';
+}
+if($user_login === 'Анна' && $user_password === 'G4WeqjA') {
+    $login = 'on';
+    $_SESSION['operator'] = 'Анна';
+    $_SESSION['access'] = 'operator';
 }
 
 //echo $login;

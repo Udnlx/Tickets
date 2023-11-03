@@ -6,21 +6,31 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
+$access = '';
+if(isset($_SESSION['access'])){
+    $access = $_SESSION['access'];
+}
+
 if ($operator == 'no_operator') {
 ?>
-
-<div id="content" style="max-width: 700px;">
-	<h1 class="uk-heading-hero uk-text-center">Домашняя страница</h1>
-	
-	            
-    <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
-        <h3 class="uk-card-title">Сесия потеряна, перезайти</h3>
-        <a class="uk-margin-small uk-button uk-button-default" href="/login/">Перезайти</a>
+    <div id="content" style="max-width: 700px;">
+    	<h1 class="uk-heading-hero uk-text-center">Домашняя страница</h1>
+        <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
+            <h3 class="uk-card-title">Сесия потеряна, перезайти</h3>
+            <a class="uk-margin-small uk-button uk-button-default" href="/login/">Перезайти</a>
+        </div>
     </div>
-</div>
-
 <?php    
 } else {
+?>
+
+<?php
+//===============Блок отображения контента в зависимости от прав пользователя===============
+$button_informers = '';
+if ($access == 'manager' || $access == 'admin') {
+    $button_informers = '<a class="uk-margin-small uk-button uk-button-default" href="/otchety/">Отчеты</a>';
+}
+//===============Блок отображения контента в зависимости от прав пользователя===============
 ?>
 
 <div id="content" style="max-width: 700px;">
@@ -31,7 +41,7 @@ if ($operator == 'no_operator') {
         <a class="uk-margin-small uk-button uk-button-default" href="/registratciia-bileta-vybor-reisa/">Зарегистрировать билет</a>
         <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Правка билета</a>
         <a class="uk-margin-small uk-button uk-button-default" href="/reestr-passazhirov-vybor-passazhira/">Реестр пассажиров</a>
-        <a class="uk-margin-small uk-button uk-button-default" href="/otchety/">Отчеты</a>
+        <?php echo $button_informers; ?>
         <a class="uk-margin-small uk-button uk-button-default" href="" uk-toggle="target: #modal-help">Техподдержка</a>
     </div>
     

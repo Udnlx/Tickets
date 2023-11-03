@@ -110,8 +110,8 @@ p.confirm {
     display: flex;
     flex-direction: column;}
 .reestr_seat p.reestr_seat_item {
-    margin: 3px 0 3px 0;
-    line-height: 0.8;}
+    margin: 5px 0 5px 0;
+    line-height: 0.9;}
 .reestr_seat p.reestr_seat_item span{
     font-size: 12px;}
     

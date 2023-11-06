@@ -79,6 +79,28 @@ if ($operator == 'no_operator') {
         <p class="uk-margin-remove">ФИО пассажира: <span style="font-weight: 700;"><?php echo $selected_name; ?></span></p>
         <p class="uk-margin-remove">Документ пассажира: <span style="font-weight: 700;"><?php echo $selected_document; ?></span></p>
 
+        <form class="uk-flex uk-flex-column" id="select_bus" action="/registratciia-bileta-vybor-mesta/" method="post">
+            <div class="uk-margin-small-top uk-hidden">
+                <input class="uk-input" id="post_bus" type="text" name="post_bus" value="<?php echo $selected_bus ; ?>">
+            </div>
+            
+            <div class="uk-margin-small-top uk-hidden">
+                <input class="uk-input" id="post_id_bus" type="text" name="post_id_bus" value="<?php echo $selected_id_bus ; ?>">
+            </div>
+            
+            <div class="uk-margin-small-top uk-hidden">
+                <input class="uk-input" id="post_time" type="text" name="post_time" value="<?php echo $selected_time ; ?>">
+            </div>
+            
+            <div class="uk-margin-small-top uk-hidden">
+                <input class="uk-input" id="post_date" type="date" name="post_date" value="<?php echo $selected_date ; ?>">
+            </div>
+            
+            <div class="uk-margin-small-top uk-flex uk-flex-column">
+            <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Оформить еще один билет на этот же рейс</button>
+            </div>
+        </form>
+
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>
 </div>

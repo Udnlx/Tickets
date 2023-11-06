@@ -64,7 +64,7 @@ $passengers .= '
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
-                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Данные пассажира</button>
+                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Редактировать пассажира</button>
                         <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>
                     </div>
                 </form>

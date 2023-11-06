@@ -41,7 +41,7 @@ if ($operator == 'no_operator') {
 	
 	            
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
-        <h3 class="uk-card-title">Сесия потеряна, перезайти</h3>
+        <h3 class="uk-card-title">Сессия потеряна, перезайти</h3>
         <a class="uk-margin-small uk-button uk-button-default" href="/login/">Перезайти</a>
     </div>
 </div>

@@ -61,7 +61,7 @@ $headers = array(
 );
 
 header('Content-Type: text/csv; charset=utf-8' );
-header(sprintf( 'Content-Disposition: attachment; filename=Отчет по маршруту - %s.csv', date( 'dmY-His' ) ) );
+header(sprintf( 'Content-Disposition: attachment; filename=Отчет по маршруту ' . $selected_bus . ' - %s.csv', date( 'dmY-His' ) ) );
 header('Content-Transfer-Encoding: binary');
 header('Expires: 0');
 header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

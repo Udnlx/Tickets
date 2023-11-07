@@ -108,7 +108,7 @@ foreach ($all_passengers as $all_passengers_item) {
 $passengers = '';
 foreach ($arr_all_passengers as $key => $val) {
 $passengers .= '
-    <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span>' . $val['birthday_passenger'] . ' - ' . $val['type_doc_passenger'] . ' - ' . $val['num_doc_passenger'] . ' - ' . $val['passport_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
+    <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span>' . $val['birthday_passenger'] . ' - ' . $val['type_doc_passenger'] . ' - ' . $val['passport_passenger'] . ' - ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
 ';
 }
 ?>
@@ -235,12 +235,12 @@ $passengers .= '
                 </select>
             </div>
             <div class="uk-margin-small-top">
-                <input class="uk-input" id="num_doc_passenger" type="text" name="num_doc_passenger" value="" placeholder="Серия и номер" autocomplete="off" required>
+                <input class="uk-input" id="passport_passenger" type="text" name="passport_passenger" value="" placeholder="Серия документа" autocomplete="off" required>
             </div>
             <div class="uk-margin-small-top">
-                <label for="passport_passenger">Параметры документа</label>
-                <input class="uk-input" id="passport_passenger" type="text" name="passport_passenger" value="-" placeholder="Параметры документа" autocomplete="off" required>
+                <input class="uk-input" id="num_doc_passenger" type="text" name="num_doc_passenger" value="" placeholder="Номер документа" autocomplete="off" required>
             </div>
+            <br>
             <div class="uk-margin-small-top">
                 <input class="uk-input" id="phone_passenger" type="text" name="phone_passenger" value="" placeholder="Телефон пассажира" autocomplete="off" required>
             </div>

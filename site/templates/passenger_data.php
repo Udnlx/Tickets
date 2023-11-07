@@ -147,10 +147,10 @@ $reestr_seat .= '
                 <input class="uk-input" id="type_doc_passenger" type="text" name="type_doc_passenger" value="<?php echo $page_passenger->type_doc_passenger ?>" placeholder="Тип документа" required>
             </div>
             <div class="uk-margin-small-top">
-                <input class="uk-input" id="num_doc_passenger" type="text" name="num_doc_passenger" value="<?php echo $page_passenger->num_doc_passenger ?>" placeholder="Серия и номер" autocomplete="off" required>
+                <input class="uk-input" id="passport_passenger" type="text" name="passport_passenger" value="<?php echo $page_passenger->passport_passenger ?>" placeholder="Параметры документа" autocomplete="off" required>
             </div>
             <div class="uk-margin-small-top">
-                <input class="uk-input" id="passport_passenger" type="text" name="passport_passenger" value="<?php echo $page_passenger->passport_passenger ?>" placeholder="Параметры документа" autocomplete="off" required>
+                <input class="uk-input" id="num_doc_passenger" type="text" name="num_doc_passenger" value="<?php echo $page_passenger->num_doc_passenger ?>" placeholder="Серия и номер" autocomplete="off" required>
             </div>
             <div class="uk-margin-small-top">
                 <input class="uk-input" id="phone_passenger" type="text" name="phone_passenger" value="<?php echo $page_passenger->phone_passenger ?>" placeholder="Телефон пассажира" autocomplete="off" required>

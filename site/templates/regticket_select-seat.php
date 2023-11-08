@@ -29,6 +29,20 @@ if ($operator == 'no_operator') {
 ?>
 
 <?php
+$button_station = '';
+$bus_page = $pages->get('id=' . $selected_id_bus . '');
+if (count($bus_page->children()) > 0) {
+    $stations = $bus_page->children();
+    foreach ($stations as $station) {
+        $button_station .= '
+            <button class="uk-ticket-button-station uk-margin-small-top uk-button uk-button-default">' . $station->title . '</button>
+        ';
+    }
+}
+ 
+?>
+
+<?php
 $reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', date_depart=' . $selected_date . ',sort=seat');
 $arr_reserv_seat = [];
 foreach ($reserv_seat as $reserv_seat_item) {
@@ -173,6 +187,13 @@ $passengers .= '
         </div>
         
         <div>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                <h3 class="uk-margin-remove uk-card-title">Станции посадки</h3>
+                <div class="uk-ticket-button-station-items">
+                    <?php echo $button_station ; ?>
+                </div>
+            </div>
+            <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Реестр уже купленных мест</h3>
                 <div class="reestr_seat uk-flex">

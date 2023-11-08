@@ -49,6 +49,20 @@ button.uk-ticket-button span {
 
 
 
+.uk-ticket-button-station-items {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;}
+button.uk-ticket-button-station {
+    margin: 5px!important;
+    width: fit-content;
+    height: auto;
+    padding: 4px!important;
+    text-transform: none;
+    font-weight: 700;}
+
+
+
 button.uk-ticket-seat {
     margin: 5px;
     padding: 0;

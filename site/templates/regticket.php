@@ -10,6 +10,8 @@ $selected_bus = !empty($_POST['selected_bus'])?$_POST['selected_bus']:NULL;
 $selected_id_bus = !empty($_POST['selected_id_bus'])?$_POST['selected_id_bus']:NULL;
 $selected_date = !empty($_POST['selected_date'])?$_POST['selected_date']:NULL;
 $selected_time = !empty($_POST['selected_time'])?$_POST['selected_time']:NULL;
+$selected_station = !empty($_POST['selected_station'])?$_POST['selected_station']:NULL;
+$id_selected_station = !empty($_POST['id_selected_station'])?$_POST['id_selected_station']:NULL;
 
 $selected_seat = !empty($_POST['selected_seat'])?$_POST['selected_seat']:NULL;
 $pay_or_booking = !empty($_POST['pay_or_booking'])?$_POST['pay_or_booking']:NULL;
@@ -27,6 +29,8 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
     'id_bus' => $selected_id_bus,
     'date_depart' => $selected_date,
     'time_depart' => $selected_time,
+    'id_station' => $id_selected_station,
+    'name_station' => $selected_station,
     'seat' => $selected_seat,
     'pay_or_booking' => $pay_or_booking,
     'confirm' => $confirm,
@@ -73,6 +77,8 @@ if ($operator == 'no_operator') {
         <p class="uk-margin-remove">Автобус: <span style="font-weight: 700;"><?php echo $selected_bus; ?></span></p>
         <p class="uk-margin-remove">ID автобуса: <span style="font-weight: 700;"><?php echo $selected_id_bus; ?></span></p>
         <p class="uk-margin-remove">Дата и время отправления: <span style="font-weight: 700;"><?php echo $selected_date; ?> <?php echo $selected_time; ?></span></p>
+        <p class="uk-margin-remove">Станция и время посадки: <span style="font-weight: 700;"><?php echo $selected_station; ?></span></p>
+        <p class="uk-margin-remove">ID cтанции посадки: <span style="font-weight: 700;"><?php echo $id_selected_station; ?></span></p>
         <p class="uk-margin-remove">Место: <span style="font-weight: 700;"><?php echo $selected_seat; ?></span></p>
         <p class="uk-margin-remove">Статус: <span style="font-weight: 700;"><?php echo $pay_or_booking; ?></span></p>
         <p class="uk-margin-remove">Статус подтверждения: <span style="font-weight: 700;"><?php echo $confirm; ?></span></p>

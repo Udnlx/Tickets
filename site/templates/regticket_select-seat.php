@@ -35,7 +35,7 @@ if (count($bus_page->children()) > 0) {
     $stations = $bus_page->children();
     foreach ($stations as $station) {
         $button_station .= '
-            <button class="uk-ticket-button-station uk-margin-small-top uk-button uk-button-default">' . $station->title . '</button>
+            <button id="' . $station->id . '" class="uk-ticket-button-station uk-margin-small-top uk-button uk-button-default">' . $station->title . '</button>
         ';
     }
 }
@@ -122,7 +122,7 @@ foreach ($all_passengers as $all_passengers_item) {
 $passengers = '';
 foreach ($arr_all_passengers as $key => $val) {
 $passengers .= '
-    <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span>' . $val['birthday_passenger'] . ' - ' . $val['type_doc_passenger'] . ' - ' . $val['passport_passenger'] . ' - ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
+    <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span>' . $val['birthday_passenger'] . ' — ' . $val['type_doc_passenger'] . ' — ' . $val['passport_passenger'] . ' — ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
 ';
 }
 ?>
@@ -150,6 +150,12 @@ $passengers .= '
                         <input class="uk-input" id="selected_time" type="text" name="selected_time" value="<?php echo $selected_time; ?>">
                     </div>
                     
+                    <div class="uk-margin-small-top">
+                        <input class="uk-input readonly" id="selected_station" type="text" name="selected_station" value="" placeholder="Станция посадки" autocomplete="off" required>
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input readonly" id="id_selected_station" type="text" name="id_selected_station" value="">
+                    </div>
                     <div class="uk-margin-small-top">
                         <input class="uk-input readonly" id="selected_seat" type="text" name="selected_seat" value="" placeholder="Место" autocomplete="off" required>
                     </div>

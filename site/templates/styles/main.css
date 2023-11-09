@@ -60,6 +60,8 @@ button.uk-ticket-button-station {
     padding: 4px!important;
     text-transform: none;
     font-weight: 700;}
+.uk-ticket-button-station-items button.station_select {
+    background-color: #52af52;}
 
 
 

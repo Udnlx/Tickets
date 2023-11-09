@@ -143,16 +143,19 @@ $reestr_seat .= '
             <div class="uk-margin-small-top">
                 <input class="uk-input" id="birthday_passenger" type="date" name="birthday_passenger" value="<?php echo $dayformat ?>" placeholder="Дата рождения" autocomplete="off" required>
             </div>
-            <div class="uk-margin-small-top">
+            <div class="uk-margin-small-top uk-hidden">
                 <input class="uk-input" id="type_doc_passenger" type="text" name="type_doc_passenger" value="<?php echo $page_passenger->type_doc_passenger ?>" placeholder="Тип документа" required>
             </div>
             <div class="uk-margin-small-top">
+                <label for="passport_passenger">Серия документа</label>
                 <input class="uk-input" id="passport_passenger" type="text" name="passport_passenger" value="<?php echo $page_passenger->passport_passenger ?>" placeholder="Параметры документа" autocomplete="off" required>
             </div>
             <div class="uk-margin-small-top">
+                <label for="num_doc_passenger">Номер документа</label>
                 <input class="uk-input" id="num_doc_passenger" type="text" name="num_doc_passenger" value="<?php echo $page_passenger->num_doc_passenger ?>" placeholder="Серия и номер" autocomplete="off" required>
             </div>
             <div class="uk-margin-small-top">
+                <label for="phone_passenger">Номер телефона</label>
                 <input class="uk-input" id="phone_passenger" type="text" name="phone_passenger" value="<?php echo $page_passenger->phone_passenger ?>" placeholder="Телефон пассажира" autocomplete="off" required>
             </div>
             

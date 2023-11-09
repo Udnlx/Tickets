@@ -39,7 +39,7 @@ foreach ($all_passengers as $all_passengers_item) {
 $passengers = '';
 foreach ($arr_all_passengers as $key => $val) {
 $passengers .= '
-    <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span>' . $val['birthday_passenger'] . ' - ' . $val['type_doc_passenger'] . ' - ' . $val['passport_passenger'] . ' - ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
+    <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span>' . $val['birthday_passenger'] . ' — ' . $val['type_doc_passenger'] . ' — ' . $val['passport_passenger'] . ' — ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
 ';
 }
 ?>

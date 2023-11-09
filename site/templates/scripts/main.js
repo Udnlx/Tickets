@@ -54,21 +54,37 @@ $(document).on('click', 'p.passengers_item', function(){
     let passenger = $(this).html();
     let passenger_arr = passenger.split('<br>');
     let name_passenger = passenger_arr[0];
-    let passenger_doc_arr = passenger_arr[1].split(' - ');
+    let passenger_doc_arr = passenger_arr[1].split(' — ');
     let type_doc_passenger = passenger_doc_arr[1];
-    let num_doc_passenger = passenger_doc_arr[2];
-    let param_doc_passenger = passenger_doc_arr[3];
+    let series_doc_passenger = passenger_doc_arr[2];
+    let num_doc_passenger = passenger_doc_arr[3];
     let id_passenger = $(this).attr('id');
     //console.log (id_passenger);
     //console.log(name_passenger);
     //console.log(type_doc_passenger + ' ' + num_doc_passenger + ' ' + param_doc_passenger);
     $('#selected_idpassenger').val(id_passenger);
     $('#selected_name').val(name_passenger);
-    $('#selected_document').val(num_doc_passenger + ' ' + param_doc_passenger);
+    $('#selected_document').val(type_doc_passenger + ' ' + series_doc_passenger + ' ' + num_doc_passenger);
     
     $('#passenger_idpassenger').val(id_passenger);
     $('#passenger_name').val(name_passenger);
-    $('#passenger_document').val(num_doc_passenger + ' ' + param_doc_passenger);
+    $('#passenger_document').val(type_doc_passenger + ' ' + series_doc_passenger + ' ' + num_doc_passenger);
+});
+
+
+
+$(document).on('click', 'button.uk-ticket-button-station', function(){
+    $('div.uk-ticket-button-station-items').find('button.uk-ticket-button-station').each(function (){
+        $(this).removeClass('station_select');
+    })
+    $(this).addClass('station_select');
+    let selected_station = $(this).text();
+    let id_selected_station = $(this).attr('id');
+    // console.log(selected_station);
+    // console.log(id_selected_station);
+    
+    $('#selected_station').val(selected_station);
+    $('#id_selected_station').val(id_selected_station);
 });
 
 

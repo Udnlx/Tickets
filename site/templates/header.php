@@ -11,7 +11,20 @@ $url = explode('?', $url);
 $url = $url[0];
 //echo $url;
 $menu = '
-   <div class="uk-navbar-left">
+    <div class="uk-navbar-left">
+        <a href="#offcanvas-usage" uk-toggle><i class="fa-solid fa-bars"></i></a>
+
+        <div id="offcanvas-usage" uk-offcanvas>
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <br>
+                <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
+                <a class="uk-margin-small uk-button uk-button-default" href="/registratciia-bileta-vybor-reisa/">Зарегистрировать билет</a>
+                <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Правка билета</a>
+                <a class="uk-margin-small uk-button uk-button-default" href="/reestr-passazhirov-vybor-passazhira/">Реестр пассажиров</a>
+            </div>
+        </div>
+
         <a href="/"><i class="fa-solid fa-house"></i></a>
         <p class="uk-margin-remove uk-text-bold ">Оператор: ' . $operator . '</p>
         <a href="/login/?logout" title="Выход из системы"><i class="fa-solid fa-right-from-bracket"></i></i></a>

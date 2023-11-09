@@ -1,6 +1,28 @@
 body {
     margin: 0;
     background-color: #f8f8f8;}
+
+
+
+.uk-offcanvas-bar {
+    background-color: #fff;
+    color: #666;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);}
+.uk-offcanvas-bar .uk-offcanvas-close {
+    color: #666;}
+.uk-offcanvas-bar .uk-offcanvas-close:hover {
+    color: #000000;}
+.uk-offcanvas-bar a.uk-margin-small {
+    width: 100%;
+    background-color: transparent;
+    color: #333;
+    border: 1px solid #e5e5e5;}
+.uk-offcanvas-bar a.uk-margin-small:hover {
+    width: 100%;
+    background-color: transparent;
+    color: #333;
+    border-color: #b2b2b2;}
+
     
     
 .uk-button-default {

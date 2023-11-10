@@ -41,6 +41,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
         "seat"=>$reserv_seat_item->seat,
         "pay_or_booking"=>$reserv_seat_item->pay_or_booking,
         "confirm"=>$reserv_seat_item->confirm,
+        "station"=>$reserv_seat_item->name_station,
         "passenger"=>$reserv_seat_item->passenger,
         "passenger_doc"=>$reserv_seat_item->passenger_doc,
         "operator"=>$reserv_seat_item->operator
@@ -51,7 +52,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
 $reestr_seat = '';
 foreach ($arr_reserv_seat as $key => $val) {
 $reestr_seat .= '
-    <p class="reestr_seat_item">' . $val['bus'] . ' - ' . $val['date_depart'] . ' - ' . $val['time_depart'] . '<br>Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . ' - ' . $val['passenger'] . ' - ' . $val['passenger_doc'] . '<br><span> - Регистратор: ' . $val['operator'] . '</span></p>
+    <p class="reestr_seat_item">' . $val['bus'] . ' - ' . $val['date_depart'] . ' - ' . $val['time_depart'] . '<br> Станция посадки: ' . $val['station'] . '<br>Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . ' - ' . $val['passenger'] . ' - ' . $val['passenger_doc'] . '<br><span> - Регистратор: ' . $val['operator'] . '</span></p>
 ';
 }
 ?>

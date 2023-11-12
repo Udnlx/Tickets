@@ -37,6 +37,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
         'seat' => $reserv_seat_item->seat,
 		'pay_or_booking' => $reserv_seat_item->pay_or_booking,
 		'confirm' => $reserv_seat_item->confirm,
+        "station"=>$reserv_seat_item->name_station,
 		"id_passenger"=>$reserv_seat_item->id_passenger,
 		'passenger' => $reserv_seat_item->passenger,
 		'passenger_doc' => $reserv_seat_item->passenger_doc,
@@ -47,6 +48,22 @@ foreach ($reserv_seat as $reserv_seat_item) {
 // print_r($arr_reserv_seat);
 // echo '</pre>';
 
+$bus = $pages->get('id=' . $selected_id_bus . '');
+$bus_stations = $bus->children();
+$list = '';
+foreach ($bus_stations as $bus_station) {
+    $list .= '<p class="reestr_seat_item" style="font-weight:700;">' . $bus_station->title . '</p>';
+    foreach ($arr_reserv_seat as $key => $val) {
+        if ($bus_station->title == $val['station']) {
+            $list .= '
+            <p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . '<br>' . $val['passenger'] . '</p>
+            ';
+        }
+    }
+    $list .= '<br>';
+}
+//echo $list;
+
 $reestr_seat = '
 <style type="text/css">
 * {
@@ -55,10 +72,7 @@ $reestr_seat = '
 }
 </style>
 <h3>Реестр занятых мест по маршруту<br>' . $selected_bus . '<br>' . $selected_date . ' ' . $selected_time . '<h3>';
-foreach ($arr_reserv_seat as $key => $val) {
-$reestr_seat .= '
-<p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . '<br>' . $val['passenger'] . '</p>';
-}
+$reestr_seat .= $list;
 
 include_once __DIR__ . '/dompdf/autoload.inc.php';
 $dompdf = new Dompdf\Dompdf();

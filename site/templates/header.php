@@ -27,7 +27,7 @@ $menu = '
 
         <a href="/"><i class="fa-solid fa-house"></i></a>
         <p class="uk-margin-remove uk-text-bold ">Оператор: ' . $operator . '</p>
-        <a href="/login/?logout" title="Выход из системы"><i class="fa-solid fa-right-from-bracket"></i></i></a>
+        <a href="/login/?logout" title="Выход из системы"><i class="fa-solid fa-right-from-bracket"></i></a>
     </div>
    ';
 if ($url == '/login/') {

@@ -99,6 +99,12 @@ $reestr_seat .= '
     
     <h2 class="uk-heading-hero uk-text-center">Данные о покупках пассажира</h2>
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
+        <div class="filter">
+            <div class="filter-elem">
+            <p class="filter_icon"><i class="fa-solid fa-filter"></i></p>
+            <input class="uk-input" id="search_tickets" type="text" name="search_tickets" placeholder="введите параметры для поиска">
+            </div>
+        </div>
         <div class="reestr_seat uk-flex">
             <?php echo $reestr_seat ; ?>
         </div>

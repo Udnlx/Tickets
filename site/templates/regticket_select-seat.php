@@ -203,6 +203,12 @@ $passengers .= '
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Реестр уже купленных мест</h3>
+                <div class="filter">
+                    <div class="filter-elem">
+                    <p class="filter_icon"><i class="fa-solid fa-filter"></i></p>
+                    <input class="uk-input" id="search_tickets" type="text" name="search_tickets" placeholder="введите параметры для поиска">
+                    </div>
+                </div>
                 <div class="reestr_seat uk-flex">
                     <?php echo $reestr_seat ; ?>
                 </div>

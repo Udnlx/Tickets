@@ -104,6 +104,13 @@ $('#search_passenger').keyup(function(){
     $('p.passengers_item:containsi("'+search_value+'")').show();
 });
 
+$('#search_tickets').keyup(function(){
+    let search_value = $('#search_tickets').val();
+    
+    $('p.reestr_seat_item').hide();
+    $('p.reestr_seat_item:containsi("'+search_value+'")').show();
+});
+
 
 
 //Добавление нового пассажира

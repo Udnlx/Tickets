@@ -114,6 +114,16 @@ foreach ($arr_reserv_seat as $key => $val) {
                         <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">К выбору рейса</a>
                     </div>
                 </form>
+
+                <form class="uk-flex uk-flex-column" id="print_ticket" action="/pechat-bileta/" method="post">
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input readonly" id="print_ticket_id" type="text" name="print_ticket_id" value="" placeholder="ID билета" autocomplete="off" required>
+                    </div>
+                    
+                    <div class="uk-margin-small-top uk-flex uk-flex-column">
+                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Распечатать билет</button>
+                    </div>
+                </form>
             </div>
         </div>
         

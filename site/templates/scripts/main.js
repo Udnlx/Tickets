@@ -41,6 +41,7 @@ $('button.uk-ticket-edit-seat').click(function() {
     $('#selected_seat').val(edited_seat);
     let id_edited_seat = $(this).attr('id');
     $('#id_seat').val(id_edited_seat);
+    $('#print_ticket_id').val(id_edited_seat);
 });
 
 

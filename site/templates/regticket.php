@@ -117,7 +117,7 @@ if ($operator == 'no_operator') {
         </form>
 
         <form class="uk-flex uk-flex-column" id="print_ticket" action="/pechat-bileta/" method="post">
-            <div class="uk-margin-small-top">
+            <div class="uk-margin-small-top uk-hidden">
                 <input class="uk-input readonly" id="print_ticket_id" type="text" name="print_ticket_id" value="<?php echo $ticket_id ; ?>" placeholder="ID билета" autocomplete="off" required>
             </div>
             

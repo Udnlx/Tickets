@@ -129,6 +129,10 @@ $passengers .= '
             <div class="uk-margin-small-top">
                 <input class="uk-input" id="phone_passenger" type="text" name="phone_passenger" value="" placeholder="Телефон пассажира" autocomplete="off" required>
             </div>
+            <br>
+            <div class="uk-margin-small-top">
+                <input class="uk-input" id="agent" type="text" name="agent" value="" placeholder="Агент" autocomplete="off">
+            </div>
             
             <br>
             <div class="uk-flex uk-flex-center">

@@ -33,6 +33,8 @@ $reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $selected_id
 //echo '<pre>'; print_r($arr_reserv_seat); echo '</pre>';
 $arr_reserv_seat = [];
 foreach ($reserv_seat as $reserv_seat_item) {
+	$id_passenger = $reserv_seat_item->id_passenger;
+	$page_passenger = $pages->get('template=passengers, id=' . $id_passenger . '');
     $arr_reserv_seat[] = array(
         'seat' => $reserv_seat_item->seat,
 		'pay_or_booking' => $reserv_seat_item->pay_or_booking,
@@ -41,6 +43,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
 		'passenger' => $reserv_seat_item->passenger,
 		'passenger_doc' => $reserv_seat_item->passenger_doc,
 		'operator' => $reserv_seat_item->operator,
+		'agent' => $page_passenger->agent,
         );
 }
 
@@ -59,6 +62,7 @@ $headers = array(
 		'passenger' => 'Пассажир',
 		'passenger_doc' => 'Документ',
 		'operator' => 'Оператор',
+		'agent' => 'Агент',
 	),    
 );
 

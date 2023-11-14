@@ -14,6 +14,7 @@ $add_type_doc_passenger = $_POST['add_type_doc_passenger'];
 $add_num_doc_passenger = $_POST['add_num_doc_passenger'];
 $add_passport_passenger = $_POST['add_passport_passenger'];
 $add_phone_passenger = $_POST['add_phone_passenger'];
+$add_agent = $_POST['add_agent'];
 
 if ($add_name_passenger == '' || $add_birthday_passenger == '' || $add_type_doc_passenger == '' || $add_num_doc_passenger == '' || $add_passport_passenger == '' || $add_phone_passenger == '') {
     echo '<p class="messages" style="color: red;">Ошибка. Пассажир не добавлен.<br>Проверьте заполненность полей и повторите попытку.</p>';    
@@ -37,6 +38,7 @@ if ($add_name_passenger == '' || $add_birthday_passenger == '' || $add_type_doc_
             'num_doc_passenger' => $add_num_doc_passenger,
             'passport_passenger' => $add_passport_passenger,
             'phone_passenger' => $add_phone_passenger,
+            'agent' => $add_agent,
         ]);
         
         $all_passengers = $pages->find('template=passengers');

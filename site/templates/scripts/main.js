@@ -124,6 +124,7 @@ $('#add_passenger').click(function() {
     var add_num_doc_passenger = $('#num_doc_passenger').val();
     var add_passport_passenger = $('#passport_passenger').val();
     var add_phone_passenger = $('#phone_passenger').val();
+    var add_agent = $('#agent').val();
     //console.log(add_name_passenger, add_birthday_passenger, add_type_doc_passenger, add_num_doc_passenger, add_passport_passenger, add_phone_passenger);
 $.ajax({
     type: "POST",
@@ -134,7 +135,8 @@ $.ajax({
         'add_type_doc_passenger':add_type_doc_passenger,
         'add_num_doc_passenger':add_num_doc_passenger,
         'add_passport_passenger':add_passport_passenger,
-        'add_phone_passenger':add_phone_passenger
+        'add_phone_passenger':add_phone_passenger,
+        'add_agent':add_agent
     },
     beforeSend: function () {
         $('#messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
@@ -150,6 +152,7 @@ $.ajax({
         $('#num_doc_passenger').val('');
         $('#passport_passenger').val('');
         $('#phone_passenger').val('');
+        $('#agent').val('');
         let allpassengers = $('#get_all_passengers').html();
         $('#search_passenger').val('');
         $('.reestr_passenger').html(allpassengers);

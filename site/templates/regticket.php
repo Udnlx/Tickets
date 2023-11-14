@@ -23,22 +23,30 @@ $selected_document = !empty($_POST['selected_document'])?$_POST['selected_docume
 $success = 'Билет успешно зарегистрирован';
 if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $selected_seat && $selected_name && $selected_document) {
     //echo $selected_bus . $selected_id_bus . $selected_date . $selected_time . $selected_seat . $selected_name . $selected_document . $selected_idpassenger;
-    $pages->add('purchased_tickets', 1026 , [
-    'title' => $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat,
-    'bus' => $selected_bus,
-    'id_bus' => $selected_id_bus,
-    'date_depart' => $selected_date,
-    'time_depart' => $selected_time,
-    'id_station' => $id_selected_station,
-    'name_station' => $selected_station,
-    'seat' => $selected_seat,
-    'pay_or_booking' => $pay_or_booking,
-    'confirm' => $confirm,
-    'id_passenger' => $selected_idpassenger,
-    'passenger' => $selected_name,
-    'passenger_doc' => $selected_document,
-    'operator' => $operator,
-    ]);
+    $ticket_page = $pages->get('title=' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat . '');
+    if ($ticket_page->id > 0) {
+        $success = 'Билет не зарегистрирован!<br>Такой билет уже существует<br>ID-' . $ticket_page->id;
+        $ticket_id = 'Билет не зарегистрирован!';
+    } else {
+        $pages->add('purchased_tickets', 1026 , [
+        'title' => $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat,
+        'bus' => $selected_bus,
+        'id_bus' => $selected_id_bus,
+        'date_depart' => $selected_date,
+        'time_depart' => $selected_time,
+        'id_station' => $id_selected_station,
+        'name_station' => $selected_station,
+        'seat' => $selected_seat,
+        'pay_or_booking' => $pay_or_booking,
+        'confirm' => $confirm,
+        'id_passenger' => $selected_idpassenger,
+        'passenger' => $selected_name,
+        'passenger_doc' => $selected_document,
+        'operator' => $operator,
+        ]);
+        $ticket_page = $pages->get('title=' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat . '');
+        $ticket_id = $ticket_page->id;
+    }
 } else {
     $success = 'Билет не зарегистрирован!<br>Ошибка в данных';
 }
@@ -74,6 +82,7 @@ if ($operator == 'no_operator') {
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
         <h4 class="uk-margin-remove">Данные о билете:</h4>
+        <p class="uk-margin-remove">ID билета: <span style="font-weight: 700;"><?php echo $ticket_id; ?></span></p>
         <p class="uk-margin-remove">Автобус: <span style="font-weight: 700;"><?php echo $selected_bus; ?></span></p>
         <p class="uk-margin-remove">ID автобуса: <span style="font-weight: 700;"><?php echo $selected_id_bus; ?></span></p>
         <p class="uk-margin-remove">Дата и время отправления: <span style="font-weight: 700;"><?php echo $selected_date; ?> <?php echo $selected_time; ?></span></p>
@@ -104,6 +113,16 @@ if ($operator == 'no_operator') {
             
             <div class="uk-margin-small-top uk-flex uk-flex-column">
             <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Оформить еще один билет на этот же рейс</button>
+            </div>
+        </form>
+
+        <form class="uk-flex uk-flex-column" id="print_ticket" action="/pechat-bileta/" method="post">
+            <div class="uk-margin-small-top">
+                <input class="uk-input readonly" id="print_ticket_id" type="text" name="print_ticket_id" value="<?php echo $ticket_id ; ?>" placeholder="ID билета" autocomplete="off" required>
+            </div>
+            
+            <div class="uk-margin-small-top uk-flex uk-flex-column">
+                <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Распечатать билет</button>
             </div>
         </form>
 

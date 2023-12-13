@@ -55,8 +55,14 @@ foreach ($bus_stations as $bus_station) {
     $list .= '<p class="reestr_seat_item" style="font-weight:700;">' . $bus_station->title . '</p>';
     foreach ($arr_reserv_seat as $key => $val) {
         if ($bus_station->title == $val['station']) {
+            $page_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
             $list .= '
-            <p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . '<br>' . $val['passenger'] . '</p>
+            <p class="reestr_seat_item">
+            Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . 
+            '<br>' . $val['passenger'] . 
+            '<br>' . $page_passenger->birthday_passenger . 
+            '<br>' . $page_passenger->type_doc_passenger . ' ' . $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger .
+            '</p>
             ';
         }
     }

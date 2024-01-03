@@ -53,6 +53,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
         "station"=>$reserv_seat_item->name_station,
         "id_passenger"=>$reserv_seat_item->id_passenger,
         "passenger"=>$reserv_seat_item->passenger,
+        "type_ticket"=>$reserv_seat_item->type_ticket,
         "passenger_doc"=>$reserv_seat_item->passenger_doc,
         "operator"=>$reserv_seat_item->operator
         );
@@ -64,7 +65,7 @@ foreach ($arr_reserv_seat as $key => $val) {
 $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
 $phone_passenger = $data_passenger->phone_passenger;
 $reestr_seat .= '
-    <p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br> Станция посадки: ' . $val['station'] . '<br>' . $val['passenger'] . '<br>' . $val['passenger_doc'] . '<br>телефон: ' . $phone_passenger . '<br><span> - Регистратор: ' . $val['operator'] . '</span></p>
+    <p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br> Станция посадки: ' . $val['station'] . '<br>' . $val['passenger'] . '<br>тип билета: ' . $val['type_ticket'] . '<br>' . $val['passenger_doc'] . '<br>телефон: ' . $phone_passenger . '<br><span> - Регистратор: ' . $val['operator'] . '</span></p>
 ';
 }
 
@@ -170,6 +171,12 @@ $passengers .= '
                         <select class="uk-select" id="confirm" name="confirm">
                             <option>не подтверждено</option>
                             <option>подтверждено</option>
+                        </select>
+                    </div>
+                    <div class="uk-margin-small-top">
+                        <select class="uk-select" id="type_ticket" name="type_ticket">
+                            <option>взрослый</option>
+                            <option>детский</option>
                         </select>
                     </div>
                     <div class="uk-margin-small-top uk-hidden">

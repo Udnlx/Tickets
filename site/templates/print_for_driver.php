@@ -40,6 +40,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
         "station"=>$reserv_seat_item->name_station,
 		"id_passenger"=>$reserv_seat_item->id_passenger,
 		'passenger' => $reserv_seat_item->passenger,
+        "type_ticket"=>$reserv_seat_item->type_ticket,
 		'passenger_doc' => $reserv_seat_item->passenger_doc,
 		'operator' => $reserv_seat_item->operator,
         );
@@ -60,6 +61,7 @@ foreach ($bus_stations as $bus_station) {
             <p class="reestr_seat_item">
             Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . 
             '<br>' . $val['passenger'] . 
+            '<br>Тип билета: ' . $val['type_ticket'] . 
             '<br>' . $page_passenger->birthday_passenger . 
             '<br>' . $page_passenger->type_doc_passenger . ' ' . $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger .
             '</p>

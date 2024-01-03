@@ -16,6 +16,7 @@ $id_selected_station = !empty($_POST['id_selected_station'])?$_POST['id_selected
 $selected_seat = !empty($_POST['selected_seat'])?$_POST['selected_seat']:NULL;
 $pay_or_booking = !empty($_POST['pay_or_booking'])?$_POST['pay_or_booking']:NULL;
 $confirm = !empty($_POST['confirm'])?$_POST['confirm']:NULL;
+$type_ticket = !empty($_POST['type_ticket'])?$_POST['type_ticket']:NULL;
 $selected_idpassenger = !empty($_POST['selected_idpassenger'])?$_POST['selected_idpassenger']:NULL;
 $selected_name = !empty($_POST['selected_name'])?$_POST['selected_name']:NULL;
 $selected_document = !empty($_POST['selected_document'])?$_POST['selected_document']:NULL;
@@ -39,6 +40,7 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
         'seat' => $selected_seat,
         'pay_or_booking' => $pay_or_booking,
         'confirm' => $confirm,
+        'type_ticket' => $type_ticket,
         'id_passenger' => $selected_idpassenger,
         'passenger' => $selected_name,
         'passenger_doc' => $selected_document,
@@ -91,6 +93,7 @@ if ($operator == 'no_operator') {
         <p class="uk-margin-remove">Место: <span style="font-weight: 700;"><?php echo $selected_seat; ?></span></p>
         <p class="uk-margin-remove">Статус: <span style="font-weight: 700;"><?php echo $pay_or_booking; ?></span></p>
         <p class="uk-margin-remove">Статус подтверждения: <span style="font-weight: 700;"><?php echo $confirm; ?></span></p>
+        <p class="uk-margin-remove">Тип билета: <span style="font-weight: 700;"><?php echo $type_ticket; ?></span></p>
         <p class="uk-margin-remove">ФИО пассажира: <span style="font-weight: 700;"><?php echo $selected_name; ?></span></p>
         <p class="uk-margin-remove">Документ пассажира: <span style="font-weight: 700;"><?php echo $selected_document; ?></span></p>
 

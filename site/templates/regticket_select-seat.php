@@ -281,15 +281,26 @@ $passengers .= '
             <div class="uk-margin-small-top">
                 <input class="uk-input" id="num_doc_passenger" type="text" name="num_doc_passenger" value="" placeholder="Номер документа" autocomplete="off" required>
             </div>
-            <br>
             <div class="uk-margin-small-top">
                 <input class="uk-input" id="phone_passenger" type="text" name="phone_passenger" value="" placeholder="Телефон пассажира" autocomplete="off" required>
             </div>
-            <br>
+            <!--
             <div class="uk-margin-small-top">
                 <input class="uk-input" id="agent" type="text" name="agent" value="" placeholder="Агент" autocomplete="off">
             </div>
-            
+            -->
+            <div class="uk-margin-small-top">
+                <label for="agent">Агент</label>
+                <select class="uk-select" id="agent" name="agent">
+                    <option></option>
+                    <option>Донбас Тур</option>
+                    <option>Интер Карс</option>
+                    <option>Оксана</option>
+                    <option>Дмитрий Луганск</option>
+                    <option>Росбилет</option>
+                </select>
+            </div>
+
             <br>
             <div class="uk-flex uk-flex-center">
                 <button id="add_passenger" class="uk-button uk-button-primary" type="button">Добавить</button>

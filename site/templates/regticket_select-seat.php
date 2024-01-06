@@ -289,15 +289,21 @@ $passengers .= '
                 <input class="uk-input" id="agent" type="text" name="agent" value="" placeholder="Агент" autocomplete="off">
             </div>
             -->
+
+            <?php
+            $all_agents = $pages->get('template=agents');
+            $agents = '';
+            foreach ($all_agents->agent_items as $agent_itm) {
+                $agents .= '
+                <option>' . $agent_itm->agent . '</option>
+                ';
+            }
+            ?>
             <div class="uk-margin-small-top">
                 <label for="agent">Агент</label>
                 <select class="uk-select" id="agent" name="agent">
                     <option></option>
-                    <option>Донбас Тур</option>
-                    <option>Интер Карс</option>
-                    <option>Оксана</option>
-                    <option>Дмитрий Луганск</option>
-                    <option>Росбилет</option>
+                    <?php echo $agents; ?>
                 </select>
             </div>
 

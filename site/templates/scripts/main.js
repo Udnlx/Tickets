@@ -50,9 +50,10 @@ $('#pay_or_booking').change( function() {
     let pob_selected = $('#pay_or_booking option:selected').text();
     if (pob_selected == 'забронировано') {
         $('#booking_sum_div').removeClass('uk-hidden');
+        $('#booking_sum').val('');
     } else {
         $('#booking_sum_div').addClass('uk-hidden');
-        $('#booking_sum').val('');
+        $('#booking_sum').val('0');
     }
 });
 

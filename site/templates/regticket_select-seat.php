@@ -168,7 +168,7 @@ $passengers .= '
                         </select>
                     </div>
                     <div id="booking_sum_div" class="uk-margin-small-top">
-                        <input class="uk-input" id="booking_sum" type="number" name="booking_sum" value="" placeholder="Сумма к оплате при бронировании" autocomplete="off">
+                        <input class="uk-input" id="booking_sum" type="number" name="booking_sum" value="" placeholder="Сумма к оплате при бронировании" autocomplete="off" required>
                     </div>
                     <div class="uk-margin-small-top">
                         <select class="uk-select" id="confirm" name="confirm">

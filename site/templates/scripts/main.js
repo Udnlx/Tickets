@@ -46,6 +46,18 @@ $('button.uk-ticket-edit-seat').click(function() {
 
 
 
+$('#pay_or_booking').change( function() {
+    let pob_selected = $('#pay_or_booking option:selected').text();
+    if (pob_selected == 'забронировано') {
+        $('#booking_sum_div').removeClass('uk-hidden');
+    } else {
+        $('#booking_sum_div').addClass('uk-hidden');
+        $('#booking_sum').val('');
+    }
+});
+
+
+
 //$('p.passengers_item').click(function() {
 $(document).on('click', 'p.passengers_item', function(){
     $('div.reestr_passenger').find('p.passengers_item').each(function (){

@@ -36,6 +36,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
     $arr_reserv_seat[] = array(
         'seat' => $reserv_seat_item->seat,
 		'pay_or_booking' => $reserv_seat_item->pay_or_booking,
+        'booking_sum' => $reserv_seat_item->booking_sum,
 		'confirm' => $reserv_seat_item->confirm,
         "station"=>$reserv_seat_item->name_station,
 		"id_passenger"=>$reserv_seat_item->id_passenger,
@@ -57,9 +58,13 @@ foreach ($bus_stations as $bus_station) {
     foreach ($arr_reserv_seat as $key => $val) {
         if ($bus_station->title == $val['station']) {
             $page_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
+            $booking_sum = '';
+            if ($val['booking_sum'] != '') {
+                $booking_sum = ': к оплате ' . $val['booking_sum'];
+            }
             $list .= '
             <p class="reestr_seat_item">
-            Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . 
+            Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . $booking_sum .
             '<br>' . $val['passenger'] . 
             '<br>Тип билета: ' . $val['type_ticket'] . 
             '<br>' . $page_passenger->birthday_passenger . 

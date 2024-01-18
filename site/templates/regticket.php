@@ -15,6 +15,7 @@ $id_selected_station = !empty($_POST['id_selected_station'])?$_POST['id_selected
 
 $selected_seat = !empty($_POST['selected_seat'])?$_POST['selected_seat']:NULL;
 $pay_or_booking = !empty($_POST['pay_or_booking'])?$_POST['pay_or_booking']:NULL;
+$booking_sum = !empty($_POST['booking_sum'])?$_POST['booking_sum']:NULL;
 $confirm = !empty($_POST['confirm'])?$_POST['confirm']:NULL;
 $type_ticket = !empty($_POST['type_ticket'])?$_POST['type_ticket']:NULL;
 $selected_idpassenger = !empty($_POST['selected_idpassenger'])?$_POST['selected_idpassenger']:NULL;
@@ -39,6 +40,7 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
         'name_station' => $selected_station,
         'seat' => $selected_seat,
         'pay_or_booking' => $pay_or_booking,
+        'booking_sum' => $booking_sum,
         'confirm' => $confirm,
         'type_ticket' => $type_ticket,
         'id_passenger' => $selected_idpassenger,

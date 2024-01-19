@@ -46,6 +46,13 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                 <h4 class="uk-margin-remove">Выбранное место: <span style="font-weight: 700;"><?php echo $selected_seat; ?></span></h4>
                 <h4 class="uk-margin-remove">ID билета: <span style="font-weight: 700;"><?php echo $id_seat; ?></span></h4>
                 <h4 class="uk-margin-remove">Статус билета: <span style="font-weight: 700;"><?php echo $ticket->pay_or_booking; ?></span></h4>
+                <?php
+                if ($ticket->booking_sum > 0) {
+                ?>
+                <h4 class="uk-margin-remove">Сумма к оплате при бронировании: <span style="font-weight: 700;"><?php echo $ticket->booking_sum; ?></span></h4>
+                <?php
+                }
+                ?>
                 <h4 class="uk-margin-remove">Статус подтверждения: <span style="font-weight: 700;"><?php echo $ticket->confirm; ?></span></h4>
                 <h4 class="uk-margin-remove">Пассажир: <span style="font-weight: 700;"><?php echo $ticket->passenger; ?></span></h4>
                 <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Выбрать другой рейс и место</a>
@@ -55,7 +62,7 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
         
         <div>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
-                <h3 class="uk-margin-remove uk-card-title">Сменить статус</h3>
+                <h3 class="uk-margin-remove uk-card-title">Выбрать новые значения</h3>
                 <form class="uk-flex uk-flex-column" id="edit_ticket" action="/pravka-bileta-smena-statusa/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_bus" type="text" name="selected_bus" value="<?php echo $selected_bus; ?>">
@@ -79,6 +86,9 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                         <input class="uk-input" id="old_pay_or_booking" type="text" name="old_pay_or_booking" value="<?php echo $ticket->pay_or_booking; ?>">
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="old_booking_sum" type="text" name="old_booking_sum" value="<?php echo $ticket->booking_sum; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="old_confirm" type="text" name="old_confirm" value="<?php echo $ticket->confirm; ?>">
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
@@ -91,6 +101,9 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                             <option>оплачено</option>
                         </select>
                     </div>
+                    <div id="booking_sum_div" class="uk-margin-small-top">
+                        <input class="uk-input" id="booking_sum" type="number" name="booking_sum" value="" placeholder="Сумма к оплате при бронировании" autocomplete="off" required>
+                    </div>
                     
                     <div class="uk-margin-small-top">
                         <select class="uk-select" id="confirm" name="confirm">
@@ -100,7 +113,7 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
-                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Сменить статус</button>
+                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Внести правки</button>
                     </div>
                 </form>
             </div>

@@ -54,25 +54,46 @@ $bus = $pages->get('id=' . $selected_id_bus . '');
 $bus_stations = $bus->children();
 $list = '';
 foreach ($bus_stations as $bus_station) {
-    $list .= '<p class="reestr_seat_item" style="font-weight:700;">' . $bus_station->title . '</p>';
+    $list .= '<p class="reestr_seat_item" style="font-weight:700; margin: 0;">' . $bus_station->title . '</p>';
+    $list .= '
+        <table>
+            <thead>
+                <tr>
+                    <th style="line-height: 0.8; font-size: 10px;">Место</th>
+                    <th style="line-height: 0.8; font-size: 10px;">Статус</th>
+                    <th style="line-height: 0.8; font-size: 10px;">Сумма<br>к оплате</th>
+                    <th style="line-height: 0.8; font-size: 10px;">Пассажир</th>
+                    <th style="line-height: 0.8; font-size: 10px;">Тип<br>билета</th>
+                    <th style="line-height: 0.8; font-size: 10px;">Дата<br>рождения</th>
+                    <th style="line-height: 0.8; font-size: 10px;">Документ</th>
+                </tr>
+            </thead>
+            <tbody>
+    ';
     foreach ($arr_reserv_seat as $key => $val) {
         if ($bus_station->title == $val['station']) {
             $page_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
             $booking_sum = '';
             if ($val['booking_sum'] != '') {
-                $booking_sum = ': к оплате ' . $val['booking_sum'];
+                $booking_sum = $val['booking_sum'];
             }
             $list .= '
-            <p class="reestr_seat_item">
-            Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . $booking_sum .
-            '<br>' . $val['passenger'] . 
-            '<br>Тип билета: ' . $val['type_ticket'] . 
-            '<br>' . $page_passenger->birthday_passenger . 
-            '<br>' . $page_passenger->type_doc_passenger . ' ' . $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger .
-            '</p>
+                <tr>
+                    <td style="padding: 0px 10px;">' . $val['seat'] . '</td>
+                    <td style="padding: 0px 10px;">' . $val['pay_or_booking'] . '</td>
+                    <td style="padding: 0px 10px;">' . $booking_sum . '</td>
+                    <td style="padding: 0px 10px;">' . $val['passenger'] . '</td>
+                    <td style="padding: 0px 10px;">' . $val['type_ticket'] . '</td>
+                    <td style="padding: 0px 10px;">' . $page_passenger->birthday_passenger . '</td>
+                    <td style="padding: 0px 10px;">' . $page_passenger->type_doc_passenger . ' ' . $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger . '</td>
+                </tr>
             ';
         }
     }
+    $list .= '
+            </tbody>
+        </table>
+    ';
     $list .= '<br>';
 }
 //echo $list;
@@ -82,15 +103,22 @@ $reestr_seat = '
 * {
   /*font-family: Helvetica, sans-serif;*/
   font-family: "DejaVu Sans", sans-serif;
+  font-size: 13px;
+}
+tr:nth-child(even) {
+    background: #e1e1e1;
 }
 </style>
-<h3>Реестр занятых мест по маршруту<br>' . $selected_bus . '<br>' . $selected_date . ' ' . $selected_time . '<h3>';
+<h3>Реестр занятых мест по маршруту<br>' . $selected_bus . '<br>' . $selected_date . ' ' . $selected_time . '</h3>';
 $reestr_seat .= $list;
+
+//echo $reestr_seat;
 
 include_once __DIR__ . '/dompdf/autoload.inc.php';
 $dompdf = new Dompdf\Dompdf();
 $dompdf->set_option('isRemoteEnabled', TRUE);
-$dompdf->setPaper('A4', 'portrait');
+//$dompdf->setPaper('A4', 'portrait');
+$dompdf->setPaper('A4', 'landscape');
 $dompdf->loadHtml($reestr_seat, 'UTF-8');
 $dompdf->render();
  

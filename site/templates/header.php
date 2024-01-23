@@ -45,7 +45,7 @@ if ($url == '/login/') {
         <meta name="Description" content="Программа для ведения учета заполняемости автобусов">
         
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.18/dist/css/uikit.min.css" />
-        <link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates; ?>styles/main.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates; ?>styles/main.css?v=<?php echo uniqid(); ?>">
         
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css">
         

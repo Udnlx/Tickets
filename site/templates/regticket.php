@@ -21,6 +21,8 @@ $type_ticket = !empty($_POST['type_ticket'])?$_POST['type_ticket']:NULL;
 $selected_idpassenger = !empty($_POST['selected_idpassenger'])?$_POST['selected_idpassenger']:NULL;
 $selected_name = !empty($_POST['selected_name'])?$_POST['selected_name']:NULL;
 $selected_document = !empty($_POST['selected_document'])?$_POST['selected_document']:NULL;
+$agent_ticket = !empty($_POST['agent_ticket'])?$_POST['agent_ticket']:NULL;
+$price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;
 
 $success = 'Билет успешно зарегистрирован';
 if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $selected_seat && $selected_name && $selected_document) {
@@ -47,6 +49,8 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
         'passenger' => $selected_name,
         'passenger_doc' => $selected_document,
         'operator' => $operator,
+        'agent_ticket' => $agent_ticket,
+        'price_ticket' => $price_ticket,
         ]);
         $ticket_page = $pages->get('title=' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat . '');
         $ticket_id = $ticket_page->id;
@@ -98,6 +102,8 @@ if ($operator == 'no_operator') {
         <p class="uk-margin-remove">Тип билета: <span style="font-weight: 700;"><?php echo $type_ticket; ?></span></p>
         <p class="uk-margin-remove">ФИО пассажира: <span style="font-weight: 700;"><?php echo $selected_name; ?></span></p>
         <p class="uk-margin-remove">Документ пассажира: <span style="font-weight: 700;"><?php echo $selected_document; ?></span></p>
+        <p class="uk-margin-remove">Агент билета: <span style="font-weight: 700;"><?php echo $agent_ticket; ?></span></p>
+        <p class="uk-margin-remove">Цена билета: <span style="font-weight: 700;"><?php echo $price_ticket; ?></span></p>
 
         <form class="uk-flex uk-flex-column" id="select_bus" action="/registratciia-bileta-vybor-mesta/" method="post">
             <div class="uk-margin-small-top uk-hidden">

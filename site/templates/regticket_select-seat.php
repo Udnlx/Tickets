@@ -191,6 +191,25 @@ $passengers .= '
                     <div class="uk-margin-small-top">
                         <input class="uk-input readonly" id="selected_document" type="text" name="selected_document" value="" placeholder="Документ пассажира" autocomplete="off" required>
                     </div>
+                    <?php
+                    $all_agents = $pages->get('template=agents');
+                    $agents = '';
+                    foreach ($all_agents->agent_items as $agent_itm) {
+                        $agents .= '
+                        <option>' . $agent_itm->agent . '</option>
+                        ';
+                    }
+                    ?>
+                    <div class="uk-margin-small-top">
+                        <label for="agent">Агент</label>
+                        <select class="uk-select" id="agent_ticket" name="agent_ticket">
+                            <option></option>
+                            <?php echo $agents; ?>
+                        </select>
+                    </div>
+                    <div class="uk-margin-small-top">
+                        <input class="uk-input readonly" id="price_ticket" type="text" name="price_ticket" value="3500" autocomplete="off" required>
+                    </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
                         <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Зарегистрировать</button>

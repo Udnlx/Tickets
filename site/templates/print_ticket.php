@@ -68,6 +68,7 @@ $content .= '
 
 <p>Автобус: ' . $ticket->bus . '</p>
 <p>Перевозчик: ОЛИМП</p>
+<p>Цена билета: ' . $ticket->price_ticket . ' руб.</p>
 
 <p class="pdf-big">О РЕЙСЕ:</p>
 <p>Отправление со станции ' . $ticket->name_station . ' ' . $date_depart . '</p>

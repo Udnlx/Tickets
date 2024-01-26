@@ -94,6 +94,7 @@ foreach ($bus_stations as $bus_station) {
             </tbody>
         </table>
     ';
+    $list .= '<hr>';
     $list .= '<br>';
 }
 //echo $list;

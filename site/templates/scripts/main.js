@@ -85,11 +85,20 @@ $('#agent_ticket').change( function() {
         }
     } else {
         //console.log('не пустой');
-        let type_ticket = $('#type_ticket option:selected').text();
-        if (type_ticket == 'взрослый') {
-            $('#price_ticket').val('4000');
+        if (type_selected == 'Росбилет') {
+            let type_ticket = $('#type_ticket option:selected').text();
+            if (type_ticket == 'взрослый') {
+                $('#price_ticket').val('3900');
+            } else {
+                $('#price_ticket').val('1950');
+            }
         } else {
-            $('#price_ticket').val('2000');
+            let type_ticket = $('#type_ticket option:selected').text();
+            if (type_ticket == 'взрослый') {
+                $('#price_ticket').val('4000');
+            } else {
+                $('#price_ticket').val('2000');
+            }  
         }
     }
 });

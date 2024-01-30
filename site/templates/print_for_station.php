@@ -36,12 +36,11 @@ foreach ($reserv_seat as $reserv_seat_item) {
     $id_passenger = $reserv_seat_item->id_passenger;
     $page_passenger = $pages->get('template=passengers, id=' . $id_passenger . '');
     $arr_reserv_seat[] = array(
-        'seat' => $reserv_seat_item->seat,
         'passenger' => $reserv_seat_item->passenger,
+        'birthday_passenger' => $page_passenger->birthday_passenger,
         'type_doc_passenger' => $page_passenger->type_doc_passenger,
         'passport_passenger' => $page_passenger->passport_passenger,
         'num_doc_passenger' => $page_passenger->num_doc_passenger,
-        'birthday_passenger' => $page_passenger->birthday_passenger,
         );
 }
 // echo '<pre>';
@@ -56,12 +55,11 @@ $title = array
 
 $headers = array(
     array(
-        'seat' => 'Место',
         'passenger' => 'ФИО',
+        'birthday_passenger' => 'Дата рождения',
         'type_doc_passenger' => 'Тип документа',
         'passport_passenger' => 'Серия',
         'num_doc_passenger' => 'Номер',
-        'birthday_passenger' => 'Дата рождения',
     ),    
 );
 

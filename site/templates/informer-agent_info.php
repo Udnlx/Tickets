@@ -82,7 +82,7 @@ $reestr_all_agent_tickets .= '
                     <?php echo $reestr_all_agent_tickets ; ?>
                 </div>
                 
-                <form class="uk-flex uk-flex-column" id="print_informer_bus" action="" method="post">
+                <form class="uk-flex uk-flex-column" id="print_informer_bus" action="/otchet-po-agentu-pechat/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="agent" type="text" name="agent" value="<?php echo $agent ; ?>">
                     </div>

@@ -29,7 +29,8 @@ if ($operator == 'no_operator') {
             <h1 class="uk-heading-hero uk-text-center">Выбор агента для отчета</h1>
                         
             <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
-                <form class="uk-flex uk-flex-column" id="select_agent" action="" method="post">
+                <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
+                <form class="uk-flex uk-flex-column" id="select_agent" action="/otchet-po-agentu-otchet/" method="post">
                     <?php
                     $all_agents = $pages->get('template=agents');
                     $agents = '';
@@ -41,7 +42,7 @@ if ($operator == 'no_operator') {
                     ?>
                     <div class="uk-margin-small-top">
                         <label for="agent">Агент</label>
-                        <select class="uk-select" id="agent_ticket" name="agent_ticket" required>
+                        <select class="uk-select" id="agent" name="agent" required>
                             <option></option>
                             <?php echo $agents; ?>
                         </select>

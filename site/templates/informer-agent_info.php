@@ -50,21 +50,21 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
 }
 //echo '<pre>'; print_r($arr_all_agent_tickets); echo '</pre>';
 
-// $reestr_all_agent_tickets = '';
-// foreach ($arr_all_agent_tickets as $key => $val) {
-// $reestr_all_agent_tickets .= '
-//     <p class="reestr_seat_item">
-//     Агент: ' . $val['agent'] . '<br> 
-//     Автобус: ' . $val['bus'] . '<br> 
-//     Стутус: ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br>
-//     Цена билета: ' . $val['price_ticket'] . '<br>
-//     Сумма к оплате: ' . $val['booking_sum'] . '<br>
-//     Пассажир: ' . $val['passenger'] . ' - ' . $val['type_ticket'] . ' - ' . $val['passenger_doc'] . '<br>
-//     <span> - Регистратор: ' . $val['operator'] . '</span><br>
-//     <span> - Билет зарегистрирован: ' . $val['reg_ticket'] . '</span>
-//     </p>
-// ';
-// }
+$reestr_all_agent_tickets = '';
+foreach ($arr_all_agent_tickets as $key => $val) {
+$reestr_all_agent_tickets .= '
+    <p class="reestr_seat_item">
+    Агент: ' . $val['agent'] . '<br> 
+    Автобус: ' . $val['bus'] . '<br> 
+    Стутус: ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br>
+    Цена билета: ' . $val['price_ticket'] . '<br>
+    Сумма к оплате: ' . $val['booking_sum'] . '<br>
+    Пассажир: ' . $val['passenger'] . ' - ' . $val['type_ticket'] . ' - ' . $val['passenger_doc'] . '<br>
+    <span> - Регистратор: ' . $val['operator'] . '</span><br>
+    <span> - Билет зарегистрирован: ' . $val['reg_ticket'] . '</span>
+    </p>
+';
+}
 ?>
 
     <div id="content" style="max-width: 700px;">
@@ -79,7 +79,7 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
                 <br>
                 <h3 class="uk-margin-remove uk-card-title">Информация о билетах</h3>
                 <div class="reestr_seat uk-flex" style="max-height: 700px;">
-                    <?php //echo $reestr_all_agent_tickets ; ?>
+                    <?php echo $reestr_all_agent_tickets ; ?>
                 </div>
                 
                 <form class="uk-flex uk-flex-column" id="print_informer_bus" action="" method="post">

@@ -94,7 +94,7 @@ $reestr_all_agent_tickets .= '
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
-                    <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Скачать отчет (НЕ НАЖИМАТЬ)</button>
+                    <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Скачать отчет</button>
                     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-vybor-agenta/">Выбрать другого агента</a>
                     <a class="uk-margin-small uk-button uk-button-default" href="/">Вернутся на главную</a>
                     </div>

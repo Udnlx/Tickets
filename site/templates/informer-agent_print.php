@@ -49,48 +49,50 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
 }
 //echo '<pre>'; print_r($arr_all_agent_tickets); echo '</pre>';
 
-// $title = array
-// (
-// 'Отчет по маршруту ' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time,
-// '',
-// );
+$title = array
+(
+'Отчет по агенту ' . $agent . ' - ' . $start_date . ' - ' . $finish_date,
+'',
+);
 
-// $headers = array(
-// 	array(
-// 		'seat' => 'Место',
-// 		'pay_or_booking' => 'Куплен/Забронирован',
-// 		'confirm' => 'Статус подтверждения',
-// 		'station' => 'Станция посадки',
-// 		'passenger' => 'Пассажир',
-// 		'type_ticket' => 'Тип билета',
-// 		'passenger_doc' => 'Документ',
-// 		'operator' => 'Оператор',
-// 		'agent' => 'Агент',
-// 	),    
-// );
+$headers = array(
+	array(
+		'agent' => 'Агент',
+		'bus' => 'Автобус',
+		'pay_or_booking' => 'Куплен/Забронирован',
+		'confirm' => 'Статус подтверждения',
+		'price_ticket' => 'Стоимость билета',
+		'booking_sum' => 'Сумма к оплате',
+		'passenger' => 'Пассажир',
+		'type_ticket' => 'Тип билета',
+		'passenger_doc' => 'Документ',
+		'operator' => 'Оператор',
+		'reg_ticket' => 'Регистрация билета',
+	),    
+);
 
-// header('Content-Type: text/csv; charset=utf-8' );
-// header(sprintf( 'Content-Disposition: attachment; filename=Отчет по маршруту ' . $selected_bus . ' - %s.csv', date( 'dmY-His' ) ) );
-// header('Content-Transfer-Encoding: binary');
-// header('Expires: 0');
-// header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-// header('Pragma: public'); 
+header('Content-Type: text/csv; charset=utf-8' );
+header(sprintf( 'Content-Disposition: attachment; filename=Отчет по агенту ' . $agent . ' - %s.csv', date( 'dmY-His' ) ) );
+header('Content-Transfer-Encoding: binary');
+header('Expires: 0');
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+header('Pragma: public'); 
 
-// $buffer = fopen('php://output', 'w');
-// foreach ($title as $line) {
-//     $line = mb_convert_encoding($line, 'windows-1251', 'utf-8');
-//     fputcsv($buffer,explode(',',$line));
-// }
-// foreach($headers as $val) { 
-//     $val = mb_convert_encoding($val, 'windows-1251', 'utf-8');
-// 	fputcsv($buffer, $val, ';'); 
-// } 
-// foreach($arr_reserv_seat as $val) { 
-//     $val = mb_convert_encoding($val, 'windows-1251', 'utf-8');
-// 	fputcsv($buffer, $val, ';'); 
-// } 
-// fclose($buffer); 
-// exit();
+$buffer = fopen('php://output', 'w');
+foreach ($title as $line) {
+    $line = mb_convert_encoding($line, 'windows-1251', 'utf-8');
+    fputcsv($buffer,explode(',',$line));
+}
+foreach($headers as $val) { 
+    $val = mb_convert_encoding($val, 'windows-1251', 'utf-8');
+	fputcsv($buffer, $val, ';'); 
+} 
+foreach($arr_all_agent_tickets as $val) { 
+    $val = mb_convert_encoding($val, 'windows-1251', 'utf-8');
+	fputcsv($buffer, $val, ';'); 
+} 
+fclose($buffer); 
+exit();
 ?>
 
 <div id="content" style="max-width: 700px;">

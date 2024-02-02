@@ -27,8 +27,11 @@ if ($operator == 'no_operator') {
 <?php
 //===============Блок отображения контента в зависимости от прав пользователя===============
 $button_informers = '';
+if ($access == 'admin') {
+    $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/reestr-passazhirov-vybor-passazhira/">Редактор пассажиров</a>';
+}
 if ($access == 'manager' || $access == 'admin') {
-    $button_informers = '<a class="uk-margin-small uk-button uk-button-default" href="/otchety/">Отчеты</a>';
+    $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/otchety/">Отчеты</a>';
 }
 //===============Блок отображения контента в зависимости от прав пользователя===============
 ?>
@@ -40,7 +43,6 @@ if ($access == 'manager' || $access == 'admin') {
         <h3 class="uk-card-title">Выберите действие</h3>
         <a class="uk-margin-small uk-button uk-button-default" href="/registratciia-bileta-vybor-reisa/">Зарегистрировать билет</a>
         <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Правка билета</a>
-        <a class="uk-margin-small uk-button uk-button-default" href="/reestr-passazhirov-vybor-passazhira/">Реестр пассажиров</a>
         <?php echo $button_informers; ?>
         <a class="uk-margin-small uk-button uk-button-default" href="" uk-toggle="target: #modal-help">Техподдержка</a>
     </div>

@@ -73,7 +73,7 @@ $reestr_seat .= '
     <h2 class="uk-heading-hero uk-text-center">Правка пассажира</h2>
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         
-        <p class="uk-text-warning uk-text-bold uk-text-center">Внимание! В этой форме правятся данные только текущего пассажира, если нужно добавить нового пассажира, то воспользуйтесь сервисом удаления пассажира, а затем уже добавлением нового пассажира на странице регистрации билета или на странице реестра пассажиров.</p>
+        <p class="uk-text-warning uk-text-bold uk-text-center">Внимание! В этой форме правятся данные только текущего пассажира, если нужно добавить нового пассажира, то прежде удалите пассажира на этой странице, а затем добавьте нового пассажира на предыдущей странице или при регистрации билета.</p>
         <div class="uk-margin-small-top uk-flex uk-flex-column">
             <button class="uk-margin-small-top uk-button uk-button-default" type="button" uk-toggle="target: #modal-edit_passenger">Внести правки</button>
         </div>

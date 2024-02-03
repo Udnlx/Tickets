@@ -19,6 +19,11 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
+$access = '';
+if(isset($_SESSION['access'])){
+    $access = $_SESSION['access'];
+}
+
 if ($operator == 'no_operator') {
 ?>
 
@@ -34,53 +39,65 @@ if ($operator == 'no_operator') {
 
 <?php    
 } else {
+    if ($access == 'admin') {
 ?>
 
-<div id="content">
-    <h1 class="uk-heading-hero uk-text-center">Выбор рейса для брони билетов</h1>
-    <div class="uk-child-width-1-2@m" uk-grid>
-        
-        <div>
-            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column" uk-sticky>
-                <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
-                <h3 class="uk-margin-remove uk-card-title">Выбранный рейс</h3>
-                <form class="uk-flex uk-flex-column" id="select_bus" action="/bron-biletov-vybor-mest/" method="post">
-                    <div class="uk-margin-small-top">
-                        <input class="uk-input readonly" id="post_bus" type="text" name="post_bus" placeholder="Выберите рейс из списка" autocomplete="off" required>
+        <div id="content">
+            <h1 class="uk-heading-hero uk-text-center">Выбор рейса для брони билетов</h1>
+            <div class="uk-child-width-1-2@m" uk-grid>
+                
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column" uk-sticky>
+                        <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
+                        <h3 class="uk-margin-remove uk-card-title">Выбранный рейс</h3>
+                        <form class="uk-flex uk-flex-column" id="select_bus" action="/bron-biletov-vybor-mest/" method="post">
+                            <div class="uk-margin-small-top">
+                                <input class="uk-input readonly" id="post_bus" type="text" name="post_bus" placeholder="Выберите рейс из списка" autocomplete="off" required>
+                            </div>
+                            <p class="uk-margin-remove" style="color: red; font-weight: 700;">ВНИМАНИЕ! Выбирайте дату рейса по его описанию:</p>
+                            <p id="option_bus" class="uk-margin-remove" style="font-weight: 700;">Описание рейса</p>
+                            
+                            <div class="uk-margin-small-top uk-hidden">
+                                <input class="uk-input" id="post_id_bus" type="text" name="post_id_bus">
+                            </div>
+                            
+                            <div class="uk-margin-small-top uk-hidden">
+                                <input class="uk-input" id="post_time" type="text" name="post_time">
+                            </div>
+                            
+                            <div class="uk-margin-small-top">
+                                <input class="uk-input" id="post_date" type="date" name="post_date" placeholder="Рейс" required>
+                            </div>
+                            
+                            <div class="uk-margin-small-top uk-flex uk-flex-column">
+                            <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Далее</button>
+                            <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>
+                            </div>
+                        </form>
                     </div>
-                    <p class="uk-margin-remove" style="color: red; font-weight: 700;">ВНИМАНИЕ! Выбирайте дату рейса по его описанию:</p>
-                    <p id="option_bus" class="uk-margin-remove" style="font-weight: 700;">Описание рейса</p>
-                    
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="post_id_bus" type="text" name="post_id_bus">
+                </div>
+                
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                        <h3 class="uk-margin-remove uk-card-title">Список рейсов</h3>
+                        <?php echo $button_bus; ?>
                     </div>
-                    
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="post_time" type="text" name="post_time">
-                    </div>
-                    
-                    <div class="uk-margin-small-top">
-                        <input class="uk-input" id="post_date" type="date" name="post_date" placeholder="Рейс" required>
-                    </div>
-                    
-                    <div class="uk-margin-small-top uk-flex uk-flex-column">
-                    <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Далее</button>
-                    <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>
-                    </div>
-                </form>
+                </div>
+                
             </div>
         </div>
-        
-        <div>
-            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
-                <h3 class="uk-margin-remove uk-card-title">Список рейсов</h3>
-                <?php echo $button_bus; ?>
-            </div>
-        </div>
-        
-    </div>
-</div>
 
-<?php   
+<?php  
+    } else {
+        ?>
+        <div id="content" style="max-width: 700px;">
+            <h1 class="uk-heading-hero uk-text-center">Выбор рейса для брони билетов</h1>      
+            <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
+                <h3 class="uk-card-title">К этой странице у Вас нет доступа</h3>
+                <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя</a>
+            </div>
+        </div>
+        <?php
+    }
 }
 ?>

@@ -113,6 +113,19 @@ button.uk-ticket-edit-seat {
     font-weight: 700;}
 button.uk-ticket-edit-seat:hover {
     background-color: #52af52;}
+button.uk-mass-reserv-seat {
+    margin: 5px;
+    padding: 0;
+    line-height: 1.4;
+    width: 45px;
+    min-height: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;}
+button.uk-mass-reserv-seat:hover {
+    background-color: #00a4ff;}
 button.seat_select {
     position: relative;
     background-color: #52af52;}

@@ -28,6 +28,9 @@ if ($operator == 'no_operator') {
 //===============Блок отображения контента в зависимости от прав пользователя===============
 $button_informers = '';
 if ($access == 'manager' || $access == 'admin') {
+    $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/bron-biletov-vybor-reisa/">Бронь билетов (НЕ НАЖИМАТЬ!)</a>';
+}
+if ($access == 'manager' || $access == 'admin') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/reestr-passazhirov-vybor-passazhira/">Редактор пассажиров</a>';
 }
 if ($access == 'manager' || $access == 'admin') {

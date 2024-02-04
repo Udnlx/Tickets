@@ -36,6 +36,27 @@ $('button.uk-ticket-seat').click(function() {
 
 
 
+//Скрипты Выбор мест для брони билетов
+$('button.uk-mass-reserv-seat').click(function() {
+    if ($(this).hasClass('seat_select_mass')) {
+        $(this).removeClass('seat_select_mass');
+    } else {
+        $(this).addClass('seat_select_mass');
+    }
+});
+
+$('#reserv_seat-btn').hover(function() {
+    $('#select_reserv_seat').val('');
+    $('div.buttons_seat').find('button.seat_select_mass').each(function (){
+        let selected_seat = $(this).text();
+        console.log(selected_seat);
+        $('#select_reserv_seat').val($('#select_reserv_seat').val() + selected_seat + ', ');
+    })
+});
+//Скрипты Выбор мест для брони билетов
+
+
+
 $('button.uk-ticket-edit-seat').click(function() {
     let edited_seat = $(this).text();
     $('#selected_seat').val(edited_seat);
@@ -223,6 +244,7 @@ $.ajax({
 });
 return false;    
 });
+//Добавление нового пассажира
 
 
 
@@ -277,6 +299,7 @@ $.ajax({
 });
 return false;    
 });
+//Редактирование пассажира
 
 
 
@@ -323,3 +346,4 @@ $.ajax({
     }                            
     return true;
 });
+//Проверка свободно ли место перед регистрацией билета

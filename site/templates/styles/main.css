@@ -129,6 +129,9 @@ button.uk-mass-reserv-seat:hover {
 button.seat_select {
     position: relative;
     background-color: #52af52;}
+button.seat_select_mass {
+    position: relative;
+    background-color: #00a4ff;}
 button.seat_reserv {
     position: relative;
     background-color: #ff5d5d!important;

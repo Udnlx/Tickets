@@ -50,7 +50,7 @@ $('#reserv_seat-btn').hover(function() {
     $('div.buttons_seat').find('button.seat_select_mass').each(function (){
         let selected_seat = $(this).text();
         console.log(selected_seat);
-        $('#select_reserv_seat').val($('#select_reserv_seat').val() + selected_seat + ', ');
+        $('#select_reserv_seat').val($('#select_reserv_seat').val() + selected_seat + ',');
     })
 });
 //Скрипты Выбор мест для брони билетов

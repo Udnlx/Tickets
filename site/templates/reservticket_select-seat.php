@@ -29,6 +29,15 @@ if ($operator == 'no_operator') {
 ?>
 
 <?php
+$mass_reserv_seats_page = $pages->get('template=reserv_seats, id_bus=' . $selected_id_bus . ', date_depart=' . $selected_date . '');
+//echo $mass_reserv_seats_page->mass_reserv_seats;
+if ($mass_reserv_seats_page->id > 0) {
+    $arr_mass_reserv_seat = explode(',', $mass_reserv_seats_page->mass_reserv_seats);
+} else {
+    $arr_mass_reserv_seat = [0];
+}
+//echo '<pre>'; print_r($arr_mass_reserv_seat); echo '</pre>';
+
 $reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', date_depart=' . $selected_date . ',sort=seat');
 $arr_reserv_seat = [];
 foreach ($reserv_seat as $reserv_seat_item) {
@@ -77,8 +86,14 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
         if ($num_seat < 10) {
             $num_seat = '0' . $num_seat;
         }
+        $reserv_style = '';
+        foreach ($arr_mass_reserv_seat as $itm) {
+            if ($num_seat == $itm) {
+                $reserv_style = 'seat_select_mass';
+            }
+        }
         $button_seat .= '
-        <button class="uk-mass-reserv-seat uk-margin-small-top uk-button uk-button-default seat_free">' . $num_seat . '</button>
+        <button class="uk-mass-reserv-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '">' . $num_seat . '</button>
         ';
     }
 }
@@ -113,7 +128,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
                         <button id="reserv_seat-btn" class="uk-margin-small-top uk-button uk-button-default" type="submit">Забронировать</button>
-                        <a class="uk-margin-small uk-button uk-button-default" href="/registratciia-bileta-vybor-reisa/">К выбору рейса</a>
+                        <a class="uk-margin-small uk-button uk-button-default" href="/bron-biletov-vybor-reisa/">К выбору рейса</a>
                     </div>
                     <div id="seat_messages" class="messages-block">
                         <p class="messages" style="color: green;"></p>
@@ -124,7 +139,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
         
         <div>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
-                <h3 class="uk-margin-remove uk-card-title">Свободные и занятые места</h3>
+                <h3 class="uk-margin-remove uk-card-title">Выбор и отмена мест для резерва</h3>
                 <div class="buttons_seat uk-flex uk-flex-wrap">
                     <?php echo $button_seat; ?>
                 </div>

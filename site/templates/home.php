@@ -27,7 +27,7 @@ if ($operator == 'no_operator') {
 <?php
 //===============Блок отображения контента в зависимости от прав пользователя===============
 $button_informers = '';
-if ($access == 'admin' || $operator = 'Директор') {
+if ($access == 'admin' || $operator == 'Директор' || $operator == 'Люда' || $operator == 'Алла') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/rezerv-biletov-vybor-reisa/">Резерв билетов</a>';
 }
 if ($access == 'manager' || $access == 'admin') {

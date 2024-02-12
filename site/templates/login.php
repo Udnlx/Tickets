@@ -36,6 +36,11 @@ if($user_login === 'Юля' && $user_password === 'bMefP14') {
     $_SESSION['operator'] = 'Юля';
     $_SESSION['access'] = 'manager';
 }
+if($user_login === 'Алла' && $user_password === 'QXFp8AH') {
+    $login = 'on';
+    $_SESSION['operator'] = 'Алла';
+    $_SESSION['access'] = 'manager';
+}
 if($user_login === 'Ира2' && $user_password === 'uJL75Nc') {
     $login = 'on';
     $_SESSION['operator'] = 'Ира2';
@@ -51,9 +56,9 @@ if($user_login === 'Анна' && $user_password === 'G4WeqjA') {
     $_SESSION['operator'] = 'Анна';
     $_SESSION['access'] = 'operator';
 }
-if($user_login === 'Алла' && $user_password === 'QXFp8AH') {
+if($user_login === 'Оверченко' && $user_password === 'JggQB9P') {
     $login = 'on';
-    $_SESSION['operator'] = 'Алла';
+    $_SESSION['operator'] = 'Оверченко';
     $_SESSION['access'] = 'operator';
 }
 

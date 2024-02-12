@@ -15,7 +15,7 @@ if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">
-	<h1 class="uk-heading-hero uk-text-center">Выбор мест для брони билетов</h1>
+	<h1 class="uk-heading-hero uk-text-center">Выбор мест для резерва билетов</h1>
 	
 	            
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
@@ -100,7 +100,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
 ?>
 
 <div id="content">
-	<h1 class="uk-heading-hero uk-text-center">Выбор мест для брони билетов</h1>
+	<h1 class="uk-heading-hero uk-text-center">Выбор мест для резерва билетов</h1>
 	<div class="uk-child-width-1-2@m" uk-grid>
 	    
         <div>
@@ -108,32 +108,30 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
                 <h4 class="uk-margin-remove">Выбранный рейс:<br><span style="font-weight: 700;"><?php echo $selected_bus; ?></span></h4>
                 <h4 class="uk-margin-remove">Дата: <span style="font-weight: 700;"><?php echo $selected_date; ?></span> отправление<span style="font-weight: 700;"><?php echo $selected_time; ?></span></h4>
-                <form class="uk-flex uk-flex-column" id="select_seat" action="/registratciia-bileta/" method="post">
-                    <div class="uk-margin-small-top">
-                        <input class="uk-input" id="selected_bus" type="text" name="selected_bus" value="<?php echo $selected_bus; ?>">
-                    </div>
-                    <div class="uk-margin-small-top">
-                        <input class="uk-input" id="selected_id_bus" type="text" name="selected_id_bus" value="<?php echo $selected_id_bus; ?>">
-                    </div>
-                    <div class="uk-margin-small-top">
-                        <input class="uk-input" id="selected_date" type="text" name="selected_date" value="<?php echo $selected_date; ?>">
-                    </div>
-                    <div class="uk-margin-small-top">
-                        <input class="uk-input" id="selected_time" type="text" name="selected_time" value="<?php echo $selected_time; ?>">
-                    </div>
-                    
-                    <div class="uk-margin-small-top">
-                        <input class="uk-input readonly" id="select_reserv_seat" type="text" name="select_reserv_seat" value="" autocomplete="off" required>
-                    </div>
-                    
-                    <div class="uk-margin-small-top uk-flex uk-flex-column">
-                        <button id="reserv_seat-btn" class="uk-margin-small-top uk-button uk-button-default" type="submit">Забронировать</button>
-                        <a class="uk-margin-small uk-button uk-button-default" href="/bron-biletov-vybor-reisa/">К выбору рейса</a>
-                    </div>
-                    <div id="seat_messages" class="messages-block">
-                        <p class="messages" style="color: green;"></p>
-                    </div>
-                </form>
+                <div class="uk-margin-small-top uk-hidden">
+                    <input class="uk-input" id="selected_bus" type="text" name="selected_bus" value="<?php echo $selected_bus; ?>">
+                </div>
+                <div class="uk-margin-small-top uk-hidden">
+                    <input class="uk-input" id="selected_id_bus" type="text" name="selected_id_bus" value="<?php echo $selected_id_bus; ?>">
+                </div>
+                <div class="uk-margin-small-top uk-hidden">
+                    <input class="uk-input" id="selected_date" type="text" name="selected_date" value="<?php echo $selected_date; ?>">
+                </div>
+                <div class="uk-margin-small-top uk-hidden">
+                    <input class="uk-input" id="selected_time" type="text" name="selected_time" value="<?php echo $selected_time; ?>">
+                </div>
+                
+                <div class="uk-margin-small-top uk-hidden">
+                    <input class="uk-input readonly" id="select_reserv_seat" type="text" name="select_reserv_seat" value="" autocomplete="off" required>
+                </div>
+                
+                <div class="uk-margin-small-top uk-flex uk-flex-column">
+                    <button id="reserv_seat-btn" class="uk-margin-small-top uk-button uk-button-default" type="submit">Зарезервировать</button>
+                    <a class="uk-margin-small uk-button uk-button-default" href="/rezerv-biletov-vybor-reisa/">К выбору рейса</a>
+                </div>
+                <div id="seat_messages" class="messages-block">
+                    <p class="messages" style="color: green;"></p>
+                </div>
             </div>
         </div>
         

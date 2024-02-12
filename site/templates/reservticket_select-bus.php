@@ -28,7 +28,7 @@ if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">
-    <h1 class="uk-heading-hero uk-text-center">Выбор рейса для брони билетов</h1>
+    <h1 class="uk-heading-hero uk-text-center">Выбор рейса для резерва билетов</h1>
     
                 
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
@@ -39,18 +39,18 @@ if ($operator == 'no_operator') {
 
 <?php    
 } else {
-    if ($access == 'admin') {
+    if ($access == 'admin' || $operator = 'Директор') {
 ?>
 
         <div id="content">
-            <h1 class="uk-heading-hero uk-text-center">Выбор рейса для брони билетов</h1>
+            <h1 class="uk-heading-hero uk-text-center">Выбор рейса для резерва билетов</h1>
             <div class="uk-child-width-1-2@m" uk-grid>
                 
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column" uk-sticky>
                         <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
                         <h3 class="uk-margin-remove uk-card-title">Выбранный рейс</h3>
-                        <form class="uk-flex uk-flex-column" id="select_bus" action="/bron-biletov-vybor-mest/" method="post">
+                        <form class="uk-flex uk-flex-column" id="select_bus" action="/rezerv-biletov-vybor-mest/" method="post">
                             <div class="uk-margin-small-top">
                                 <input class="uk-input readonly" id="post_bus" type="text" name="post_bus" placeholder="Выберите рейс из списка" autocomplete="off" required>
                             </div>
@@ -91,7 +91,7 @@ if ($operator == 'no_operator') {
     } else {
         ?>
         <div id="content" style="max-width: 700px;">
-            <h1 class="uk-heading-hero uk-text-center">Выбор рейса для брони билетов</h1>      
+            <h1 class="uk-heading-hero uk-text-center">Выбор рейса для резерва билетов</h1>      
             <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
                 <h3 class="uk-card-title">К этой странице у Вас нет доступа</h3>
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя</a>

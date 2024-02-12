@@ -36,7 +36,7 @@ $('button.uk-ticket-seat').click(function() {
 
 
 
-//Скрипты Выбор мест для брони билетов
+//Скрипты Выбор мест для резерва билетов
 $('button.uk-mass-reserv-seat').click(function() {
     if ($(this).hasClass('seat_select_mass')) {
         $(this).removeClass('seat_select_mass');
@@ -53,7 +53,38 @@ $('#reserv_seat-btn').hover(function() {
         $('#select_reserv_seat').val($('#select_reserv_seat').val() + selected_seat + ',');
     })
 });
-//Скрипты Выбор мест для брони билетов
+//Скрипты Выбор мест для резерва билетов
+
+//Запись в базу о резерве билетов
+$('#reserv_seat-btn').click(function() {
+    var selected_bus = $('#selected_bus').val();
+    var selected_id_bus = $('#selected_id_bus').val();
+    var selected_date = $('#selected_date').val();
+    var selected_time = $('#selected_time').val();
+    var select_reserv_seat = $('#select_reserv_seat').val();
+$.ajax({
+    type: "POST",
+    url: '/add_reserv_seats.php',
+    data: {
+        'selected_bus':selected_bus, 
+        'selected_id_bus':selected_id_bus,
+        'selected_date':selected_date,
+        'selected_time':selected_time,
+        'select_reserv_seat':select_reserv_seat,
+    },
+    beforeSend: function () {
+        $('#seat_messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
+    },
+    success: function (data) {
+        $('#seat_messages').html(data);
+    },
+    error: function (jqXHR, text, error) {
+        $('#messages').html(error);
+    }
+});
+return false;    
+});
+//Запись в базу о резерве билетов
 
 
 

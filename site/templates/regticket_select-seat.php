@@ -43,6 +43,15 @@ if (count($bus_page->children()) > 0) {
 ?>
 
 <?php
+$mass_reserv_seats_page = $pages->get('template=reserv_seats, id_bus=' . $selected_id_bus . ', date_depart=' . $selected_date . '');
+//echo $mass_reserv_seats_page->mass_reserv_seats;
+if ($mass_reserv_seats_page->id > 0) {
+    $arr_mass_reserv_seat = explode(',', $mass_reserv_seats_page->mass_reserv_seats);
+} else {
+    $arr_mass_reserv_seat = [0];
+}
+//echo '<pre>'; print_r($arr_mass_reserv_seat); echo '</pre>';
+
 $reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', date_depart=' . $selected_date . ',sort=seat');
 $arr_reserv_seat = [];
 foreach ($reserv_seat as $reserv_seat_item) {
@@ -100,8 +109,14 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
         if ($num_seat < 10) {
             $num_seat = '0' . $num_seat;
         }
+        $reserv_style = '';
+        foreach ($arr_mass_reserv_seat as $itm) {
+            if ($num_seat == $itm) {
+                $reserv_style = 'seat_select_mass';
+            }
+        }
         $button_seat .= '
-        <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free">' . $num_seat . '</button>
+        <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '">' . $num_seat . '</button>
         ';
     }
 }

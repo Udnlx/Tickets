@@ -291,6 +291,7 @@ $('#edit_passenger').click(function() {
     var edit_passport_passenger = $('#passport_passenger').val();
     var edit_phone_passenger = $('#phone_passenger').val();
     
+    var old_name_passenger = $('#old_name_passenger').val();
     var old_birthday_passenger = $('#old_birthday_passenger').val();
     var old_day_rev = old_birthday_passenger.split("-").reverse().join(".");
     var old_birthday_passenger = old_day_rev;
@@ -311,6 +312,7 @@ $.ajax({
         'edit_passport_passenger':edit_passport_passenger,
         'edit_phone_passenger':edit_phone_passenger,
         
+        'old_name_passenger':old_name_passenger, 
         'old_birthday_passenger':old_birthday_passenger,
         'old_type_doc_passenger':old_type_doc_passenger,
         'old_num_doc_passenger':old_num_doc_passenger,

@@ -26,7 +26,7 @@ if ($operator == 'no_operator') {
 
 <?php    
 } else {
-    if ($access == 'manager' || $access == 'admin') {
+    if ($access == 'admin' || $operator == 'Директор' || $operator == 'Люда' || $operator == 'Алла') {
         $all_passengers = $pages->find('template=passengers');
         $arr_all_passengers = [];
         foreach ($all_passengers as $all_passengers_item) {

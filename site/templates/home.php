@@ -30,7 +30,7 @@ $button_informers = '';
 if ($access == 'admin' || $operator == 'Директор' || $operator == 'Люда' || $operator == 'Алла') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/rezerv-biletov-vybor-reisa/">Резерв билетов</a>';
 }
-if ($access == 'manager' || $access == 'admin') {
+if ($access == 'admin' || $operator == 'Директор' || $operator == 'Люда' || $operator == 'Алла') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/reestr-passazhirov-vybor-passazhira/">Редактор пассажиров</a>';
 }
 if ($access == 'manager' || $access == 'admin') {

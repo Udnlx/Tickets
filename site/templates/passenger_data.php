@@ -127,8 +127,8 @@ $reestr_seat .= '
             <div class="uk-margin-small-top uk-hidden">
                 <input class="uk-input readonly" id="id_passenger" type="text" name="id_passenger" value="<?php echo $page_passenger->id ?>" autocomplete="off">
             </div>        
-            <div class="uk-margin-small-top">
-                <input class="uk-input readonly" id="name_passenger" type="text" name="name_passenger" value="<?php echo $page_passenger->name_passenger ?>" placeholder="ФИО пассажира" autocomplete="off" required>
+            <div class="uk-margin-small-top uk-hidden">
+                <input class="uk-input readonly" id="old_name_passenger" type="text" name="old_name_passenger" value="<?php echo $page_passenger->name_passenger ?>" placeholder="ФИО пассажира" autocomplete="off" required>
             </div>
             
             <div class="uk-margin-small-top uk-hidden">
@@ -147,6 +147,9 @@ $reestr_seat .= '
                 <input class="uk-input readonly" id="old_phone_passenger" type="text" name="old_phone_passenger" value="<?php echo $page_passenger->phone_passenger ?>" placeholder="Телефон пассажира" autocomplete="off" required>
             </div>
             
+            <div class="uk-margin-small-top">
+                <input class="uk-input" id="name_passenger" type="text" name="name_passenger" value="<?php echo $page_passenger->name_passenger ?>" placeholder="ФИО пассажира" autocomplete="off" required>
+            </div>
             <div class="uk-margin-small-top">
                 <input class="uk-input" id="birthday_passenger" type="date" name="birthday_passenger" value="<?php echo $dayformat ?>" placeholder="Дата рождения" autocomplete="off" required>
             </div>

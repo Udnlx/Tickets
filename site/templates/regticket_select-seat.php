@@ -218,7 +218,7 @@ $passengers .= '
                     <div class="uk-margin-small-top">
                         <label for="agent">Агент</label>
                         <select class="uk-select" id="agent_ticket" name="agent_ticket">
-                            <option></option>
+                            <option>Олимп</option>
                             <?php echo $agents; ?>
                         </select>
                     </div>

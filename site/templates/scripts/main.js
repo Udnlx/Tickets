@@ -127,7 +127,7 @@ $('#type_ticket').change( function() {
 
 $('#agent_ticket').change( function() {
     let type_selected = $('#agent_ticket option:selected').text();
-    if (type_selected == '') {
+    if (type_selected == 'Олимп') {
         //console.log('пустой');
         let type_ticket = $('#type_ticket option:selected').text();
         if (type_ticket == 'взрослый') {

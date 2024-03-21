@@ -225,7 +225,7 @@ $passengers .= '
                         </select>
                     </div>
                     <div class="uk-margin-small-top">
-                        <input class="uk-input readonly" id="price_ticket" type="text" name="price_ticket" value="3500" autocomplete="off" required>
+                        <input class="uk-input readonly" id="price_ticket" type="text" name="price_ticket" value="4000" autocomplete="off" required>
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">

@@ -115,11 +115,11 @@ $('#type_ticket').change( function() {
     let type_selected = $('#type_ticket option:selected').text();
     if (type_selected == 'взрослый') {
         $('#agent_ticket option:first').prop('selected', true);
-        $('#price_ticket').val('3500');
+        $('#price_ticket').val('4000');
     }
     if (type_selected == 'детский') {
         $('#agent_ticket option:first').prop('selected', true);
-        $('#price_ticket').val('1800');
+        $('#price_ticket').val('2000');
     }
 });
 
@@ -131,9 +131,9 @@ $('#agent_ticket').change( function() {
         //console.log('пустой');
         let type_ticket = $('#type_ticket option:selected').text();
         if (type_ticket == 'взрослый') {
-            $('#price_ticket').val('3500');
+            $('#price_ticket').val('4000');
         } else {
-            $('#price_ticket').val('1800');
+            $('#price_ticket').val('2000');
         }
     } else {
         //console.log('не пустой');

@@ -61,6 +61,11 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
         $remains = $commission;
     }
 
+    $confirm = '';
+    if ($all_agent_tickets_item->confirm == 'подтверждено') {
+        $confirm = 'подтверждено';
+    }
+
     $arr_all_agent_tickets[] = array(
         "date"=>$all_agent_tickets_item->date_depart,
         "passenger"=>$all_agent_tickets_item->passenger,
@@ -68,7 +73,8 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
         "bus"=>$all_agent_tickets_item->bus,
         "commission"=>$commission,
         "booking_sum"=>$all_agent_tickets_item->booking_sum,
-        "remains"=>$remains
+        "remains"=>$remains,
+        "confirm"=>$confirm
         );
 }
 //echo '<pre>'; print_r($arr_all_agent_tickets); echo '</pre>';
@@ -101,7 +107,8 @@ $headers = array(
         'bus' => 'Автобус',
         'commission' => 'Комиссия',
         'booking_sum' => 'Предоплата',
-        'remains' => 'Остаток к расчету'
+        'remains' => 'Остаток к расчету',
+        'confirm' => 'Статус подтверждения'
     ),   
 );
 

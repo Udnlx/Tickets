@@ -41,7 +41,7 @@ if ($add_name_passenger == '' || $add_birthday_passenger == '' || $add_type_doc_
             'agent' => $add_agent,
         ]);
         
-        $all_passengers = $pages->find('template=passengers');
+        $all_passengers = $pages->find('template=passengers, title~*=' . $add_name_passenger . '');
         $arr_all_passengers = [];
         foreach ($all_passengers as $all_passengers_item) {
             $arr_all_passengers[] = array(

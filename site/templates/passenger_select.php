@@ -27,27 +27,29 @@ if ($operator == 'no_operator') {
 <?php    
 } else {
     if ($access == 'admin' || $operator == 'Директор' || $operator == 'Люда' || $operator == 'Алла' || $operator == 'Оверченко') {
-        $all_passengers = $pages->find('template=passengers');
-        $arr_all_passengers = [];
-        foreach ($all_passengers as $all_passengers_item) {
-            $arr_all_passengers[] = array(
-                "id_passenger"=>$all_passengers_item->id,
-                "name_passenger"=>$all_passengers_item->name_passenger,
-                "birthday_passenger"=>$all_passengers_item->birthday_passenger,
-                "type_doc_passenger"=>$all_passengers_item->type_doc_passenger,
-                "num_doc_passenger"=>$all_passengers_item->num_doc_passenger,
-                "passport_passenger"=>$all_passengers_item->passport_passenger,
-                "phone_passenger"=>$all_passengers_item->phone_passenger
-                );
-        }
-        //echo '<pre>'; print_r($arr_all_passengers); echo '</pre>';
+        //ДИНАМИЧЕСКИЙ ПОИСК ПО ПАССАЖИРАМ
+        // $all_passengers = $pages->find('template=passengers');
+        // $arr_all_passengers = [];
+        // foreach ($all_passengers as $all_passengers_item) {
+        //     $arr_all_passengers[] = array(
+        //         "id_passenger"=>$all_passengers_item->id,
+        //         "name_passenger"=>$all_passengers_item->name_passenger,
+        //         "birthday_passenger"=>$all_passengers_item->birthday_passenger,
+        //         "type_doc_passenger"=>$all_passengers_item->type_doc_passenger,
+        //         "num_doc_passenger"=>$all_passengers_item->num_doc_passenger,
+        //         "passport_passenger"=>$all_passengers_item->passport_passenger,
+        //         "phone_passenger"=>$all_passengers_item->phone_passenger
+        //         );
+        // }
+        // //echo '<pre>'; print_r($arr_all_passengers); echo '</pre>';
 
-        $passengers = '';
-        foreach ($arr_all_passengers as $key => $val) {
-        $passengers .= '
-            <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span>' . $val['birthday_passenger'] . ' — ' . $val['type_doc_passenger'] . ' — ' . $val['passport_passenger'] . ' — ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
-        ';
-        }
+        // $passengers = '';
+        // foreach ($arr_all_passengers as $key => $val) {
+        // $passengers .= '
+        //     <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span>' . $val['birthday_passenger'] . ' — ' . $val['type_doc_passenger'] . ' — ' . $val['passport_passenger'] . ' — ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
+        // ';
+        // }
+        //ДИНАМИЧЕСКИЙ ПОИСК ПО ПАССАЖИРАМ
         ?>
 
         <div id="content">
@@ -80,11 +82,26 @@ if ($operator == 'no_operator') {
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                         <h3 class="uk-margin-remove uk-card-title">Реестр пассажиров</h3>
-                        <div class="uk-margin-small">
+                        <!-- <div class="uk-margin-small">
                             <input class="uk-input" id="search_passenger" type="text" name="search_passenger" placeholder="введите параметры для поиска">
+                        </div> -->
+                        <div class="uk-margin-small uk-flex uk-flex-middle">
+                            <input class="uk-input" id="search_passenger" type="text" name="search_passenger" placeholder="введите параметры для фильтра по ФИО">
+                            <p id="filter-passenger-btn" class="uk-margin-none uk-button uk-button-default">ФИЛЬТР</p>
                         </div>
-                        <div class="reestr_passenger uk-flex">
-                            <?php echo $passengers; ?>
+                        <div class="uk-margin-small uk-flex uk-flex-middle">
+                            <input class="uk-input" id="search_passenger_doc" type="text" name="search_passenger_doc" placeholder="введите параметры для фильтра по документу">
+                            <p id="filter-passenger-doc-btn" class="uk-margin-none uk-button uk-button-default">ФИЛЬТР</p>
+                        </div>
+                        <div class="uk-margin-small uk-flex uk-flex-middle">
+                            <input class="uk-input" id="search_passenger_phone" type="text" name="search_passenger_phone" placeholder="введите параметры для фильтра по телефону">
+                            <p id="filter-passenger-phone-btn" class="uk-margin-none uk-button uk-button-default">ФИЛЬТР</p>
+                        </div>
+                        <div id="result-filter-passenger" class="reestr_passenger uk-flex">
+                            <?php 
+                            //ДИНАМИЧЕСКИЙ ПОИСК ПО ПАССАЖИРАМ
+                            //echo $passengers; 
+                            ?>
                         </div>
                         <div class="uk-margin-small-top uk-flex uk-flex-column">
                             <button class="uk-margin-small-top uk-button uk-button-default" type="button" uk-toggle="target: #modal-add_passenger">Добавить пассажира</button>

@@ -209,19 +209,161 @@ $.extend($.expr[':'], {
   }
 });
 
-$('#search_passenger').keyup(function(){
-    let search_value = $('#search_passenger').val();
+//ДИНАМИЧЕСКИЙ ПОИСК ПО ПАССАЖИРАМ
+// $('#search_passenger').keyup(function(){
+//     let search_value = $('#search_passenger').val();
     
-    $('p.passengers_item').hide();
-    $('p.passengers_item:containsi("'+search_value+'")').show();
+//     $('p.passengers_item').hide();
+//     $('p.passengers_item:containsi("'+search_value+'")').show();
+// });
+//ДИНАМИЧЕСКИЙ ПОИСК ПО ПАССАЖИРАМ
+
+
+
+//СТАТИЧЕСКИЙ ПОИСК ПО ПАССАЖИРАМ
+$('#filter-passenger-btn').click(function() {
+    var search_passenger = $('#search_passenger').val();
+    $.ajax({
+        type: "POST",
+        url: '/filter-passenger.php',
+        data: {
+            'search_passenger':search_passenger
+        },
+        beforeSend: function () {
+            $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+        },
+        success: function (data) {
+            $('#result-filter-passenger').html(data);
+        },
+        error: function (jqXHR, text, error) {
+            $('#result-filter-passenger').html(error);
+        }
+    });
+    return false;    
 });
 
+$('#search_passenger').on('keyup', function (e) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+        var search_passenger = $('#search_passenger').val();
+        $.ajax({
+            type: "POST",
+            url: '/filter-passenger.php',
+            data: {
+                'search_passenger':search_passenger
+            },
+            beforeSend: function () {
+                $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+            },
+            success: function (data) {
+                $('#result-filter-passenger').html(data);
+            },
+            error: function (jqXHR, text, error) {
+                $('#result-filter-passenger').html(error);
+            }
+        });
+        return false;  
+    }
+});
+
+$('#filter-passenger-doc-btn').click(function() {
+    var search_passenger = $('#search_passenger_doc').val();
+    $.ajax({
+        type: "POST",
+        url: '/filter-passenger-doc.php',
+        data: {
+            'search_passenger':search_passenger
+        },
+        beforeSend: function () {
+            $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+        },
+        success: function (data) {
+            $('#result-filter-passenger').html(data);
+        },
+        error: function (jqXHR, text, error) {
+            $('#result-filter-passenger').html(error);
+        }
+    });
+    return false;    
+});
+
+$('#search_passenger_doc').on('keyup', function (e) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+        var search_passenger = $('#search_passenger_doc').val();
+        $.ajax({
+            type: "POST",
+            url: '/filter-passenger-doc.php',
+            data: {
+                'search_passenger':search_passenger
+            },
+            beforeSend: function () {
+                $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+            },
+            success: function (data) {
+                $('#result-filter-passenger').html(data);
+            },
+            error: function (jqXHR, text, error) {
+                $('#result-filter-passenger').html(error);
+            }
+        });
+        return false;  
+    }
+});
+
+$('#filter-passenger-phone-btn').click(function() {
+    var search_passenger = $('#search_passenger_phone').val();
+    $.ajax({
+        type: "POST",
+        url: '/filter-passenger-phone.php',
+        data: {
+            'search_passenger':search_passenger
+        },
+        beforeSend: function () {
+            $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+        },
+        success: function (data) {
+            $('#result-filter-passenger').html(data);
+        },
+        error: function (jqXHR, text, error) {
+            $('#result-filter-passenger').html(error);
+        }
+    });
+    return false;    
+});
+
+$('#search_passenger_phone').on('keyup', function (e) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+        var search_passenger = $('#search_passenger_phone').val();
+        $.ajax({
+            type: "POST",
+            url: '/filter-passenger-phone.php',
+            data: {
+                'search_passenger':search_passenger
+            },
+            beforeSend: function () {
+                $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+            },
+            success: function (data) {
+                $('#result-filter-passenger').html(data);
+            },
+            error: function (jqXHR, text, error) {
+                $('#result-filter-passenger').html(error);
+            }
+        });
+        return false;  
+    }
+});
+//СТАТИЧЕСКИЙ ПОИСК ПО ПАССАЖИРАМ
+
+
+
+//ДИНАМИЧЕСКИЙ ПОИСК ПО БИЛЕТАМ
 $('#search_tickets').keyup(function(){
     let search_value = $('#search_tickets').val();
     
     $('p.reestr_seat_item').hide();
     $('p.reestr_seat_item:containsi("'+search_value+'")').show();
 });
+//ДИНАМИЧЕСКИЙ ПОИСК ПО БИЛЕТАМ
 
 
 

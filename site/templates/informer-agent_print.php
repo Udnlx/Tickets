@@ -31,6 +31,8 @@ if ($operator == 'no_operator') {
 $start = strtotime( date($start_date) . " 00:00:00");
 $end = strtotime( date($finish_date) . " 23:59:59");
 $all_agent_tickets = $pages->find('template=purchased_tickets, published>' . $start . ', published<' . $end . ', agent_ticket=' . $agent . ', sort=date_depart, sort=bus');
+$sum_predoplata = 0;
+$sum_ostatok = 0;
 $arr_all_agent_tickets = [];
 foreach ($all_agent_tickets as $all_agent_tickets_item) {
     // $arr_all_agent_tickets[] = array(
@@ -54,11 +56,17 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
         $commission = 650;
     }
 
+    if ($all_agent_tickets_item->booking_sum > 0) {
+        $sum_predoplata = $sum_predoplata + $all_agent_tickets_item->booking_sum;
+    }
+
     $remains = 0;
     if ($all_agent_tickets_item->booking_sum > 0) {
         $remains = $commission - $all_agent_tickets_item->booking_sum;
+        $sum_ostatok = $sum_ostatok + $remains;
     } else {
         $remains = $commission;
+        $sum_ostatok = $sum_ostatok + $remains;
     }
 
     $confirm = '';
@@ -112,6 +120,19 @@ $headers = array(
     ),   
 );
 
+$footer = array(
+    array(
+        'date' => 'ИТОГО',
+        'passenger' => '',
+        'type_ticket' => '',
+        'bus' => '',
+        'commission' => '',
+        'booking_sum' => $sum_predoplata,
+        'remains' => $sum_ostatok,
+        'confirm' => ''
+    ),   
+);
+
 header('Content-Type: text/csv; charset=utf-8' );
 header(sprintf( 'Content-Disposition: attachment; filename=Отчет по агенту ' . $agent . ' - %s.csv', date( 'dmY-His' ) ) );
 header('Content-Transfer-Encoding: binary');
@@ -131,6 +152,10 @@ foreach($headers as $val) {
 foreach($arr_all_agent_tickets as $val) { 
     $val = mb_convert_encoding($val, 'windows-1251', 'utf-8');
 	fputcsv($buffer, $val, ';'); 
+} 
+foreach($footer as $val) { 
+    $val = mb_convert_encoding($val, 'windows-1251', 'utf-8');
+    fputcsv($buffer, $val, ';'); 
 } 
 fclose($buffer); 
 exit();

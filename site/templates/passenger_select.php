@@ -81,7 +81,8 @@ if ($operator == 'no_operator') {
                 
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
-                        <h3 class="uk-margin-remove uk-card-title">Реестр пассажиров</h3>
+                        <h3 class="uk-margin-remove uk-card-title">Выбор пассажира</h3>
+                        <p class="uk-margin-remove" style="color: red; font-weight: 700; line-height: 1;">После набора параметра нажмите Enter или кнопку "Фильтр" для фильтрации</p>
                         <!-- <div class="uk-margin-small">
                             <input class="uk-input" id="search_passenger" type="text" name="search_passenger" placeholder="введите параметры для поиска">
                         </div> -->

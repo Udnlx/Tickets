@@ -31,6 +31,7 @@ if ($operator == 'no_operator') {
 $start = strtotime( date($start_date) . " 00:00:00");
 $end = strtotime( date($finish_date) . " 23:59:59");
 $all_agent_tickets = $pages->find('template=purchased_tickets, published>' . $start . ', published<' . $end . ', agent_ticket=' . $agent . ', sort=date_depart, sort=bus');
+$sum_commission = 0;
 $sum_predoplata = 0;
 $sum_ostatok = 0;
 $arr_all_agent_tickets = [];
@@ -52,17 +53,16 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
     $commission = 0;
     if ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
         $commission = 550;
+        $sum_commission = $sum_commission + $commission;
     } else {
         $commission = 650;
-    }
-
-    if ($all_agent_tickets_item->booking_sum > 0) {
-        $sum_predoplata = $sum_predoplata + $all_agent_tickets_item->booking_sum;
+        $sum_commission = $sum_commission + $commission;
     }
 
     $remains = 0;
     if ($all_agent_tickets_item->booking_sum > 0) {
         $remains = $commission - $all_agent_tickets_item->booking_sum;
+        $sum_predoplata = $sum_predoplata + $all_agent_tickets_item->booking_sum;
         $sum_ostatok = $sum_ostatok + $remains;
     } else {
         $remains = $commission;
@@ -126,7 +126,7 @@ $footer = array(
         'passenger' => '',
         'type_ticket' => '',
         'bus' => '',
-        'commission' => '',
+        'commission' => $sum_commission,
         'booking_sum' => $sum_predoplata,
         'remains' => $sum_ostatok,
         'confirm' => ''

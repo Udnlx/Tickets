@@ -63,10 +63,10 @@ foreach ($arr_reserv_seat as $key => $val) {
     $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
     $phone_passenger = $data_passenger->phone_passenger;
     $conf_status = '';
-    if ($val['confirm'] == 'не подтверждено') {
-        $conf_status = '<p class="noconfirm"><i class="fa-solid fa-phone"></i></p>';
+    if ($val['confirm'] == 'не подтверждено' || $val['confirm'] == 'подтверждено' || $val['confirm'] == 'явился') {
+        $conf_status = '<p class="appeared"></p>';
     } else {
-        $conf_status = '<p class="confirm"><i class="fa-solid fa-phone"></i></p>';
+        $conf_status = '<p class="noappeared"><i class="fa-solid fa-triangle-exclamation"></i></p>';
     }
     if ($val['pay_or_booking'] == 'забронировано') {
         $button_seat .= '

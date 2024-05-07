@@ -152,6 +152,18 @@ p.confirm {
     left: 2px;
     font-size: 12px;
     color: #48ff00;}
+p.noappeared {
+    position: absolute;
+    top: -1px;
+    left: 2px;
+    font-size: 12px;
+    color: #000000;}
+p.appeared {
+    position: absolute;
+    top: -1px;
+    left: 2px;
+    font-size: 12px;
+    color: #000000;}
     
     
     

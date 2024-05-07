@@ -90,10 +90,10 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
         if ($val['seat'] == $num_seat) {
                 $free = false;
                 $conf_status = '';
-                if ($val['confirm'] == 'не подтверждено') {
-                    $conf_status = '<p class="noconfirm"><i class="fa-solid fa-phone"></i></p>';
+                if ($val['confirm'] == 'не подтверждено' || $val['confirm'] == 'подтверждено' || $val['confirm'] == 'явился') {
+                    $conf_status = '<p class="appeared"></p>';
                 } else {
-                    $conf_status = '<p class="confirm"><i class="fa-solid fa-phone"></i></p>';
+                    $conf_status = '<p class="noappeared"><i class="fa-solid fa-triangle-exclamation"></i></p>';
                 }
                 if ($val['pay_or_booking'] == 'забронировано') {
                     $button_seat .= '
@@ -189,10 +189,10 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <div id="booking_sum_div" class="uk-margin-small-top">
                         <input class="uk-input" id="booking_sum" type="number" name="booking_sum" value="" placeholder="Сумма к оплате при бронировании" autocomplete="off" required>
                     </div>
-                    <div class="uk-margin-small-top">
+                    <div class="uk-margin-small-top" style="display: none;">
                         <select class="uk-select" id="confirm" name="confirm">
-                            <option>не подтверждено</option>
-                            <option>подтверждено</option>
+                            <option>явился</option>
+                            <option>не явился</option>
                         </select>
                     </div>
                     <div class="uk-margin-small-top">

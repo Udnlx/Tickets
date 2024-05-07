@@ -107,8 +107,8 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                     
                     <div class="uk-margin-small-top">
                         <select class="uk-select" id="confirm" name="confirm">
-                            <option>не подтверждено</option>
-                            <option>подтверждено</option>
+                            <option>явился</option>
+                            <option>не явился</option>
                         </select>
                     </div>
                     

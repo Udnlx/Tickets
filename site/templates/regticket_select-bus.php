@@ -1,6 +1,6 @@
 <?php namespace ProcessWire;
 
-$all_bus = $pages->find("template=buses_item");
+$all_bus = $pages->find("template=buses_item, sort=sort");
 $button_bus = '';
 foreach ($all_bus as $bus_item) {
     $title = '';

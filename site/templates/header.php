@@ -44,12 +44,12 @@ if ($url == '/login/') {
         <title>Tickets</title>
         <meta name="Description" content="Программа для ведения учета заполняемости автобусов">
         
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.18/dist/css/uikit.min.css" />
+        <link rel="stylesheet" href="<?php echo $config->urls->templates; ?>styles/uikit.min.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates; ?>styles/main.css?v=<?php echo uniqid(); ?>">
         
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css">
         
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.18/dist/js/uikit.min.js"></script>
+        <script src="<?php echo $config->urls->templates; ?>scripts/uikit.min.js"></script>
     </head>
     <body>
         

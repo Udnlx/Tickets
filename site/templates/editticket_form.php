@@ -54,6 +54,7 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                 }
                 ?>
                 <h4 class="uk-margin-remove">Статус подтверждения: <span style="font-weight: 700;"><?php echo $ticket->confirm; ?></span></h4>
+                <h4 class="uk-margin-remove">Агент: <span style="font-weight: 700;"><?php echo $ticket->agent_ticket; ?></span></h4>
                 <h4 class="uk-margin-remove">Пассажир: <span style="font-weight: 700;"><?php echo $ticket->passenger; ?></span></h4>
                 <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Выбрать другой рейс и место</a>
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Вернутся на главную</a>
@@ -92,6 +93,9 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                         <input class="uk-input" id="old_confirm" type="text" name="old_confirm" value="<?php echo $ticket->confirm; ?>">
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="old_agent_ticket" type="text" name="old_agent_ticket" value="<?php echo $ticket->agent_ticket; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="passenger" type="text" name="passenger" value="<?php echo $ticket->passenger; ?>">
                     </div>
                     
@@ -109,6 +113,23 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                         <select class="uk-select" id="confirm" name="confirm">
                             <option>явился</option>
                             <option>не явился</option>
+                        </select>
+                    </div>
+
+                    <?php
+                    $all_agents = $pages->get('template=agents');
+                    $agents = '';
+                    foreach ($all_agents->agent_items as $agent_itm) {
+                        $agents .= '
+                        <option>' . $agent_itm->agent . '</option>
+                        ';
+                    }
+                    ?>
+                    <div class="uk-margin-small-top">
+                        <label for="agent">Агент</label>
+                        <select class="uk-select" id="agent_ticket" name="agent_ticket">
+                            <option>Олимп</option>
+                            <?php echo $agents; ?>
                         </select>
                     </div>
                     

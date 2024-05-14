@@ -16,19 +16,22 @@ $id_seat = !empty($_POST['id_seat'])?$_POST['id_seat']:NULL;
 $old_pay_or_booking = !empty($_POST['old_pay_or_booking'])?$_POST['old_pay_or_booking']:NULL;
 $old_booking_sum = !empty($_POST['old_booking_sum'])?$_POST['old_booking_sum']:NULL;
 $old_confirm = !empty($_POST['old_confirm'])?$_POST['old_confirm']:NULL;
+$old_agent_ticket = !empty($_POST['old_agent_ticket'])?$_POST['old_agent_ticket']:NULL;
 $passenger = !empty($_POST['passenger'])?$_POST['passenger']:NULL;
 
 $pay_or_booking = !empty($_POST['pay_or_booking'])?$_POST['pay_or_booking']:NULL;
 $booking_sum = !empty($_POST['booking_sum'])?$_POST['booking_sum']:NULL;
 $confirm = !empty($_POST['confirm'])?$_POST['confirm']:NULL;
+$agent_ticket = !empty($_POST['agent_ticket'])?$_POST['agent_ticket']:NULL;
 
 $success = 'Статус билета успешно изменен';
 $log = '';
-if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $selected_seat && $id_seat && $old_pay_or_booking && $old_confirm && $passenger && $pay_or_booking && $confirm) {
+if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $selected_seat && $id_seat && $old_pay_or_booking && $old_confirm && $old_agent_ticket && $passenger && $pay_or_booking && $confirm && $agent_ticket) {
     $log .= date('Y-m-d H:i:s') . ' - Изменен статус в билете id - ' . $id_seat . '. ';
     $log .= 'Статус изменен с ' . $old_pay_or_booking . ' на ' . $pay_or_booking . ' оператором ' . $operator . '. '; 
     $log .= 'Сумма к оплате при бронировании изменена с ' . $old_booking_sum . ' на ' . $booking_sum . ' оператором ' . $operator . '. ';
     $log .= 'Статус подтверждения изменен с ' . $old_confirm . ' на ' . $confirm . ' оператором ' . $operator . '. ';  
+    $log .= 'Агент изменен с ' . $old_agent_ticket . ' на ' . $agent_ticket . ' оператором ' . $operator . '. ';
     $log .= 'Параметры измененного билета: ' . $selected_bus . ' ' . $selected_date . '' . $selected_time . ', id автобуса - ' . $selected_id_bus . ', место - ' . $selected_seat . ', пассажир - ' . $passenger; 
     file_put_contents(__DIR__ . '/log_edit_tikets.txt', $log . PHP_EOL, FILE_APPEND);
     
@@ -37,7 +40,8 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
     $edit_page->pay_or_booking = $pay_or_booking;
     $edit_page->booking_sum = $booking_sum;
     $edit_page->confirm = $confirm;
-    $edit_page->operator = $operator;
+    $edit_page->confirm = $confirm;
+    $edit_page->agent_ticket = $agent_ticket;
     $edit_page->save();
 } else {
     $success = 'Статус билета не изменен!<br>Ошибка в данных';
@@ -86,6 +90,8 @@ if ($operator == 'no_operator') {
         <p class="uk-margin-remove">Новая сумма при бронировании: <span class="uk-text-success" style="font-weight: 700;"><?php echo $booking_sum; ?></span></p>
         <p class="uk-margin-remove">Старый статус подтверждения: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_confirm; ?></span></p>
         <p class="uk-margin-remove">Новый статус подтверждения: <span class="uk-text-success" style="font-weight: 700;"><?php echo $confirm; ?></span></p>
+        <p class="uk-margin-remove">Старый агент: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_agent_ticket; ?></span></p>
+        <p class="uk-margin-remove">Новый агент: <span class="uk-text-success" style="font-weight: 700;"><?php echo $agent_ticket; ?></span></p>
 
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>

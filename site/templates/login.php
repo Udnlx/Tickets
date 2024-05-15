@@ -11,7 +11,7 @@ $_SESSION['operator'] = 'no_operator';
 $user_login = !empty($_POST['user_login'])?$_POST['user_login']:NULL;  
 $user_password = !empty($_POST['user_password'])?$_POST['user_password']:NULL;
 
-if($user_login === 'admin-test' && $user_password === '8cLpzQH') {
+if($user_login === 'admin-test' && $user_password === 'Pd9rMhj') {
     $login = 'on';
     $_SESSION['operator'] = 'admin-test';
     $_SESSION['access'] = 'admin';

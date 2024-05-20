@@ -30,6 +30,18 @@ $ticket = $pages->get('id=' . $ticket_id . '');
 $passenger = $pages->get('id=' . $ticket->id_passenger . '');
 $date_depart = date("d.m.Y",strtotime($ticket->date_depart));
 
+$id_bus = $ticket->id_bus;
+$bus = $pages->get('id=' . $id_bus . '');
+$station_list = '';
+if (count($bus->children()) > 0) {
+    $stations = $bus->children();
+    foreach ($stations as $station) {
+        $station_list .= '
+            <p>' . $station->title . '</p>
+        ';
+    }
+}
+
 $content = '
 <style type="text/css">
 * {
@@ -100,11 +112,7 @@ $content .= '
     <p>+7 (959) 276-48-12</p>
     <br>
     <p><strong>Наше расписание:</strong></p>
-    <p>Из Москвы автовокзал Саларьево 21:00 и 17:00</p>
-    <p>Из Стаханова – 15:30 и 17:30</p>
-    <p>Из Алчевска – 16:30 и 18:30</p>
-    <p>Из Луганска ЖД- 17:20 и 19:20</p>
-    <p>Из Луганска Автовокзала – 17:50 и 19:50</p>
+    ' . $station_list . '
     <br>
     <p>Пришлем ваш электронный билет Вам на телефон (Viber,WhatsApp,СМС, Телеграм) также подсказку (какой номер автобуса и перрон)</p>
     <p>Оплата в автобусе или на сайте : olimp-tickets.ru</p>

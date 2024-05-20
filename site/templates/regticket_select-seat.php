@@ -220,13 +220,14 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     }
                     ?>
                     <div class="uk-margin-small-top">
-                        <label for="agent">Агент</label>
+                        <label for="agent_ticket">Агент</label>
                         <select class="uk-select" id="agent_ticket" name="agent_ticket">
                             <option>Олимп</option>
                             <?php echo $agents; ?>
                         </select>
                     </div>
                     <div class="uk-margin-small-top">
+                        <label for="price_ticket">Цена билета</label>
                         <input class="uk-input" id="price_ticket" type="number" name="price_ticket" autocomplete="off" required>
                     </div>
                     

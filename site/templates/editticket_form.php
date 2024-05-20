@@ -55,6 +55,7 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                 ?>
                 <h4 class="uk-margin-remove">Статус подтверждения: <span style="font-weight: 700;"><?php echo $ticket->confirm; ?></span></h4>
                 <h4 class="uk-margin-remove">Агент: <span style="font-weight: 700;"><?php echo $ticket->agent_ticket; ?></span></h4>
+                <h4 class="uk-margin-remove">Цена билета: <span style="font-weight: 700;"><?php echo $ticket->price_ticket; ?></span></h4>
                 <h4 class="uk-margin-remove">Пассажир: <span style="font-weight: 700;"><?php echo $ticket->passenger; ?></span></h4>
                 <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Выбрать другой рейс и место</a>
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Вернутся на главную</a>
@@ -96,6 +97,9 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                         <input class="uk-input" id="old_agent_ticket" type="text" name="old_agent_ticket" value="<?php echo $ticket->agent_ticket; ?>">
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="old_price_ticket" type="text" name="old_price_ticket" value="<?php echo $ticket->price_ticket; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="passenger" type="text" name="passenger" value="<?php echo $ticket->passenger; ?>">
                     </div>
                     
@@ -131,6 +135,9 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                             <option>Олимп</option>
                             <?php echo $agents; ?>
                         </select>
+                    </div>
+                    <div class="uk-margin-small-top">
+                        <input class="uk-input" id="price_ticket" type="number" name="price_ticket" autocomplete="off" required>
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">

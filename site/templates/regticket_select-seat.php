@@ -227,7 +227,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                         </select>
                     </div>
                     <div class="uk-margin-small-top">
-                        <input class="uk-input readonly" id="price_ticket" type="text" name="price_ticket" value="4000" autocomplete="off" required>
+                        <input class="uk-input" id="price_ticket" type="number" name="price_ticket" autocomplete="off" required>
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">

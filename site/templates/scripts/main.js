@@ -111,48 +111,58 @@ $('#pay_or_booking').change( function() {
 
 
 
+//Возможно этот код больше не понадобится, он использовался при автомате проставления цен, от которого мы ушли на ручной ввод цен
+// $('#type_ticket').change( function() {
+//     let type_selected = $('#type_ticket option:selected').text();
+//     if (type_selected == 'взрослый') {
+//         $('#agent_ticket option:first').prop('selected', true);
+//         $('#price_ticket').val('');
+//     }
+//     if (type_selected == 'детский') {
+//         $('#agent_ticket option:first').prop('selected', true);
+//         $('#price_ticket').val('');
+//     }
+// });
+
+
+
+//Возможно этот код больше не понадобится, он использовался при автомате проставления цен, от которого мы ушли на ручной ввод цен
+// $('#agent_ticket').change( function() {
+//     let type_selected = $('#agent_ticket option:selected').text();
+//     if (type_selected == 'Олимп') {
+//         //console.log('пустой');
+//         let type_ticket = $('#type_ticket option:selected').text();
+//         if (type_ticket == 'взрослый') {
+//             $('#price_ticket').val('4000');
+//         } else {
+//             $('#price_ticket').val('2000');
+//         }
+//     } else {
+//         //console.log('не пустой');
+//         if (type_selected == 'Росбилет') {
+//             let type_ticket = $('#type_ticket option:selected').text();
+//             if (type_ticket == 'взрослый') {
+//                 $('#price_ticket').val('3900');
+//             } else {
+//                 $('#price_ticket').val('1950');
+//             }
+//         } else {
+//             let type_ticket = $('#type_ticket option:selected').text();
+//             if (type_ticket == 'взрослый') {
+//                 $('#price_ticket').val('4000');
+//             } else {
+//                 $('#price_ticket').val('2000');
+//             }  
+//         }
+//     }
+// });
+
 $('#type_ticket').change( function() {
-    let type_selected = $('#type_ticket option:selected').text();
-    if (type_selected == 'взрослый') {
-        $('#agent_ticket option:first').prop('selected', true);
-        $('#price_ticket').val('4000');
-    }
-    if (type_selected == 'детский') {
-        $('#agent_ticket option:first').prop('selected', true);
-        $('#price_ticket').val('2000');
-    }
+    $('#price_ticket').val('');
 });
 
-
-
 $('#agent_ticket').change( function() {
-    let type_selected = $('#agent_ticket option:selected').text();
-    if (type_selected == 'Олимп') {
-        //console.log('пустой');
-        let type_ticket = $('#type_ticket option:selected').text();
-        if (type_ticket == 'взрослый') {
-            $('#price_ticket').val('4000');
-        } else {
-            $('#price_ticket').val('2000');
-        }
-    } else {
-        //console.log('не пустой');
-        if (type_selected == 'Росбилет') {
-            let type_ticket = $('#type_ticket option:selected').text();
-            if (type_ticket == 'взрослый') {
-                $('#price_ticket').val('3900');
-            } else {
-                $('#price_ticket').val('1950');
-            }
-        } else {
-            let type_ticket = $('#type_ticket option:selected').text();
-            if (type_ticket == 'взрослый') {
-                $('#price_ticket').val('4000');
-            } else {
-                $('#price_ticket').val('2000');
-            }  
-        }
-    }
+    $('#price_ticket').val('');
 });
 
 

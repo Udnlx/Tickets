@@ -44,7 +44,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
 		"type_ticket"=>$reserv_seat_item->type_ticket,
 		'passenger_doc' => $reserv_seat_item->passenger_doc,
 		'operator' => $reserv_seat_item->operator,
-		'agent' => $page_passenger->agent,
+		'agent' => $reserv_seat_item->agent_ticket,
         );
 }
 

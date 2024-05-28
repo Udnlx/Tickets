@@ -32,15 +32,16 @@ $date_depart = date("d.m.Y",strtotime($ticket->date_depart));
 
 $id_bus = $ticket->id_bus;
 $bus = $pages->get('id=' . $id_bus . '');
-$station_list = '';
-if (count($bus->children()) > 0) {
-    $stations = $bus->children();
-    foreach ($stations as $station) {
-        $station_list .= '
-            <p>' . $station->title . '</p>
-        ';
-    }
-}
+// $station_list = '';
+// if (count($bus->children()) > 0) {
+//     $stations = $bus->children();
+//     foreach ($stations as $station) {
+//         $station_list .= '
+//             <p>' . $station->title . '</p>
+//         ';
+//     }
+// }
+$station_list = $bus->route;
 
 $content = '
 <style type="text/css">
@@ -112,7 +113,7 @@ $content .= '
     <p>+7 (959) 276-48-12</p>
     <br>
     <p><strong>Наше расписание:</strong></p>
-    ' . $station_list . '
+    <p>' . $station_list . '</p>
     <br>
     <p>Пришлем ваш электронный билет Вам на телефон (Viber,WhatsApp,СМС, Телеграм) также подсказку (какой номер автобуса и перрон)</p>
     <p>Оплата в автобусе или на сайте : olimp-tickets.ru</p>
@@ -137,6 +138,8 @@ $dompdf->stream('Билет - ' . $ticket_id . '');
         <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
         <h4 class="uk-margin-remove">Билет успешно сформирован для печати</h4>
         <h4 class="uk-margin-remove">ID билета:<br><span style="font-weight: 700;"><?php echo $ticket_id; ?></span></h4>
+        <h4 class="uk-margin-remove">Маршрут:</h4>
+        <?php echo $station_list; ?>
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>
 </div>

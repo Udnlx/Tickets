@@ -30,7 +30,7 @@ if ($operator == 'no_operator') {
     </div>
 <?php    
 } else {
-    if ($access == 'manager' || $access == 'admin') {
+    if ($access == 'admin' || $access == 'supermanager' || $access == 'manager') {
     ?>
         <div id="content">
             <h1 class="uk-heading-hero uk-text-center">Выбор рейса для отчета</h1>

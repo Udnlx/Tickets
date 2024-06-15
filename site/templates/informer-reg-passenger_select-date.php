@@ -22,7 +22,7 @@ if ($operator == 'no_operator') {
     </div>
 <?php    
 } else {
-    if ($access == 'manager' || $access == 'admin') {
+    if ($access == 'admin' || $access == 'supermanager' || $access == 'manager') {
     ?>
 
         <div id="content" style="max-width: 700px;">

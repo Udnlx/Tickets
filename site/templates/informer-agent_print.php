@@ -28,9 +28,7 @@ if ($operator == 'no_operator') {
 ?>
 
 <?php
-$start = strtotime( date($start_date) . " 00:00:00");
-$end = strtotime( date($finish_date) . " 23:59:59");
-$all_agent_tickets = $pages->find('template=purchased_tickets, published>' . $start . ', published<' . $end . ', agent_ticket=' . $agent . ', sort=date_depart, sort=bus');
+$all_agent_tickets = $pages->find('template=purchased_tickets, date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart, sort=bus');
 $sum_commission = 0;
 $sum_predoplata = 0;
 $sum_ostatok = 0;
@@ -82,7 +80,8 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
         "commission"=>$commission,
         "booking_sum"=>$all_agent_tickets_item->booking_sum,
         "remains"=>$remains,
-        "confirm"=>$confirm
+        "confirm"=>$confirm,
+        "reg_ticket"=>date("Y-m-d H:i:s", $all_agent_tickets_item->published)
         );
 }
 //echo '<pre>'; print_r($arr_all_agent_tickets); echo '</pre>';
@@ -116,7 +115,8 @@ $headers = array(
         'commission' => 'Комиссия',
         'booking_sum' => 'Предоплата',
         'remains' => 'Остаток к расчету',
-        'confirm' => 'Статус подтверждения'
+        'confirm' => 'Статус подтверждения',
+        'reg_ticket' => 'Регистрация билета'
     ),   
 );
 

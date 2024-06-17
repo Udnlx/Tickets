@@ -29,9 +29,7 @@ if ($operator == 'no_operator') {
 ?>
 
 <?php
-$start = strtotime( date($start_date) . " 00:00:00");
-$end = strtotime( date($finish_date) . " 23:59:59");
-$all_agent_tickets = $pages->find('template=purchased_tickets, published>' . $start . ', published<' . $end . ', agent_ticket=' . $agent . '');
+$all_agent_tickets = $pages->find('template=purchased_tickets, date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart, sort=bus');
 $arr_all_agent_tickets = [];
 foreach ($all_agent_tickets as $all_agent_tickets_item) {
     $arr_all_agent_tickets[] = array(

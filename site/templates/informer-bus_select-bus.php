@@ -1,12 +1,50 @@
 <?php namespace ProcessWire;
 
-$all_bus = $pages->find("template=buses_item");
 $button_bus = '';
+
+$all_bus = $pages->find("template=buses_item, bus_group=1, sort=sort");
+$button_bus .= '
+<ul uk-accordion>
+    <li>
+        <a class="uk-accordion-title" href="#">Рейсы из Москвы</a>
+        <div class="uk-accordion-content">
+';
 foreach ($all_bus as $bus_item) {
+    $title = '';
+    $stations = $bus_item->children();
+    foreach ($stations as $station) {
+        $title .= $station->title . '<br>';
+    }
     $button_bus .= '
-        <button id="' . $bus_item->id . '" class="uk-ticket-button uk-margin-small-top uk-button uk-button-default">' . $bus_item->title . '<br><span>' . $bus_item->option_bus . '</span></button>
+        <button id="' . $bus_item->id . '" class="uk-ticket-button uk-margin-small-top uk-button uk-button-default" uk-tooltip="' . $title . '">' . $bus_item->title . '<br><span>' . $bus_item->option_bus . '</span></button>
+    ';
+};
+$button_bus .= '
+        </div>
+    </li>
+';
+
+$all_bus = $pages->find("template=buses_item, bus_group=2, sort=sort");
+$button_bus .= '
+    <li>
+        <a class="uk-accordion-title" href="#">Рейсы в Москву</a>
+        <div class="uk-accordion-content">
+';
+foreach ($all_bus as $bus_item) {
+    $title = '';
+    $stations = $bus_item->children();
+    foreach ($stations as $station) {
+        $title .= $station->title . '<br>';
+    }
+    $button_bus .= '
+        <button id="' . $bus_item->id . '" class="uk-ticket-button uk-margin-small-top uk-button uk-button-default" uk-tooltip="' . $title . '">' . $bus_item->title . '<br><span>' . $bus_item->option_bus . '</span></button>
     ';
 }
+$button_bus .= '
+        </div>
+    </li>
+</ul>
+';
 
 if(isset($_SESSION['operator'])){
     $operator = $_SESSION['operator'];

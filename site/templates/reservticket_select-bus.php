@@ -72,7 +72,7 @@ if ($operator == 'no_operator') {
 
 <?php    
 } else {
-    if ($access == 'admin' || $operator == 'Директор' || $operator == 'Люда' || $operator == 'Алла') {
+    if ($access == 'admin' || $access == 'supermanager') {
 ?>
 
         <div id="content">

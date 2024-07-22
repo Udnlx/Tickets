@@ -51,7 +51,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
 // echo '</pre>';
 
 $bus = $pages->get('id=' . $selected_id_bus . '');
-$bus_stations = $bus->children();
+$bus_stations = $bus->station_start;
 $list = '';
 foreach ($bus_stations as $bus_station) {
     $list .= '<p class="reestr_seat_item" style="font-weight:700; margin: 0;">' . $bus_station->title . '</p>';

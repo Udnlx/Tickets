@@ -11,7 +11,7 @@ $button_bus .= '
 ';
 foreach ($all_bus as $bus_item) {
     $title = '';
-    $stations = $bus_item->children();
+    $stations = $bus_item->station_start;
     foreach ($stations as $station) {
         $title .= $station->title . '<br>';
     }
@@ -32,7 +32,7 @@ $button_bus .= '
 ';
 foreach ($all_bus as $bus_item) {
     $title = '';
-    $stations = $bus_item->children();
+    $stations = $bus_item->station_start;
     foreach ($stations as $station) {
         $title .= $station->title . '<br>';
     }

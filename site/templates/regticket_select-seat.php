@@ -29,15 +29,21 @@ if ($operator == 'no_operator') {
 ?>
 
 <?php
-$button_station = '';
+
+$button_station_start = '';
 $bus_page = $pages->get('id=' . $selected_id_bus . '');
-if (count($bus_page->children()) > 0) {
-    $stations = $bus_page->children();
-    foreach ($stations as $station) {
-        $button_station .= '
-            <button id="' . $station->id . '" class="uk-ticket-button-station uk-margin-small-top uk-button uk-button-default">' . $station->title . '</button>
-        ';
-    }
+foreach ($bus_page->station_start as $item) {
+$button_station_start .= '
+<button id="' . $item->id . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . $item->title . '</button>
+';
+}
+
+$button_station_finish = '';
+$bus_page = $pages->get('id=' . $selected_id_bus . '');
+foreach ($bus_page->station_finish as $item) {
+$button_station_finish .= '
+<button id="' . $item->id . '" class="uk-ticket-button-station-finish uk-margin-small-top uk-button uk-button-default">' . $item->title . '</button>
+';
 }
  
 ?>
@@ -172,11 +178,19 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     </div>
                     
                     <div class="uk-margin-small-top">
-                        <input class="uk-input readonly" id="selected_station" type="text" name="selected_station" value="" placeholder="Станция посадки" autocomplete="off" required>
+                        <input class="uk-input readonly" id="selected_station_start" type="text" name="selected_station_start" value="" placeholder="Станция посадки" autocomplete="off" required>
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input readonly" id="id_selected_station" type="text" name="id_selected_station" value="">
+                        <input class="uk-input readonly" id="id_selected_station_start" type="text" name="id_selected_station_start" value="">
                     </div>
+
+                    <div class="uk-margin-small-top">
+                        <input class="uk-input readonly" id="selected_station_finish" type="text" name="selected_station_finish" value="" placeholder="Станция высадки" autocomplete="off">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input readonly" id="id_selected_station_finish" type="text" name="id_selected_station_finish" value="">
+                    </div>
+
                     <div class="uk-margin-small-top">
                         <input class="uk-input readonly" id="selected_seat" type="text" name="selected_seat" value="" placeholder="Место" autocomplete="off" required>
                     </div>
@@ -246,7 +260,15 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Станции посадки</h3>
                 <div class="uk-ticket-button-station-items">
-                    <?php echo $button_station ; ?>
+                    <?php echo $button_station_start;?>
+                </div>
+            </div>
+            <br>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                <h3 class="uk-margin-remove uk-card-title">Станции высадки</h3>
+                <p class="uk-margin-remove" style="color: red; font-weight: 700; line-height: 1;">Сервис в разработке, просьба на кнопки в этом блоке не нажимать</p>
+                <div class="uk-ticket-button-station-items">
+                    <?php echo $button_station_finish;?>
                 </div>
             </div>
             <br>
@@ -259,14 +281,14 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     </div>
                 </div>
                 <div class="reestr_seat uk-flex">
-                    <?php echo $reestr_seat ; ?>
+                    <?php echo $reestr_seat;?>
                 </div>
             </div>
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Свободные и занятые места</h3>
                 <div class="buttons_seat uk-flex uk-flex-wrap">
-                    <?php echo $button_seat; ?>
+                    <?php echo $button_seat;?>
                 </div>
             </div>
             <br>

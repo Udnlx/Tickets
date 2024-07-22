@@ -15,9 +15,9 @@ if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">
-	<h1 class="uk-heading-hero uk-text-center">Печать отчета по рейсу для водителя</h1>
-	
-	            
+    <h1 class="uk-heading-hero uk-text-center">Печать отчета по рейсу для водителя</h1>
+    
+                
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <h3 class="uk-card-title">Сессия потеряна, перезайти</h3>
         <a class="uk-margin-small uk-button uk-button-default" href="/login/">Перезайти</a>
@@ -35,15 +35,15 @@ $arr_reserv_seat = [];
 foreach ($reserv_seat as $reserv_seat_item) {
     $arr_reserv_seat[] = array(
         'seat' => $reserv_seat_item->seat,
-		'pay_or_booking' => $reserv_seat_item->pay_or_booking,
+        'pay_or_booking' => $reserv_seat_item->pay_or_booking,
         'booking_sum' => $reserv_seat_item->booking_sum,
-		'confirm' => $reserv_seat_item->confirm,
+        'confirm' => $reserv_seat_item->confirm,
         "station"=>$reserv_seat_item->name_station,
-		"id_passenger"=>$reserv_seat_item->id_passenger,
-		'passenger' => $reserv_seat_item->passenger,
+        "id_passenger"=>$reserv_seat_item->id_passenger,
+        'passenger' => $reserv_seat_item->passenger,
         "type_ticket"=>$reserv_seat_item->type_ticket,
-		'passenger_doc' => $reserv_seat_item->passenger_doc,
-		'operator' => $reserv_seat_item->operator,
+        'passenger_doc' => $reserv_seat_item->passenger_doc,
+        'operator' => $reserv_seat_item->operator,
         );
 }
 // echo '<pre>';
@@ -128,8 +128,8 @@ $dompdf->stream('Для водителя - ' . $selected_bus . ' - ' . $selected
 ?>
 
 <div id="content" style="max-width: 700px;">
-	<h1 class="uk-heading-hero uk-text-center">Печать отчета по рейсу для водителя</h1>
-	
+    <h1 class="uk-heading-hero uk-text-center">Печать отчета по рейсу для водителя</h1>
+    
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
         <h4 class="uk-margin-remove">Отчет успешно сформирован для печати</h4>

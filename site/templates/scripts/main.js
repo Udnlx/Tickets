@@ -193,18 +193,32 @@ $(document).on('click', 'p.passengers_item', function(){
 
 
 
-$(document).on('click', 'button.uk-ticket-button-station', function(){
-    $('div.uk-ticket-button-station-items').find('button.uk-ticket-button-station').each(function (){
+$(document).on('click', 'button.uk-ticket-button-station-start', function(){
+    $('div.uk-ticket-button-station-items').find('button.uk-ticket-button-station-start').each(function (){
         $(this).removeClass('station_select');
     })
     $(this).addClass('station_select');
-    let selected_station = $(this).text();
-    let id_selected_station = $(this).attr('id');
-    // console.log(selected_station);
-    // console.log(id_selected_station);
+    let selected_station_start = $(this).text();
+    let id_selected_station_start = $(this).attr('id');
+    // console.log(selected_station_start);
+    // console.log(id_selected_station_start);
     
-    $('#selected_station').val(selected_station);
-    $('#id_selected_station').val(id_selected_station);
+    $('#selected_station_start').val(selected_station_start);
+    $('#id_selected_station_start').val(id_selected_station_start);
+});
+
+$(document).on('click', 'button.uk-ticket-button-station-finish', function(){
+    $('div.uk-ticket-button-station-items').find('button.uk-ticket-button-station-finish').each(function (){
+        $(this).removeClass('station_select');
+    })
+    $(this).addClass('station_select');
+    let selected_station_finish = $(this).text();
+    let id_selected_station_finish = $(this).attr('id');
+    // console.log(selected_station_finish);
+    // console.log(id_selected_station_finish);
+    
+    $('#selected_station_finish').val(selected_station_finish);
+    $('#id_selected_station_finish').val(id_selected_station_finish);
 });
 
 

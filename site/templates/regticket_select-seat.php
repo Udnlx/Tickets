@@ -45,6 +45,16 @@ $button_station_finish .= '
 <button id="' . $item->id . '" class="uk-ticket-button-station-finish uk-margin-small-top uk-button uk-button-default">' . $item->title . '</button>
 ';
 }
+
+$prices = '';
+$bus_page = $pages->get('id=' . $selected_id_bus . '');
+foreach ($bus_page->table_price as $item) {
+$prices .= '
+<p class="price-itm" ss="' . $item->name_station . '" sf="' . $item->name_station_finish . '" tp="' . $item->price_ticket . '">
+    ' . $item->name_station . ' - ' . $item->name_station_finish . ' - ' . $item->price_ticket . '
+</p>
+';
+}
  
 ?>
 
@@ -269,6 +279,13 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 <p class="uk-margin-remove" style="color: red; font-weight: 700; line-height: 1;">Сервис в разработке, просьба на кнопки в этом блоке не нажимать</p>
                 <div class="uk-ticket-button-station-items">
                     <?php echo $button_station_finish;?>
+                </div>
+            </div>
+            <br>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column uk-hidden">
+                <h3 class="uk-margin-remove uk-card-title">Цены</h3>
+                <div class="uk-ticket-prices-items">
+                    <?php echo $prices;?>
                 </div>
             </div>
             <br>

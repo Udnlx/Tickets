@@ -92,6 +92,9 @@ button.uk-ticket-button-station-finish {
     font-weight: 700;}
 .uk-ticket-button-station-items button.station_select {
     background-color: #52af52;}
+.price-itm {
+    margin: 0;
+    font-size: 12px;}
 
 
 

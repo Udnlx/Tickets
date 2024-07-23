@@ -71,7 +71,9 @@ foreach ($bus_stations as $bus_station) {
             <tbody>
     ';
     foreach ($arr_reserv_seat as $key => $val) {
-        if ($bus_station->title == $val['station']) {
+        $bus_station_title = str_replace(' ', '', $bus_station->title);
+        $ticket_station_title = str_replace(' ', '', $val['station']);
+        if ($bus_station_title == $ticket_station_title) {
             $page_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
             $booking_sum = '';
             if ($val['booking_sum'] != '') {
@@ -124,7 +126,7 @@ $dompdf->loadHtml($reestr_seat, 'UTF-8');
 $dompdf->render();
  
 // Вывод файла в браузер:
-$dompdf->stream('Для водителя - ' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ''); 
+//$dompdf->stream('Для водителя - ' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ''); 
 ?>
 
 <div id="content" style="max-width: 700px;">
@@ -135,6 +137,9 @@ $dompdf->stream('Для водителя - ' . $selected_bus . ' - ' . $selected
         <h4 class="uk-margin-remove">Отчет успешно сформирован для печати</h4>
         <h4 class="uk-margin-remove">Выбранный рейс:<br><span style="font-weight: 700;"><?php echo $selected_bus; ?></span></h4>
         <h4 class="uk-margin-remove">Дата: <span style="font-weight: 700;"><?php echo $selected_date; ?></span> отправление<span style="font-weight: 700;"><?php echo $selected_time; ?></span></h4>
+
+        <?php echo $list; ?>
+
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>
 </div>

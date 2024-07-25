@@ -48,12 +48,20 @@ $button_station_finish .= '
 
 $prices = '';
 $bus_page = $pages->get('id=' . $selected_id_bus . '');
-foreach ($bus_page->table_price as $item) {
-$prices .= '
-<p class="price-itm" ss="' . $item->name_station . '" sf="' . $item->name_station_finish . '" tp="' . $item->price_ticket . '">
-    ' . $item->name_station . ' - ' . $item->name_station_finish . ' - ' . $item->price_ticket . '
-</p>
-';
+if (count($bus_page->table_price) > 0) {
+    foreach ($bus_page->table_price as $item) {
+    $prices .= '
+    <p class="price-itm" ss="' . $item->name_station . '" sf="' . $item->name_station_finish . '" tp="' . $item->price_ticket . '">
+        ' . $item->name_station . ' - ' . $item->name_station_finish . ' - ' . $item->price_ticket . '
+    </p>
+    ';
+    }
+} else {
+    $prices = '
+    <p class="price-itm" ss="" sf="" tp="">
+        Таблицы цен у этого рейса нет
+    </p>
+    ';
 }
  
 ?>
@@ -239,7 +247,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     $agents = '';
                     foreach ($all_agents->agent_items as $agent_itm) {
                         $agents .= '
-                        <option>' . $agent_itm->agent . '</option>
+                        <option rate="' . $agent_itm->rate . '">' . $agent_itm->agent . '</option>
                         ';
                     }
                     ?>
@@ -252,7 +260,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     </div>
                     <div class="uk-margin-small-top">
                         <label for="price_ticket">Цена билета</label>
-                        <input class="uk-input" id="price_ticket" type="number" name="price_ticket" value="4000" autocomplete="off" required>
+                        <input class="uk-input" id="price_ticket" type="number" name="price_ticket" value="" autocomplete="off" required>
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
@@ -269,24 +277,24 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
         <div>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Станции посадки</h3>
-                <div class="uk-ticket-button-station-items">
+                <div class="uk-ticket-button-station-items start-station">
                     <?php echo $button_station_start;?>
                 </div>
             </div>
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Станции высадки</h3>
-                <p class="uk-margin-remove" style="color: red; font-weight: 700; line-height: 1;">Сервис в разработке, просьба на кнопки в этом блоке не нажимать</p>
-                <div class="uk-ticket-button-station-items">
+                <div class="uk-ticket-button-station-items finish-station">
                     <?php echo $button_station_finish;?>
                 </div>
             </div>
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column uk-hidden">
-                <h3 class="uk-margin-remove uk-card-title">Цены</h3>
-                <div class="uk-ticket-prices-items">
+                <h3 class="uk-margin-remove uk-card-title">Таблица цен</h3>
+                <div id="prices" class="uk-ticket-prices-items">
                     <?php echo $prices;?>
                 </div>
+                <h4 class="uk-margin-remove">Цена выбранного маршрута: <span id="sel_price"></span></h4>
             </div>
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">

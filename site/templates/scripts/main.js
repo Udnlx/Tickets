@@ -115,53 +115,84 @@ $('#type_ticket').change( function() {
     let type_selected = $('#type_ticket option:selected').text();
     if (type_selected == 'взрослый') {
         $('#agent_ticket option:first').prop('selected', true);
-        $('#price_ticket').val('4000');
+        let sel_price = $('#sel_price').text();
+        let receive_price = sel_price;
+        console.log (receive_price);
+        receive_price = Math.ceil(receive_price);
+        receive_price = Math.round(receive_price/10)*10;
+        $('#price_ticket').val(receive_price);
     }
     if (type_selected == 'детский') {
         $('#agent_ticket option:first').prop('selected', true);
-        $('#price_ticket').val('2000');
+        let sel_price = $('#sel_price').text();
+        let receive_price = sel_price/2;
+        console.log (receive_price);
+        receive_price = Math.ceil(receive_price);
+        receive_price = Math.round(receive_price/10)*10;
+        $('#price_ticket').val(receive_price);
     }
 });
-
 
 
 $('#agent_ticket').change( function() {
     let type_selected = $('#agent_ticket option:selected').text();
-    if (type_selected == 'Олимп') {
-        //console.log('пустой');
-        let type_ticket = $('#type_ticket option:selected').text();
-        if (type_ticket == 'взрослый') {
-            $('#price_ticket').val('4000');
-        } else {
-            $('#price_ticket').val('2000');
-        }
+    let rate = $('#agent_ticket option:selected').attr('rate');
+    let type_ticket = $('#type_ticket option:selected').text();
+    let sel_price = $('#sel_price').text();
+    if (type_ticket == 'взрослый') {
+        let receive_price = sel_price*rate;
+        console.log (receive_price);
+        receive_price = Math.ceil(receive_price);
+        receive_price = Math.round(receive_price/10)*10;
+        $('#price_ticket').val(receive_price);
     } else {
-        //console.log('не пустой');
-        if (type_selected == 'Росбилет') {
-            let type_ticket = $('#type_ticket option:selected').text();
-            let curent_page = $('h1').text();
-            if (type_ticket == 'взрослый') {
-                $('#price_ticket').val('3900');
-            } else {
-                $('#price_ticket').val('1950');
-            }
-            if (curent_page == 'Правка билета') {
-                $('#price_ticket').val('3900');
-            }
-        } else {
-            let type_ticket = $('#type_ticket option:selected').text();
-            let curent_page = $('h1').text();
-            if (type_ticket == 'взрослый') {
-                $('#price_ticket').val('4000');
-            } else {
-                $('#price_ticket').val('2000');
-            }  
-            if (curent_page == 'Правка билета') {
-                $('#price_ticket').val('4000');
-            }
-        }
+        let receive_price = (sel_price/2)*rate;
+        console.log (receive_price);
+        receive_price = Math.ceil(receive_price);
+        receive_price = Math.round(receive_price/10)*10;
+        $('#price_ticket').val(receive_price);
     }
 });
+
+
+
+// $('#agent_ticket').change( function() {
+//     let type_selected = $('#agent_ticket option:selected').text();
+//     if (type_selected == 'Олимп') {
+//         //console.log('пустой');
+//         let type_ticket = $('#type_ticket option:selected').text();
+//         if (type_ticket == 'взрослый') {
+//             $('#price_ticket').val('4000');
+//         } else {
+//             $('#price_ticket').val('2000');
+//         }
+//     } else {
+//         //console.log('не пустой');
+//         if (type_selected == 'Росбилет') {
+//             let type_ticket = $('#type_ticket option:selected').text();
+//             let curent_page = $('h1').text();
+//             if (type_ticket == 'взрослый') {
+//                 $('#price_ticket').val('3900');
+//             } else {
+//                 $('#price_ticket').val('1950');
+//             }
+//             if (curent_page == 'Правка билета') {
+//                 $('#price_ticket').val('3900');
+//             }
+//         } else {
+//             let type_ticket = $('#type_ticket option:selected').text();
+//             let curent_page = $('h1').text();
+//             if (type_ticket == 'взрослый') {
+//                 $('#price_ticket').val('4000');
+//             } else {
+//                 $('#price_ticket').val('2000');
+//             }  
+//             if (curent_page == 'Правка билета') {
+//                 $('#price_ticket').val('4000');
+//             }
+//         }
+//     }
+// });
 
 
 
@@ -193,6 +224,7 @@ $(document).on('click', 'p.passengers_item', function(){
 
 
 
+//Скрипты нажатия кнопок станций посадки и высадки
 $(document).on('click', 'button.uk-ticket-button-station-start', function(){
     $('div.uk-ticket-button-station-items').find('button.uk-ticket-button-station-start').each(function (){
         $(this).removeClass('station_select');
@@ -205,6 +237,23 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
     
     $('#selected_station_start').val(selected_station_start);
     $('#id_selected_station_start').val(id_selected_station_start);
+
+    // Получение цены от двeх станций
+    $('#type_ticket option:first').prop('selected', true);
+    $('#agent_ticket option:first').prop('selected', true);
+    let startStation = $('div.start-station').find('button.station_select').text();
+    let finishStation = $('div.finish-station').find('button.station_select').text();
+    let ticketPrice = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('tp');
+    if (finishStation) {
+        if (ticketPrice) {
+            $('#sel_price').text(ticketPrice);
+            $('#price_ticket').val(ticketPrice);
+        } else {
+            $('#sel_price').text('4000');
+            $('#price_ticket').val('4000');
+        }
+    }
+    // ===============================
 });
 
 $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
@@ -219,6 +268,23 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
     
     $('#selected_station_finish').val(selected_station_finish);
     $('#id_selected_station_finish').val(id_selected_station_finish);
+
+    // Получение цены от двeх станций
+    $('#type_ticket option:first').prop('selected', true);
+    $('#agent_ticket option:first').prop('selected', true);
+    let startStation = $('div.start-station').find('button.station_select').text();
+    let finishStation = $('div.finish-station').find('button.station_select').text();
+    let ticketPrice = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('tp');
+    if (finishStation) {
+        if (ticketPrice) {
+            $('#sel_price').text(ticketPrice);
+            $('#price_ticket').val(ticketPrice);
+        } else {
+            $('#sel_price').text('4000');
+            $('#price_ticket').val('4000');
+        }
+    }
+    // ===============================
 });
 
 

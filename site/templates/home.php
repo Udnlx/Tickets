@@ -27,13 +27,13 @@ if ($operator == 'no_operator') {
 <?php
 //===============Блок отображения контента в зависимости от прав пользователя===============
 $button_informers = '';
-if ($access == 'admin' || $access == 'supermanager') {
+if ($access == 'admin' || $access == 'supermanager' || $access == 'managerReserver') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/rezerv-biletov-vybor-reisa/">Резерв билетов</a>';
 }
-if ($access == 'admin' || $access == 'supermanager') {
+if ($access == 'admin' || $access == 'supermanager' || $access == 'managerEditor') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/reestr-passazhirov-vybor-passazhira/">Редактор пассажиров</a>';
 }
-if ($access == 'admin' || $access == 'supermanager' || $access == 'manager') {
+if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/otchety/">Отчеты</a>';
 }
 //===============Блок отображения контента в зависимости от прав пользователя===============

@@ -22,7 +22,7 @@ if ($operator == 'no_operator') {
     </div>
 <?php    
 } else {
-    if ($access == 'admin' || $access == 'supermanager' || $access == 'manager') {
+    if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver') {
     ?>
         <div id="content" style="max-width: 700px;">
             <h1 class="uk-heading-hero uk-text-center">Отчеты</h1>

@@ -26,7 +26,7 @@ if ($operator == 'no_operator') {
 
 <?php    
 } else {
-    if ($access == 'admin' || $access == 'supermanager') {
+    if ($access == 'admin' || $access == 'supermanager' || $access == 'managerEditor') {
         //ДИНАМИЧЕСКИЙ ПОИСК ПО ПАССАЖИРАМ
         // $all_passengers = $pages->find('template=passengers');
         // $arr_all_passengers = [];

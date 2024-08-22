@@ -247,14 +247,13 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     $agents = '';
                     foreach ($all_agents->agent_items as $agent_itm) {
                         $agents .= '
-                        <option rate="' . $agent_itm->rate . '">' . $agent_itm->agent . '</option>
+                        <option rate="' . $agent_itm->rate . '" diff="' . $agent_itm->difference . '">' . $agent_itm->agent . '</option>
                         ';
                     }
                     ?>
                     <div class="uk-margin-small-top">
                         <label for="agent_ticket">Агент</label>
                         <select class="uk-select" id="agent_ticket" name="agent_ticket">
-                            <option>Олимп</option>
                             <?php echo $agents; ?>
                         </select>
                     </div>

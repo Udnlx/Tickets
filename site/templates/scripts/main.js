@@ -137,20 +137,37 @@ $('#type_ticket').change( function() {
 $('#agent_ticket').change( function() {
     let type_selected = $('#agent_ticket option:selected').text();
     let rate = $('#agent_ticket option:selected').attr('rate');
+    let diff = $('#agent_ticket option:selected').attr('diff');
     let type_ticket = $('#type_ticket option:selected').text();
     let sel_price = $('#sel_price').text();
-    if (type_ticket == 'взрослый') {
-        let receive_price = sel_price*rate;
-        console.log (receive_price);
-        receive_price = Math.ceil(receive_price);
-        receive_price = Math.round(receive_price/10)*10;
-        $('#price_ticket').val(receive_price);
+    if (diff) {
+        if (type_ticket == 'взрослый') {
+            let receive_price = sel_price-diff;
+            console.log (receive_price);
+            receive_price = Math.ceil(receive_price);
+            receive_price = Math.round(receive_price/10)*10;
+            $('#price_ticket').val(receive_price);
+        } else {
+            let receive_price = (sel_price/2)-diff;
+            console.log (receive_price);
+            receive_price = Math.ceil(receive_price);
+            receive_price = Math.round(receive_price/10)*10;
+            $('#price_ticket').val(receive_price);
+        }
     } else {
-        let receive_price = (sel_price/2)*rate;
-        console.log (receive_price);
-        receive_price = Math.ceil(receive_price);
-        receive_price = Math.round(receive_price/10)*10;
-        $('#price_ticket').val(receive_price);
+        if (type_ticket == 'взрослый') {
+            let receive_price = sel_price*rate;
+            console.log (receive_price);
+            receive_price = Math.ceil(receive_price);
+            receive_price = Math.round(receive_price/10)*10;
+            $('#price_ticket').val(receive_price);
+        } else {
+            let receive_price = (sel_price/2)*rate;
+            console.log (receive_price);
+            receive_price = Math.ceil(receive_price);
+            receive_price = Math.round(receive_price/10)*10;
+            $('#price_ticket').val(receive_price);
+        }
     }
 });
 

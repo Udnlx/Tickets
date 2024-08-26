@@ -586,42 +586,44 @@ return false;
 //Проверка свободно ли место перед регистрацией билета
 $('#select_seat').submit(function(){
     if(!$(this).attr('validated')) {
-    console.log ('делаем проверку места');
+    console.log ('делаем проверку места и дубликат пассажира');
     var check_selected_bus = $('#selected_bus').val();
     var check_selected_id_bus = $('#selected_id_bus').val();
     var check_selected_date = $('#selected_date').val();
     var check_selected_time = $('#selected_time').val();
     var check_selected_seat = $('#selected_seat').val();
+    var check_selected_name = $('#selected_name').val();
     
-$.ajax({
-    type: "POST",
-    url: '/check_seat.php',
-    data: {
-        'check_selected_bus':check_selected_bus, 
-        'check_selected_id_bus':check_selected_id_bus,
-        'check_selected_date':check_selected_date,
-        'check_selected_time':check_selected_time,
-        'check_selected_seat':check_selected_seat
-    },
-    beforeSend: function () {
-        $('#seat_messages').html('<p class="messages" style="color: green;">Идет проверка места...</p>');
-    },
-    success: function (data) {
-        $('#seat_messages').html(data);
-        let message = $('#seat_messages p.messages').text();
-        console.log (message);
-        if (message == 'Место свободно, регистрируем') {
-            console.log ('РЕГЕСТРИРУЕМ');
-            $('#select_seat').attr('validated',true);
-            $('#select_seat').submit();
-        } else {
-            console.log ('НЕ РЕГЕСТРИРУЕМ');
+    $.ajax({
+        type: "POST",
+        url: '/check_seat.php',
+        data: {
+            'check_selected_bus':check_selected_bus, 
+            'check_selected_id_bus':check_selected_id_bus,
+            'check_selected_date':check_selected_date,
+            'check_selected_time':check_selected_time,
+            'check_selected_seat':check_selected_seat,
+            'check_selected_name':check_selected_name
+        },
+        beforeSend: function () {
+            $('#seat_messages').html('<p class="messages" style="color: green;">Идет проверка места...</p>');
+        },
+        success: function (data) {
+            $('#seat_messages').html(data);
+            let message = $('#seat_messages p.messages').text();
+            console.log (message);
+            if (message == 'Проверка места пройдена, регистрируем') {
+                console.log ('РЕГЕСТРИРУЕМ');
+                $('#select_seat').attr('validated',true);
+                $('#select_seat').submit();
+            } else {
+                console.log ('НЕ РЕГЕСТРИРУЕМ');
+            }
+        },
+        error: function (jqXHR, text, error) {
+            $('#seat_messages').html(error);
         }
-    },
-    error: function (jqXHR, text, error) {
-        $('#seat_messages').html(error);
-    }
-});
+    });
     return false;  
     }                            
     return true;

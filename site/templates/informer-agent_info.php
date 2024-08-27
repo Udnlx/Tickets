@@ -76,7 +76,7 @@ $reestr_all_agent_tickets .= '
             <div class="uk-flex uk-flex-column">
                 <br>
                 <h3 class="uk-margin-remove uk-card-title">Информация о билетах</h3>
-                <div class="reestr_seat uk-flex" style="max-height: 700px;">
+                <div class="reestr_seat uk-flex noselect" style="max-height: 700px;">
                     <?php echo $reestr_all_agent_tickets ; ?>
                 </div>
                 

@@ -73,7 +73,7 @@ $reestr_seat .= '
         <div>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Реестр уже купленных мест</h3>
-                <div class="reestr_seat uk-flex" style="max-height: 700px;">
+                <div class="reestr_seat uk-flex noselect" style="max-height: 700px;">
                     <?php echo $reestr_seat ; ?>
                 </div>
                 

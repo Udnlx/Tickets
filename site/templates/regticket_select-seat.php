@@ -321,7 +321,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 </div>
             </div>
             <br>
-            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column" id="filter_passenger">
                 <h3 class="uk-margin-remove uk-card-title">Выбор пассажира</h3>
                 <p class="uk-margin-remove" style="color: red; font-weight: 700; line-height: 1;">После набора параметра нажмите Enter или кнопку "Фильтр" для фильтрации</p>
                 <!-- <div class="uk-margin-small">

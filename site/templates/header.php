@@ -19,9 +19,6 @@ $menu = '
                 <button class="uk-offcanvas-close" type="button" uk-close></button>
                 <br>
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
-                <a class="uk-margin-small uk-button uk-button-default" href="/registratciia-bileta-vybor-reisa/">Зарегистрировать билет</a>
-                <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Правка билета</a>
-                <a class="uk-margin-small uk-button uk-button-default" href="" uk-toggle="target: #modal-help">Техподдержка</a>
             </div>
         </div>
 

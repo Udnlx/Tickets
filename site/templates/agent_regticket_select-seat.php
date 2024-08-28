@@ -100,7 +100,7 @@ $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] 
 $phone_passenger = $data_passenger->phone_passenger;
 $birthday_passenger = $data_passenger->birthday_passenger;
 $reestr_seat .= '
-    <p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br> Станция посадки: ' . $val['station'] . '<br>' . $val['passenger'] . '<br>' . $birthday_passenger . '<br>тип билета: ' . $val['type_ticket'] . '<br>' . $val['passenger_doc'] . '<br>телефон: ' . $phone_passenger . '<br>агент: ' . $val['agent_ticket'] . '<br><span> - Регистратор: ' . $val['operator'] . '</span></p>
+    <p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br> Станция посадки: ' . $val['station'] . '<br>' . $val['passenger'] . '<br>' . $birthday_passenger . '<br>тип билета: ' . $val['type_ticket'] . '<br>агент: ' . $val['agent_ticket'] . '<br><span> - Регистратор: ' . $val['operator'] . '</span></p>
 ';
 }
 
@@ -121,12 +121,12 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 }
                 if ($val['pay_or_booking'] == 'забронировано') {
                     $button_seat .= '
-                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_reserv" disabled title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_reserv" disabled title="Место забронировано: ' . $val['passenger'] . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
                     ';
                 }
                 if ($val['pay_or_booking'] == 'оплачено') {
                     $button_seat .= '
-                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_pay" disabled title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_pay" disabled title="Место оплачено: ' . $val['passenger'] . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
                     ';
                 }
         }
@@ -181,7 +181,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
                 <h4 class="uk-margin-remove">Выбранный рейс:<br><span style="font-weight: 700;"><?php echo $selected_bus; ?></span></h4>
                 <h4 class="uk-margin-remove">Дата: <span style="font-weight: 700;"><?php echo $selected_date; ?></span> отправление<span style="font-weight: 700;"><?php echo $selected_time; ?></span></h4>
-                <form class="uk-flex uk-flex-column" id="select_seat" action="/registratciia-bileta/" method="post">
+                <form class="uk-flex uk-flex-column" id="select_seat" action="/agent-registratciia-bileta/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_bus" type="text" name="selected_bus" value="<?php echo $selected_bus; ?>">
                     </div>
@@ -239,7 +239,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <div class="uk-margin-small-top">
                         <input class="uk-input readonly" id="selected_name" type="text" name="selected_name" value="" placeholder="ФИО пассажира" autocomplete="off" required>
                     </div>
-                    <div class="uk-margin-small-top">
+                    <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input readonly" id="selected_document" type="text" name="selected_document" value="" placeholder="Документ пассажира" autocomplete="off" required>
                     </div>
                     <?php
@@ -264,7 +264,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
                         <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Зарегистрировать</button>
-                        <a class="uk-margin-small uk-button uk-button-default" href="/registratciia-bileta-vybor-reisa/">К выбору рейса</a>
+                        <a class="uk-margin-small uk-button uk-button-default" href="/agent-registratciia-bileta-vybor-reisa/">К выбору рейса</a>
                     </div>
                     <div id="seat_messages" class="messages-block">
                         <p class="messages" style="color: green;"></p>
@@ -323,16 +323,16 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <input class="uk-input" id="search_passenger" type="text" name="search_passenger" placeholder="введите параметры для поиска">
                 </div> -->
                 <div class="uk-margin-small uk-flex uk-flex-middle">
-                    <input class="uk-input" id="search_passenger" type="text" name="search_passenger" placeholder="введите параметры для фильтра по ФИО">
-                    <p id="filter-passenger-btn" class="uk-margin-none uk-button uk-button-default">ФИЛЬТР</p>
+                    <input class="uk-input" id="agent_search_passenger" type="text" name="search_passenger" placeholder="введите параметры для фильтра по ФИО">
+                    <p id="agent-filter-passenger-btn" class="uk-margin-none uk-button uk-button-default">ФИЛЬТР</p>
                 </div>
                 <div class="uk-margin-small uk-flex uk-flex-middle">
-                    <input class="uk-input" id="search_passenger_doc" type="text" name="search_passenger_doc" placeholder="введите параметры для фильтра по документу">
-                    <p id="filter-passenger-doc-btn" class="uk-margin-none uk-button uk-button-default">ФИЛЬТР</p>
+                    <input class="uk-input" id="agent_search_passenger_doc" type="text" name="search_passenger_doc" placeholder="введите параметры для фильтра по документу">
+                    <p id="agent-filter-passenger-doc-btn" class="uk-margin-none uk-button uk-button-default">ФИЛЬТР</p>
                 </div>
                 <div class="uk-margin-small uk-flex uk-flex-middle">
-                    <input class="uk-input" id="search_passenger_phone" type="text" name="search_passenger_phone" placeholder="введите параметры для фильтра по телефону">
-                    <p id="filter-passenger-phone-btn" class="uk-margin-none uk-button uk-button-default">ФИЛЬТР</p>
+                    <input class="uk-input" id="agent_search_passenger_phone" type="text" name="search_passenger_phone" placeholder="введите параметры для фильтра по телефону">
+                    <p id="agent-filter-passenger-phone-btn" class="uk-margin-none uk-button uk-button-default">ФИЛЬТР</p>
                 </div>
                 <div id="result-filter-passenger" class="reestr_passenger uk-flex">
                     <?php 

@@ -461,6 +461,142 @@ $('#search_passenger_phone').on('keyup', function (e) {
 
 
 
+//СТАТИЧЕСКИЙ ПОИСК ПО ПАССАЖИРАМ ДЛЯ АГЕНТОВ
+$('#agent-filter-passenger-btn').click(function() {
+    var search_passenger = $('#agent_search_passenger').val();
+    $.ajax({
+        type: "POST",
+        url: '/agent-filter-passenger.php',
+        data: {
+            'search_passenger':search_passenger
+        },
+        beforeSend: function () {
+            $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+        },
+        success: function (data) {
+            $('#result-filter-passenger').html(data);
+        },
+        error: function (jqXHR, text, error) {
+            $('#result-filter-passenger').html(error);
+        }
+    });
+    return false;    
+});
+
+$('#agent_search_passenger').on('keyup', function (e) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+        var search_passenger = $('#agent_search_passenger').val();
+        $.ajax({
+            type: "POST",
+            url: '/agent-filter-passenger.php',
+            data: {
+                'search_passenger':search_passenger
+            },
+            beforeSend: function () {
+                $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+            },
+            success: function (data) {
+                $('#result-filter-passenger').html(data);
+            },
+            error: function (jqXHR, text, error) {
+                $('#result-filter-passenger').html(error);
+            }
+        });
+        return false;  
+    }
+});
+
+$('#agent-filter-passenger-doc-btn').click(function() {
+    var search_passenger = $('#agent_search_passenger_doc').val();
+    $.ajax({
+        type: "POST",
+        url: '/agent-filter-passenger-doc.php',
+        data: {
+            'search_passenger':search_passenger
+        },
+        beforeSend: function () {
+            $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+        },
+        success: function (data) {
+            $('#result-filter-passenger').html(data);
+        },
+        error: function (jqXHR, text, error) {
+            $('#result-filter-passenger').html(error);
+        }
+    });
+    return false;    
+});
+
+$('#agent_search_passenger_doc').on('keyup', function (e) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+        var search_passenger = $('#agent_search_passenger_doc').val();
+        $.ajax({
+            type: "POST",
+            url: '/agent-filter-passenger-doc.php',
+            data: {
+                'search_passenger':search_passenger
+            },
+            beforeSend: function () {
+                $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+            },
+            success: function (data) {
+                $('#result-filter-passenger').html(data);
+            },
+            error: function (jqXHR, text, error) {
+                $('#result-filter-passenger').html(error);
+            }
+        });
+        return false;  
+    }
+});
+
+$('#agent-filter-passenger-phone-btn').click(function() {
+    var search_passenger = $('#agent_search_passenger_phone').val();
+    $.ajax({
+        type: "POST",
+        url: '/agent-filter-passenger-phone.php',
+        data: {
+            'search_passenger':search_passenger
+        },
+        beforeSend: function () {
+            $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+        },
+        success: function (data) {
+            $('#result-filter-passenger').html(data);
+        },
+        error: function (jqXHR, text, error) {
+            $('#result-filter-passenger').html(error);
+        }
+    });
+    return false;    
+});
+
+$('#agent_search_passenger_phone').on('keyup', function (e) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+        var search_passenger = $('#agent_search_passenger_phone').val();
+        $.ajax({
+            type: "POST",
+            url: '/agent-filter-passenger-phone.php',
+            data: {
+                'search_passenger':search_passenger
+            },
+            beforeSend: function () {
+                $('#result-filter-passenger').html('<p class="messages" style="color: green;">Пожалуйста ожидайте...</p>');
+            },
+            success: function (data) {
+                $('#result-filter-passenger').html(data);
+            },
+            error: function (jqXHR, text, error) {
+                $('#result-filter-passenger').html(error);
+            }
+        });
+        return false;  
+    }
+});
+//СТАТИЧЕСКИЙ ПОИСК ПО ПАССАЖИРАМ ДЛЯ АГЕНТОВ
+
+
+
 //ДИНАМИЧЕСКИЙ ПОИСК ПО БИЛЕТАМ
 $('#search_tickets').keyup(function(){
     let search_value = $('#search_tickets').val();

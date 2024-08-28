@@ -1,10 +1,5 @@
 <?php namespace ProcessWire;
 
-$access = '';
-if(isset($_SESSION['access'])){
-    $access = $_SESSION['access'];
-}
-
 $selected_bus = !empty($_POST['post_bus'])?$_POST['post_bus']:NULL;  
 $selected_id_bus = !empty($_POST['post_id_bus'])?$_POST['post_id_bus']:NULL;
 $selected_date = !empty($_POST['post_date'])?$_POST['post_date']:NULL;
@@ -16,7 +11,7 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
-if ($operator == 'no_operator' || $access == 'agent') {
+if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">

@@ -37,17 +37,30 @@ if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/otchety/">Отчеты</a>';
 }
 //===============Блок отображения контента в зависимости от прав пользователя===============
+
+$basemenu = '
+<div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
+    <h3 class="uk-card-title">Выберите действие</h3>
+    <a class="uk-margin-small uk-button uk-button-default" href="/registratciia-bileta-vybor-reisa/">Зарегистрировать билет</a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Правка билета</a>
+    ' . $button_informers . '
+    <a class="uk-margin-small uk-button uk-button-default" href="" uk-toggle="target: #modal-help">Техподдержка</a>
+</div>
+';
+if ($access == 'agent') {
+    $basemenu = '
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
+        <h3 class="uk-card-title">Выберите действие</h3>
+        <a class="uk-margin-small uk-button uk-button-default" href="/agent-registratciia-bileta-vybor-reisa/">Зарегистрировать билет</a>
+        <a class="uk-margin-small uk-button uk-button-default" href="/agent-pravka-bileta-vybor-reisa/">Правка билета</a>
+    </div>
+    ';
+}
 ?>
 
 <div id="content" style="max-width: 700px;">
 	<h1 class="uk-heading-hero uk-text-center">Домашняя страница</h1>
-	            
-    <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
-        <h3 class="uk-card-title">Выберите действие</h3>
-        <a class="uk-margin-small uk-button uk-button-default" href="/registratciia-bileta-vybor-reisa/">Зарегистрировать билет</a>
-        <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Правка билета</a>
-        <?php echo $button_informers; ?>
-        <a class="uk-margin-small uk-button uk-button-default" href="" uk-toggle="target: #modal-help">Техподдержка</a>
+        <?php echo $basemenu; ?>
     </div>
     
     <!-- Модальное окно техподдержки-->

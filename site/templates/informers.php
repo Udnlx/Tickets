@@ -11,6 +11,13 @@ if(isset($_SESSION['access'])){
     $access = $_SESSION['access'];
 }
 
+$special_button = '';
+if ($operator == 'admin-test' || $operator == 'Директор') {
+    $special_button = '
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-registratcii-passazhirov-vybor-perioda/">Отчет по регистрации пассажиров</a>
+    ';
+}
+
 if ($operator == 'no_operator') {
 ?>
     <div id="content" style="max-width: 700px;">
@@ -31,7 +38,7 @@ if ($operator == 'no_operator') {
                 <h3 class="uk-card-title">Выберите действие</h3>
                 <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-vybor-avtobusa/">Отчет по рейсу</a>
                 <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-vybor-agenta/">Отчет по агенту</a>
-                <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-registratcii-passazhirov-vybor-perioda/">Отчет по регистрации пассажиров</a>
+                <?php echo $special_button; ?>
                 <a class="uk-margin-small uk-button uk-button-default" href="">Отчет по пассажиру (в разработке)</a>
                 <a class="uk-margin-small uk-button uk-button-default" href="">Отчет по билетам за период (в разработке)</a>
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>

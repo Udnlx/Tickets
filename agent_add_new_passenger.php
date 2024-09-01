@@ -1,0 +1,73 @@
+<?php
+
+namespace ProcessWire;
+
+require_once 'index.php';
+
+
+
+
+
+$add_name_passenger = $_POST['add_name_passenger'];
+$add_birthday_passenger = $_POST['add_birthday_passenger'];
+$add_type_doc_passenger = $_POST['add_type_doc_passenger'];
+$add_num_doc_passenger = $_POST['add_num_doc_passenger'];
+$add_passport_passenger = $_POST['add_passport_passenger'];
+$add_phone_passenger = $_POST['add_phone_passenger'];
+$add_agent = $_POST['add_agent'];
+
+if ($add_name_passenger == '' || $add_birthday_passenger == '' || $add_type_doc_passenger == '' || $add_num_doc_passenger == '' || $add_passport_passenger == '' || $add_phone_passenger == '') {
+    echo '<p class="messages" style="color: red;">Ошибка. Пассажир не добавлен.<br>Проверьте заполненность полей и повторите попытку.</p>';    
+} else {
+    $passengers = '';
+    $passengers = $pages->find('template=passengers, num_doc_passenger=' . $add_num_doc_passenger . '');
+    if ($passengers != '') {
+        echo '<p class="messages" style="color: red;">Ошибка. Пассажир не добавлен.<br>Пассажир с таким номером документа уже существует:</p>';
+        foreach($passengers as $passenger) {
+           echo '<p class="messages" style="color: green;">' . $passenger->name_passenger . '</p>';
+        }
+    } else {
+        echo '<p class="messages" style="color: green;">Новый пассажир добавлен</p>';
+        //echo $add_name_passenger . ' - ' . $add_birthday_passenger . ' - ' . $add_type_doc_passenger . ' - ' . $add_num_doc_passenger . ' - ' . $add_passport_passenger . ' - ' . $add_phone_passenger;
+        
+        $pages->add('passengers', '/passazhiry/', [
+            'title' => $add_name_passenger,
+            'name_passenger' => $add_name_passenger,
+            'birthday_passenger' => $add_birthday_passenger,
+            'type_doc_passenger' => $add_type_doc_passenger,
+            'num_doc_passenger' => $add_num_doc_passenger,
+            'passport_passenger' => $add_passport_passenger,
+            'phone_passenger' => $add_phone_passenger,
+            'agent' => $add_agent,
+        ]);
+        
+        $all_passengers = $pages->find('template=passengers, title~*=' . $add_name_passenger . '');
+        $arr_all_passengers = [];
+        foreach ($all_passengers as $all_passengers_item) {
+            $arr_all_passengers[] = array(
+                "id_passenger"=>$all_passengers_item->id,
+                "name_passenger"=>$all_passengers_item->name_passenger,
+                "birthday_passenger"=>$all_passengers_item->birthday_passenger,
+                "type_doc_passenger"=>$all_passengers_item->type_doc_passenger,
+                "num_doc_passenger"=>$all_passengers_item->num_doc_passenger,
+                "passport_passenger"=>$all_passengers_item->passport_passenger,
+                "phone_passenger"=>$all_passengers_item->phone_passenger
+                );
+        }
+        $passengers = '';
+        foreach ($arr_all_passengers as $key => $val) {
+        $lite_pp = mb_substr($val['passport_passenger'], -2, 3);
+        $lite_ndp = mb_substr($val['num_doc_passenger'], -2, 3);
+        $lite_phone = mb_substr($val['phone_passenger'], -5, 4);
+        $passengers .= '
+            <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span class="uk-hidden">' . $val['birthday_passenger'] . ' — ' . $val['type_doc_passenger'] . ' — ' . $val['passport_passenger'] . ' — ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
+            <p style="margin: -4px 0 4px 0 !important;font-size: 11px;"><span>' . $val['birthday_passenger'] . ', ' . $val['type_doc_passenger'] . ', ...' . $lite_pp . ', ......' . $lite_ndp . '<br>.........' . $lite_phone . '</span></p>
+        ';
+        }
+        echo '
+            <div id="get_all_passengers" style="display: none">
+                '. $passengers .'
+            </div>
+        ';
+    }
+}

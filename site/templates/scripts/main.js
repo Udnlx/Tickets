@@ -663,6 +663,60 @@ return false;
 
 
 
+//Добавление нового пассажира для агентов
+$('#agent_add_passenger').click(function() {
+    var add_name_passenger = $('#name_passenger').val();
+    var add_birthday_passenger = $('#birthday_passenger').val();
+    var day_rev = add_birthday_passenger.split("-").reverse().join(".");
+    var add_birthday_passenger = day_rev;
+    var add_type_doc_passenger = $('#type_doc_passenger').val();
+    var add_num_doc_passenger = $('#num_doc_passenger').val();
+    var add_passport_passenger = $('#passport_passenger').val();
+    var add_phone_passenger = $('#phone_passenger').val();
+    var add_agent = $('#agent').val();
+    //console.log(add_name_passenger, add_birthday_passenger, add_type_doc_passenger, add_num_doc_passenger, add_passport_passenger, add_phone_passenger);
+$.ajax({
+    type: "POST",
+    url: '/agent_add_new_passenger.php',
+    data: {
+        'add_name_passenger':add_name_passenger, 
+        'add_birthday_passenger':add_birthday_passenger,
+        'add_type_doc_passenger':add_type_doc_passenger,
+        'add_num_doc_passenger':add_num_doc_passenger,
+        'add_passport_passenger':add_passport_passenger,
+        'add_phone_passenger':add_phone_passenger,
+        'add_agent':add_agent
+    },
+    beforeSend: function () {
+        $('#messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
+    },
+    success: function (data) {
+        $('#messages').html(data);
+        
+        let v = $('p.messages').text();
+        if (v.indexOf('Ошибка') == -1) {
+        $('#name_passenger').val('');
+        $('#birthday_passenger').val('');
+        $('#type_doc_passenger').val('');
+        $('#num_doc_passenger').val('');
+        $('#passport_passenger').val('');
+        $('#phone_passenger').val('');
+        $('#agent').val('');
+        let allpassengers = $('#get_all_passengers').html();
+        $('#search_passenger').val('');
+        $('.reestr_passenger').html(allpassengers);
+        }
+    },
+    error: function (jqXHR, text, error) {
+        $('#messages').html(error);
+    }
+});
+return false;    
+});
+//Добавление нового пассажира для агентов
+
+
+
 //Редактирование пассажира
 $('#edit_passenger').click(function() {
     var id_passenger = $('#id_passenger').val();

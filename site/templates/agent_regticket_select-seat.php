@@ -413,7 +413,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
 
             <br>
             <div class="uk-flex uk-flex-center">
-                <button id="add_passenger" class="uk-button uk-button-primary" type="button">Добавить</button>
+                <button id="agent_add_passenger" class="uk-button uk-button-primary" type="button">Добавить</button>
             </div>
         </div>
     </div>

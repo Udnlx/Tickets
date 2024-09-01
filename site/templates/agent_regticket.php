@@ -1,10 +1,5 @@
 <?php namespace ProcessWire;
 
-$access = '';
-if(isset($_SESSION['access'])){
-    $access = $_SESSION['access'];
-}
-
 if(isset($_SESSION['operator'])){
     $operator = $_SESSION['operator'];
 } else {
@@ -63,6 +58,10 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
         ]);
         $ticket_page = $pages->get('title=' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat . '');
         $ticket_id = $ticket_page->id;
+        $log = '';
+        $log .= date('Y-m-d H:i:s') . ' - Зарегестрирован билет id - ' . $ticket_id . ', оператором ' . $operator . '. ';
+        $log .= 'Автобус ' . $selected_bus . ', дата отправления ' . $selected_date . ', место посадки ' . $selected_seat . '. '; 
+        file_put_contents(__DIR__ . '/log_agent_tikets.txt', $log . PHP_EOL, FILE_APPEND);
     }
 } else {
     $success = 'Билет не зарегистрирован!<br>Ошибка в данных';
@@ -76,7 +75,7 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
-if ($operator == 'no_operator' || $access == 'agent') {
+if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">
@@ -116,7 +115,7 @@ if ($operator == 'no_operator' || $access == 'agent') {
         <p class="uk-margin-remove">Агент билета: <span style="font-weight: 700;"><?php echo $agent_ticket; ?></span></p>
         <p class="uk-margin-remove">Цена билета: <span style="font-weight: 700;"><?php echo $price_ticket; ?></span></p>
 
-        <form class="uk-flex uk-flex-column" id="select_bus" action="/registratciia-bileta-vybor-mesta/" method="post">
+        <form class="uk-flex uk-flex-column" id="select_bus" action="/agent-registratciia-bileta-vybor-mesta/" method="post">
             <div class="uk-margin-small-top uk-hidden">
                 <input class="uk-input" id="post_bus" type="text" name="post_bus" value="<?php echo $selected_bus ; ?>">
             </div>
@@ -138,6 +137,7 @@ if ($operator == 'no_operator' || $access == 'agent') {
             </div>
         </form>
 
+        <!--
         <form class="uk-flex uk-flex-column" id="print_ticket" action="/pechat-bileta/" method="post">
             <div class="uk-margin-small-top uk-hidden">
                 <input class="uk-input readonly" id="print_ticket_id" type="text" name="print_ticket_id" value="<?php echo $ticket_id ; ?>" placeholder="ID билета" autocomplete="off" required>
@@ -147,6 +147,7 @@ if ($operator == 'no_operator' || $access == 'agent') {
                 <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Распечатать билет</button>
             </div>
         </form>
+        -->
 
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>

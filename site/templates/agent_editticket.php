@@ -1,10 +1,5 @@
 <?php namespace ProcessWire;
 
-$access = '';
-if(isset($_SESSION['access'])){
-    $access = $_SESSION['access'];
-}
-
 if(isset($_SESSION['operator'])){
     $operator = $_SESSION['operator'];
 } else {
@@ -41,7 +36,7 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
     $log .= 'Агент изменен с ' . $old_agent_ticket . ' на ' . $agent_ticket . ' оператором ' . $operator . '. ';
     $log .= 'Цена билета изменена с ' . $old_price_ticket . ' на ' . $price_ticket . ' оператором ' . $operator . '. ';
     $log .= 'Параметры измененного билета: ' . $selected_bus . ' ' . $selected_date . '' . $selected_time . ', id автобуса - ' . $selected_id_bus . ', место - ' . $selected_seat . ', пассажир - ' . $passenger; 
-    file_put_contents(__DIR__ . '/log_edit_tikets.txt', $log . PHP_EOL, FILE_APPEND);
+    file_put_contents(__DIR__ . '/log_agent_edit_tikets.txt', $log . PHP_EOL, FILE_APPEND);
     
     $edit_page = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
     $edit_page->of(false);
@@ -63,7 +58,7 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
-if ($operator == 'no_operator' || $access == 'agent') {
+if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">

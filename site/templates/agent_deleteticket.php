@@ -1,10 +1,5 @@
 <?php namespace ProcessWire;
 
-$access = '';
-if(isset($_SESSION['access'])){
-    $access = $_SESSION['access'];
-}
-
 if(isset($_SESSION['operator'])){
     $operator = $_SESSION['operator'];
 } else {
@@ -26,7 +21,7 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
     $log .= date('Y-m-d H:i:s') . ' - Удален билет id - ' . $id_seat . '. ';
     $log .= 'Билет удален оператором ' . $operator . '. '; 
     $log .= 'Параметры удаленного билета: ' . $selected_bus . ' ' . $selected_date . '' . $selected_time . ', id автобуса - ' . $selected_id_bus . ', место - ' . $selected_seat . ', пассажир - ' . $passenger; 
-    file_put_contents(__DIR__ . '/log_delete_tikets.txt', $log . PHP_EOL, FILE_APPEND);
+    file_put_contents(__DIR__ . '/log_agent_delete_tikets.txt', $log . PHP_EOL, FILE_APPEND);
     
     $delete_page = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
     $delete_page->delete();
@@ -42,7 +37,7 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
-if ($operator == 'no_operator' || $access == 'agent') {
+if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">

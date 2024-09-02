@@ -1,10 +1,5 @@
 <?php namespace ProcessWire;
 
-$access = '';
-if(isset($_SESSION['access'])){
-    $access = $_SESSION['access'];
-}
-
 $selected_bus = !empty($_POST['selected_bus'])?$_POST['selected_bus']:NULL;  
 $selected_id_bus = !empty($_POST['selected_id_bus'])?$_POST['selected_id_bus']:NULL;
 $selected_date = !empty($_POST['selected_date'])?$_POST['selected_date']:NULL;
@@ -18,7 +13,7 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
-if ($operator == 'no_operator' || $access == 'agent') {
+if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">
@@ -62,7 +57,7 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                 <h4 class="uk-margin-remove">Агент: <span style="font-weight: 700;"><?php echo $ticket->agent_ticket; ?></span></h4>
                 <h4 class="uk-margin-remove">Цена билета: <span style="font-weight: 700;"><?php echo $ticket->price_ticket; ?></span></h4>
                 <h4 class="uk-margin-remove">Пассажир: <span style="font-weight: 700;"><?php echo $ticket->passenger; ?></span></h4>
-                <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Выбрать другой рейс и место</a>
+                <a class="uk-margin-small uk-button uk-button-default" href="/agent-pravka-bileta-vybor-reisa/">Выбрать другой рейс и место</a>
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Вернутся на главную</a>
             </div>
         </div>
@@ -70,7 +65,7 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
         <div>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Выбрать новые значения</h3>
-                <form class="uk-flex uk-flex-column" id="edit_ticket" action="/pravka-bileta-smena-statusa/" method="post">
+                <form class="uk-flex uk-flex-column" id="edit_ticket" action="/agent-pravka-bileta-smena-statusa/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_bus" type="text" name="selected_bus" value="<?php echo $selected_bus; ?>">
                     </div>
@@ -137,7 +132,6 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                     <div class="uk-margin-small-top">
                         <label for="agent_ticket">Агент</label>
                         <select class="uk-select" id="agent_ticket" name="agent_ticket">
-                            <option>Олимп</option>
                             <?php echo $agents; ?>
                         </select>
                     </div>
@@ -155,7 +149,7 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Освободить место</h3>
                 <p class="uk-text-warning uk-text-bold uk-text-center">Внимание! Операция освобождения места безвозвратна, все данные по выбранному месту будут удалены и место освободится.</p>
-                <form class="uk-flex uk-flex-column" id="delete_ticket" action="/pravka-bileta-udalenie/" method="post">
+                <form class="uk-flex uk-flex-column" id="delete_ticket" action="/agent-pravka-bileta-udalenie/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="del_selected_bus" type="text" name="del_selected_bus" value="<?php echo $selected_bus; ?>">
                     </div>

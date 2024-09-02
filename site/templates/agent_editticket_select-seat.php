@@ -1,10 +1,5 @@
 <?php namespace ProcessWire;
 
-$access = '';
-if(isset($_SESSION['access'])){
-    $access = $_SESSION['access'];
-}
-
 $selected_bus = !empty($_POST['post_bus'])?$_POST['post_bus']:NULL;  
 $selected_id_bus = !empty($_POST['post_id_bus'])?$_POST['post_id_bus']:NULL;
 $selected_date = !empty($_POST['post_date'])?$_POST['post_date']:NULL;
@@ -16,7 +11,7 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
-if ($operator == 'no_operator' || $access == 'agent') {
+if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">
@@ -34,7 +29,7 @@ if ($operator == 'no_operator' || $access == 'agent') {
 ?>
 
 <?php
-$reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', date_depart=' . $selected_date . ',sort=seat');
+$reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', date_depart=' . $selected_date . ', operator=' . $operator . ',sort=seat');
 $arr_reserv_seat = [];
 foreach ($reserv_seat as $reserv_seat_item) {
     $arr_reserv_seat[] = array(
@@ -59,7 +54,7 @@ $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] 
 $phone_passenger = $data_passenger->phone_passenger;
 $birthday_passenger = $data_passenger->birthday_passenger;
 $reestr_seat .= '
-    <p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br> Станция посадки: ' . $val['station'] . '<br>' . $val['passenger'] . '<br>' . $birthday_passenger . '<br>тип билета: ' . $val['type_ticket'] . '<br>' . $val['passenger_doc'] . '<br>телефон: ' . $phone_passenger . '<br>агент: ' . $val['agent_ticket'] . '<br><span> - Регистратор: ' . $val['operator'] . '</span></p>
+    <p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br> Станция посадки: ' . $val['station'] . '<br>' . $val['passenger'] . '<br>' . $birthday_passenger . '<br>тип билета: ' . $val['type_ticket'] . '<br>агент: ' . $val['agent_ticket'] . '<br><span> - Регистратор: ' . $val['operator'] . '</span></p>
 ';
 }
 
@@ -96,7 +91,7 @@ foreach ($arr_reserv_seat as $key => $val) {
                 <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
                 <h4 class="uk-margin-remove">Выбранный рейс:<br><span style="font-weight: 700;"><?php echo $selected_bus; ?></span></h4>
                 <h4 class="uk-margin-remove">Дата: <span style="font-weight: 700;"><?php echo $selected_date; ?></span> отправление<span style="font-weight: 700;"><?php echo $selected_time; ?></span></h4>
-                <form class="uk-flex uk-flex-column" id="select_edit_seat" action="/pravka-bileta-forma/" method="post">
+                <form class="uk-flex uk-flex-column" id="select_edit_seat" action="/agent-pravka-bileta-forma/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_bus" type="text" name="selected_bus" value="<?php echo $selected_bus; ?>">
                     </div>
@@ -119,10 +114,11 @@ foreach ($arr_reserv_seat as $key => $val) {
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
                         <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Править</button>
-                        <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">К выбору рейса</a>
+                        <a class="uk-margin-small uk-button uk-button-default" href="/agent-pravka-bileta-vybor-reisa/">К выбору рейса</a>
                     </div>
                 </form>
 
+                <!--
                 <form class="uk-flex uk-flex-column" id="print_ticket" action="/pechat-bileta/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input readonly" id="print_ticket_id" type="text" name="print_ticket_id" value="" placeholder="ID билета" autocomplete="off" required>
@@ -132,12 +128,14 @@ foreach ($arr_reserv_seat as $key => $val) {
                         <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Распечатать билет</button>
                     </div>
                 </form>
+                -->
             </div>
         </div>
         
         <div>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Реестр уже купленных мест</h3>
+                <p style="margin: -5px 0 0 0;font-size: 12px;color: green;">зарегестрированные текущим оператором</p>
                 <div class="filter">
                     <div class="filter-elem">
                     <p class="filter_icon"><i class="fa-solid fa-filter"></i></p>
@@ -151,6 +149,7 @@ foreach ($arr_reserv_seat as $key => $val) {
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Занятые места</h3>
+                <p style="margin: -5px 0 0 0;font-size: 12px;color: green;">зарегестрированные текущим оператором</p>
                 <div class="buttons_seat uk-flex uk-flex-wrap">
                     <?php echo $button_seat; ?>
                 </div>

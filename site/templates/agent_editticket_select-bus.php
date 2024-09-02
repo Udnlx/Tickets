@@ -1,10 +1,5 @@
 <?php namespace ProcessWire;
 
-$access = '';
-if(isset($_SESSION['access'])){
-    $access = $_SESSION['access'];
-}
-
 $button_bus = '';
 
 $all_bus = $pages->find("template=buses_item, bus_group=1, sort=sort");
@@ -57,7 +52,7 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
-if ($operator == 'no_operator' || $access == 'agent') {
+if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">
@@ -82,7 +77,7 @@ if ($operator == 'no_operator' || $access == 'agent') {
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column" uk-sticky>
                 <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
                 <h3 class="uk-margin-remove uk-card-title">Выбранный рейс</h3>
-                <form class="uk-flex uk-flex-column" id="select_bus" action="/pravka-bileta-vybor-mesta/" method="post">
+                <form class="uk-flex uk-flex-column" id="select_bus" action="/agent-pravka-bileta-vybor-mesta/" method="post">
                     <div class="uk-margin-small-top">
                         <input class="uk-input readonly" id="post_bus" type="text" name="post_bus" placeholder="Выберите рейс из списка" autocomplete="off" required>
                     </div>

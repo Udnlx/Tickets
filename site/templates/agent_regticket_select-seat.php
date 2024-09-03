@@ -203,7 +203,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     </div>
 
                     <div class="uk-margin-small-top">
-                        <input class="uk-input readonly" id="selected_station_finish" type="text" name="selected_station_finish" value="" placeholder="Станция высадки" autocomplete="off">
+                        <input class="uk-input readonly" id="selected_station_finish" type="text" name="selected_station_finish" value="" placeholder="Станция высадки" autocomplete="off" required>
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input readonly" id="id_selected_station_finish" type="text" name="id_selected_station_finish" value="">

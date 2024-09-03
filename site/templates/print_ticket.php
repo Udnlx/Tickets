@@ -128,7 +128,7 @@ $dompdf->loadHtml($content, 'UTF-8');
 $dompdf->render();
  
 // Вывод файла в браузер:
-$dompdf->stream('Билет - ' . $ticket_id . ''); 
+// $dompdf->stream('Билет - ' . $ticket_id . ''); 
 ?>
 
 <div id="content" style="max-width: 700px;">
@@ -143,6 +143,8 @@ $dompdf->stream('Билет - ' . $ticket_id . '');
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>
 </div>
+
+<?php echo $content; ?>
 
 <?php   
 }

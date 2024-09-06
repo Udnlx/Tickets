@@ -250,10 +250,11 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
     $(this).addClass('station_select');
     let selected_station_start = $(this).text();
     let id_selected_station_start = $(this).attr('id');
+    let param_selected_station_start = $(this).attr('param_btn');
     // console.log(selected_station_start);
     // console.log(id_selected_station_start);
     
-    $('#selected_station_start').val(selected_station_start);
+    $('#selected_station_start').val(param_selected_station_start);
     $('#id_selected_station_start').val(id_selected_station_start);
 
     // Получение цены от двeх станций
@@ -281,10 +282,11 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
     $(this).addClass('station_select');
     let selected_station_finish = $(this).text();
     let id_selected_station_finish = $(this).attr('id');
+    let param_selected_station_finish = $(this).attr('param_btn');
     // console.log(selected_station_finish);
     // console.log(id_selected_station_finish);
     
-    $('#selected_station_finish').val(selected_station_finish);
+    $('#selected_station_finish').val(param_selected_station_finish);
     $('#id_selected_station_finish').val(id_selected_station_finish);
 
     // Получение цены от двeх станций

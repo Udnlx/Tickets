@@ -33,16 +33,20 @@ if ($operator == 'no_operator') {
 $button_station_start = '';
 $bus_page = $pages->get('id=' . $selected_id_bus . '');
 foreach ($bus_page->station_start as $item) {
+$array = preg_split('/[—]/u', $item->title, -1, PREG_SPLIT_NO_EMPTY);
+//print_r($array);
 $button_station_start .= '
-<button id="' . $item->id . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . $item->title . '</button>
+<button id="' . $item->id . '" param_btn="' . $item->title . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . $array[0] . '</button>
 ';
 }
 
 $button_station_finish = '';
 $bus_page = $pages->get('id=' . $selected_id_bus . '');
 foreach ($bus_page->station_finish as $item) {
+$array = preg_split('/[—]/u', $item->title, -1, PREG_SPLIT_NO_EMPTY);
+//print_r($array);
 $button_station_finish .= '
-<button id="' . $item->id . '" class="uk-ticket-button-station-finish uk-margin-small-top uk-button uk-button-default">' . $item->title . '</button>
+<button id="' . $item->id . '" param_btn="' . $item->title . '" class="uk-ticket-button-station-finish uk-margin-small-top uk-button uk-button-default">' . $array[0] . '</button>
 ';
 }
 

@@ -72,8 +72,9 @@ foreach ($bus_stations as $bus_station) {
     ';
     foreach ($arr_reserv_seat as $key => $val) {
         $bus_station_title = str_replace(' ', '', $bus_station->title);
+        $bus_old_station_title = str_replace(' ', '', $bus_station->old_station_name);
         $ticket_station_title = str_replace(' ', '', $val['station']);
-        if ($bus_station_title == $ticket_station_title) {
+        if ($bus_station_title == $ticket_station_title || $bus_old_station_title == $ticket_station_title) {
             $page_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
             $booking_sum = '';
             if ($val['booking_sum'] != '') {

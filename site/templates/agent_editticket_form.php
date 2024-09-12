@@ -121,12 +121,16 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                     </div>
 
                     <?php
+                    $page_agent = $pages->get('template=users_system_item, title=' . $operator . '');
+                    $organization_agent = $page_agent->agent;
                     $all_agents = $pages->get('template=agents');
                     $agents = '';
                     foreach ($all_agents->agent_items as $agent_itm) {
-                        $agents .= '
-                        <option>' . $agent_itm->agent . '</option>
-                        ';
+                        if ($agent_itm->agent == $organization_agent) {
+                            $agents .= '
+                            <option rate="' . $agent_itm->rate . '" diff="' . $agent_itm->difference . '">' . $agent_itm->agent . '</option>
+                            ';
+                        }
                     }
                     ?>
                     <div class="uk-margin-small-top">

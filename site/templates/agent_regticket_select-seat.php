@@ -247,17 +247,22 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                         <input class="uk-input readonly" id="selected_document" type="text" name="selected_document" value="" placeholder="Документ пассажира" autocomplete="off" required>
                     </div>
                     <?php
+                    $page_agent = $pages->get('template=users_system_item, title=' . $operator . '');
+                    $organization_agent = $page_agent->agent;
                     $all_agents = $pages->get('template=agents');
                     $agents = '';
                     foreach ($all_agents->agent_items as $agent_itm) {
-                        $agents .= '
-                        <option rate="' . $agent_itm->rate . '" diff="' . $agent_itm->difference . '">' . $agent_itm->agent . '</option>
-                        ';
+                        if ($agent_itm->agent == $organization_agent) {
+                            $agents .= '
+                            <option rate="' . $agent_itm->rate . '" diff="' . $agent_itm->difference . '">' . $agent_itm->agent . '</option>
+                            ';
+                        }
                     }
                     ?>
                     <div class="uk-margin-small-top">
                         <label for="agent_ticket">Агент</label>
-                        <select class="uk-select" id="agent_ticket" name="agent_ticket">
+                        <select class="uk-select" id="agent_ticket" name="agent_ticket" required>
+                            <option value="">Выберите агента для пересчета цены билета</option>
                             <?php echo $agents; ?>
                         </select>
                     </div>

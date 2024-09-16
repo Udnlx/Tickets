@@ -23,6 +23,7 @@ $type_ticket = !empty($_POST['type_ticket'])?$_POST['type_ticket']:NULL;
 $selected_idpassenger = !empty($_POST['selected_idpassenger'])?$_POST['selected_idpassenger']:NULL;
 $selected_name = !empty($_POST['selected_name'])?$_POST['selected_name']:NULL;
 $selected_document = !empty($_POST['selected_document'])?$_POST['selected_document']:NULL;
+$lite_selected_document = mb_substr($selected_document, -2, 2);
 $agent_ticket = !empty($_POST['agent_ticket'])?$_POST['agent_ticket']:NULL;
 $price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;
 
@@ -111,7 +112,7 @@ if ($operator == 'no_operator') {
         <p class="uk-margin-remove">Статус подтверждения: <span style="font-weight: 700;"><?php echo $confirm; ?></span></p>
         <p class="uk-margin-remove">Тип билета: <span style="font-weight: 700;"><?php echo $type_ticket; ?></span></p>
         <p class="uk-margin-remove">ФИО пассажира: <span style="font-weight: 700;"><?php echo $selected_name; ?></span></p>
-        <p class="uk-margin-remove">Документ пассажира: <span style="font-weight: 700;"><?php echo $selected_document; ?></span></p>
+        <p class="uk-margin-remove">Последние цифры документа пассажира: <span style="font-weight: 700;">.....<?php echo $lite_selected_document; ?></span></p>
         <p class="uk-margin-remove">Агент билета: <span style="font-weight: 700;"><?php echo $agent_ticket; ?></span></p>
         <p class="uk-margin-remove">Цена билета: <span style="font-weight: 700;"><?php echo $price_ticket; ?></span></p>
 

@@ -135,7 +135,7 @@ foreach ($arr_reserv_seat as $key => $val) {
         <div>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Реестр уже купленных мест</h3>
-                <p style="margin: -5px 0 0 0;font-size: 12px;color: green;">зарегестрированные текущим оператором</p>
+                <p style="margin: -5px 0 0 0;font-size: 12px;color: green;">зарегистрированные текущим оператором</p>
                 <div class="filter">
                     <div class="filter-elem">
                     <p class="filter_icon"><i class="fa-solid fa-filter"></i></p>
@@ -149,7 +149,7 @@ foreach ($arr_reserv_seat as $key => $val) {
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Занятые места</h3>
-                <p style="margin: -5px 0 0 0;font-size: 12px;color: green;">зарегестрированные текущим оператором</p>
+                <p style="margin: -5px 0 0 0;font-size: 12px;color: green;">зарегистрированные текущим оператором</p>
                 <div class="buttons_seat uk-flex uk-flex-wrap">
                     <?php echo $button_seat; ?>
                 </div>

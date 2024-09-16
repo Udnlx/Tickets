@@ -1,8 +1,16 @@
 <?php namespace ProcessWire;
 
+if(isset($_SESSION['operator'])){
+    $operator = $_SESSION['operator'];
+} else {
+    $operator = 'no_operator';
+}
+
+$agent_page = $pages->get("template=users_system_item, title=" . $operator . "");
+
 $button_bus = '';
 
-$all_bus = $pages->find("template=buses_item, bus_group=1, sort=sort");
+$all_bus = $agent_page->bus_for_agent->find("template=buses_item, bus_group=1, sort=sort");
 $button_bus .= '
 <ul uk-accordion>
     <li>
@@ -24,7 +32,7 @@ $button_bus .= '
     </li>
 ';
 
-$all_bus = $pages->find("template=buses_item, bus_group=2, sort=sort");
+$all_bus = $agent_page->bus_for_agent->find("template=buses_item, bus_group=2, sort=sort");
 $button_bus .= '
     <li>
         <a class="uk-accordion-title" href="#">Рейсы в Москву</a>

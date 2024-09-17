@@ -45,6 +45,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
 		'passenger_doc' => $reserv_seat_item->passenger_doc,
 		'operator' => $reserv_seat_item->operator,
 		'agent' => $reserv_seat_item->agent_ticket,
+		'price_ticket' => $reserv_seat_item->price_ticket,
         );
 }
 
@@ -65,6 +66,7 @@ $headers = array(
 		'passenger_doc' => 'Документ',
 		'operator' => 'Оператор',
 		'agent' => 'Агент',
+		'price_ticket' => 'Цена билета',
 	),    
 );
 

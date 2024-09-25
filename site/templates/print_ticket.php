@@ -75,10 +75,26 @@ $content = '
 p {
     margin: 0 0 5px 0;}
 
+.smalltext {
+    position: relative;}
+
 .smalltext p {
     margin 0;
     font-size: 12px;
     line-height: 1;}
+
+.qr-code {
+    position: absolute;
+    right: 0px;
+    margin: -250px 0 0 0;}
+
+.qr-code p.qr-code-text {
+    margin: 0;
+    font-size: 20px;}
+
+.qr-code img.qr-code-img {
+    width: 200px;
+    height: auto;}
 </style>
 ';
 
@@ -162,6 +178,11 @@ $content .= '
     -->
     <p>Пришлем электронный билет Вам на телефон (Вотсап, Телеграм).</p>
     <p>Оплата в Автобусе наличными водителю или на сайте olimp-tickets.ru</p>
+
+    <div class="qr-code">
+        <p class="qr-code-text" style="text-align:center;">Заказ и<br>бронирование<br>билетов</p>
+        <img class="qr-code-img" src="http://tickets/site/assets/images/qr-code.jpg" alt="">
+    </div>
 </div>
 ';
 

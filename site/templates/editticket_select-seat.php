@@ -67,10 +67,6 @@ $button_seat = '';
 foreach ($arr_reserv_seat as $key => $val) {
     $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
     $phone_passenger = $data_passenger->phone_passenger;
-    $operator_agent = '';
-    if ($val['operator'] == 'agent-test' || $val['operator'] == 'Агент1') {
-        $operator_agent = 'operator_agent';
-    }
     $conf_status = '';
     if ($val['confirm'] == 'не подтверждено' || $val['confirm'] == 'подтверждено' || $val['confirm'] == 'явился') {
         $conf_status = '<p class="appeared"></p>';
@@ -79,12 +75,12 @@ foreach ($arr_reserv_seat as $key => $val) {
     }
     if ($val['pay_or_booking'] == 'забронировано') {
         $button_seat .= '
-        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_reserv ' . $operator_agent . '" title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_reserv" title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
         ';
     }
     if ($val['pay_or_booking'] == 'оплачено') {
         $button_seat .= '
-        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_pay ' . $operator_agent . '" title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_pay" title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
         ';
     }
 }

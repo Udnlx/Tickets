@@ -99,6 +99,27 @@ return false;
 
 
 
+//Скрипты Выбор мест для резерва билетов для агентов
+$('button.uk-mass-reserv-seat-agent').click(function() {
+    if ($(this).hasClass('agent-seat_select_mass')) {
+        $(this).removeClass('agent-seat_select_mass');
+    } else {
+        $(this).addClass('agent-seat_select_mass');
+    }
+});
+
+$('#agent-reserv_seat-btn').hover(function() {
+    $('#select_reserv_seat').val('');
+    $('div.buttons_seat').find('button.agent-seat_select_mass').each(function (){
+        let selected_seat = $(this).text();
+        console.log(selected_seat);
+        $('#select_reserv_seat').val($('#select_reserv_seat').val() + selected_seat + ',');
+    })
+});
+//Скрипты Выбор мест для резерва билетов для агентов
+
+
+
 $('button.uk-ticket-edit-seat').click(function() {
     let edited_seat = $(this).text();
     $('#selected_seat').val(edited_seat);

@@ -153,10 +153,6 @@ button.seat_select {
 button.seat_select_mass {
     position: relative;
     background-color: #00a4ff;}
-button.seat_select_mass_for_agent {
-    position: relative;
-    color: #333!important;
-    background-color: #00a4ff!important;}
 button.seat_reserv {
     position: relative;
     background-color: #ff5d5d!important;
@@ -189,6 +185,27 @@ p.appeared {
     left: 2px;
     font-size: 12px;
     color: #000000;}
+
+button.seat_select_mass_for_agent {
+    position: relative;
+    color: #333!important;
+    background-color: #00a4ff!important;}
+button.uk-mass-reserv-seat-agent {
+    margin: 5px;
+    padding: 0;
+    line-height: 1.4;
+    width: 45px;
+    min-height: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;}
+button.uk-mass-reserv-seat-agent:hover {
+    background-color: #dc80ff;}
+button.agent-seat_select_mass {
+    position: relative;
+    background-color: #dc80ff;}
     
     
     

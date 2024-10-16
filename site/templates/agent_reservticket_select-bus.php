@@ -85,7 +85,7 @@ if ($operator == 'no_operator') {
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column" uk-sticky>
                 <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
                 <h3 class="uk-margin-remove uk-card-title">Выбранный рейс</h3>
-                <form class="uk-flex uk-flex-column" id="select_bus" action="" method="post">
+                <form class="uk-flex uk-flex-column" id="select_bus" action="/agent-rezerv-biletov-vybor-mest/" method="post">
                     <div class="uk-margin-small-top">
                         <input class="uk-input readonly" id="post_bus" type="text" name="post_bus" placeholder="Выберите рейс из списка" autocomplete="off" required>
                     </div>

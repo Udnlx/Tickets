@@ -1,10 +1,5 @@
 <?php namespace ProcessWire;
 
-$access = '';
-if(isset($_SESSION['access'])){
-    $access = $_SESSION['access'];
-}
-
 $selected_bus = !empty($_POST['post_bus'])?$_POST['post_bus']:NULL;  
 $selected_id_bus = !empty($_POST['post_id_bus'])?$_POST['post_id_bus']:NULL;
 $selected_date = !empty($_POST['post_date'])?$_POST['post_date']:NULL;
@@ -16,7 +11,7 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
-if ($operator == 'no_operator' || $access == 'agent') {
+if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">
@@ -92,13 +87,15 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
             $num_seat = '0' . $num_seat;
         }
         $reserv_style = '';
+        $disabled_ticket = '';
         foreach ($arr_mass_reserv_seat as $itm) {
             if ($num_seat == $itm) {
-                $reserv_style = 'seat_select_mass';
+                $reserv_style = 'seat_select_mass_for_agent';
+                $disabled_ticket = 'disabled';
             }
         }
         $button_seat .= '
-        <button class="uk-mass-reserv-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '">' . $num_seat . '</button>
+        <button class="uk-mass-reserv-seat-agent uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '" ' . $disabled_ticket . '>' . $num_seat . '</button>
         ';
     }
 }
@@ -131,8 +128,8 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 </div>
                 
                 <div class="uk-margin-small-top uk-flex uk-flex-column">
-                    <button id="reserv_seat-btn" class="uk-margin-small-top uk-button uk-button-default" type="submit">Зарезервировать</button>
-                    <a class="uk-margin-small uk-button uk-button-default" href="/rezerv-biletov-vybor-reisa/">К выбору рейса</a>
+                    <button id="agent-reserv_seat-btn" class="uk-margin-small-top uk-button uk-button-default" type="submit">Зарезервировать</button>
+                    <a class="uk-margin-small uk-button uk-button-default" href="/agent-rezerv-biletov-vybor-reisa/">К выбору рейса</a>
                 </div>
                 <div id="seat_messages" class="messages-block">
                     <p class="messages" style="color: green;"></p>

@@ -53,6 +53,7 @@ if ($access == 'agent') {
         <h3 class="uk-card-title">Выберите действие</h3>
         <a class="uk-margin-small uk-button uk-button-default" href="/agent-registratciia-bileta-vybor-reisa/">Зарегистрировать билет</a>
         <a class="uk-margin-small uk-button uk-button-default" href="/agent-pravka-bileta-vybor-reisa/">Правка билета</a>
+        <a class="uk-margin-small uk-button uk-button-default" href="/agent-rezerv-biletov-vybor-reisa/">Резерв билетов</a>
     </div>
     ';
 }

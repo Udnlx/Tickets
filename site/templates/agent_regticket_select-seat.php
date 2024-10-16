@@ -140,13 +140,15 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
             $num_seat = '0' . $num_seat;
         }
         $reserv_style = '';
+        $disabled_ticket = '';
         foreach ($arr_mass_reserv_seat as $itm) {
             if ($num_seat == $itm) {
-                $reserv_style = 'seat_select_mass';
+                $reserv_style = 'seat_select_mass_for_agent';
+                $disabled_ticket = 'disabled';
             }
         }
         $button_seat .= '
-        <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '">' . $num_seat . '</button>
+        <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '" ' . $disabled_ticket . '>' . $num_seat . '</button>
         ';
     }
 }

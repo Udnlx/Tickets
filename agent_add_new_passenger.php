@@ -4,6 +4,12 @@ namespace ProcessWire;
 
 require_once 'index.php';
 
+if(isset($_SESSION['operator'])){
+    $operator = $_SESSION['operator'];
+} else {
+    $operator = 'no_operator';
+}
+
 
 
 
@@ -40,6 +46,12 @@ if ($add_name_passenger == '' || $add_birthday_passenger == '' || $add_type_doc_
             'phone_passenger' => $add_phone_passenger,
             'agent' => $add_agent,
         ]);
+        $passenger_page = $pages->get('template=passengers, num_doc_passenger=' . $add_num_doc_passenger . '');
+        $passenger_page_id = $passenger_page->id;
+        $log = '';
+        $log .= date('Y-m-d H:i:s') . ' - Добавлен новый пассажир id - ' . $passenger_page_id . ' оператором ' . $operator . '.   ';
+        $log .= 'Данные добавленного пассажира: ' . $add_name_passenger . ' - ' . $add_birthday_passenger . ' - ' . $add_type_doc_passenger . ' - ' . $add_num_doc_passenger . ' - ' . $add_passport_passenger . ' - ' . $add_phone_passenger;
+        file_put_contents(__DIR__ . '/site/templates/log_agent_add_passengers.txt', $log . PHP_EOL, FILE_APPEND);
         
         $all_passengers = $pages->find('template=passengers, title~*=' . $add_name_passenger . '');
         $arr_all_passengers = [];

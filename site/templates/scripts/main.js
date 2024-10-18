@@ -118,6 +118,38 @@ $('#agent-reserv_seat-btn').hover(function() {
 });
 //Скрипты Выбор мест для резерва билетов для агентов
 
+//Запись в базу о резерве билетов для агентов
+$('#agent-reserv_seat-btn').click(function() {
+    console.log ('asd');
+    var selected_bus = $('#selected_bus').val();
+    var selected_id_bus = $('#selected_id_bus').val();
+    var selected_date = $('#selected_date').val();
+    var selected_time = $('#selected_time').val();
+    var select_reserv_seat = $('#select_reserv_seat').val();
+$.ajax({
+    type: "POST",
+    url: '/add_reserv_seats_agent.php',
+    data: {
+        'selected_bus':selected_bus, 
+        'selected_id_bus':selected_id_bus,
+        'selected_date':selected_date,
+        'selected_time':selected_time,
+        'select_reserv_seat':select_reserv_seat,
+    },
+    beforeSend: function () {
+        $('#seat_messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
+    },
+    success: function (data) {
+        $('#seat_messages').html(data);
+    },
+    error: function (jqXHR, text, error) {
+        $('#messages').html(error);
+    }
+});
+return false;    
+});
+//Запись в базу о резерве билетов для агентов
+
 
 
 $('button.uk-ticket-edit-seat').click(function() {

@@ -29,7 +29,7 @@ if ($selected_bus == '' || $selected_id_bus == '' || $selected_date == '' || $se
 
         $edit_page = $pages->get('template=reserv_seats, id=' . $reserv_seats->id . '');
         $edit_page->of(false);
-        $edit_page->mass_reserv_seats = $select_reserv_seat;
+        $edit_page->mass_reserv_seats_agent = $select_reserv_seat;
         $edit_page->save();
 
         echo '<p class="messages" style="color: green;">
@@ -37,8 +37,8 @@ if ($selected_bus == '' || $selected_id_bus == '' || $selected_date == '' || $se
             </p>';
 
         $log = '';
-        $log .= date('Y-m-d H:i:s') . ' - Запись на резервирование мест - ' . $selected_bus . ' - ' . $selected_date . ', id=' . $reserv_seats->id . ' успешно отредактирована оператором: ' . $operator . '. Зарезервированы места: ' . $select_reserv_seat . '.';
-        file_put_contents(__DIR__ . '/site/templates/log_add_reserv_seats.txt', $log . PHP_EOL, FILE_APPEND);
+        $log .= date('Y-m-d H:i:s') . ' - Запись на резервирование мест - ' . $selected_bus . ' - ' . $selected_date . ', id=' . $reserv_seats->id . ' успешно отредактирована агентом: ' . $operator . '. Зарезервированы места: ' . $select_reserv_seat . '.';
+        file_put_contents(__DIR__ . '/site/templates/log_add_reserv_seats_agent.txt', $log . PHP_EOL, FILE_APPEND);
     } else {
 
         $pages->add('reserv_seats', '/rezerv-biletov/', [
@@ -46,7 +46,7 @@ if ($selected_bus == '' || $selected_id_bus == '' || $selected_date == '' || $se
             'bus' => $selected_bus,
             'id_bus' => $selected_id_bus,
             'date_depart' => $selected_date,
-            'mass_reserv_seats' => $select_reserv_seat,
+            'mass_reserv_seats_agent' => $select_reserv_seat,
         ]);
 
         echo '<p class="messages" style="color: green;">
@@ -54,7 +54,7 @@ if ($selected_bus == '' || $selected_id_bus == '' || $selected_date == '' || $se
             </p>';
 
         $log = '';
-        $log .= date('Y-m-d H:i:s') . ' - Запись на резервирование мест - ' . $selected_bus . ' - ' . $selected_date . ' успешно создана оператором: ' . $operator . '. Зарезервированы места: ' . $select_reserv_seat . '.';
-        file_put_contents(__DIR__ . '/site/templates/log_add_reserv_seats.txt', $log . PHP_EOL, FILE_APPEND);
+        $log .= date('Y-m-d H:i:s') . ' - Запись на резервирование мест - ' . $selected_bus . ' - ' . $selected_date . ' успешно создана агентом: ' . $operator . '. Зарезервированы места: ' . $select_reserv_seat . '.';
+        file_put_contents(__DIR__ . '/site/templates/log_add_reserv_seats_agent.txt', $log . PHP_EOL, FILE_APPEND);
     }
 }

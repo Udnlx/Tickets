@@ -33,6 +33,14 @@ $ticket = $pages->get('id=' . $ticket_id . '');
 $passenger = $pages->get('id=' . $ticket->id_passenger . '');
 $date_depart = date("d.m.Y",strtotime($ticket->date_depart));
 
+$transporter = '';
+$id_bus = $ticket->id_bus;
+if ($id_bus == '39265' || $id_bus == '39273') {
+    $transporter = 'ООО Терек';
+} else {
+    $transporter = 'ООО Олимп';
+}
+
 $id_bus = $ticket->id_bus;
 $bus = $pages->get('id=' . $id_bus . '');
 // $station_list = '';
@@ -137,7 +145,7 @@ $content .= '
 <h2 style="margin: 50px 0 20px 0;">Билет №' . $ticket->id . ' от ' . $ticket_date . '</h2>
 
 <!-- <p>Автобус: ' . $ticket->bus . '</p> -->
-<p>Перевозчик: ОЛИМП</p>
+<p>Перевозчик: ' . $transporter . '</p>
 <p>Статус билета: ' . $ticket->pay_or_booking . '</p>
 <p>Цена билета: ' . $ticket->price_ticket . ' руб.</p>
 

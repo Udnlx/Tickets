@@ -70,12 +70,12 @@ foreach ($arr_reserv_seat as $key => $val) {
     }
     if ($val['pay_or_booking'] == 'забронировано') {
         $button_seat .= '
-        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_reserv" title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_reserv" title="Место забронировано: ' . $val['passenger'] . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
         ';
     }
     if ($val['pay_or_booking'] == 'оплачено') {
         $button_seat .= '
-        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_pay" title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_pay" title="Место оплачено: ' . $val['passenger'] . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
         ';
     }
 }

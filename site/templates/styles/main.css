@@ -267,3 +267,7 @@ button.seat_select_mass_agent {
     margin: 10px 0 10px 0;
     text-align: center;
     font-weight: 500;}
+.warning {
+    margin: 0;
+    text-align: center;
+    font-weight: 500;}

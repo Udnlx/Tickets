@@ -50,10 +50,18 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
 
     $commission = 0;
     if ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
-        $commission = 550;
+        if ($all_agent_tickets_item->confirm == 'не явился') {
+            $commission = 0;
+        } else {
+            $commission = 550;
+        }
         $sum_commission = $sum_commission + $commission;
     } else {
-        $commission = 650;
+        if ($all_agent_tickets_item->confirm == 'не явился') {
+            $commission = 0;
+        } else {
+            $commission = 650;
+        }
         $sum_commission = $sum_commission + $commission;
     }
 
@@ -68,8 +76,8 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
     }
 
     $confirm = '';
-    if ($all_agent_tickets_item->confirm == 'подтверждено') {
-        $confirm = 'подтверждено';
+    if ($all_agent_tickets_item->confirm == 'не явился') {
+        $confirm = 'не явился';
     }
 
     $arr_all_agent_tickets[] = array(

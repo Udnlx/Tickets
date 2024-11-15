@@ -5,11 +5,6 @@ if(isset($_SESSION['access'])){
     $access = $_SESSION['access'];
 }
 
-$selected_bus = !empty($_POST['selected_bus'])?$_POST['selected_bus']:NULL;  
-$selected_id_bus = !empty($_POST['selected_id_bus'])?$_POST['selected_id_bus']:NULL;
-$selected_date = !empty($_POST['selected_date'])?$_POST['selected_date']:NULL;
-$selected_time = !empty($_POST['selected_time'])?$_POST['selected_time']:NULL;
-$selected_seat = !empty($_POST['selected_seat'])?$_POST['selected_seat']:NULL;
 $id_seat = !empty($_POST['id_seat'])?$_POST['id_seat']:NULL;
 
 if(isset($_SESSION['operator'])){
@@ -36,92 +31,111 @@ if ($operator == 'no_operator' || $access == 'agent') {
 ?>
 
 <?php
+
 $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
+
+$old_start_station = preg_split('/[—]/u', $ticket->name_station, -1, PREG_SPLIT_NO_EMPTY);
+$old_finish_station = preg_split('/[—]/u', $ticket->name_station_finish, -1, PREG_SPLIT_NO_EMPTY);
+
+$button_station_start = '';
+$bus_page = $pages->get('id=' . $ticket->id_bus . '');
+foreach ($bus_page->station_start as $item) {
+$array = preg_split('/[—]/u', $item->title, -1, PREG_SPLIT_NO_EMPTY);
+//print_r($array);
+$button_station_start .= '
+<button id="' . $item->id . '" param_btn="' . $item->title . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . $array[0] . '</button>
+';
+}
+
+$button_station_finish = '';
+$bus_page = $pages->get('id=' . $ticket->id_bus . '');
+foreach ($bus_page->station_finish as $item) {
+$array = preg_split('/[—]/u', $item->title, -1, PREG_SPLIT_NO_EMPTY);
+//print_r($array);
+$button_station_finish .= '
+<button id="' . $item->id . '" param_btn="' . $item->title . '" class="uk-ticket-button-station-finish uk-margin-small-top uk-button uk-button-default">' . $array[0] . '</button>
+';
+}
+
+$prices = '';
+$bus_page = $pages->get('id=' . $ticket->id_bus . '');
+if (count($bus_page->table_price) > 0) {
+    foreach ($bus_page->table_price as $item) {
+    $prices .= '
+    <p class="price-itm" ss="' . $item->name_station . '" sf="' . $item->name_station_finish . '" tp="' . $item->price_ticket . '">
+        ' . $item->name_station . ' - ' . $item->name_station_finish . ' - ' . $item->price_ticket . '
+    </p>
+    ';
+    }
+} else {
+    $prices = '
+    <p class="price-itm" ss="" sf="" tp="">
+        Таблицы цен у этого рейса нет
+    </p>
+    ';
+}
+
 ?>
 
 <div id="content">
 	<h1 class="uk-heading-hero uk-text-center">Правка билета</h1>
 	<div class="uk-child-width-1-2@m" uk-grid>
-	    
+        
         <div>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column" uk-sticky>
                 <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
-                <h4 class="uk-margin-remove">Выбранный рейс:<br><span style="font-weight: 700;"><?php echo $selected_bus; ?></span></h4>
-                <h4 class="uk-margin-remove">Дата: <span style="font-weight: 700;"><?php echo $selected_date; ?></span> отправление<span style="font-weight: 700;"><?php echo $selected_time; ?></span></h4>
-                <h4 class="uk-margin-remove">Выбранное место: <span style="font-weight: 700;"><?php echo $selected_seat; ?></span></h4>
-                <h4 class="uk-margin-remove">ID билета: <span style="font-weight: 700;"><?php echo $id_seat; ?></span></h4>
-                <h4 class="uk-margin-remove">Статус билета: <span style="font-weight: 700;"><?php echo $ticket->pay_or_booking; ?></span></h4>
-                <?php
-                if ($ticket->booking_sum > 0) {
-                ?>
-                <h4 class="uk-margin-remove">Сумма к оплате при бронировании: <span style="font-weight: 700;"><?php echo $ticket->booking_sum; ?></span></h4>
-                <?php
-                }
-                ?>
-                <h4 class="uk-margin-remove">Статус подтверждения: <span style="font-weight: 700;"><?php echo $ticket->confirm; ?></span></h4>
-                <h4 class="uk-margin-remove">Агент: <span style="font-weight: 700;"><?php echo $ticket->agent_ticket; ?></span></h4>
-                <h4 class="uk-margin-remove">Цена билета: <span style="font-weight: 700;"><?php echo $ticket->price_ticket; ?></span></h4>
+                <h4 class="uk-margin-remove">Рейс:<br><span style="font-weight: 700;"><?php echo $ticket->bus; ?></span></h4>
+                <h4 class="uk-margin-remove">Дата: <span style="font-weight: 700;"><?php echo $ticket->date_depart; ?></span> отправление<span style="font-weight: 700;"><?php echo $ticket->time_depart; ?></span></h4>
+                <h4 class="uk-margin-remove">Место: <span style="font-weight: 700;"><?php echo $ticket->seat; ?></span></h4>
                 <h4 class="uk-margin-remove">Пассажир: <span style="font-weight: 700;"><?php echo $ticket->passenger; ?></span></h4>
-                <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Выбрать другой рейс и место</a>
-                <a class="uk-margin-small uk-button uk-button-default" href="/">Вернутся на главную</a>
-            </div>
-        </div>
-        
-        <div>
-            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
-                <h3 class="uk-margin-remove uk-card-title">Выбрать новые значения</h3>
+                <h4 class="uk-margin-remove">ID билета: <span style="font-weight: 700;"><?php echo $id_seat; ?></span></h4>
                 <form class="uk-flex uk-flex-column" id="edit_ticket" action="/pravka-bileta-smena-statusa/" method="post">
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="selected_bus" type="text" name="selected_bus" value="<?php echo $selected_bus; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="selected_id_bus" type="text" name="selected_id_bus" value="<?php echo $selected_id_bus; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="selected_date" type="text" name="selected_date" value="<?php echo $selected_date; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="selected_time" type="text" name="selected_time" value="<?php echo $selected_time; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="selected_seat" type="text" name="selected_seat" value="<?php echo $selected_seat; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="id_seat" type="text" name="id_seat" value="<?php echo $id_seat; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="old_pay_or_booking" type="text" name="old_pay_or_booking" value="<?php echo $ticket->pay_or_booking; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="old_booking_sum" type="text" name="old_booking_sum" value="<?php echo $ticket->booking_sum; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="old_confirm" type="text" name="old_confirm" value="<?php echo $ticket->confirm; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="old_agent_ticket" type="text" name="old_agent_ticket" value="<?php echo $ticket->agent_ticket; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="old_price_ticket" type="text" name="old_price_ticket" value="<?php echo $ticket->price_ticket; ?>">
-                    </div>
-                    <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="passenger" type="text" name="passenger" value="<?php echo $ticket->passenger; ?>">
-                    </div>
+
+                    <input class="uk-input readonly uk-hidden" id="id_edit_ticket" type="text" name="id_edit_ticket" value="<?php echo $id_seat; ?>">
                     
                     <div class="uk-margin-small-top">
+                        <p class="old-value">Старое значение: <span><?php echo $old_start_station[0]; ?></span></p>
+                        <input class="uk-input readonly uk-hidden" id="old_station_start" type="text" name="old_station_start" value="<?php echo $old_start_station[0]; ?>">
+                        <input class="uk-input readonly" id="selected_station_start" type="text" name="selected_station_start" value="" placeholder="Станция посадки" autocomplete="off" required>
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input readonly" id="id_selected_station_start" type="text" name="id_selected_station_start" value="">
+                    </div>
+
+                    <div class="uk-margin-small-top">
+                        <p class="old-value">Старое значение: <span><?php echo $old_finish_station[0]; ?></span></p>
+                        <input class="uk-input readonly uk-hidden" id="old_station_finish" type="text" name="old_station_finish" value="<?php echo $old_finish_station[0]; ?>">
+                        <input class="uk-input readonly" id="selected_station_finish" type="text" name="selected_station_finish" value="" placeholder="Станция высадки" autocomplete="off" required>
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input readonly" id="id_selected_station_finish" type="text" name="id_selected_station_finish" value="">
+                    </div>
+
+                    <div class="uk-margin-small-top">
+                        <p class="old-value">Старое значение: <span><?php echo $ticket->pay_or_booking; ?></span></p>
+                        <input class="uk-input readonly uk-hidden" id="old_pay_or_booking" type="text" name="old_pay_or_booking" value="<?php echo $ticket->pay_or_booking; ?>">
                         <select class="uk-select" id="pay_or_booking" name="pay_or_booking">
                             <option>забронировано</option>
                             <option>оплачено</option>
                         </select>
                     </div>
                     <div id="booking_sum_div" class="uk-margin-small-top">
+                        <p class="old-value">Старое значение: <span><?php echo $ticket->booking_sum; ?></span></p>
+                        <input class="uk-input readonly uk-hidden" id="old_booking_sum" type="text" name="old_booking_sum" value="<?php echo $ticket->booking_sum; ?>">
                         <input class="uk-input" id="booking_sum" type="number" name="booking_sum" value="" placeholder="Сумма к оплате при бронировании" autocomplete="off" required>
                     </div>
-                    
                     <div class="uk-margin-small-top">
                         <select class="uk-select" id="confirm" name="confirm">
                             <option>явился</option>
                             <option>не явился</option>
+                        </select>
+                    </div>
+                    <div class="uk-margin-small-top">
+                        <p class="old-value">Старое значение: <span><?php echo $ticket->type_ticket; ?></span></p>
+                        <input class="uk-input readonly uk-hidden" id="old_type_ticket" type="text" name="old_type_ticket" value="<?php echo $ticket->type_ticket; ?>">
+                        <select class="uk-select" id="type_ticket" name="type_ticket">
+                            <option>взрослый</option>
+                            <option>детский</option>
                         </select>
                     </div>
 
@@ -130,26 +144,55 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                     $agents = '';
                     foreach ($all_agents->agent_items as $agent_itm) {
                         $agents .= '
-                        <option>' . $agent_itm->agent . '</option>
+                        <option rate="' . $agent_itm->rate . '" diff="' . $agent_itm->difference . '">' . $agent_itm->agent . '</option>
                         ';
                     }
                     ?>
                     <div class="uk-margin-small-top">
                         <label for="agent_ticket">Агент</label>
+                        <p class="old-value">Старое значение: <span><?php echo $ticket->agent_ticket; ?></span></p>
+                        <input class="uk-input readonly uk-hidden" id="old_agent_ticket" type="text" name="old_agent_ticket" value="<?php echo $ticket->agent_ticket; ?>">
                         <select class="uk-select" id="agent_ticket" name="agent_ticket">
-                            <option>Олимп</option>
                             <?php echo $agents; ?>
                         </select>
                     </div>
                     <div class="uk-margin-small-top">
                         <label for="price_ticket">Цена билета</label>
-                        <input class="uk-input" id="price_ticket" type="number" name="price_ticket" autocomplete="off" required>
+                        <p class="old-value">Старое значение: <span><?php echo $ticket->price_ticket; ?></span></p>
+                        <input class="uk-input readonly uk-hidden" id="old_price_ticket" type="text" name="old_price_ticket" value="<?php echo $ticket->price_ticket; ?>">
+                        <input class="uk-input" id="price_ticket" type="number" name="price_ticket" value="" autocomplete="off" required>
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
                         <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Внести правки</button>
+                        <a class="uk-margin-small uk-button uk-button-default" href="/pravka-bileta-vybor-reisa/">Выбрать другой рейс и место</a>
+                        <a class="uk-margin-small uk-button uk-button-default" href="/">Вернутся на главную</a>
                     </div>
                 </form>
+            </div>
+        </div>
+        
+        <div>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                <h3 class="uk-margin-remove uk-card-title">Станции посадки</h3>
+                <div class="uk-ticket-button-station-items start-station">
+                    <?php echo $button_station_start;?>
+                </div>
+            </div>
+            <br>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                <h3 class="uk-margin-remove uk-card-title">Станции высадки</h3>
+                <div class="uk-ticket-button-station-items finish-station">
+                    <?php echo $button_station_finish;?>
+                </div>
+            </div>
+            <br>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column uk-hidden">
+                <h3 class="uk-margin-remove uk-card-title">Таблица цен</h3>
+                <div id="prices" class="uk-ticket-prices-items">
+                    <?php echo $prices;?>
+                </div>
+                <h4 class="uk-margin-remove">Цена выбранного маршрута: <span id="sel_price"></span></h4>
             </div>
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
@@ -157,19 +200,19 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                 <p class="uk-text-warning uk-text-bold uk-text-center">Внимание! Операция освобождения места безвозвратна, все данные по выбранному месту будут удалены и место освободится.</p>
                 <form class="uk-flex uk-flex-column" id="delete_ticket" action="/pravka-bileta-udalenie/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="del_selected_bus" type="text" name="del_selected_bus" value="<?php echo $selected_bus; ?>">
+                        <input class="uk-input" id="del_selected_bus" type="text" name="del_selected_bus" value="<?php echo $ticket->bus; ?>">
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="del_selected_id_bus" type="text" name="del_selected_id_bus" value="<?php echo $selected_id_bus; ?>">
+                        <input class="uk-input" id="del_selected_id_bus" type="text" name="del_selected_id_bus" value="<?php echo $ticket->id_bus; ?>">
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="del_selected_date" type="text" name="del_selected_date" value="<?php echo $selected_date; ?>">
+                        <input class="uk-input" id="del_selected_date" type="text" name="del_selected_date" value="<?php echo $ticket->date_depart; ?>">
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="del_selected_time" type="text" name="del_selected_time" value="<?php echo $selected_time; ?>">
+                        <input class="uk-input" id="del_selected_time" type="text" name="del_selected_time" value="<?php echo $ticket->time_depart; ?>">
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="del_selected_seat" type="text" name="del_selected_seat" value="<?php echo $selected_seat; ?>">
+                        <input class="uk-input" id="del_selected_seat" type="text" name="del_selected_seat" value="<?php echo $ticket->seat; ?>">
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="del_id_seat" type="text" name="del_id_seat" value="<?php echo $id_seat; ?>">
@@ -184,6 +227,8 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
                 </form>
             </div>
         </div>
+        
+    </div>
         
     </div>
 </div>

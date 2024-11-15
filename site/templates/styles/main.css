@@ -63,6 +63,12 @@ p.operator {
     font-size: 11px;
     top: 10px;
     left: 10px;}
+p.old-value {
+    margin: 0;
+    font-size: 12px;}
+p.old-value span {
+    color: #000000;
+    font-weight: 700;}
     
     
     

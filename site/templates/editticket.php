@@ -11,48 +11,66 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
-$selected_bus = !empty($_POST['selected_bus'])?$_POST['selected_bus']:NULL;  
-$selected_id_bus = !empty($_POST['selected_id_bus'])?$_POST['selected_id_bus']:NULL;
-$selected_date = !empty($_POST['selected_date'])?$_POST['selected_date']:NULL;
-$selected_time = !empty($_POST['selected_time'])?$_POST['selected_time']:NULL;
+$id_edit_ticket = !empty($_POST['id_edit_ticket'])?$_POST['id_edit_ticket']:NULL;
 
-$selected_seat = !empty($_POST['selected_seat'])?$_POST['selected_seat']:NULL;
-$id_seat = !empty($_POST['id_seat'])?$_POST['id_seat']:NULL;
-$old_pay_or_booking = !empty($_POST['old_pay_or_booking'])?$_POST['old_pay_or_booking']:NULL;
-$old_booking_sum = !empty($_POST['old_booking_sum'])?$_POST['old_booking_sum']:NULL;
-$old_confirm = !empty($_POST['old_confirm'])?$_POST['old_confirm']:NULL;
-$old_agent_ticket = !empty($_POST['old_agent_ticket'])?$_POST['old_agent_ticket']:NULL;
-$old_price_ticket = !empty($_POST['old_price_ticket'])?$_POST['old_price_ticket']:NULL;
-$passenger = !empty($_POST['passenger'])?$_POST['passenger']:NULL;
+$old_station_start = !empty($_POST['old_station_start'])?$_POST['old_station_start']:NULL;  
+$selected_station_start = !empty($_POST['selected_station_start'])?$_POST['selected_station_start']:NULL;  
+$selected_station_start_array = preg_split('/[—]/u', $selected_station_start, -1, PREG_SPLIT_NO_EMPTY);
+$selected_station_start_name = $selected_station_start_array[0];
+$id_selected_station_start = !empty($_POST['id_selected_station_start'])?$_POST['id_selected_station_start']:NULL;  
 
-$pay_or_booking = !empty($_POST['pay_or_booking'])?$_POST['pay_or_booking']:NULL;
-$booking_sum = !empty($_POST['booking_sum'])?$_POST['booking_sum']:NULL;
-$confirm = !empty($_POST['confirm'])?$_POST['confirm']:NULL;
-$agent_ticket = !empty($_POST['agent_ticket'])?$_POST['agent_ticket']:NULL;
-$price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;
+$old_station_finish = !empty($_POST['old_station_finish'])?$_POST['old_station_finish']:NULL;  
+$selected_station_finish = !empty($_POST['selected_station_finish'])?$_POST['selected_station_finish']:NULL;  
+$selected_station_finish_array = preg_split('/[—]/u', $selected_station_finish, -1, PREG_SPLIT_NO_EMPTY);
+$selected_station_finish_name = $selected_station_finish_array[0];
+$id_selected_station_finish = !empty($_POST['id_selected_station_finish'])?$_POST['id_selected_station_finish']:NULL;  
 
-$success = 'Статус билета успешно изменен';
+$old_pay_or_booking = !empty($_POST['old_pay_or_booking'])?$_POST['old_pay_or_booking']:NULL;  
+$pay_or_booking = !empty($_POST['pay_or_booking'])?$_POST['pay_or_booking']:NULL;  
+$old_booking_sum = !empty($_POST['old_booking_sum'])?$_POST['old_booking_sum']:NULL;  
+$booking_sum = !empty($_POST['booking_sum'])?$_POST['booking_sum']:NULL;  
+$confirm = !empty($_POST['confirm'])?$_POST['confirm']:NULL;  
+$old_type_ticket = !empty($_POST['old_type_ticket'])?$_POST['old_type_ticket']:NULL;  
+$type_ticket = !empty($_POST['type_ticket'])?$_POST['type_ticket']:NULL;  
+$old_agent_ticket = !empty($_POST['old_agent_ticket'])?$_POST['old_agent_ticket']:NULL;  
+$agent_ticket = !empty($_POST['agent_ticket'])?$_POST['agent_ticket']:NULL;  
+
+$old_price_ticket = !empty($_POST['old_price_ticket'])?$_POST['old_price_ticket']:NULL;  
+$price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;  
+
+$ticket = $pages->get('template=purchased_tickets, id=' . $id_edit_ticket . '');
+
+$success = 'Правки билета успешно внесены';
 $log = '';
-if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $selected_seat && $id_seat && $old_pay_or_booking && $old_confirm && $old_agent_ticket && $passenger && $pay_or_booking && $confirm && $agent_ticket && $price_ticket) {
-    $log .= date('Y-m-d H:i:s') . ' - Изменен билет id - ' . $id_seat . '. ';
-    $log .= 'Статус изменен с ' . $old_pay_or_booking . ' на ' . $pay_or_booking . ' оператором ' . $operator . '. '; 
-    $log .= 'Сумма к оплате при бронировании изменена с ' . $old_booking_sum . ' на ' . $booking_sum . ' оператором ' . $operator . '. ';
-    $log .= 'Статус подтверждения изменен с ' . $old_confirm . ' на ' . $confirm . ' оператором ' . $operator . '. ';  
-    $log .= 'Агент изменен с ' . $old_agent_ticket . ' на ' . $agent_ticket . ' оператором ' . $operator . '. ';
-    $log .= 'Цена билета изменена с ' . $old_price_ticket . ' на ' . $price_ticket . ' оператором ' . $operator . '. ';
-    $log .= 'Параметры измененного билета: ' . $selected_bus . ' ' . $selected_date . '' . $selected_time . ', id автобуса - ' . $selected_id_bus . ', место - ' . $selected_seat . ', пассажир - ' . $passenger; 
+if ($id_edit_ticket && $selected_station_start && $selected_station_finish && $pay_or_booking && $confirm && $type_ticket && $agent_ticket && $price_ticket) {
+    $log .= date('Y-m-d H:i:s') . ' - Изменен билет id - ' . $id_edit_ticket . '. ';
+    $log .= 'Параметры измененного билета: ' . $ticket->bus . ' ' . $ticket->date_depart . '' . $ticket->time_depart . ', id автобуса - ' . $ticket->id_bus . ', место - ' . $ticket->seat . ', пассажир - ' . $ticket->passenger . '; '; 
+    $log .= 'Оператор изменений: ' . $operator . '; '; 
+    $log .= 'Станция посадки изменена с ' . $old_station_start . ' на ' . $selected_station_start_name . '; '; 
+    $log .= 'Станция высадки изменена с ' . $old_station_finish . ' на ' . $selected_station_finish_name . '; '; 
+    $log .= 'Оплачен или бронь изменен с ' . $old_pay_or_booking . ' на ' . $pay_or_booking . '; '; 
+    $log .= 'Сумма к оплате изменена с ' . $old_booking_sum . ' на ' . $booking_sum . '; '; 
+    $log .= 'Статус подтверждения изменен на ' . $confirm . '; '; 
+    $log .= 'Тип билета изменен с ' . $old_type_ticket . ' на ' . $type_ticket . '; '; 
+    $log .= 'Агент изменен с ' . $old_agent_ticket . ' на ' . $agent_ticket . '; '; 
+    $log .= 'Цена билета изменена с ' . $old_price_ticket . ' на ' . $price_ticket . '; '; 
     file_put_contents(__DIR__ . '/log_edit_tikets.txt', $log . PHP_EOL, FILE_APPEND);
     
-    $edit_page = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
+    $edit_page = $pages->get('template=purchased_tickets, id=' . $id_edit_ticket . '');
     $edit_page->of(false);
+    $edit_page->id_station = $id_selected_station_start;
+    $edit_page->name_station = $selected_station_start;
+    $edit_page->id_station_finish = $id_selected_station_finish;
+    $edit_page->name_station_finish = $selected_station_finish;
     $edit_page->pay_or_booking = $pay_or_booking;
     $edit_page->booking_sum = $booking_sum;
     $edit_page->confirm = $confirm;
+    $edit_page->type_ticket = $type_ticket;
     $edit_page->agent_ticket = $agent_ticket;
     $edit_page->price_ticket = $price_ticket;
     $edit_page->save();
 } else {
-    $success = 'Статус билета не изменен!<br>Ошибка в данных';
+    $success = 'Правки билета не внесены!<br>Ошибка в данных';
 }
 
 
@@ -67,7 +85,7 @@ if ($operator == 'no_operator' || $access == 'agent') {
 ?>
 
 <div id="content" style="max-width: 700px;">
-	<h1 class="uk-heading-hero uk-text-center">Статус билета не изменен</h1>
+	<h1 class="uk-heading-hero uk-text-center">Правки билета не внесены</h1>
 	
 	            
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
@@ -86,20 +104,43 @@ if ($operator == 'no_operator' || $access == 'agent') {
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
         <h4 class="uk-margin-remove">Данные о билете:</h4>
-        <p class="uk-margin-remove">Автобус: <span style="font-weight: 700;"><?php echo $selected_bus; ?></span></p>
-        <p class="uk-margin-remove">ID автобуса: <span style="font-weight: 700;"><?php echo $selected_id_bus; ?></span></p>
-        <p class="uk-margin-remove">Дата и время отправления: <span style="font-weight: 700;"><?php echo $selected_date; ?> <?php echo $selected_time; ?></span></p>
-        <p class="uk-margin-remove">Место: <span style="font-weight: 700;"><?php echo $selected_seat; ?></span></p>
-        <p class="uk-margin-remove">ID билета: <span style="font-weight: 700;"><?php echo $id_seat; ?></span></p>
-        <p class="uk-margin-remove">Пассажир: <span style="font-weight: 700;"><?php echo $passenger; ?></span></p>
-        <p class="uk-margin-remove">Старый статус: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_pay_or_booking; ?></span></p>
-        <p class="uk-margin-remove">Новый статус: <span class="uk-text-success" style="font-weight: 700;"><?php echo $pay_or_booking; ?></span></p>
-        <p class="uk-margin-remove">Старая сумма при бронировании: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_booking_sum; ?></span></p>
-        <p class="uk-margin-remove">Новая сумма при бронировании: <span class="uk-text-success" style="font-weight: 700;"><?php echo $booking_sum; ?></span></p>
-        <p class="uk-margin-remove">Старый статус подтверждения: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_confirm; ?></span></p>
-        <p class="uk-margin-remove">Новый статус подтверждения: <span class="uk-text-success" style="font-weight: 700;"><?php echo $confirm; ?></span></p>
-        <p class="uk-margin-remove">Старый агент: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_agent_ticket; ?></span></p>
-        <p class="uk-margin-remove">Новый агент: <span class="uk-text-success" style="font-weight: 700;"><?php echo $agent_ticket; ?></span></p>
+        <p class="uk-margin-remove">Автобус: <span style="font-weight: 700;"><?php echo $ticket->bus; ?></span></p>
+        <p class="uk-margin-remove">ID автобуса: <span style="font-weight: 700;"><?php echo $ticket->id_bus; ?></span></p>
+        <p class="uk-margin-remove">Дата и время отправления: <span style="font-weight: 700;"><?php echo $ticket->date_depart; ?> <?php echo $ticket->time_depart; ?></span></p>
+        <p class="uk-margin-remove">Место: <span style="font-weight: 700;"><?php echo $ticket->seat; ?></span></p>
+        <p class="uk-margin-remove">Пассажир: <span style="font-weight: 700;"><?php echo $ticket->passenger; ?></span></p>
+        <p class="uk-margin-remove">ID билета: <span style="font-weight: 700;"><?php echo $id_edit_ticket; ?></span></p>
+        <br>
+        <p class="uk-margin-remove">Станция посадки старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_station_start; ?></span></p>
+        <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $selected_station_start_name; ?></span></p>
+        <br>
+
+        <p class="uk-margin-remove">Станция высадки старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_station_finish; ?></span></p>
+        <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $selected_station_finish_name; ?></span></p>
+        <br>
+
+        <p class="uk-margin-remove">Оплачен или бронь старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_pay_or_booking; ?></span></p>
+        <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $pay_or_booking; ?></span></p>
+        <br>
+
+        <p class="uk-margin-remove">Сумма к оплате старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_booking_sum; ?></span></p>
+        <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $booking_sum; ?></span></p>
+        <br>
+
+        <p class="uk-margin-remove">Статус подтверждения изменен на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $confirm; ?></span></p>
+        <br>
+
+        <p class="uk-margin-remove">Тип билета старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_type_ticket; ?></span></p>
+        <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $type_ticket; ?></span></p>
+        <br>
+
+        <p class="uk-margin-remove">Агент старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_agent_ticket; ?></span></p>
+        <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $agent_ticket; ?></span></p>
+        <br>
+
+        <p class="uk-margin-remove">Цена билета старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_price_ticket; ?></span></p>
+        <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $price_ticket; ?></span></p>
+        <br>
 
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>

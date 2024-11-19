@@ -29,39 +29,47 @@ if ($operator == 'no_operator') {
 ?>
 
 <?php
-$all_agent_tickets = $pages->find('template=purchased_tickets, date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart, sort=bus');
-$arr_all_agent_tickets = [];
-foreach ($all_agent_tickets as $all_agent_tickets_item) {
-    $arr_all_agent_tickets[] = array(
-        "agent"=>$all_agent_tickets_item->agent_ticket,
-        "bus"=>$all_agent_tickets_item->title,
-        "pay_or_booking"=>$all_agent_tickets_item->pay_or_booking,
-        "confirm"=>$all_agent_tickets_item->confirm,
-        "price_ticket"=>$all_agent_tickets_item->price_ticket,
-        "booking_sum"=>$all_agent_tickets_item->booking_sum,
-        "passenger"=>$all_agent_tickets_item->passenger,
-        "type_ticket"=>$all_agent_tickets_item->type_ticket,
-        "passenger_doc"=>$all_agent_tickets_item->passenger_doc,
-        "operator"=>$all_agent_tickets_item->operator,
-        "reg_ticket"=>date("Y-m-d H:i:s", $all_agent_tickets_item->published) 
-        );
-}
-//echo '<pre>'; print_r($arr_all_agent_tickets); echo '</pre>';
-
 $reestr_all_agent_tickets = '';
-foreach ($arr_all_agent_tickets as $key => $val) {
-$reestr_all_agent_tickets .= '
-    <p class="reestr_seat_item">
-    Агент: ' . $val['agent'] . '<br> 
-    Автобус: ' . $val['bus'] . '<br> 
-    Стутус: ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br>
-    Цена билета: ' . $val['price_ticket'] . '<br>
-    Сумма к оплате: ' . $val['booking_sum'] . '<br>
-    Пассажир: ' . $val['passenger'] . ' - ' . $val['type_ticket'] . ' - ' . $val['passenger_doc'] . '<br>
-    <span> - Регистратор: ' . $val['operator'] . '</span><br>
-    <span> - Билет зарегистрирован: ' . $val['reg_ticket'] . '</span>
-    </p>
-';
+$transporters_folder = $pages->get('template=transporters');
+$all_transporters = $transporters_folder->children();
+
+foreach ($all_transporters as $transporter) {
+    //ПЕРЕВОЗЧИК
+    $all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $transporter->id_bus . ', date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart, sort=bus');
+    $arr_all_agent_tickets = [];
+    foreach ($all_agent_tickets as $all_agent_tickets_item) {
+        $arr_all_agent_tickets[] = array(
+            "agent"=>$all_agent_tickets_item->agent_ticket,
+            "bus"=>$all_agent_tickets_item->title,
+            "pay_or_booking"=>$all_agent_tickets_item->pay_or_booking,
+            "confirm"=>$all_agent_tickets_item->confirm,
+            "price_ticket"=>$all_agent_tickets_item->price_ticket,
+            "booking_sum"=>$all_agent_tickets_item->booking_sum,
+            "passenger"=>$all_agent_tickets_item->passenger,
+            "type_ticket"=>$all_agent_tickets_item->type_ticket,
+            "passenger_doc"=>$all_agent_tickets_item->passenger_doc,
+            "operator"=>$all_agent_tickets_item->operator,
+            "reg_ticket"=>date("Y-m-d H:i:s", $all_agent_tickets_item->published) 
+            );
+    }
+    //echo '<pre>'; print_r($arr_all_agent_tickets); echo '</pre>';
+
+    $reestr_all_agent_tickets .= '<h4 class="uk-margin-remove">ПЕРЕВОЗЧИК: ' . $transporter->title . '</h4>';
+    foreach ($arr_all_agent_tickets as $key => $val) {
+    $reestr_all_agent_tickets .= '
+        <p class="reestr_seat_item">
+        Агент: ' . $val['agent'] . '<br> 
+        Автобус: ' . $val['bus'] . '<br> 
+        Стутус: ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br>
+        Цена билета: ' . $val['price_ticket'] . '<br>
+        Сумма к оплате: ' . $val['booking_sum'] . '<br>
+        Пассажир: ' . $val['passenger'] . ' - ' . $val['type_ticket'] . ' - ' . $val['passenger_doc'] . '<br>
+        <span> - Регистратор: ' . $val['operator'] . '</span><br>
+        <span> - Билет зарегистрирован: ' . $val['reg_ticket'] . '</span>
+        </p>
+    ';
+    }
+    //ПЕРЕВОЗЧИК
 }
 ?>
 

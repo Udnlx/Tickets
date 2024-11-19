@@ -28,94 +28,19 @@ if ($operator == 'no_operator') {
 ?>
 
 <?php
-$all_agent_tickets = $pages->find('template=purchased_tickets, date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart, sort=bus');
-$sum_commission = 0;
-$sum_predoplata = 0;
-$sum_ostatok = 0;
+$transporters_folder = $pages->get('template=transporters');
+$all_transporters = $transporters_folder->children();
+
 $arr_all_agent_tickets = [];
-foreach ($all_agent_tickets as $all_agent_tickets_item) {
-    // $arr_all_agent_tickets[] = array(
-    //     "agent"=>$all_agent_tickets_item->agent_ticket,
-    //     "bus"=>$all_agent_tickets_item->title,
-    //     "pay_or_booking"=>$all_agent_tickets_item->pay_or_booking,
-    //     "confirm"=>$all_agent_tickets_item->confirm,
-    //     "price_ticket"=>$all_agent_tickets_item->price_ticket,
-    //     "booking_sum"=>$all_agent_tickets_item->booking_sum,
-    //     "passenger"=>$all_agent_tickets_item->passenger,
-    //     "type_ticket"=>$all_agent_tickets_item->type_ticket,
-    //     "passenger_doc"=>$all_agent_tickets_item->passenger_doc,
-    //     "operator"=>$all_agent_tickets_item->operator,
-    //     "reg_ticket"=>date("Y-m-d H:i:s", $all_agent_tickets_item->published) 
-    //     );
-
-    $commission = 0;
-    if ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
-        if ($all_agent_tickets_item->confirm == 'не явился') {
-            $commission = 0;
-        } else {
-            $commission = 550;
-        }
-        $sum_commission = $sum_commission + $commission;
-    } else {
-        if ($all_agent_tickets_item->confirm == 'не явился') {
-            $commission = 0;
-        } else {
-            $commission = 650;
-        }
-        $sum_commission = $sum_commission + $commission;
-    }
-
-    $remains = 0;
-    if ($all_agent_tickets_item->booking_sum > 0) {
-        $remains = $commission - $all_agent_tickets_item->booking_sum;
-        $sum_predoplata = $sum_predoplata + $all_agent_tickets_item->booking_sum;
-        $sum_ostatok = $sum_ostatok + $remains;
-    } else {
-        $remains = $commission;
-        $sum_ostatok = $sum_ostatok + $remains;
-    }
-
-    $confirm = '';
-    if ($all_agent_tickets_item->confirm == 'не явился') {
-        $confirm = 'не явился';
-    }
-
+foreach ($all_transporters as $transporter) {
+    $all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $transporter->id_bus . ', date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart, sort=bus');
+    $sum_commission = 0;
+    $sum_predoplata = 0;
+    $sum_ostatok = 0;
     $arr_all_agent_tickets[] = array(
-        "date"=>$all_agent_tickets_item->date_depart,
-        "passenger"=>$all_agent_tickets_item->passenger,
-        "type_ticket"=>$all_agent_tickets_item->type_ticket,
-        "bus"=>$all_agent_tickets_item->bus,
-        "commission"=>$commission,
-        "booking_sum"=>$all_agent_tickets_item->booking_sum,
-        "remains"=>$remains,
-        "confirm"=>$confirm,
-        "reg_ticket"=>date("Y-m-d H:i:s", $all_agent_tickets_item->published)
-        );
-}
-//echo '<pre>'; print_r($arr_all_agent_tickets); echo '</pre>';
-
-$title = array
-(
-'Отчет по агенту ' . $agent . ' - ' . $start_date . ' - ' . $finish_date,
-'',
-);
-
-$headers = array(
-	// array(
-	// 	'agent' => 'Агент',
-	// 	'bus' => 'Автобус',
-	// 	'pay_or_booking' => 'Куплен/Забронирован',
-	// 	'confirm' => 'Статус подтверждения',
-	// 	'price_ticket' => 'Стоимость билета',
-	// 	'booking_sum' => 'Сумма к оплате',
-	// 	'passenger' => 'Пассажир',
-	// 	'type_ticket' => 'Тип билета',
-	// 	'passenger_doc' => 'Документ',
-	// 	'operator' => 'Оператор',
-	// 	'reg_ticket' => 'Регистрация билета',
-	// ),  
-
-    array(
+        'date' => 'ПЕРЕВОЗЧИК: ' . $transporter->title,
+            );
+    $arr_all_agent_tickets[] = array(
         'date' => 'Дата',
         'passenger' => 'Пассажир',
         'type_ticket' => 'Тип билета',
@@ -125,11 +50,54 @@ $headers = array(
         'remains' => 'Остаток к расчету',
         'confirm' => 'Статус подтверждения',
         'reg_ticket' => 'Регистрация билета'
-    ),   
-);
+            );
+    foreach ($all_agent_tickets as $all_agent_tickets_item) {
+        $commission = 0;
+        if ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
+            if ($all_agent_tickets_item->confirm == 'не явился') {
+                $commission = 0;
+            } else {
+                $commission = 550;
+            }
+            $sum_commission = $sum_commission + $commission;
+        } else {
+            if ($all_agent_tickets_item->confirm == 'не явился') {
+                $commission = 0;
+            } else {
+                $commission = 650;
+            }
+            $sum_commission = $sum_commission + $commission;
+        }
 
-$footer = array(
-    array(
+        $remains = 0;
+        if ($all_agent_tickets_item->booking_sum > 0) {
+            $remains = $commission - $all_agent_tickets_item->booking_sum;
+            $sum_predoplata = $sum_predoplata + $all_agent_tickets_item->booking_sum;
+            $sum_ostatok = $sum_ostatok + $remains;
+        } else {
+            $remains = $commission;
+            $sum_ostatok = $sum_ostatok + $remains;
+        }
+
+        $confirm = '';
+        if ($all_agent_tickets_item->confirm == 'не явился') {
+            $confirm = 'не явился';
+        }
+
+        $arr_all_agent_tickets[] = array(
+            "date"=>$all_agent_tickets_item->date_depart,
+            "passenger"=>$all_agent_tickets_item->passenger,
+            "type_ticket"=>$all_agent_tickets_item->type_ticket,
+            "bus"=>$all_agent_tickets_item->bus,
+            "commission"=>$commission,
+            "booking_sum"=>$all_agent_tickets_item->booking_sum,
+            "remains"=>$remains,
+            "confirm"=>$confirm,
+            "reg_ticket"=>date("Y-m-d H:i:s", $all_agent_tickets_item->published)
+            );
+    }
+    //echo '<pre>'; print_r($arr_all_agent_tickets); echo '</pre>';
+    $arr_all_agent_tickets[] = array(
         'date' => 'ИТОГО',
         'passenger' => '',
         'type_ticket' => '',
@@ -138,8 +106,71 @@ $footer = array(
         'booking_sum' => $sum_predoplata,
         'remains' => $sum_ostatok,
         'confirm' => ''
+            );
+    $arr_all_agent_tickets[] = array(
+        'date' => '',
+            );
+}
+
+$title = array
+(
+'Отчет по агенту ' . $agent . ' - ' . $start_date . ' - ' . $finish_date,
+'',
+);
+
+$headers = array(
+    array(
+        'date' => '',
+        'passenger' => '',
+        'type_ticket' => '',
+        'bus' => '',
+        'commission' => '',
+        'booking_sum' => '',
+        'remains' => '',
+        'confirm' => '',
+        'reg_ticket' => ''
     ),   
 );
+
+// $headers = array(
+//     array(
+//         'date' => 'Дата',
+//         'passenger' => 'Пассажир',
+//         'type_ticket' => 'Тип билета',
+//         'bus' => 'Автобус',
+//         'commission' => 'Комиссия',
+//         'booking_sum' => 'Предоплата',
+//         'remains' => 'Остаток к расчету',
+//         'confirm' => 'Статус подтверждения',
+//         'reg_ticket' => 'Регистрация билета'
+//     ),   
+// );
+
+$footer = array(
+    array(
+        'date' => '',
+        'passenger' => '',
+        'type_ticket' => '',
+        'bus' => '',
+        'commission' => '',
+        'booking_sum' => '',
+        'remains' => '',
+        'confirm' => ''
+    ),   
+);
+
+// $footer = array(
+//     array(
+//         'date' => 'ИТОГО',
+//         'passenger' => '',
+//         'type_ticket' => '',
+//         'bus' => '',
+//         'commission' => $sum_commission,
+//         'booking_sum' => $sum_predoplata,
+//         'remains' => $sum_ostatok,
+//         'confirm' => ''
+//     ),   
+// );
 
 header('Content-Type: text/csv; charset=utf-8' );
 header(sprintf( 'Content-Disposition: attachment; filename=Отчет по агенту ' . $agent . ' - %s.csv', date( 'dmY-His' ) ) );

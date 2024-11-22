@@ -30,7 +30,7 @@ if ($operator == 'no_operator') {
                         
             <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
                 <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
-                <form class="uk-flex uk-flex-column" id="select_agent" action="" method="post">
+                <form class="uk-flex uk-flex-column" id="select_agent" action="/otchet-po-biletam-otchet/" method="post">
                     <?php
                     $all_users = $pages->find('template=users_system_item');
                     $users = '';

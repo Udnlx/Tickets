@@ -47,6 +47,7 @@ foreach ($all_user_tickets as $all_user_tickets_item) {
         "reg_ticket"=>date("Y-m-d H:i:s", $all_user_tickets_item->published), 
         "operator"=>$all_user_tickets_item->operator,
         "bus"=>$all_user_tickets_item->title,
+        "agent"=>$all_user_tickets_item->agent_ticket,
         );
 }
 //echo '<pre>'; print_r($arr_all_user_tickets); echo '</pre>';
@@ -62,6 +63,7 @@ $headers = array(
         'reg_ticket' => 'Дата регистрации',
         'operator' => 'Оператор',
         'bus' => 'Автобус',
+        'agent' => 'Агент',
     ),   
 );
 
@@ -70,6 +72,7 @@ $footer = array(
         'reg_ticket' => '',
         'operator' => '',
         'bus' => '',
+        'agent' => '',
     ),   
 );
 

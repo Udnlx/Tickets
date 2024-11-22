@@ -48,6 +48,7 @@ foreach ($all_user_tickets as $all_user_tickets_item) {
         "reg_ticket"=>date("Y-m-d H:i:s", $all_user_tickets_item->published), 
         "operator"=>$all_user_tickets_item->operator,
         "bus"=>$all_user_tickets_item->title,
+        "agent"=>$all_user_tickets_item->agent_ticket,
         );
 }
 //echo '<pre>'; print_r($arr_all_user_tickets); echo '</pre>';
@@ -56,8 +57,9 @@ foreach ($arr_all_user_tickets as $key => $val) {
 $reestr_all_user_tickets .= '
     <p class="reestr_seat_item">
     Дата регистрации: ' . $val['reg_ticket'] . '<br> 
-    Оператор: ' . $val['operator'] . '<br> 
-    Автобус: ' . $val['bus'] . '
+    Оператор: ' . $val['operator'] . '<br>
+    Автобус: ' . $val['bus'] . '<br>
+    Агент: ' . $val['agent'] . '
     </p>
 ';
 }

@@ -62,7 +62,6 @@ if ($access == 'agent') {
 <div id="content" style="max-width: 700px;">
 	<h1 class="uk-heading-hero uk-text-center">Домашняя страница</h1>
         <?php echo $basemenu; ?>
-    </div>
     
     <!-- Модальное окно техподдержки-->
     <div id="modal-help" uk-modal>

@@ -37,6 +37,7 @@ if ($operator == 'no_operator') {
             <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
                 <h3 class="uk-card-title">Выберите действие</h3>
                 <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-vybor-avtobusa/">Отчет по рейсу</a>
+                <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-agenty-vybor-avtobusa/">Отчет по рейсу - по агентам</a>
                 <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-vybor-agenta/">Отчет по агенту</a>
                 <?php echo $special_button; ?>
                 <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-biletam-vybor-parametrov/">Отчет по билетам</a>

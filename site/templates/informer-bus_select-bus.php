@@ -68,7 +68,7 @@ if ($operator == 'no_operator') {
     </div>
 <?php    
 } else {
-    if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver') {
+    if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver' || $access == 'operator') {
     ?>
         <div id="content">
             <h1 class="uk-heading-hero uk-text-center">Выбор рейса для отчета</h1>

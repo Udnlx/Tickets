@@ -33,7 +33,7 @@ if ($access == 'admin' || $access == 'supermanager' || $access == 'managerReserv
 if ($access == 'admin' || $access == 'supermanager' || $access == 'managerEditor') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/reestr-passazhirov-vybor-passazhira/">Редактор пассажиров</a>';
 }
-if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver') {
+if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver' || $access == 'operator') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/otchety/">Отчеты</a>';
 }
 //===============Блок отображения контента в зависимости от прав пользователя===============

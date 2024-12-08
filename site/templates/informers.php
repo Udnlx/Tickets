@@ -11,12 +11,24 @@ if(isset($_SESSION['access'])){
     $access = $_SESSION['access'];
 }
 
-$special_button = '';
+$informer_button = '';
 if ($operator == 'admin-test' || $operator == 'Директор') {
-    $special_button = '
+    $informer_button = '
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-vybor-avtobusa/">Отчет по рейсу</a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-agenty-vybor-avtobusa/">Отчет по рейсу - по агентам</a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-vybor-agenta/">Отчет по агенту</a>
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-registratcii-passazhirov-vybor-perioda/">Отчет по регистрации пассажиров</a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-biletam-vybor-parametrov/">Отчет по билетам</a>
+    <a class="uk-margin-small uk-button uk-button-default" href="">Отчет по пассажиру (в разработке)</a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>
+    ';
+} else {
+    $informer_button .= '
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-vybor-avtobusa/">Отчет по рейсу</a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>
     ';
 }
+
 
 if ($operator == 'no_operator') {
 ?>
@@ -29,20 +41,14 @@ if ($operator == 'no_operator') {
     </div>
 <?php    
 } else {
-    if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver') {
+    if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver' || $access == 'operator') {
     ?>
         <div id="content" style="max-width: 700px;">
             <h1 class="uk-heading-hero uk-text-center">Отчеты</h1>
                         
             <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
                 <h3 class="uk-card-title">Выберите действие</h3>
-                <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-vybor-avtobusa/">Отчет по рейсу</a>
-                <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-agenty-vybor-avtobusa/">Отчет по рейсу - по агентам</a>
-                <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-vybor-agenta/">Отчет по агенту</a>
-                <?php echo $special_button; ?>
-                <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-biletam-vybor-parametrov/">Отчет по билетам</a>
-                <a class="uk-margin-small uk-button uk-button-default" href="">Отчет по пассажиру (в разработке)</a>
-                <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>
+                <?php echo $informer_button; ?>
             </div>
         </div>
     <?php

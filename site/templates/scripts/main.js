@@ -291,6 +291,7 @@ $(document).on('click', 'p.passengers_item', function(){
     let series_doc_passenger = passenger_doc_arr[2];
     let num_doc_passenger = passenger_doc_arr[3];
     let id_passenger = $(this).attr('id');
+    let count_travel = $(this).attr('count_travel');
     //console.log (id_passenger);
     //console.log(name_passenger);
     //console.log(type_doc_passenger + ' ' + num_doc_passenger + ' ' + param_doc_passenger);
@@ -301,6 +302,14 @@ $(document).on('click', 'p.passengers_item', function(){
     $('#passenger_idpassenger').val(id_passenger);
     $('#passenger_name').val(name_passenger);
     $('#passenger_document').val(type_doc_passenger + ' ' + series_doc_passenger + ' ' + num_doc_passenger);
+
+    //console.log ('Проверяем количество поездок пассажира');
+    let departure_date = $('#departure_date').text();
+    if (departure_date > 1735678800) {
+        if ((count_travel + 1) % 3 == 0) {
+            alert ('У пассажира намечается очередная третья поездка');
+        }
+    }
 });
 
 

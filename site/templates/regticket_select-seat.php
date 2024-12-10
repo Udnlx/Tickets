@@ -208,6 +208,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_date" type="text" name="selected_date" value="<?php echo $selected_date; ?>">
                     </div>
+                    <p id="departure_date" class="uk-hidden"><?php echo strtotime($selected_date); ?></p>
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_time" type="text" name="selected_time" value="<?php echo $selected_time; ?>">
                     </div>

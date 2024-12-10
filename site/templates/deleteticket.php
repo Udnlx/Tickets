@@ -29,6 +29,21 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
     file_put_contents(__DIR__ . '/log_delete_tikets.txt', $log . PHP_EOL, FILE_APPEND);
     
     $delete_page = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
+    $id_passenger = $delete_page->id_passenger;
+    $departure_date = strtotime($delete_page->date_depart);
+    if ($departure_date > 1735678800) {
+        $departure_passenger = $pages->get('template=passengers, id=' . $id_passenger . '');
+        //echo 'Вычитаем поездку пассажиру ' . $departure_passenger->title;
+        if ($departure_passenger->count_travel > 0) {
+            $departure_count = $departure_passenger->count_travel - 1;
+        } else {
+            $departure_count = 0;
+        }
+        $departure_passenger->of(false);
+        $departure_passenger->count_travel = $departure_count;
+        $departure_passenger->save();
+    }
+    //echo 'Удаляем билет'
     $delete_page->delete();
 } else {
     $success = 'Билет не удален!<br>Ошибка в данных';

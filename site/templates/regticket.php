@@ -61,6 +61,17 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
         'agent_ticket' => $agent_ticket,
         'price_ticket' => $price_ticket,
         ]);
+
+        $departure_date = strtotime($selected_date);
+        if ($departure_date > 1735678800) {
+            $departure_passenger = $pages->get('template=passengers, id=' . $selected_idpassenger . '');
+            //echo 'Плюсуем поездку пассажиру ' . $departure_passenger->title;
+            $departure_count = intval($departure_passenger->count_travel) + 1;
+            $departure_passenger->of(false);
+            $departure_passenger->count_travel = $departure_count;
+            $departure_passenger->save();
+        }
+
         $ticket_page = $pages->get('title=' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat . '');
         $ticket_id = $ticket_page->id;
     }

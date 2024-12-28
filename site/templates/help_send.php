@@ -34,7 +34,7 @@ $msg = 'Оператор: ' . $name_operator . '<br>';
 $msg .= 'Контакты для связи: ' . $contact_operator . '<br>';
 $msg .= 'Сообщение: ' . $message . '<br>';
 
-$to = 'info@niki-group.ru';
+$to = 'Udnlx@yandex.ru';
 
 $EOL = "\r\n"; // ограничитель строк, некоторые почтовые сервера требуют \n - подобрать опытным путём
 $boundary     = "--".md5(uniqid(time()));  // любая строка, которой не будет ниже в потоке данных. 
@@ -72,6 +72,7 @@ foreach($_FILES["file"]["name"] as $key => $value){
 #>>конец вставки файлов
 
 $multipart .= "$EOL--$boundary--$EOL";
+echo $to . '<br>' . $subject . '<br>' . $multipart . '<br>' . $headers . '<br><br>';
 //mail($to, $subject, $multipart, $headers);
 
 $send_message = '
@@ -96,7 +97,7 @@ else{
 ?>
 
 <div id="content" style="max-width: 700px;">
-	<h1 class="uk-heading-hero uk-text-center">Сообщение в техподдержку<br>(в разработке)</h1>
+	<h1 class="uk-heading-hero uk-text-center">Сообщение в техподдержку</h1>
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <?php echo $send_message ?>
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>

@@ -1,0 +1,22 @@
+Для регистрации билета нужны поля:
+
+title 						вида: Москва - Стаханов в 16:00 (ООО Олимп) - 2023-10-28  в 16:00 место-01
+bus							Автобус
+id bus						ID Автобуса
+date departure				Дата отправления
+time_depart					Время отправления
+id_station					ID станции
+name_station 				Наименование станции
+id station finish 			ID станции высадки
+name_station_finish			Наименование станции высадки
+seat						Место
+pay_or_booking 				Оплачен или бронь
+booking_sum 				Сумма к оплате
+confirm 					Статус подтверждения
+type_ticket 				Тип билета
+passenger 					Пассажир
+id passenger 				ID Пассажира
+passenger_doc 				Документ пассажира
+operator 					Оператор
+agent_ticket				Агент билета
+price_ticket 				Цена билета

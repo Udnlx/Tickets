@@ -333,7 +333,9 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
     $('#type_ticket option:first').prop('selected', true);
     $('#agent_ticket option:first').prop('selected', true);
     let startStation = $('div.start-station').find('button.station_select').text();
+    startStation = $.trim(startStation);
     let finishStation = $('div.finish-station').find('button.station_select').text();
+    finishStation = $.trim(finishStation);
     let ticketPrice = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('tp');
     if (finishStation) {
         if (ticketPrice) {
@@ -365,7 +367,9 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
     $('#type_ticket option:first').prop('selected', true);
     $('#agent_ticket option:first').prop('selected', true);
     let startStation = $('div.start-station').find('button.station_select').text();
+    startStation = $.trim(startStation);
     let finishStation = $('div.finish-station').find('button.station_select').text();
+    finishStation = $.trim(finishStation);
     let ticketPrice = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('tp');
     if (finishStation) {
         if (ticketPrice) {

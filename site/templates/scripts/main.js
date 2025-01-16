@@ -342,8 +342,8 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
             $('#sel_price').text(ticketPrice);
             $('#price_ticket').val(ticketPrice);
         } else {
-            $('#sel_price').text('4000');
-            $('#price_ticket').val('4000');
+            $('#sel_price').text('5000');
+            $('#price_ticket').val('5000');
         }
     }
     // ===============================
@@ -376,8 +376,8 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
             $('#sel_price').text(ticketPrice);
             $('#price_ticket').val(ticketPrice);
         } else {
-            $('#sel_price').text('4000');
-            $('#price_ticket').val('4000');
+            $('#sel_price').text('5000');
+            $('#price_ticket').val('5000');
         }
     }
     // ===============================

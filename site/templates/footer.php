@@ -37,6 +37,7 @@ foreach ($all_bus as $bus) {
     
     <script src="<?php echo $config->urls->templates; ?>scripts/jquery-3.5.1.min.js"></script>
     <script src="<?php echo $config->urls->templates; ?>scripts/main.js?v=<?php echo uniqid(); ?>"></script>
+    <script src="<?php echo $config->urls->templates; ?>scripts/jquery.cookie.js"></script>
 
     <script>
         const tm = () => {
@@ -48,7 +49,7 @@ foreach ($all_bus as $bus) {
             var Minutes = (Data.getMinutes()-50).toString().padStart(2, '0');
         }
         let time = Hour + '-' + Minutes;
-        //console.log("Текущее время: "+ time);
+        console.log("Текущее время: "+ time);
 
         let station_string = '';
         $('div.table_station_block').find('p.table_station').each(function (){
@@ -61,11 +62,14 @@ foreach ($all_bus as $bus) {
             }
         })
         //console.log (station_string);
-        if (station_string) {
+        if (station_string && $.cookie('alertTrack') != 'view') {
             alert('Через 10 минут будут отправления со следующих станций:\n' + station_string);
+            var date = new Date();
+            date.setTime(date.getTime() + (1000 * 60));
+            $.cookie("alertTrack", "view", { expires: date, path: '/' });
         }
 
-        setTimeout(tm, 1000 * 60)
+        setTimeout(tm, 1000 * 60);
         }
         tm()
     </script>

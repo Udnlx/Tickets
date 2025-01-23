@@ -277,3 +277,9 @@ button.seat_select_mass_agent {
     margin: 0;
     text-align: center;
     font-weight: 500;}
+
+
+
+/*Стили плагинов*/
+.bswasp-default-layout__inner {
+    width: 100%!important;}

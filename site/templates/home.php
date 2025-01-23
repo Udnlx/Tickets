@@ -36,6 +36,9 @@ if ($access == 'admin' || $access == 'supermanager' || $access == 'managerEditor
 if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver' || $access == 'operator') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/otchety/">Отчеты</a>';
 }
+if ($access == 'admin') {
+    $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/plagin-barnaul/">Плагин Барнаул</a>';
+}
 //===============Блок отображения контента в зависимости от прав пользователя===============
 
 $basemenu = '

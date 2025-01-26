@@ -116,6 +116,21 @@ $reestr_seat .= '
 ';
 }
 
+$reestr_seat_1c = '';
+$sb_dispatch_place_id = $bus_page->sb_dispatch_place_id;
+$sb_arrival_place_id = $bus_page->sb_arrival_place_id;
+$sb_dispatch_date = $selected_date;
+$sb_dispatch_time = $bus_page->sb_dispatch_time;
+include 'sb_get_freeseat.php';
+$reestr_seat_1c = '
+<div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+    <h3 class="uk-margin-remove uk-card-title">Лог работы с системой 1С</h3>
+    <div class="reestr_seat uk-flex">
+        ' . $sb_log . '
+    </div>
+</div>
+';
+
 $max_seat = 53;
 $button_seat = '';
 for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
@@ -326,6 +341,8 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <?php echo $reestr_seat;?>
                 </div>
             </div>
+            <br>
+            <?php echo $reestr_seat_1c;?>
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Свободные и занятые места</h3>

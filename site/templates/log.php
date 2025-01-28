@@ -4,7 +4,7 @@ namespace ProcessWire;
 
 error_reporting(E_ERROR | E_PARSE);
 
-$valid_passwords = array ("log" => "asd");
+$valid_passwords = array ("adm_log" => "2EJwE82vuLp2Z");
 $valid_users = array_keys($valid_passwords);
 $user = $_SERVER['PHP_AUTH_USER'];
 $pass = $_SERVER['PHP_AUTH_PW'];

@@ -342,8 +342,6 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 </div>
             </div>
             <br>
-            <?php echo $reestr_seat_1c;?>
-            <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Свободные и занятые места</h3>
                 <div class="buttons_seat uk-flex uk-flex-wrap">
@@ -379,6 +377,8 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <button class="uk-margin-small-top uk-button uk-button-default" type="button" uk-toggle="target: #modal-add_passenger">Добавить пассажира</button>
                 </div>
             </div>
+            <br>
+            <?php echo $reestr_seat_1c;?>
         </div>
         
     </div>

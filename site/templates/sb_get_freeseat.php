@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ERROR | E_PARSE);
+
 $sb_log = '<p style="font-weight:700;">Получение свободных мест на автобусе в 1С системе</p>';
 
 $found = false;

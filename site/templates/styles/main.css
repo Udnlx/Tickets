@@ -215,6 +215,9 @@ button.agent-seat_select_mass {
 button.seat_select_mass_agent {
     position: relative;
     background-color: #dc80ff;}
+button.seat_select {
+    position: relative;
+    background-color: #52af52!important;}
     
     
     

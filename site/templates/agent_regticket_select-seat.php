@@ -153,6 +153,9 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
             if ($num_seat == $itm) {
                 $reserv_style = 'seat_select_mass_for_agent';
                 $disabled_ticket = 'disabled';
+                if ($operator == 'Котельники') {
+                    $disabled_ticket = '';
+                }
             }
         }
         $button_seat .= '

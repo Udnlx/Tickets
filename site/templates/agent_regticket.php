@@ -91,6 +91,21 @@ if ($operator == 'no_operator') {
 
 <?php    
 } else {
+
+$print_ticket = '';
+if ($operator == 'Котельники') {
+    $print_ticket = '
+    <form class="uk-flex uk-flex-column" id="print_ticket" action="/pechat-bileta/" method="post">
+        <div class="uk-margin-small-top uk-hidden">
+            <input class="uk-input readonly" id="print_ticket_id" type="text" name="print_ticket_id" value="' . $ticket_id . '" placeholder="ID билета" autocomplete="off" required>
+        </div>
+        
+        <div class="uk-margin-small-top uk-flex uk-flex-column">
+            <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Распечатать билет</button>
+        </div>
+    </form>
+    ';
+}
 ?>
 
 <div id="content" style="max-width: 700px;">
@@ -134,9 +149,11 @@ if ($operator == 'no_operator') {
             </div>
             
             <div class="uk-margin-small-top uk-flex uk-flex-column">
-            <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Оформить еще один билет на этот же рейс</button>
+                <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Оформить еще один билет на этот же рейс</button>
             </div>
         </form>
+
+        <?php echo $print_ticket; ?>
 
         <!--
         <form class="uk-flex uk-flex-column" id="print_ticket" action="/pechat-bileta/" method="post">

@@ -275,7 +275,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <div class="uk-margin-small-top">
                         <label for="agent_ticket">Агент</label>
                         <select class="uk-select" id="agent_ticket" name="agent_ticket" required>
-                            <option value="">Выберите агента для пересчета цены билета</option>
+                            <!-- <option value="">Выберите агента для пересчета цены билета</option> -->
                             <?php echo $agents; ?>
                         </select>
                     </div>

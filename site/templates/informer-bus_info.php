@@ -96,7 +96,7 @@ $reestr_seat .= '
                     </div>
                 </form>
 
-                <form class="uk-flex uk-flex-column" id="print_select_seat" action="/otchet-po-reisu-dlia-voditelia/" method="post">
+                <form class="uk-flex uk-flex-column" id="print_select_seat" target="_blank" action="/otchet-po-reisu-dlia-voditelia/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="print_selected_bus" type="text" name="print_selected_bus" value="<?php echo $selected_bus; ?>">
                     </div>

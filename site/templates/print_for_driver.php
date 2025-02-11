@@ -1,4 +1,8 @@
-<?php 
+<?php namespace ProcessWire;
+
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(E_ALL);
 
 $selected_bus = !empty($_POST['print_selected_bus'])?$_POST['print_selected_bus']:NULL;  
 $selected_id_bus = !empty($_POST['print_selected_id_bus'])?$_POST['print_selected_id_bus']:NULL;
@@ -55,54 +59,29 @@ $bus = $pages->get('id=' . $selected_id_bus . '');
 $bus_stations = $bus->station_start;
 $list = '';
 foreach ($bus_stations as $bus_station) {
-    $list .= '<p class="reestr_seat_item" style="font-weight:700; margin: 0;">' . $bus_station->title . '</p>';
+    $list .= '<p class="reestr_seat_item" style="font-weight:700; margin: 0; background-color: #b1ff70;">' . $bus_station->title . '</p>';
     $list .= '
-        <table>
+        <table style="width: 100%; text-align:center;">
             <thead>
                 <tr>
-                    <th style="line-height: 0.8; font-size: 10px;">Место</th>
-                    <th style="line-height: 0.8; font-size: 10px;">Статус</th>
-                    <th style="line-height: 0.8; font-size: 10px;">Сумма<br>к оплате</th>
-                    <th style="line-height: 0.8; font-size: 10px;">Пассажир</th>
-                    <th style="line-height: 0.8; font-size: 10px;">Тип<br>билета</th>
-                    <th style="line-height: 0.8; font-size: 10px;">Дата<br>рождения</th>
-                    <th style="line-height: 0.8; font-size: 10px;">Документ</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 5%;">Место</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 10%;">Статус</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 10%;">Сумма<br>к оплате</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 30%;">Пассажир</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 10%;">Тип<br>билета</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 10%;">Дата<br>рождения</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 25%;">Документ</th>
                 </tr>
             </thead>
             <tbody>
     ';
 
-    // Старый метод по наименованию станции
-    foreach ($arr_reserv_seat as $key => $val) {
-        $bus_station_title = str_replace(' ', '', $bus_station->title);
-        $bus_old_station_title = str_replace(' ', '', $bus_station->old_station_name);
-        $ticket_station_title = str_replace(' ', '', $val['station']);
-        if ($bus_station_title == $ticket_station_title || $bus_old_station_title == $ticket_station_title) {
-            $page_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
-            $booking_sum = '';
-            if ($val['booking_sum'] != '') {
-                $booking_sum = $val['booking_sum'];
-            }
-            $list .= '
-                <tr>
-                    <td style="padding: 0px 10px;">' . $val['seat'] . '</td>
-                    <td style="padding: 0px 10px;">' . $val['pay_or_booking'] . '</td>
-                    <td style="padding: 0px 10px;">' . $booking_sum . '</td>
-                    <td style="padding: 0px 10px;">' . $val['passenger'] . '</td>
-                    <td style="padding: 0px 10px;">' . $val['type_ticket'] . '</td>
-                    <td style="padding: 0px 10px;">' . $page_passenger->birthday_passenger . '</td>
-                    <td style="padding: 0px 10px;">' . $page_passenger->type_doc_passenger . ' ' . $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger . '</td>
-                </tr>
-            ';
-        }
-    }
-    // Старый метод по наименованию станции
-
-    // // Новый метод по id станции
+    // // Старый метод по наименованию станции
     // foreach ($arr_reserv_seat as $key => $val) {
-    //     $bus_station_id = $bus_station->id;
-    //     $ticket_station_id = $val['id_station'];
-    //     if ($bus_station_id == $ticket_station_id) {
+    //     $bus_station_title = str_replace(' ', '', $bus_station->title);
+    //     $bus_old_station_title = str_replace(' ', '', $bus_station->old_station_name);
+    //     $ticket_station_title = str_replace(' ', '', $val['station']);
+    //     if ($bus_station_title == $ticket_station_title || $bus_old_station_title == $ticket_station_title) {
     //         $page_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
     //         $booking_sum = '';
     //         if ($val['booking_sum'] != '') {
@@ -121,7 +100,32 @@ foreach ($bus_stations as $bus_station) {
     //         ';
     //     }
     // }
-    // // Новый метод по id станции
+    // // Старый метод по наименованию станции
+
+    // Новый метод по id станции
+    foreach ($arr_reserv_seat as $key => $val) {
+        $bus_station_id = $bus_station->id;
+        $ticket_station_id = $val['id_station'];
+        if ($bus_station_id == $ticket_station_id) {
+            $page_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
+            $booking_sum = '';
+            if ($val['booking_sum'] != '') {
+                $booking_sum = $val['booking_sum'];
+            }
+            $list .= '
+                <tr>
+                    <td style="padding: 0px 10px;">' . $val['seat'] . '</td>
+                    <td style="padding: 0px 10px;">' . $val['pay_or_booking'] . '</td>
+                    <td style="padding: 0px 10px;">' . $booking_sum . '</td>
+                    <td style="padding: 0px 10px;">' . $val['passenger'] . '</td>
+                    <td style="padding: 0px 10px;">' . $val['type_ticket'] . '</td>
+                    <td style="padding: 0px 10px;">' . $page_passenger->birthday_passenger . '</td>
+                    <td style="padding: 0px 10px;">' . $page_passenger->type_doc_passenger . ' ' . $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger . '</td>
+                </tr>
+            ';
+        }
+    }
+    // Новый метод по id станции
 
     $list .= '
             </tbody>
@@ -134,30 +138,12 @@ foreach ($bus_stations as $bus_station) {
 
 $reestr_seat = '
 <style type="text/css">
-* {
-  /*font-family: Helvetica, sans-serif;*/
-  font-family: "DejaVu Sans", sans-serif;
-  font-size: 13px;
-}
 tr:nth-child(even) {
     background: #e1e1e1;
 }
 </style>
 <h3>Реестр занятых мест по маршруту<br>' . $selected_bus . '<br>' . $selected_date . ' ' . $selected_time . '</h3>';
 $reestr_seat .= $list;
-
-//echo $reestr_seat;
-
-include_once __DIR__ . '/dompdf/autoload.inc.php';
-$dompdf = new Dompdf\Dompdf();
-$dompdf->set_option('isRemoteEnabled', TRUE);
-//$dompdf->setPaper('A4', 'portrait');
-$dompdf->setPaper('A4', 'landscape');
-$dompdf->loadHtml($reestr_seat, 'UTF-8');
-$dompdf->render();
- 
-// Вывод файла в браузер:
-//$dompdf->stream('Для водителя - ' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ''); 
 ?>
 
 <div id="content" style="max-width: 700px;">
@@ -169,7 +155,7 @@ $dompdf->render();
         <h4 class="uk-margin-remove">Выбранный рейс:<br><span style="font-weight: 700;"><?php echo $selected_bus; ?></span></h4>
         <h4 class="uk-margin-remove">Дата: <span style="font-weight: 700;"><?php echo $selected_date; ?></span> отправление<span style="font-weight: 700;"><?php echo $selected_time; ?></span></h4>
 
-        <?php echo $list; ?>
+        <?php //echo $list; ?>
 
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>
@@ -177,4 +163,13 @@ $dompdf->render();
 
 <?php   
 }
+?>
+
+<?php
+$pdf = $modules->get('WirePDF');
+$pdf->markupMain = $reestr_seat;
+$pdf->pageOrientation = 'L';
+$pdf->pageFormat = 'A4';
+//$pdf->save('my-pdf-file.pdf');
+$pdf->download('Для водителя - ' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . '');
 ?>

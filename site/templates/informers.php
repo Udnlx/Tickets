@@ -11,23 +11,27 @@ if(isset($_SESSION['access'])){
     $access = $_SESSION['access'];
 }
 
-$informer_button = '';
-if ($operator == 'admin-test' || $operator == 'Директор') {
-    $informer_button = '
+$informer_button = '
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-vybor-avtobusa/">Отчет по рейсу</a>
+';
+if ($operator == 'admin-test' || $operator == 'Директор') {
+    $informer_button .= '
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-agenty-vybor-avtobusa/">Отчет по рейсу - по агентам</a>
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-vybor-agenta/">Отчет по агенту</a>
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-registratcii-passazhirov-vybor-perioda/">Отчет по регистрации пассажиров</a>
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-biletam-vybor-parametrov/">Отчет по билетам</a>
     <a class="uk-margin-small uk-button uk-button-default" href="">Отчет по пассажиру (в разработке)</a>
-    <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>
-    ';
-} else {
-    $informer_button .= '
-    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-vybor-avtobusa/">Отчет по рейсу</a>
-    <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>
     ';
 }
+if ($operator == 'Сидорова') {
+    $informer_button .= '
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-agenty-vybor-avtobusa/">Отчет по рейсу - по агентам</a>
+    ';
+}
+$informer_button .= '
+    <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>
+';
+
 
 
 if ($operator == 'no_operator') {

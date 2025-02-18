@@ -15,8 +15,8 @@ if ($operator == 'no_operator') {
 ?>
     <div id="content" style="max-width: 700px;">
     	<h1 class="uk-margin-remove uk-heading-hero uk-text-center">Выбор агента для отчета</h1>
-        <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
-        <br>       
+        <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате регистрации билета</h3> 
+        <br>         
         <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
             <h3 class="uk-card-title">Сессия потеряна, перезайти</h3>
             <a class="uk-margin-small uk-button uk-button-default" href="/login/">Перезайти</a>
@@ -29,11 +29,11 @@ if ($operator == 'no_operator') {
 
         <div id="content" style="max-width: 700px;">
             <h1 class="uk-margin-remove uk-heading-hero uk-text-center">Выбор агента для отчета</h1>
-            <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
-            <br>            
+            <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате регистрации билета</h3> 
+            <br>              
             <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
                 <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
-                <form class="uk-flex uk-flex-column" id="select_agent" action="/otchet-po-agentu-otchet/" method="post">
+                <form class="uk-flex uk-flex-column" id="select_agent" action="/otchet-po-agentu-data-registratcii-otchet/" method="post">
                     <?php
                     $all_agents = $pages->get('template=agents');
                     $agents = '';
@@ -74,8 +74,8 @@ if ($operator == 'no_operator') {
     ?>
         <div id="content" style="max-width: 700px;">
             <h1 class="uk-margin-remove uk-heading-hero uk-text-center">Выбор агента для отчета</h1>  
-            <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
-            <br>     
+            <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате регистрации билета</h3> 
+            <br>      
             <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
                 <h3 class="uk-card-title">К этой странице у Вас нет доступа</h3>
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя</a>

@@ -15,8 +15,8 @@ if ($operator == 'no_operator') {
 
 <div id="content" style="max-width: 700px;">
 	<h1 class="uk-margin-remove uk-heading-hero uk-text-center">Печать отчета по агенту</h1>
-	<h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
-    <br>        
+    <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате регистрации билета</h3> 
+    <br>            
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <h3 class="uk-card-title">Сессия потеряна, перезайти</h3>
         <a class="uk-margin-small uk-button uk-button-default" href="/login/">Перезайти</a>
@@ -202,7 +202,7 @@ exit();
 
 <div id="content" style="max-width: 700px;">
 	<h1 class="uk-margin-remove uk-heading-hero uk-text-center">Печать отчета по агенту</h1>
-	<h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
+    <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате регистрации билета</h3> 
     <br> 
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>

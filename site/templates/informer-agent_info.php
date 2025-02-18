@@ -18,7 +18,9 @@ if(isset($_SESSION['access'])){
 if ($operator == 'no_operator') {
 ?>
     <div id="content" style="max-width: 700px;">
-    	<h1 class="uk-heading-hero uk-text-center">Отчет по агенту</h1>      
+    	<h1 class="uk-margin-remove uk-heading-hero uk-text-center">Отчет по агенту</h1> 
+        <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
+        <br>       
         <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
             <h3 class="uk-card-title">Сессия потеряна, перезайти</h3>
             <a class="uk-margin-small uk-button uk-button-default" href="/login/">Перезайти</a>
@@ -74,8 +76,9 @@ foreach ($all_transporters as $transporter) {
 ?>
 
     <div id="content" style="max-width: 700px;">
-        <h1 class="uk-heading-hero uk-text-center">Отчет по агенту</h1>
-                    
+        <h1 class="uk-margin-remove uk-heading-hero uk-text-center">Отчет по агенту</h1>
+        <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
+        <br>            
         <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
             <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
             <h4 class="uk-margin-remove">Выбранный агент: <span style="font-weight: 700;"><?php echo $agent; ?></span></h4>

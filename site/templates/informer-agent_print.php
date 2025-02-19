@@ -114,7 +114,7 @@ foreach ($all_transporters as $transporter) {
 
 $title = array
 (
-'Отчет по агенту ' . $agent . ' - ' . $start_date . ' - ' . $finish_date,
+'Отчет по агенту - по дате выезда: ' . $agent . ' - ' . $start_date . ' - ' . $finish_date,
 '',
 );
 
@@ -173,7 +173,7 @@ $footer = array(
 // );
 
 header('Content-Type: text/csv; charset=utf-8' );
-header(sprintf( 'Content-Disposition: attachment; filename=Отчет по агенту ' . $agent . ' - %s.csv', date( 'dmY-His' ) ) );
+header(sprintf( 'Content-Disposition: attachment; filename=Отчет по агенту - по дате выезда ' . $agent . ' - %s.csv', date( 'dmY-His' ) ) );
 header('Content-Transfer-Encoding: binary');
 header('Expires: 0');
 header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

@@ -4,6 +4,9 @@ $agent = !empty($_POST['agent'])?$_POST['agent']:NULL;
 $start_date = !empty($_POST['start_date'])?$_POST['start_date']:NULL;
 $finish_date = !empty($_POST['finish_date'])?$_POST['finish_date']:NULL;
 
+$s_date = strtotime($start_date);
+$f_date = strtotime($finish_date . ' +1 day');
+
 if(isset($_SESSION['operator'])){
     $operator = $_SESSION['operator'];
 } else {
@@ -33,7 +36,7 @@ $all_transporters = $transporters_folder->children();
 
 $arr_all_agent_tickets = [];
 foreach ($all_transporters as $transporter) {
-    $all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $transporter->id_bus . ', date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart, sort=bus');
+    $all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $transporter->id_bus . ', created>=' . $s_date . ', created<=' . $f_date . ', agent_ticket=' . $agent . ', sort=created');
     $sum_commission = 0;
     $sum_predoplata = 0;
     $sum_ostatok = 0;
@@ -114,7 +117,7 @@ foreach ($all_transporters as $transporter) {
 
 $title = array
 (
-'Отчет по агенту ' . $agent . ' - ' . $start_date . ' - ' . $finish_date,
+'Отчет по агенту - по дате регистрации билета: ' . $agent . ' - ' . $start_date . ' - ' . $finish_date,
 '',
 );
 
@@ -173,7 +176,7 @@ $footer = array(
 // );
 
 header('Content-Type: text/csv; charset=utf-8' );
-header(sprintf( 'Content-Disposition: attachment; filename=Отчет по агенту ' . $agent . ' - %s.csv', date( 'dmY-His' ) ) );
+header(sprintf( 'Content-Disposition: attachment; filename=Отчет по агенту - по дате регистрации билета ' . $agent . ' - %s.csv', date( 'dmY-His' ) ) );
 header('Content-Transfer-Encoding: binary');
 header('Expires: 0');
 header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

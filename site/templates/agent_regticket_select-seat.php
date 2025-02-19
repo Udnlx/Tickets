@@ -35,16 +35,31 @@ $bus_page = $pages->get('id=' . $selected_id_bus . '');
 foreach ($bus_page->station_start as $item) {
 $array = preg_split('/[—]/u', $item->title, -1, PREG_SPLIT_NO_EMPTY);
 //print_r($array);
-$button_station_start .= '
-<button id="' . $item->id . '" param_btn="' . $item->title . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . $array[0] . '</button>
-';
+
+//Временное решение из за агента Котельники по скрытию станции посадки Москва (АВ Красногвардейская) 15-00
+if ($operator == 'Котельники' && $array[0] == 'Москва (АВ Красногвардейская) 15-00 ') {
+    $button_station_start .= '';
+} else {
+    $button_station_start .= '
+    <button id="' . $item->id . '" param_btn="' . $item->title . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . $array[0] . '</button>
+    ';
+    }    
 }
+//Временное решение из за агента Котельники по скрытию станции посадки Москва (АВ Красногвардейская) 15-00
+
+// //Изначальное правильное решение
+// $button_station_start .= '
+// <button id="' . $item->id . '" param_btn="' . $item->title . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . $array[0] . '</button>
+// ';
+// }
+// //Изначальное правильное решение
 
 $button_station_finish = '';
 $bus_page = $pages->get('id=' . $selected_id_bus . '');
 foreach ($bus_page->station_finish as $item) {
 $array = preg_split('/[—]/u', $item->title, -1, PREG_SPLIT_NO_EMPTY);
 //print_r($array);
+
 $button_station_finish .= '
 <button id="' . $item->id . '" param_btn="' . $item->title . '" class="uk-ticket-button-station-finish uk-margin-small-top uk-button uk-button-default">' . $array[0] . '</button>
 ';

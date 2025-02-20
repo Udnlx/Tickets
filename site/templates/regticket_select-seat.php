@@ -101,7 +101,8 @@ foreach ($reserv_seat as $reserv_seat_item) {
         "type_ticket"=>$reserv_seat_item->type_ticket,
         "passenger_doc"=>$reserv_seat_item->passenger_doc,
         "operator"=>$reserv_seat_item->operator,
-        "agent_ticket"=>$reserv_seat_item->agent_ticket
+        "agent_ticket"=>$reserv_seat_item->agent_ticket,
+        "comment"=>$reserv_seat_item->comment
         );
 }
 //echo '<pre>'; print_r($arr_reserv_seat); echo '</pre>';
@@ -112,7 +113,19 @@ $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] 
 $phone_passenger = $data_passenger->phone_passenger;
 $birthday_passenger = $data_passenger->birthday_passenger;
 $reestr_seat .= '
-    <p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br> Станция посадки: ' . $val['station'] . '<br> Станция высадки: ' . $val['station_finish'] . '<br>' . $val['passenger'] . '<br>' . $birthday_passenger . '<br>тип билета: ' . $val['type_ticket'] . '<br>' . $val['passenger_doc'] . '<br>телефон: ' . $phone_passenger . '<br>агент: ' . $val['agent_ticket'] . '<br><span> - Регистратор: ' . $val['operator'] . '</span></p>
+    <p class="reestr_seat_item">
+        Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br>
+        Станция посадки: ' . $val['station'] . '<br>
+        Станция высадки: ' . $val['station_finish'] . '<br>' . 
+        $val['passenger'] . '<br>' . 
+        $birthday_passenger . '<br>
+        тип билета: ' . $val['type_ticket'] . '<br>' . 
+        $val['passenger_doc'] . '<br>
+        телефон: ' . $phone_passenger . '<br>
+        агент: ' . $val['agent_ticket'] . '<br>
+        комментарий: ' . $val['comment'] . '<br>
+        <span> - Регистратор: ' . $val['operator'] . '</span>
+    </p>
 ';
 }
 
@@ -293,6 +306,10 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <div class="uk-margin-small-top">
                         <label for="price_ticket">Цена билета</label>
                         <input class="uk-input" id="price_ticket" type="number" name="price_ticket" value="" autocomplete="off" required>
+                    </div>
+                    <div class="uk-margin-small-top">
+                        <label for="comment">Комментарий</label>
+                        <input class="uk-input" id="comment" type="text" name="comment" value="" autocomplete="off">
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">

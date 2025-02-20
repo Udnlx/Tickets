@@ -49,6 +49,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
         "type_ticket"=>$reserv_seat_item->type_ticket,
         'passenger_doc' => $reserv_seat_item->passenger_doc,
         'operator' => $reserv_seat_item->operator,
+        "comment"=>$reserv_seat_item->comment
         );
 }
 // echo '<pre>';
@@ -67,10 +68,11 @@ foreach ($bus_stations as $bus_station) {
                     <th style="line-height: 0.8; font-size: 10px; width: 5%;">Место</th>
                     <th style="line-height: 0.8; font-size: 10px; width: 10%;">Статус</th>
                     <th style="line-height: 0.8; font-size: 10px; width: 10%;">Сумма<br>к оплате</th>
-                    <th style="line-height: 0.8; font-size: 10px; width: 30%;">Пассажир</th>
-                    <th style="line-height: 0.8; font-size: 10px; width: 10%;">Тип<br>билета</th>
-                    <th style="line-height: 0.8; font-size: 10px; width: 10%;">Дата<br>рождения</th>
-                    <th style="line-height: 0.8; font-size: 10px; width: 25%;">Документ</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 25%;">Пассажир</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 7%;">Тип<br>билета</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 7%;">Дата<br>рождения</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 20%;">Документ</th>
+                    <th style="line-height: 0.8; font-size: 10px; width: 16%;">Комментарий</th>
                 </tr>
             </thead>
             <tbody>
@@ -121,6 +123,7 @@ foreach ($bus_stations as $bus_station) {
                     <td style="padding: 0px 10px;">' . $val['type_ticket'] . '</td>
                     <td style="padding: 0px 10px;">' . $page_passenger->birthday_passenger . '</td>
                     <td style="padding: 0px 10px;">' . $page_passenger->type_doc_passenger . ' ' . $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger . '</td>
+                    <td style="padding: 0px 10px;font-size:10px;">' . $val['comment'] . '</td>
                 </tr>
             ';
         }

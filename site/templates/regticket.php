@@ -30,6 +30,7 @@ $selected_name = !empty($_POST['selected_name'])?$_POST['selected_name']:NULL;
 $selected_document = !empty($_POST['selected_document'])?$_POST['selected_document']:NULL;
 $agent_ticket = !empty($_POST['agent_ticket'])?$_POST['agent_ticket']:NULL;
 $price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;
+$comment = !empty($_POST['comment'])?$_POST['comment']:NULL;
 
 $success = 'Билет успешно зарегистрирован';
 if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $selected_seat && $selected_name && $selected_document) {
@@ -60,6 +61,7 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
         'operator' => $operator,
         'agent_ticket' => $agent_ticket,
         'price_ticket' => $price_ticket,
+        'comment' => $comment,
         ]);
 
         $departure_date = strtotime($selected_date);
@@ -126,6 +128,7 @@ if ($operator == 'no_operator' || $access == 'agent') {
         <p class="uk-margin-remove">Документ пассажира: <span style="font-weight: 700;"><?php echo $selected_document; ?></span></p>
         <p class="uk-margin-remove">Агент билета: <span style="font-weight: 700;"><?php echo $agent_ticket; ?></span></p>
         <p class="uk-margin-remove">Цена билета: <span style="font-weight: 700;"><?php echo $price_ticket; ?></span></p>
+        <p class="uk-margin-remove">Комментарий: <span style="font-weight: 700;"><?php echo $comment; ?></span></p>
 
         <form class="uk-flex uk-flex-column" id="select_bus" action="/registratciia-bileta-vybor-mesta/" method="post">
             <div class="uk-margin-small-top uk-hidden">

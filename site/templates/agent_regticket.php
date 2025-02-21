@@ -28,7 +28,7 @@ $agent_ticket = !empty($_POST['agent_ticket'])?$_POST['agent_ticket']:NULL;
 $price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;
 
 $success = 'Билет успешно зарегистрирован';
-if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $selected_seat && $selected_name && $selected_document) {
+if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $selected_seat && $selected_name && $selected_document && $operator != 'no_operator') {
     //echo $selected_bus . $selected_id_bus . $selected_date . $selected_time . $selected_seat . $selected_name . $selected_document . $selected_idpassenger;
     $ticket_page = $pages->get('title=' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat . '');
     if ($ticket_page->id > 0) {

@@ -174,5 +174,5 @@ $pdf->markupMain = $reestr_seat;
 $pdf->pageOrientation = 'L';
 $pdf->pageFormat = 'A4';
 //$pdf->save('my-pdf-file.pdf');
-$pdf->download('Для водителя - ' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . '');
+$pdf->download('Для водителя - ' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . '.pdf');
 ?>

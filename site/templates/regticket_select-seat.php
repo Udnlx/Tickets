@@ -137,16 +137,41 @@ $sb_dispatch_time = $bus_page->sb_dispatch_time;
 include 'sb_get_freeseat.php';
 $reestr_seat_1c = '
 <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
-    <h3 class="uk-margin-remove uk-card-title">Лог работы с системой 1С</h3>
-    <div class="reestr_seat uk-flex">
-        ' . $sb_log . '
-    </div>
+<ul uk-accordion>
+    <li>
+        <a class="uk-accordion-title" href="#"><h3 class="uk-margin-remove uk-card-title">Лог работы с системой 1С</h3></a>
+        <div class="uk-accordion-content">
+            ' . $sb_log . '
+        </div>
+    </li>
+</ul>
 </div>
 ';
+if ($switching_on == true) {
+    $switch_sb_connect = '<p class="sb_switch_item">🔘🟢 Подключение к 1С</p>';
+}
+if ($switching_on == false) {
+    $switch_sb_connect = '<p class="sb_switch_item">🔴🔘 Подключение к 1С</p>';
+}
+if ($bus_on == true) {
+    $switch_sb_bus = '<p class="sb_switch_item">🔘🟢 В 1С найден автобус</p>';
+}
+if ($bus_on == false) {
+    $switch_sb_bus = '<p class="sb_switch_item">🔴🔘 В 1С не найден автобус</p>';
+}
+// echo '<pre>'; 
+// var_dump($sb_free_seats);
+// echo '</pre>';
 
 $max_seat = 53;
 $button_seat = '';
 for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
+    $sb_disabled = '';
+    $sb_occupied = '';
+    if (in_array($num_seat, $sb_free_seats)) {
+        $sb_disabled = 'disabled';
+        $sb_occupied = '<p class="sb_occupied"></p>'; 
+    }
     $free = true;
     foreach ($arr_reserv_seat as $key => $val) {
         $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
@@ -161,12 +186,12 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 }
                 if ($val['pay_or_booking'] == 'забронировано') {
                     $button_seat .= '
-                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_reserv" disabled title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_reserv" disabled title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '</button>
                     ';
                 }
                 if ($val['pay_or_booking'] == 'оплачено') {
                     $button_seat .= '
-                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_pay" disabled title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_pay" disabled title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '</button>
                     ';
                 }
         }
@@ -186,9 +211,18 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 $reserv_style = 'seat_select_mass';
             }
         }
-        $button_seat .= '
-        <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '">' . $num_seat . '</button>
-        ';
+        if ($sb_disabled != 'disabled') {
+            $button_seat .= '
+            <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '">' . $num_seat . '</button>
+            ';
+        } else {
+            // $button_seat .= '
+            // <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default sb_seat_reserv" disabled>' . $num_seat . '' . $sb_occupied . '</button>
+            // ';
+            $button_seat .= '
+            <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '">' . $num_seat . '' . $sb_occupied . '</button>
+            ';
+        }
     }
 }
 
@@ -360,6 +394,10 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
             </div>
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                <div class="sb_switсh">
+                    <?php echo $switch_sb_connect;?>
+                    <?php echo $switch_sb_bus;?>
+                </div>
                 <h3 class="uk-margin-remove uk-card-title">Свободные и занятые места</h3>
                 <div class="buttons_seat uk-flex uk-flex-wrap">
                     <?php echo $button_seat;?>

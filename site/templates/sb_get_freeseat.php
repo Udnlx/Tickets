@@ -22,11 +22,13 @@ try{
     );
     $client = new SoapClient('http://cluster.avtovokzal.ru/gds114/soap/json?wsdl', $param);
     $sb_log .= '<p style="color:green;margin:0;">Подключение прошло успешно</p>';
+    $switching_on = true;
 }
 catch (SoapFault $soapFault){
     $sb_log .=  '<p style="color:red;margin:0;">Не подключились</p>';
     $info_json = json_encode($soapFault);
     $sb_log .=  '<p style="color:red;">' . $info_json . '</p>';
+    $switching_on = false;
 }
 
 
@@ -51,6 +53,7 @@ $array = explode("uid",$dataList->return);
 
 
 foreach ($array as $array_item) {
+    $bus_on = false;
     if (stristr($array_item,'"dispatchDate":"' . $sb_dispatch_date . ' ' . $sb_dispatch_time . '"')!==false) {
         $found = true;
         $sb_bus = $array_item;
@@ -61,6 +64,7 @@ foreach ($array as $array_item) {
         $uid = mb_substr($uid, 0, -1);
         $sb_log .=  '<p style="color:green;font-weight:700;text-align:center;">ID автобуса в системе 1С: </p>';
         $sb_log .= $uid . '<br>';
+        $bus_on = true;
         break;
     }
 }

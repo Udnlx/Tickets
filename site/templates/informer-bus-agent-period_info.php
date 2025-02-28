@@ -22,7 +22,7 @@ if ($operator == 'no_operator') {
 ?>
 
 <div id="content" style="max-width: 700px;">
-	<h1 class="uk-heading-hero uk-text-center">Отчет по рейсу и агентам за период</h1>
+	<h1 class="uk-heading-hero uk-text-center">Отчет по рейсу и агенту за период</h1>
 	
 	            
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
@@ -73,7 +73,7 @@ foreach ($arr_all_agent_tickets as $key => $val) {
 ?>
 
 <div id="content">
-	<h1 class="uk-heading-hero uk-text-center">Отчет по рейсу и агентам за период</h1>
+	<h1 class="uk-heading-hero uk-text-center">Отчет по рейсу и агенту за период</h1>
 	<div class="uk-child-width-1-2@m" uk-grid>
 	    
         <div>
@@ -95,7 +95,7 @@ foreach ($arr_all_agent_tickets as $key => $val) {
                 </div>
                 
                 
-                <form class="uk-flex uk-flex-column" id="" action="" method="post">
+                <form class="uk-flex uk-flex-column" id="" action="/otchet-po-reisu-i-agentam-za-period-pechat/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input readonly" id="print_bus" type="text" name="print_bus" value="<?php echo $selected_bus ; ?>">
                     </div>

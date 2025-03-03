@@ -908,3 +908,39 @@ $('#select_seat').submit(function(){
     return true;
 });
 //Проверка свободно ли место перед регистрацией билета
+
+
+
+//Регистрация билета в 1С
+$('#reg_ticket_1c').click(function() {
+    var data_ticket_for1c = $('#data_ticket_for1c').val();
+    //console.log(data_ticket_for1c);
+$.ajax({
+    type: "POST",
+    url: '/reg_ticket_1c.php',
+    data: {
+        'data_ticket_for1c':data_ticket_for1c, 
+    },
+    beforeSend: function () {
+        $('#reg_messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
+    },
+    success: function (data) {
+        $('#reg_messages').html(data);
+        $('#reg_ticket_1c').addClass('uk-hidden');
+    },
+    error: function (jqXHR, text, error) {
+        $('#reg_messages').html(error);
+    }
+});
+return false;    
+});
+//Регистрация билета в 1С
+
+//Предотврощение повторной регистрации в 1С
+$(document).ready(function() {
+    let warning = $('.uk-heading-hero').html();
+    if (warning.indexOf("Такой билет уже существует") !== -1) {
+        $('#reg_ticket_1c').addClass('uk-hidden');
+    }
+});
+//Предотврощение повторной регистрации в 1С

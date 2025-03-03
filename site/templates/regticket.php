@@ -162,6 +162,16 @@ if ($operator == 'no_operator' || $access == 'agent') {
             </div>
         </form>
 
+        <div class="uk-margin-small-top uk-hidden">
+            <input class="uk-input readonly" id="data_ticket_for1c" type="text" name="data_ticket_for1c" value="<?php echo $ticket_page->id ; ?>" placeholder="ID билета" autocomplete="off" required>
+        </div>
+        <div class="uk-margin-small-top uk-flex uk-flex-column">
+            <button id="reg_ticket_1c" class="uk-margin-small-top uk-button uk-button-danger" type="butoon">Регистрация билета в 1C (в разработке)</button>
+        </div>
+        <div id="reg_messages" class="messages-block">
+            <p class="messages" style="color: green;"></p>
+        </div>
+
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>
 </div>

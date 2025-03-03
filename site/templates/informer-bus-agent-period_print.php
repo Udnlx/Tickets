@@ -37,6 +37,7 @@ if ($operator == 'no_operator') {
 
 <?php
 $all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', created>=' . $s_date . ', created<=' . $f_date . ', agent_ticket=' . $agent . ', sort=created');
+$sum_price_ticket = 0;
 $sum_commission = 0;
 $sum_predoplata = 0;
 $sum_ostatok = 0;
@@ -50,6 +51,7 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
             $commission = 550;
         }
         $sum_commission = $sum_commission + $commission;
+        $sum_price_ticket = $sum_price_ticket + $all_agent_tickets_item->price_ticket;
     } else {
         if ($all_agent_tickets_item->confirm == 'не явился') {
             $commission = 0;
@@ -57,6 +59,7 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
             $commission = 650;
         }
         $sum_commission = $sum_commission + $commission;
+        $sum_price_ticket = $sum_price_ticket + $all_agent_tickets_item->price_ticket;
     }
 
     $remains = 0;
@@ -79,6 +82,7 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
         "passenger"=>$all_agent_tickets_item->passenger,
         "type_ticket"=>$all_agent_tickets_item->type_ticket,
         "bus"=>$all_agent_tickets_item->bus,
+        "price_ticket"=>$all_agent_tickets_item->price_ticket,
         "commission"=>$commission,
         "booking_sum"=>$all_agent_tickets_item->booking_sum,
         "remains"=>$remains,
@@ -92,6 +96,7 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
         'passenger' => '',
         'type_ticket' => '',
         'bus' => '',
+        "price_ticket"=>$sum_price_ticket,
         'commission' => $sum_commission,
         'booking_sum' => $sum_predoplata,
         'remains' => $sum_ostatok,
@@ -113,6 +118,7 @@ $headers = array(
         'passenger' => 'Пассажир',
         'type_ticket' => 'Тип билета',
         'bus' => 'Автобус',
+        'price_ticket' => 'Цена билета',
         'commission' => 'Комиссия',
         'booking_sum' => 'Предоплата',
         'remains' => 'Остаток к расчету',
@@ -127,6 +133,7 @@ $footer = array(
         'passenger' => '',
         'type_ticket' => '',
         'bus' => '',
+        'price_ticket' => '',
         'commission' => '',
         'booking_sum' => '',
         'remains' => '',

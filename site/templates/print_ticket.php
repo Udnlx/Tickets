@@ -92,16 +92,33 @@ p {
     line-height: 1;}
 
 .qr-code {
+    width: 300px;
+    text-align: center;
     position: absolute;
     right: 0px;
-    margin: -250px 0 0 0;}
+    margin: -240px 0 0 0;}
 
 .qr-code p.qr-code-text {
     margin: 0;
-    font-size: 20px;}
+    font-size: 14px;}
+
+.qr-links {
+    display: flex;}
+
+.qr-code a.qr-code-link {
+    padding: 5px;
+    width: 100px;
+    margin: 0;
+    font-size: 14px;
+    text-align: center;}
+
+.qr-images {
+    margin: 30px 0 0 0;
+    display: flex;}
 
 .qr-code img.qr-code-img {
-    width: 200px;
+    padding: 5px;
+    width: 110px;
     height: auto;}
 </style>
 ';
@@ -188,8 +205,15 @@ $content .= '
     <p>Оплата в Автобусе наличными водителю или на сайте olimp-tickets.ru</p>
 
     <div class="qr-code">
-        <p class="qr-code-text" style="text-align:center;">Заказ и<br>бронирование<br>билетов</p>
-        <img class="qr-code-img" src="http://tickets/site/assets/images/qr-code.jpg" alt="">
+        <p class="qr-code-text" style="text-align:center;">Скидка 20% на заказ через приложение</p>
+        <div class="qr-links">
+            <a class="qr-code-link" href="https://apps.apple.com/ru/app/olimp-tickets/id6740780087?l=en-GB">IOS</a>
+            <a class="qr-code-link" href="https://play.google.com/store/apps/details?id=com.mycompany.olimptickets">Android</a>
+        </div>
+        <div class="qr-images">
+            <img class="qr-code-img" src="http://tickets/site/assets/images/qr-code1.png" alt="">
+            <img class="qr-code-img" src="http://tickets/site/assets/images/qr-code2.png" alt="">
+        </div>
     </div>
 </div>
 ';
@@ -202,7 +226,7 @@ $dompdf->loadHtml($content, 'UTF-8');
 $dompdf->render();
  
 //Вывод файла в браузер:
-//$dompdf->stream('Билет - ' . $ticket_id . ''); 
+$dompdf->stream('Билет - ' . $ticket_id . ''); 
 ?>
 
 <div id="content" style="max-width: 700px;">

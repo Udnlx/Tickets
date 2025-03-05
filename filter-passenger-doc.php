@@ -19,6 +19,7 @@ if ($search_passenger == '') {
         $arr_all_passengers[] = array(
             "id_passenger"=>$all_passengers_item->id,
             "name_passenger"=>$all_passengers_item->name_passenger,
+            "gender_passenger"=>$all_passengers_item->gender_passenger,
             "birthday_passenger"=>$all_passengers_item->birthday_passenger,
             "type_doc_passenger"=>$all_passengers_item->type_doc_passenger,
             "num_doc_passenger"=>$all_passengers_item->num_doc_passenger,
@@ -32,7 +33,7 @@ if ($search_passenger == '') {
     $passengers = '';
     foreach ($arr_all_passengers as $key => $val) {
     $passengers .= '
-        <p id="' . $val['id_passenger'] . '" count_travel="' . $val['count_travel'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span>' . $val['birthday_passenger'] . ' — ' . $val['type_doc_passenger'] . ' — ' . $val['passport_passenger'] . ' — ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span><br><span>Всего поездок: ' . $val['count_travel'] . '</span></p>
+        <p id="' . $val['id_passenger'] . '" count_travel="' . $val['count_travel'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span>' . $val['gender_passenger'] . ' — ' . $val['birthday_passenger'] . ' — ' . $val['type_doc_passenger'] . ' — ' . $val['passport_passenger'] . ' — ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span><br><span>Всего поездок: ' . $val['count_travel'] . '</span></p>
     ';
     }
 

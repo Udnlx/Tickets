@@ -19,6 +19,7 @@ if ($search_passenger == '') {
         $arr_all_passengers[] = array(
             "id_passenger"=>$all_passengers_item->id,
             "name_passenger"=>$all_passengers_item->name_passenger,
+            "gender_passenger"=>$all_passengers_item->gender_passenger,
             "birthday_passenger"=>$all_passengers_item->birthday_passenger,
             "type_doc_passenger"=>$all_passengers_item->type_doc_passenger,
             "num_doc_passenger"=>$all_passengers_item->num_doc_passenger,
@@ -34,7 +35,7 @@ if ($search_passenger == '') {
     $lite_ndp = mb_substr($val['num_doc_passenger'], -2, 2);
     $lite_phone = mb_substr($val['phone_passenger'], -5, 5);
     $passengers .= '
-        <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span class="uk-hidden">' . $val['birthday_passenger'] . ' — ' . $val['type_doc_passenger'] . ' — ' . $val['passport_passenger'] . ' — ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
+        <p id="' . $val['id_passenger'] . '" class="passengers_item">' . $val['name_passenger'] . '<br><span class="uk-hidden">' . $val['gender_passenger'] . ' — ' . $val['birthday_passenger'] . ' — ' . $val['type_doc_passenger'] . ' — ' . $val['passport_passenger'] . ' — ' . $val['num_doc_passenger'] . '<br>' . $val['phone_passenger'] . '</span></p>
         <p style="margin: -4px 0 4px 0 !important;font-size: 11px;"><span>' . $val['birthday_passenger'] . ', ' . $val['type_doc_passenger'] . ', ...' . $lite_pp . ', ......' . $lite_ndp . '<br>.........' . $lite_phone . '</span></p>
     ';
     }

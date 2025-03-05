@@ -289,9 +289,12 @@ $(document).on('click', 'p.passengers_item', function(){
     let passenger_arr = passenger.split('<br>');
     let name_passenger = passenger_arr[0];
     let passenger_doc_arr = passenger_arr[1].split(' — ');
-    let type_doc_passenger = passenger_doc_arr[1];
-    let series_doc_passenger = passenger_doc_arr[2];
-    let num_doc_passenger = passenger_doc_arr[3];
+    let gender_passenger = passenger_doc_arr[0];
+    gender_passenger = gender_passenger.replace('<span>', '');
+    gender_passenger = gender_passenger.replace('<span class="uk-hidden">', '');
+    let type_doc_passenger = passenger_doc_arr[2];
+    let series_doc_passenger = passenger_doc_arr[3];
+    let num_doc_passenger = passenger_doc_arr[4];
     let id_passenger = $(this).attr('id');
     let count_travel = $(this).attr('count_travel');
     //console.log (id_passenger);
@@ -299,6 +302,7 @@ $(document).on('click', 'p.passengers_item', function(){
     //console.log(type_doc_passenger + ' ' + num_doc_passenger + ' ' + param_doc_passenger);
     $('#selected_idpassenger').val(id_passenger);
     $('#selected_name').val(name_passenger);
+    $('#selected_gender').val(gender_passenger);
     $('#selected_document').val(type_doc_passenger + ' ' + series_doc_passenger + ' ' + num_doc_passenger);
     
     $('#passenger_idpassenger').val(id_passenger);

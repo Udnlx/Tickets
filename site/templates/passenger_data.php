@@ -130,7 +130,6 @@ $reestr_seat .= '
             <div class="uk-margin-small-top uk-hidden">
                 <input class="uk-input readonly" id="old_name_passenger" type="text" name="old_name_passenger" value="<?php echo $page_passenger->name_passenger ?>" placeholder="ФИО пассажира" autocomplete="off" required>
             </div>
-            
             <div class="uk-margin-small-top uk-hidden">
                 <input class="uk-input readonly" id="old_birthday_passenger" type="date" name="old_birthday_passenger" value="<?php echo $dayformat ?>" placeholder="Дата рождения" autocomplete="off" required>
             </div>

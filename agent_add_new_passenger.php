@@ -15,6 +15,7 @@ if(isset($_SESSION['operator'])){
 
 
 $add_name_passenger = $_POST['add_name_passenger'];
+$add_gender_passenger = $_POST['add_gender_passenger'];
 $add_birthday_passenger = $_POST['add_birthday_passenger'];
 $add_type_doc_passenger = $_POST['add_type_doc_passenger'];
 $add_num_doc_passenger = $_POST['add_num_doc_passenger'];
@@ -22,7 +23,7 @@ $add_passport_passenger = $_POST['add_passport_passenger'];
 $add_phone_passenger = $_POST['add_phone_passenger'];
 $add_agent = $_POST['add_agent'];
 
-if ($add_name_passenger == '' || $add_birthday_passenger == '' || $add_type_doc_passenger == '' || $add_num_doc_passenger == '' || $add_passport_passenger == '' || $add_phone_passenger == '') {
+if ($add_name_passenger == '' || $add_gender_passenger == '' || $add_birthday_passenger == '' || $add_type_doc_passenger == '' || $add_num_doc_passenger == '' || $add_passport_passenger == '' || $add_phone_passenger == '') {
     echo '<p class="messages" style="color: red;">Ошибка. Пассажир не добавлен.<br>Проверьте заполненность полей и повторите попытку.</p>';    
 } else {
     $passengers = '';
@@ -34,11 +35,12 @@ if ($add_name_passenger == '' || $add_birthday_passenger == '' || $add_type_doc_
         }
     } else {
         echo '<p class="messages" style="color: green;">Новый пассажир добавлен</p>';
-        //echo $add_name_passenger . ' - ' . $add_birthday_passenger . ' - ' . $add_type_doc_passenger . ' - ' . $add_num_doc_passenger . ' - ' . $add_passport_passenger . ' - ' . $add_phone_passenger;
+        //echo $add_name_passenger . ' - ' . $add_gender_passenger . ' - ' . $add_birthday_passenger . ' - ' . $add_type_doc_passenger . ' - ' . $add_num_doc_passenger . ' - ' . $add_passport_passenger . ' - ' . $add_phone_passenger;
         
         $pages->add('passengers', '/passazhiry/', [
             'title' => $add_name_passenger,
             'name_passenger' => $add_name_passenger,
+            'gender_passenger' => $add_gender_passenger,
             'birthday_passenger' => $add_birthday_passenger,
             'type_doc_passenger' => $add_type_doc_passenger,
             'num_doc_passenger' => $add_num_doc_passenger,
@@ -50,7 +52,7 @@ if ($add_name_passenger == '' || $add_birthday_passenger == '' || $add_type_doc_
         $passenger_page_id = $passenger_page->id;
         $log = '';
         $log .= date('Y-m-d H:i:s') . ' - Добавлен новый пассажир id - ' . $passenger_page_id . ' оператором ' . $operator . '.   ';
-        $log .= 'Данные добавленного пассажира: ' . $add_name_passenger . ' - ' . $add_birthday_passenger . ' - ' . $add_type_doc_passenger . ' - ' . $add_num_doc_passenger . ' - ' . $add_passport_passenger . ' - ' . $add_phone_passenger;
+        $log .= 'Данные добавленного пассажира: ' . $add_name_passenger . ' - ' . $add_gender_passenger . ' - ' . $add_birthday_passenger . ' - ' . $add_type_doc_passenger . ' - ' . $add_num_doc_passenger . ' - ' . $add_passport_passenger . ' - ' . $add_phone_passenger;
         file_put_contents(__DIR__ . '/site/templates/log_agent_add_passengers.txt', $log . PHP_EOL, FILE_APPEND);
         
         $all_passengers = $pages->find('template=passengers, title~*=' . $add_name_passenger . '');

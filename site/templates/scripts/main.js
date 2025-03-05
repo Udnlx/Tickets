@@ -692,6 +692,7 @@ $('#search_tickets').keyup(function(){
 //Добавление нового пассажира
 $('#add_passenger').click(function() {
     var add_name_passenger = $('#name_passenger').val();
+    var add_gender_passenger = $('#gender_passenger').val();
     var add_birthday_passenger = $('#birthday_passenger').val();
     var day_rev = add_birthday_passenger.split("-").reverse().join(".");
     var add_birthday_passenger = day_rev;
@@ -706,6 +707,7 @@ $.ajax({
     url: '/add_new_passenger.php',
     data: {
         'add_name_passenger':add_name_passenger, 
+        'add_gender_passenger':add_gender_passenger, 
         'add_birthday_passenger':add_birthday_passenger,
         'add_type_doc_passenger':add_type_doc_passenger,
         'add_num_doc_passenger':add_num_doc_passenger,
@@ -722,6 +724,7 @@ $.ajax({
         let v = $('p.messages').text();
         if (v.indexOf('Ошибка') == -1) {
         $('#name_passenger').val('');
+        $('#gender_passenger').val('');
         $('#birthday_passenger').val('');
         $('#type_doc_passenger').val('');
         $('#num_doc_passenger').val('');
@@ -746,6 +749,7 @@ return false;
 //Добавление нового пассажира для агентов
 $('#agent_add_passenger').click(function() {
     var add_name_passenger = $('#name_passenger').val();
+    var add_gender_passenger = $('#gender_passenger').val();
     var add_birthday_passenger = $('#birthday_passenger').val();
     var day_rev = add_birthday_passenger.split("-").reverse().join(".");
     var add_birthday_passenger = day_rev;
@@ -760,6 +764,7 @@ $.ajax({
     url: '/agent_add_new_passenger.php',
     data: {
         'add_name_passenger':add_name_passenger, 
+        'add_gender_passenger':add_gender_passenger, 
         'add_birthday_passenger':add_birthday_passenger,
         'add_type_doc_passenger':add_type_doc_passenger,
         'add_num_doc_passenger':add_num_doc_passenger,
@@ -776,6 +781,7 @@ $.ajax({
         let v = $('p.messages').text();
         if (v.indexOf('Ошибка') == -1) {
         $('#name_passenger').val('');
+        $('#gender_passenger').val('');
         $('#birthday_passenger').val('');
         $('#type_doc_passenger').val('');
         $('#num_doc_passenger').val('');

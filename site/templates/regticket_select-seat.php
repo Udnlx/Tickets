@@ -454,6 +454,14 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 <input class="uk-input" id="name_passenger" type="text" name="name_passenger" value="" placeholder="ФИО пассажира" autocomplete="off" required>
             </div>
             <div class="uk-margin-small-top">
+                <label for="gender_passenger">Пол</label>
+                <select class="uk-select" id="gender_passenger" name="gender_passenger" required>
+                    <option value="">Выберите пол</option>
+                    <option value="М">М</option>
+                    <option value="Ж">Ж</option>
+                </select>
+            </div>
+            <div class="uk-margin-small-top">
                 <label for="birthday_passenger">Дата рождения</label>
                 <input class="uk-input" id="birthday_passenger" type="date" name="birthday_passenger" value="" placeholder="Дата рождения" autocomplete="off" required>
             </div>

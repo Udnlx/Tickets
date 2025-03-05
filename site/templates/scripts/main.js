@@ -43,6 +43,8 @@ $('button.uk-ticket-seat').click(function() {
     $(document).scrollTop(scrollTop);
     $('#search_passenger').focus();
     $('#agent_search_passenger').focus();
+    let sb_idbus = $('#sb_idbus').text();
+    $('#sb_idbus_forpost').val(sb_idbus);
 });
 
 
@@ -912,21 +914,23 @@ $('#select_seat').submit(function(){
 
 
 //Регистрация билета в 1С
-$('#reg_ticket_1c').click(function() {
-    var data_ticket_for1c = $('#data_ticket_for1c').val();
-    //console.log(data_ticket_for1c);
+$('#sb_reg_ticket').click(function() {
+    var sb_idbus = $('#sb_idbus').val();
+    var sb_seat = $('#sb_seat').val();
+    //console.log(sb_idbus);
 $.ajax({
     type: "POST",
-    url: '/reg_ticket_1c.php',
+    url: '/sb_reg_ticket.php',
     data: {
-        'data_ticket_for1c':data_ticket_for1c, 
+        'sb_idbus':sb_idbus, 
+        'sb_seat':sb_seat, 
     },
     beforeSend: function () {
         $('#reg_messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
     },
     success: function (data) {
         $('#reg_messages').html(data);
-        $('#reg_ticket_1c').addClass('uk-hidden');
+        // $('#sb_reg_ticket').addClass('uk-hidden');
     },
     error: function (jqXHR, text, error) {
         $('#reg_messages').html(error);
@@ -936,11 +940,11 @@ return false;
 });
 //Регистрация билета в 1С
 
-//Предотврощение повторной регистрации в 1С
-$(document).ready(function() {
-    let warning = $('.uk-heading-hero').html();
-    if (warning.indexOf("Такой билет уже существует") !== -1) {
-        $('#reg_ticket_1c').addClass('uk-hidden');
-    }
-});
-//Предотврощение повторной регистрации в 1С
+// //Предотврощение повторной регистрации в 1С
+// $(document).ready(function() {
+//     let warning = $('.uk-heading-hero').html();
+//     if (warning.indexOf("Такой билет уже существует") !== -1) {
+//         $('#reg_ticket_1c').addClass('uk-hidden');
+//     }
+// });
+// //Предотврощение повторной регистрации в 1С

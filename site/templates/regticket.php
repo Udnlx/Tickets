@@ -32,6 +32,16 @@ $agent_ticket = !empty($_POST['agent_ticket'])?$_POST['agent_ticket']:NULL;
 $price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;
 $comment = !empty($_POST['comment'])?$_POST['comment']:NULL;
 
+$sb_idbus_forreg = $_POST['sb_idbus_forpost'];
+$sb_button_reg = '';
+if ($sb_idbus_forreg != '') {
+    $sb_button_reg = '
+    <div class="uk-margin-small-top uk-flex uk-flex-column">
+        <button id="sb_reg_ticket" class="uk-margin-small-top uk-button uk-button-danger" type="butoon">Регистрация билета в 1C (в разработке)</button>
+    </div>
+    ';
+}
+
 $success = 'Билет успешно зарегистрирован';
 if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $selected_seat && $selected_name && $selected_document && $operator != 'no_operator') {
     //echo $selected_bus . $selected_id_bus . $selected_date . $selected_time . $selected_seat . $selected_name . $selected_document . $selected_idpassenger;
@@ -163,12 +173,11 @@ if ($operator == 'no_operator' || $access == 'agent') {
         </form>
 
         <div class="uk-margin-small-top uk-hidden">
-            <input class="uk-input readonly" id="data_ticket_for1c" type="text" name="data_ticket_for1c" value="<?php echo $ticket_page->id ; ?>" placeholder="ID билета" autocomplete="off" required>
+            <input class="uk-input" id="sb_idbus" type="text" name="sb_idbus" value="<?php echo $sb_idbus_forreg ; ?>">
+            <input class="uk-input" id="sb_seat" type="text" name="sb_seat" value="<?php echo $selected_seat ; ?>">
         </div>
-        <div class="uk-margin-small-top uk-flex uk-flex-column">
-            <button id="reg_ticket_1c" class="uk-margin-small-top uk-button uk-button-danger" type="butoon">Регистрация билета в 1C (в разработке)</button>
-        </div>
-        <div id="reg_messages" class="messages-block">
+        <?php echo $sb_button_reg ; ?>
+        <div id="reg_messages" class="messages-block" style="margin: 10px 0 0 0;">
             <p class="messages" style="color: green;"></p>
         </div>
 

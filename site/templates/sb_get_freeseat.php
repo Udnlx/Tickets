@@ -58,12 +58,12 @@ foreach ($array as $array_item) {
         $found = true;
         $sb_bus = $array_item;
         $sb_bus = explode(",",$sb_bus);
-        $sb_log .=  '<p style="color:green;font-weight:700;text-align:center;">Найден автобус: </p>';
+        $sb_log .= '<p style="color:green;font-weight:700;text-align:center;">Найден автобус: </p>';
         $sb_log .= '"uid' . $sb_bus[0] . '-' . $sb_bus[3] . '-' . $sb_bus[5] . '<br>';
         $uid = mb_substr($sb_bus[0], 3);
         $uid = mb_substr($uid, 0, -1);
-        $sb_log .=  '<p style="color:green;font-weight:700;text-align:center;">ID автобуса в системе 1С: </p>';
-        $sb_log .= $uid . '<br>';
+        $sb_log .= '<p style="color:green;font-weight:700;text-align:center;">ID автобуса в системе 1С: </p>';
+        $sb_log .= '<p id="sb_idbus">' . $uid . '</p><br>';
         $bus_on = true;
         break;
     }

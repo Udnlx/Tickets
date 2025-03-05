@@ -345,6 +345,9 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                         <label for="comment">Комментарий</label>
                         <input class="uk-input" id="comment" type="text" name="comment" value="" autocomplete="off">
                     </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_idbus_forpost" type="text" name="sb_idbus_forpost" value="" autocomplete="off">
+                    </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
                         <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Зарегистрировать</button>

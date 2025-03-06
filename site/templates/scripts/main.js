@@ -309,6 +309,13 @@ $(document).on('click', 'p.passengers_item', function(){
     $('#passenger_name').val(name_passenger);
     $('#passenger_document').val(type_doc_passenger + ' ' + series_doc_passenger + ' ' + num_doc_passenger);
 
+    //console.log ('Проверяем заполненость поля пол пассажира');
+    if ($('#selected_gender').val() == '') {
+        $('#messages_add_gender p.messages').text('');
+        $('#footer_gender_passenger option:first').prop('selected', true);
+        UIkit.modal('#modal-add_gender').show();
+    }
+
     //console.log ('Проверяем количество поездок пассажира');
     let departure_date = $('#departure_date').text();
     if (departure_date > 1735678800) {
@@ -920,6 +927,35 @@ $('#select_seat').submit(function(){
     return true;
 });
 //Проверка свободно ли место перед регистрацией билета
+
+
+
+//Добавление пола пассажиру при регистрации, если у него пола нет
+$('#footer_add_gender').click(function() {
+    var id_passenger = $('#selected_idpassenger').val();
+    var gender_passenger = $('#footer_gender_passenger').val();
+    //console.log(id_passenger, gender_passenger);
+$.ajax({
+    type: "POST",
+    url: '/add_gender_passenger.php',
+    data: {
+        'id_passenger':id_passenger, 
+        'gender_passenger':gender_passenger, 
+    },
+    beforeSend: function () {
+        $('#messages_add_gender').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
+    },
+    success: function (data) {
+        $('#messages_add_gender').html(data);
+        $('#selected_gender').val(gender_passenger);
+    },
+    error: function (jqXHR, text, error) {
+        $('#messages_add_gender').html(error);
+    }
+});
+return false;
+});
+//Добавление пола пассажиру при регистрации, если у него пола нет
 
 
 

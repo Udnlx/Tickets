@@ -24,6 +24,31 @@ foreach ($all_bus as $bus) {
         </div>
     </div>
 
+    <!-- Модальное окно добавления пола пассажира-->
+    <div id="modal-add_gender" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <p style="font-weight: 700;text-align:center">У пассажира не указан пол.<br>Выберите пожалуйста пол для этого пассажира.</p>
+            <div id="messages_add_gender" class="messages-block">
+                <p class="messages" style="color: green;"></p>
+            </div>
+  
+            <div class="uk-margin-small-top">
+                <label for="footer_gender_passenger">Пол</label>
+                <select class="uk-select" id="footer_gender_passenger" name="footer_gender_passenger" required>
+                    <option value="">Выберите пол</option>
+                    <option value="М">М</option>
+                    <option value="Ж">Ж</option>
+                </select>
+            </div>
+            <br>
+            <div class="uk-flex uk-flex-center">
+                <button id="footer_add_gender" class="uk-button uk-button-primary" type="button">Добавить</button>
+            </div>
+        </div>
+    </div>
+
+
     
     <div class="uk-padding-small uk-container uk-flex uk-flex-column uk-flex-middle">
         <h2 class="uk-margin-remove uk-heading-small">Tickets</h2>

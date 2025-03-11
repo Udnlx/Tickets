@@ -2,7 +2,7 @@
 
 namespace ProcessWire;
 
-$price = [];
+$price = 0;
 if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && $input->get['age']) {
 
 	$id_bus = $input->get('bus');
@@ -45,9 +45,7 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 			}
 		}
 
-		$price[] = [
-			"price" => $received_price,
-		];
+		$price = $received_price;
 
 		$result["price"] = $price;
 

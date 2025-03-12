@@ -13,7 +13,7 @@ if ($input->get['id']) {
 				"name" => $station_finish->title,
 			];
 		}
-		$result["all_station_finish"] = $all_station_finish;
+		$result["allStationFinish"] = $all_station_finish;
 	} else {
 		$result = setError('Автобуса с указанным ID не существует', $result, 404);
 	}

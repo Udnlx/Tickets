@@ -11,4 +11,4 @@ foreach ($bus_pages as $bus) {
 	];
 }
 
-$result["all_bus"] = $all_bus;
+$result["allBus"] = $all_bus;

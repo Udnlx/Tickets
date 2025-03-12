@@ -25,8 +25,8 @@ if ($input->get['bus'] && $input->get['data']) {
 	$reserv_seat = $arr_reserv_seat;
 	$free_seats = $arr_free_seat;
 
-	$result["reserv_seat"] = $reserv_seat;
-	$result["free_seats"] = $free_seats;
+	$result["reservSeats"] = $reserv_seat;
+	$result["freeSeats"] = $free_seats;
 
 } else {
 	$result = setError('Не достаточно параметров для запроса', $result, 404);

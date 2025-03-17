@@ -948,6 +948,10 @@ $.ajax({
     success: function (data) {
         $('#messages_add_gender').html(data);
         $('#selected_gender').val(gender_passenger);
+        let v = $('#messages_add_gender').html();
+        if (v.indexOf('Ошибка') == -1) {
+            UIkit.modal('#modal-add_gender').hide();
+        }
     },
     error: function (jqXHR, text, error) {
         $('#messages_add_gender').html(error);

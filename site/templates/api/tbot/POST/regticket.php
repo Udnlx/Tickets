@@ -180,16 +180,41 @@ if (isset($data['idBus'])) {
 				$result["priceTicket"] = $forreg_price_ticket;
 			} else {
 				$result = setError("Текущее место занято, регистрация не возможна", $result);
+				$error_for_log = json_encode($data, JSON_UNESCAPED_UNICODE);
+        	    $log = '';
+        	    $log .= date('Y-m-d H:i:s') . ' - Была попытка регистрации билета оператором ' . $data['operator'] . '; ';
+        	    $log .= 'Ошибка: ' . $result["error"] . '; ';
+        	    $log .= 'Данные при регистрации: ' . $error_for_log;
+        	    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
 			}
 		} else {
 			$result = setError("Ошибка в приходящих данных, регистрация не возможна", $result);
 			$result["message"] = $message;
+			$error_for_log = json_encode($data, JSON_UNESCAPED_UNICODE);
+    	    $log = '';
+    	    $log .= date('Y-m-d H:i:s') . ' - Была попытка регистрации билета оператором ' . $data['operator'] . '; ';
+    	    $log .= 'Ошибка: ' . $result["error"] . '; ';
+    	    $log .= 'Сообщение: ' . $result["message"] . '; ';
+    	    $log .= 'Данные при регистрации: ' . $error_for_log;
+    	    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
 		}
 		//Проверка места и регистрация билета
 
 	} else {
 		$result = setError("Автобус с таким ID не найден", $result);
+		$error_for_log = json_encode($data, JSON_UNESCAPED_UNICODE);
+	    $log = '';
+	    $log .= date('Y-m-d H:i:s') . ' - Была попытка регистрации билета оператором ' . $data['operator'] . '; ';
+	    $log .= 'Ошибка: ' . $result["error"] . '; ';
+	    $log .= 'Данные при регистрации: ' . $error_for_log;
+	    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
 	}
 } else {
 	$result = setError("Не указан ID автобуса", $result);
+	$error_for_log = json_encode($data, JSON_UNESCAPED_UNICODE);
+    $log = '';
+    $log .= date('Y-m-d H:i:s') . ' - Была попытка регистрации билета оператором ' . $data['operator'] . '; ';
+    $log .= 'Ошибка: ' . $result["error"] . '; ';
+    $log .= 'Данные при регистрации: ' . $error_for_log;
+    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
 }

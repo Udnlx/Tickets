@@ -18,8 +18,23 @@ if (isset($data['idBus'])) {
 
 		$forreg_id_bus = $data['idBus'];
 
-		$forreg_date_departure = $data['dateDeparture'];
-		if ($forreg_date_departure == '') {
+		$date_departure = $data['dateDeparture'];
+		$parts = explode('-', $date_departure);
+		if(isset($parts[0]) && isset($parts[1]) && isset($parts[2])) {
+			$y = strlen($parts[0]);
+			$m = strlen($parts[1]);
+			$d = strlen($parts[2]);
+		    if($y == 4 && $m == 2 && $d == 2) {
+		        $forreg_date_departure = $date_departure;
+		    } else {
+		    	$validation = false;
+				$message = '[dateDeparture] неверный формат даты';
+		    }
+		} else {
+	    	$validation = false;
+			$message = '[dateDeparture] неверный формат даты';
+		}
+		if ($date_departure == '') {
 			$validation = false;
 			$message = '[dateDeparture] значение не должно быть пустым';
 		}

@@ -131,6 +131,7 @@ if (isset($data['idBus'])) {
 			$validation = false;
 			$message = '[priceTicket] не указана цена';
 		}
+		$forreg_comment = $data['comment'];
 		//Получение и обработка данных
 
 		//Проверка места и регистрация билета
@@ -162,7 +163,7 @@ if (isset($data['idBus'])) {
 			    'operator' => $forreg_operator,
 			    'agent_ticket' => $forreg_agent_ticket,
 			    'price_ticket' => $forreg_price_ticket,
-			    'comment' => '',
+			    'comment' => $forreg_comment,
 			    ]);
 			    $ticket_page = $pages->get('title=' . $forreg_bus . ' - ' . $forreg_date_departure . ' ' . $forreg_time_departure . ' место-' . $forreg_seat . '');
 				$ticket_id = $ticket_page->id;
@@ -193,6 +194,7 @@ if (isset($data['idBus'])) {
 				$result["operator"] = $forreg_operator;
 				$result["agentTicket"] = $forreg_agent_ticket;
 				$result["priceTicket"] = $forreg_price_ticket;
+				$result["comment"] = $forreg_comment;
 			} else {
 				$result = setError("Текущее место занято, регистрация не возможна", $result);
 				$error_for_log = json_encode($data, JSON_UNESCAPED_UNICODE);

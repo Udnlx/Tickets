@@ -30,7 +30,7 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 			$finish_title = '';
 		}
 
-		$received_price = 4000;
+		$received_price = 5000;
 		if ($age == 'child') {
 			$received_price = $received_price/2;
 		}
@@ -39,7 +39,7 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 			if ($item_price->name_station == $start_title && $item_price->name_station_finish == $finish_title) {
 				$received_price = $item_price->price_ticket/1;
 			} else {
-				$received_price = 4000;
+				$received_price = 5000;
 			}
 			if ($age == 'child') {
 				$received_price = $received_price/2;

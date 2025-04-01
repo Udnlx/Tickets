@@ -38,11 +38,15 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 		foreach ($bus_page->table_price as $item_price) {
 			if ($item_price->name_station == $start_title && $item_price->name_station_finish == $finish_title) {
 				$received_price = $item_price->price_ticket/1;
+				if ($age == 'child') {
+					$received_price = $received_price/2;
+				}
+				break;
 			} else {
 				$received_price = 5000;
-			}
-			if ($age == 'child') {
-				$received_price = $received_price/2;
+				if ($age == 'child') {
+					$received_price = $received_price/2;
+				}
 			}
 		}
 

@@ -55,6 +55,23 @@ foreach ($all_transporters as $transporter) {
         'reg_ticket' => 'Регистрация билета'
             );
     foreach ($all_agent_tickets as $all_agent_tickets_item) {
+        // $commission = 0;
+        // if ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
+        //     if ($all_agent_tickets_item->confirm == 'не явился') {
+        //         $commission = 0;
+        //     } else {
+        //         $commission = 550;
+        //     }
+        //     $sum_commission = $sum_commission + $commission;
+        // } else {
+        //     if ($all_agent_tickets_item->confirm == 'не явился') {
+        //         $commission = 0;
+        //     } else {
+        //         $commission = 650;
+        //     }
+        //     $sum_commission = $sum_commission + $commission;
+        // }
+
         $commission = 0;
         if ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
             if ($all_agent_tickets_item->confirm == 'не явился') {
@@ -63,6 +80,22 @@ foreach ($all_transporters as $transporter) {
                 $commission = 550;
             }
             $sum_commission = $sum_commission + $commission;
+        } elseif ($all_agent_tickets_item->id_bus == 73710 || $all_agent_tickets_item->id_bus == 73723) {
+            if ($all_agent_tickets_item->agent_ticket == 'Олимп') {
+                if ($all_agent_tickets_item->confirm == 'не явился') {
+                    $commission = 0;
+                } else {
+                    $commission = 500;
+                }
+                $sum_commission = $sum_commission + $commission;
+            } else {
+                if ($all_agent_tickets_item->confirm == 'не явился') {
+                    $commission = 0;
+                } else {
+                    $commission = 650;
+                }
+                $sum_commission = $sum_commission + $commission;
+            }
         } else {
             if ($all_agent_tickets_item->confirm == 'не явился') {
                 $commission = 0;

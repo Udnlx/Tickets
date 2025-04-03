@@ -43,7 +43,26 @@ $sum_predoplata = 0;
 $sum_ostatok = 0;
 $arr_all_agent_tickets = [];
 foreach ($all_agent_tickets as $all_agent_tickets_item) {
-	$commission = 0;
+	// $commission = 0;
+    // if ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
+    //     if ($all_agent_tickets_item->confirm == 'не явился') {
+    //         $commission = 0;
+    //     } else {
+    //         $commission = 550;
+    //     }
+    //     $sum_commission = $sum_commission + $commission;
+    //     $sum_price_ticket = $sum_price_ticket + $all_agent_tickets_item->price_ticket;
+    // } else {
+    //     if ($all_agent_tickets_item->confirm == 'не явился') {
+    //         $commission = 0;
+    //     } else {
+    //         $commission = 650;
+    //     }
+    //     $sum_commission = $sum_commission + $commission;
+    //     $sum_price_ticket = $sum_price_ticket + $all_agent_tickets_item->price_ticket;
+    // }
+
+    $commission = 0;
     if ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
         if ($all_agent_tickets_item->confirm == 'не явился') {
             $commission = 0;
@@ -52,6 +71,24 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
         }
         $sum_commission = $sum_commission + $commission;
         $sum_price_ticket = $sum_price_ticket + $all_agent_tickets_item->price_ticket;
+    } elseif ($all_agent_tickets_item->id_bus == 73710 || $all_agent_tickets_item->id_bus == 73723) {
+        if ($all_agent_tickets_item->agent_ticket == 'Олимп') {
+            if ($all_agent_tickets_item->confirm == 'не явился') {
+                $commission = 0;
+            } else {
+                $commission = 500;
+            }
+            $sum_commission = $sum_commission + $commission;
+            $sum_price_ticket = $sum_price_ticket + $all_agent_tickets_item->price_ticket;
+        } else {
+            if ($all_agent_tickets_item->confirm == 'не явился') {
+                $commission = 0;
+            } else {
+                $commission = 650;
+            }
+            $sum_commission = $sum_commission + $commission;
+            $sum_price_ticket = $sum_price_ticket + $all_agent_tickets_item->price_ticket;
+        }
     } else {
         if ($all_agent_tickets_item->confirm == 'не явился') {
             $commission = 0;

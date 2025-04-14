@@ -307,6 +307,27 @@ button.sb_seat_reserv {
 
 
 
+.demo-seat {
+    position: relative;
+    margin: 5px;
+    padding: 0;
+    line-height: 1.4;
+    min-width: 45px;
+    min-height: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #e5e5e5;}
+.legend-title {
+    margin: 0 0 0 5px;
+    line-height: 1;}
+
+
+
 /*Стили плагинов*/
 .bswasp-default-layout__inner {
     width: 100%!important;}

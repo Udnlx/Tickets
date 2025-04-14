@@ -19,6 +19,49 @@ $menu = '
                 <button class="uk-offcanvas-close" type="button" uk-close></button>
                 <br>
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
+                <br><br>
+                <div class="uk-flex-column">
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button" disabled>00</button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место свободное</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button" disabled>00<p class="sb_occupied"></p></button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место свободное,<br>синхрон с 1С</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_reserv" disabled>00<p class="appeared"></p></button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место забронировано пассажиром</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_reserv" disabled>00<p class="noappeared"><i class="fa-solid fa-triangle-exclamation"></i></p></button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место забронировано,<br>не подтвержденно</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_pay" disabled>00</button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место оплаченно</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_pay" disabled>00<p class="noappeared">API</p></button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место оплаченно,<br>купленно через API систему</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_select_mass" disabled>00</button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место забронировано оператором</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_select_mass_agent" disabled>00</button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место забронировано агентом</p>
+                    </div>
+                </div>
             </div>
         </div>
 

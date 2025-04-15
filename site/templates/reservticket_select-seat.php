@@ -58,7 +58,8 @@ foreach ($reserv_seat as $reserv_seat_item) {
         "passenger"=>$reserv_seat_item->passenger,
         "type_ticket"=>$reserv_seat_item->type_ticket,
         "passenger_doc"=>$reserv_seat_item->passenger_doc,
-        "operator"=>$reserv_seat_item->operator
+        "operator"=>$reserv_seat_item->operator,
+        "agent_ticket"=>$reserv_seat_item->agent_ticket,
         );
 }
 //echo '<pre>'; print_r($arr_reserv_seat); echo '</pre>';
@@ -73,11 +74,20 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
         if ($val['seat'] == $num_seat) {
                 $free = false;
                 $conf_status = '';
-                if ($val['confirm'] == 'не подтверждено') {
-                    $conf_status = '<p class="noconfirm"><i class="fa-solid fa-phone"></i></p>';
+                // if ($val['confirm'] == 'не подтверждено') {
+                //     $conf_status = '<p class="noconfirm"><i class="fa-solid fa-phone"></i></p>';
+                // } else {
+                //     $conf_status = '<p class="confirm"><i class="fa-solid fa-phone"></i></p>';
+                // }
+                if ($val['confirm'] == 'не подтверждено' || $val['confirm'] == 'подтверждено' || $val['confirm'] == 'явился') {
+                    $conf_status = '<p class="appeared"></p>';
                 } else {
-                    $conf_status = '<p class="confirm"><i class="fa-solid fa-phone"></i></p>';
+                    $conf_status = '<p class="noappeared"><i class="fa-solid fa-triangle-exclamation"></i></p>';
                 }
+                if ($val['agent_ticket'] == 'Site' || $val['agent_ticket'] == 'APP') {
+                    $conf_status = '<p class="noappeared">API</p>';
+                }
+
                 if ($val['pay_or_booking'] == 'забронировано') {
                     $button_seat .= '
                     <button class="uk-mass-reserv-seat uk-margin-small-top uk-button uk-button-default seat_reserv" disabled title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . '">' . $val['seat'] . '' . $conf_status . '</button>

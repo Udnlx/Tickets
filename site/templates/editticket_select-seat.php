@@ -87,6 +87,10 @@ foreach ($arr_reserv_seat as $key => $val) {
     } else {
         $conf_status = '<p class="noappeared"><i class="fa-solid fa-triangle-exclamation"></i></p>';
     }
+    if ($val['agent_ticket'] == 'Site' || $val['agent_ticket'] == 'APP') {
+        $conf_status = '<p class="noappeared">API</p>';
+    }
+
     if ($val['pay_or_booking'] == 'забронировано') {
         $button_seat .= '
         <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_reserv" title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . '">' . $val['seat'] . '' . $conf_status . '</button>

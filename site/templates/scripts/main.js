@@ -967,6 +967,12 @@ return false;
 $('#sb_reg_ticket').click(function() {
     var sb_idbus = $('#sb_idbus').val();
     var sb_seat = $('#sb_seat').val();
+    var sb_birthday = $('#sb_birthday').val();
+    var sb_docnum = $('#sb_docnum').val();
+    var sb_docseries = $('#sb_docseries').val();
+    var sb_passengername = $('#sb_passengername').val();
+    var sb_gender = $('#sb_gender').val();
+    var sb_phone = $('#sb_phone').val();
     //console.log(sb_idbus);
 $.ajax({
     type: "POST",
@@ -974,6 +980,12 @@ $.ajax({
     data: {
         'sb_idbus':sb_idbus, 
         'sb_seat':sb_seat, 
+        'sb_birthday':sb_birthday, 
+        'sb_docnum':sb_docnum, 
+        'sb_docseries':sb_docseries, 
+        'sb_passengername':sb_passengername, 
+        'sb_gender':sb_gender, 
+        'sb_phone':sb_phone, 
     },
     beforeSend: function () {
         $('#reg_messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');

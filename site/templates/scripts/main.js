@@ -973,7 +973,7 @@ $('#sb_reg_ticket').click(function() {
     var sb_passengername = $('#sb_passengername').val();
     var sb_gender = $('#sb_gender').val();
     var sb_phone = $('#sb_phone').val();
-    //console.log(sb_idbus);
+    var sb_idticket = $('#sb_idticket').val();
 $.ajax({
     type: "POST",
     url: '/sb_reg_ticket.php',
@@ -986,6 +986,7 @@ $.ajax({
         'sb_passengername':sb_passengername, 
         'sb_gender':sb_gender, 
         'sb_phone':sb_phone, 
+        'sb_idticket':sb_idticket, 
     },
     beforeSend: function () {
         $('#reg_messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
@@ -993,12 +994,25 @@ $.ajax({
     success: function (data) {
         $('#reg_messages').html(data);
         // $('#sb_reg_ticket').addClass('uk-hidden');
+        let id_edit_ticket = $('#id_edit_ticket').text();
+        let sb_id_ticket = $('#sb_id_ticket').text();
+        if (sb_id_ticket != '') {
+            console.log ('Привязываем билет к 1С');
+            $.ajax({
+                type: "POST",
+                url: '/sb_idreg_ticket.php',
+                 data: {
+                    'id_edit_ticket':id_edit_ticket,
+                    'sb_id_ticket':sb_id_ticket,  
+                },
+            });
+        }
     },
     error: function (jqXHR, text, error) {
         $('#reg_messages').html(error);
     }
 });
-return false;    
+return false;  
 });
 //Регистрация билета в 1С
 

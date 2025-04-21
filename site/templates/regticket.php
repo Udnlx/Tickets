@@ -36,11 +36,9 @@ $sb_idbus_forreg = $_POST['sb_idbus_forpost'];
 $sb_button_reg = '';
 if ($sb_idbus_forreg != '') {
     $sb_button_reg = '
-    <!--
     <div class="uk-margin-small-top uk-flex uk-flex-column">
         <button id="sb_reg_ticket" class="uk-margin-small-top uk-button uk-button-danger" type="butoon">Регистрация билета в 1C</button>
     </div>
-    -->
     ';
 }
 $page_passenger = $pages->get('template=passengers, id=' . $selected_idpassenger . '');
@@ -190,6 +188,7 @@ if ($operator == 'no_operator' || $access == 'agent') {
             <input class="uk-input" id="sb_passengername" type="text" name="sb_passengername" value="<?php echo $sb_namepassenger ; ?>">
             <input class="uk-input" id="sb_gender" type="text" name="sb_gender" value="<?php echo $sb_gender ; ?>">
             <input class="uk-input" id="sb_phone" type="text" name="sb_phone" value="<?php echo $sb_phone ; ?>">
+            <input class="uk-input" id="sb_idticket" type="text" name="sb_idticket" value="<?php echo $ticket_page->id ; ?>">
         </div>
         <?php echo $sb_button_reg ; ?>
         <div id="reg_messages" class="messages-block" style="margin: 10px 0 0 0;">

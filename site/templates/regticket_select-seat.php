@@ -20,9 +20,9 @@ if ($operator == 'no_operator' || $access == 'agent') {
 ?>
 
 <div id="content" style="max-width: 700px;">
-	<h1 class="uk-heading-hero uk-text-center">Выбор места для регистрации билета</h1>
-	
-	            
+    <h1 class="uk-heading-hero uk-text-center">Выбор места для регистрации билета</h1>
+    
+                
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <h3 class="uk-card-title">Сессия потеряна, перезайти</h3>
         <a class="uk-margin-small uk-button uk-button-default" href="/login/">Перезайти</a>
@@ -256,9 +256,9 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
 ?>
 
 <div id="content">
-	<h1 class="uk-heading-hero uk-text-center">Выбор места для регистрации билета</h1>
-	<div class="uk-child-width-1-2@m" uk-grid>
-	    
+    <h1 class="uk-heading-hero uk-text-center">Выбор места для регистрации билета</h1>
+    <div class="uk-child-width-1-2@m" uk-grid>
+        
         <div>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column" uk-sticky>
                 <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>

@@ -158,6 +158,17 @@ if ($seat_busy == 'off') {
     // echo '<pre>'; 
     // var_dump($answer_confirm_order);
     // echo '</pre>';
+    // echo $answer_confirm_order['tickets'][0]['id'];
+
+    //Записываем регистрация билета в 1С в лог
+    $id_edit_ticket = $_POST['sb_idticket'];
+    $log = '';
+    $log .= date('Y-m-d H:i:s') . ' - Билету с ID ' . $id_edit_ticket . ' присвоен ID билета в 1С: ' . $answer_confirm_order['tickets'][0]['id'] . '';
+    file_put_contents(__DIR__ . '/site/templates/log_1c_ticket_registration.txt', $log . PHP_EOL, FILE_APPEND);
+    //Записываем регистрация билета в 1С в лог
+
+    $sb_log .= '<p id="id_edit_ticket" class="uk-hidden">' . $id_edit_ticket . '</p>';
+    $sb_log .= '<p id="sb_id_ticket" class="uk-hidden">' . $answer_confirm_order['tickets'][0]['id'] . '</p>';
 }
 //Регистрируем билет
 

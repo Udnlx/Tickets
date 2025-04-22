@@ -34,6 +34,18 @@ if ($operator == 'no_operator' || $access == 'agent') {
 
 $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
 
+$sb_status = '';
+if ($ticket->sb_ticket_id) {
+    $sb_status = '
+    <p class="uk-margin-remove uk-text-success uk-text-bold uk-text-center">Статус: Билет проведен в 1С</p>
+    <p class="uk-margin-remove uk-text-success uk-text-bold uk-text-center">ID билета в 1С: ' . $ticket->sb_ticket_id . '</p>
+    ';
+} else {
+    $sb_status = '
+    <p class="uk-margin-remove uk-text-warning uk-text-bold uk-text-center">Статус: Билет не проведен в 1С</p>
+    ';
+}
+
 $old_start_station = preg_split('/[—]/u', $ticket->name_station, -1, PREG_SPLIT_NO_EMPTY);
 $old_finish_station = preg_split('/[—]/u', $ticket->name_station_finish, -1, PREG_SPLIT_NO_EMPTY);
 
@@ -196,8 +208,40 @@ if (count($bus_page->table_price) > 0) {
             </div>
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                <h3 class="uk-margin-remove uk-card-title">Провести билет в 1С</h3>
+                <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Внимание! При подтверждении, билет будет проведен в системе 1С.</p>
+                <?php echo $sb_status; ?>
+                <form class="uk-flex uk-flex-column" id="reg_ticket" action="" method="post">
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_reg_ticket" type="text" name="sb_reg_ticket" value="<?php echo $id_seat; ?>">
+                    </div>
+                    
+                    <div class="uk-margin-small-top uk-flex uk-flex-column">
+                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Провести билет в 1С</button>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                <h3 class="uk-margin-remove uk-card-title">Удалить билет из 1С</h3>
+                <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Внимание! При подтверждении, билет будет удален из системы 1С. Но останется купленным в этой системе. Для удаления билета из этой системы воспользуйтесь функционалом "Освободить место" ниже</p>
+                <?php echo $sb_status; ?>
+                <form class="uk-flex uk-flex-column" id="del_ticket" action="" method="post">
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_del_ticket" type="text" name="sb_del_ticket" value="<?php echo $id_seat; ?>">
+                    </div>
+                    
+                    <div class="uk-margin-small-top uk-flex uk-flex-column">
+                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Удалить билет из 1С</button>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Освободить место</h3>
-                <p class="uk-text-warning uk-text-bold uk-text-center">Внимание! Операция освобождения места безвозвратна, все данные по выбранному месту будут удалены и место освободится.</p>
+                <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Внимание! Прежде чем освобождать место, убедитесь, что билет удален из системы 1С и место является свободным.</p>
+                <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Внимание! Операция освобождения места безвозвратна, все данные по выбранному месту будут удалены и место освободится.</p>
+                <?php echo $sb_status; ?>
                 <form class="uk-flex uk-flex-column" id="delete_ticket" action="/pravka-bileta-udalenie/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="del_selected_bus" type="text" name="del_selected_bus" value="<?php echo $ticket->bus; ?>">

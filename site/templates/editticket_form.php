@@ -226,7 +226,7 @@ if (count($bus_page->table_price) > 0) {
                 <h3 class="uk-margin-remove uk-card-title">Удалить билет из 1С</h3>
                 <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Внимание! При подтверждении, билет будет удален из системы 1С. Но останется купленным в этой системе. Для удаления билета из этой системы воспользуйтесь функционалом "Освободить место" ниже</p>
                 <?php echo $sb_status; ?>
-                <form class="uk-flex uk-flex-column" id="del_ticket" action="" method="post">
+                <form class="uk-flex uk-flex-column" id="del_ticket" action="/pravka-bileta-udalenie-iz-1s/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="sb_del_ticket" type="text" name="sb_del_ticket" value="<?php echo $id_seat; ?>">
                     </div>

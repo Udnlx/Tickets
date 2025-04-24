@@ -5,6 +5,7 @@ if(isset($_SESSION['access'])){
     $access = $_SESSION['access'];
 }
 
+$sb_idbus = $_POST['sb_idbus'];
 $id_seat = !empty($_POST['id_seat'])?$_POST['id_seat']:NULL;
 
 if(isset($_SESSION['operator'])){
@@ -211,7 +212,10 @@ if (count($bus_page->table_price) > 0) {
                 <h3 class="uk-margin-remove uk-card-title">Провести билет в 1С</h3>
                 <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Внимание! При подтверждении, билет будет проведен в системе 1С.</p>
                 <?php echo $sb_status; ?>
-                <form class="uk-flex uk-flex-column" id="reg_ticket" action="" method="post">
+                <form class="uk-flex uk-flex-column" id="reg_ticket" action="/pravka-bileta-registratciia-v-1s/" method="post">
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_idbus" type="text" name="sb_idbus" value="<?php echo $sb_idbus; ?>">
+                    </div>
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="sb_reg_ticket" type="text" name="sb_reg_ticket" value="<?php echo $id_seat; ?>">
                     </div>

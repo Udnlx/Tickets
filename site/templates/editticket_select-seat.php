@@ -163,6 +163,9 @@ foreach ($arr_reserv_seat as $key => $val) {
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_time" type="text" name="selected_time" value="<?php echo $selected_time; ?>">
                     </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_idbus" type="text" name="sb_idbus" value="<?php echo $uid; ?>">
+                    </div>
                     
                     <div class="uk-margin-small-top">
                         <input class="uk-input readonly" id="selected_seat" type="text" name="selected_seat" value="" placeholder="Место" autocomplete="off" required>

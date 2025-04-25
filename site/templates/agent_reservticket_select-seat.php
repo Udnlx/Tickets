@@ -5,6 +5,8 @@ $selected_id_bus = !empty($_POST['post_id_bus'])?$_POST['post_id_bus']:NULL;
 $selected_date = !empty($_POST['post_date'])?$_POST['post_date']:NULL;
 $selected_time = !empty($_POST['post_time'])?$_POST['post_time']:NULL;
 
+$bus_page = $pages->get('id=' . $selected_id_bus . '');
+
 if(isset($_SESSION['operator'])){
     $operator = $_SESSION['operator'];
 } else {
@@ -57,6 +59,40 @@ foreach ($reserv_seat as $reserv_seat_item) {
 }
 //echo '<pre>'; print_r($arr_reserv_seat); echo '</pre>';
 
+$reestr_seat_1c = '';
+$sb_dispatch_place_id = $bus_page->sb_dispatch_place_id;
+$sb_arrival_place_id = $bus_page->sb_arrival_place_id;
+$sb_dispatch_date = $selected_date;
+$sb_dispatch_time = $bus_page->sb_dispatch_time;
+include 'sb_get_freeseat.php';
+$reestr_seat_1c = '
+<div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+<ul uk-accordion>
+    <li>
+        <a class="uk-accordion-title" href="#"><h3 class="uk-margin-remove uk-card-title">Лог работы с системой 1С</h3></a>
+        <div class="uk-accordion-content">
+            ' . $sb_log . '
+        </div>
+    </li>
+</ul>
+</div>
+';
+if ($switching_on == true) {
+    $switch_sb_connect = '<p class="sb_switch_item">🔘🟢 Подключение к 1С</p>';
+}
+if ($switching_on == false) {
+    $switch_sb_connect = '<p class="sb_switch_item">🔴🔘 Подключение к 1С</p>';
+}
+if ($bus_on == true) {
+    $switch_sb_bus = '<p class="sb_switch_item">🔘🟢 В 1С найден автобус</p>';
+}
+if ($bus_on == false) {
+    $switch_sb_bus = '<p class="sb_switch_item">🔴🔘 В 1С не найден автобус</p>';
+}
+// echo '<pre>'; 
+// var_dump($sb_free_seats);
+// echo '</pre>';
+
 $max_seat = 53;
 $button_seat = '';
 for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
@@ -67,11 +103,20 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
         if ($val['seat'] == $num_seat) {
                 $free = false;
                 $conf_status = '';
-                if ($val['confirm'] == 'не подтверждено') {
-                    $conf_status = '<p class="noconfirm"><i class="fa-solid fa-phone"></i></p>';
+                // if ($val['confirm'] == 'не подтверждено') {
+                //     $conf_status = '<p class="noconfirm"><i class="fa-solid fa-phone"></i></p>';
+                // } else {
+                //     $conf_status = '<p class="confirm"><i class="fa-solid fa-phone"></i></p>';
+                // }
+                if ($val['confirm'] == 'не подтверждено' || $val['confirm'] == 'подтверждено' || $val['confirm'] == 'явился') {
+                    $conf_status = '<p class="appeared"></p>';
                 } else {
-                    $conf_status = '<p class="confirm"><i class="fa-solid fa-phone"></i></p>';
+                    $conf_status = '<p class="noappeared"><i class="fa-solid fa-triangle-exclamation"></i></p>';
                 }
+                if ($val['agent_ticket'] == 'Site' || $val['agent_ticket'] == 'APP') {
+                    $conf_status = '<p class="noappeared">API</p>';
+                }
+                
                 if ($val['pay_or_booking'] == 'забронировано') {
                     $button_seat .= '
                     <button class="uk-mass-reserv-seat uk-margin-small-top uk-button uk-button-default seat_reserv" disabled title="Место забронировано: ' . $val['passenger'] . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
@@ -147,11 +192,17 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
         
         <div>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                <div class="sb_switсh">
+                    <?php echo $switch_sb_connect;?>
+                    <?php echo $switch_sb_bus;?>
+                </div>
                 <h3 class="uk-margin-remove uk-card-title">Выбор и отмена мест для резерва</h3>
                 <div class="buttons_seat uk-flex uk-flex-wrap">
                     <?php echo $button_seat; ?>
                 </div>
             </div>
+            <br>
+            <?php echo $reestr_seat_1c;?>
         </div>
         
     </div>

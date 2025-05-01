@@ -7,6 +7,8 @@ $selected_time = !empty($_POST['selected_time'])?$_POST['selected_time']:NULL;
 $selected_seat = !empty($_POST['selected_seat'])?$_POST['selected_seat']:NULL;
 $id_seat = !empty($_POST['id_seat'])?$_POST['id_seat']:NULL;
 
+$sb_idbus = $_POST['sb_idbus'];
+
 if(isset($_SESSION['operator'])){
     $operator = $_SESSION['operator'];
 } else {
@@ -32,6 +34,18 @@ if ($operator == 'no_operator') {
 
 <?php
 $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
+
+$sb_status = '';
+if ($ticket->sb_ticket_id) {
+    $sb_status = '
+    <p class="uk-margin-remove uk-text-success uk-text-bold uk-text-center">Статус: Билет проведен в 1С</p>
+    <p class="uk-margin-remove uk-text-success uk-text-bold uk-text-center">ID билета в 1С: ' . $ticket->sb_ticket_id . '</p>
+    ';
+} else {
+    $sb_status = '
+    <p class="uk-margin-remove uk-text-warning uk-text-bold uk-text-center">Статус: Билет не проведен в 1С</p>
+    ';
+}
 ?>
 
 <div id="content">
@@ -151,8 +165,43 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
             </div>
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                <h3 class="uk-margin-remove uk-card-title">Провести билет в 1С</h3>
+                <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Внимание! При подтверждении, билет будет проведен в системе 1С.</p>
+                <?php echo $sb_status; ?>
+                <form class="uk-flex uk-flex-column" id="reg_ticket" action="/agent-pravka-bileta-registratciia-v-1s/" method="post">
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_idbus" type="text" name="sb_idbus" value="<?php echo $sb_idbus; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_reg_ticket" type="text" name="sb_reg_ticket" value="<?php echo $id_seat; ?>">
+                    </div>
+                    
+                    <div class="uk-margin-small-top uk-flex uk-flex-column">
+                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Провести билет в 1С</button>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
+                <h3 class="uk-margin-remove uk-card-title">Удалить билет из 1С</h3>
+                <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Внимание! При подтверждении, билет будет удален из системы 1С. Но останется купленным в этой системе. Для удаления билета из этой системы воспользуйтесь функционалом "Освободить место" ниже</p>
+                <?php echo $sb_status; ?>
+                <form class="uk-flex uk-flex-column" id="del_ticket" action="/agent-pravka-bileta-udalenie-iz-1s/" method="post">
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_del_ticket" type="text" name="sb_del_ticket" value="<?php echo $id_seat; ?>">
+                    </div>
+                    
+                    <div class="uk-margin-small-top uk-flex uk-flex-column">
+                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Удалить билет из 1С</button>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">
                 <h3 class="uk-margin-remove uk-card-title">Освободить место</h3>
-                <p class="uk-text-warning uk-text-bold uk-text-center">Внимание! Операция освобождения места безвозвратна, все данные по выбранному месту будут удалены и место освободится.</p>
+                <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Внимание! Прежде чем освобождать место, убедитесь, что билет удален из системы 1С и место является свободным.</p>
+                <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Внимание! Операция освобождения места безвозвратна, все данные по выбранному месту будут удалены и место освободится.</p>
+                <?php echo $sb_status; ?>
                 <form class="uk-flex uk-flex-column" id="delete_ticket" action="/agent-pravka-bileta-udalenie/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="del_selected_bus" type="text" name="del_selected_bus" value="<?php echo $selected_bus; ?>">

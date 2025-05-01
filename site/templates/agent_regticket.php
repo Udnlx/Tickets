@@ -26,6 +26,24 @@ $selected_document = !empty($_POST['selected_document'])?$_POST['selected_docume
 $lite_selected_document = mb_substr($selected_document, -2, 2);
 $agent_ticket = !empty($_POST['agent_ticket'])?$_POST['agent_ticket']:NULL;
 $price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;
+$comment = !empty($_POST['comment'])?$_POST['comment']:NULL;
+
+$sb_idbus_forreg = $_POST['sb_idbus_forpost'];
+$sb_button_reg = '';
+if ($sb_idbus_forreg != '') {
+    $sb_button_reg = '
+    <div class="uk-margin-small-top uk-flex uk-flex-column">
+        <button id="sb_reg_ticket" class="uk-margin-small-top uk-button uk-button-danger" type="butoon">Регистрация билета в 1C</button>
+    </div>
+    ';
+}
+$page_passenger = $pages->get('template=passengers, id=' . $selected_idpassenger . '');
+$sb_birthday = $page_passenger->birthday_passenger;
+$sb_docnum = $page_passenger->num_doc_passenger;
+$sb_docseries = $page_passenger->passport_passenger;
+$sb_namepassenger = $page_passenger->name_passenger;
+$sb_gender = $page_passenger->gender_passenger;
+$sb_phone = $page_passenger->phone_passenger;
 
 $success = 'Билет успешно зарегистрирован';
 if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $selected_seat && $selected_name && $selected_document && $operator != 'no_operator') {
@@ -56,7 +74,9 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
         'operator' => $operator,
         'agent_ticket' => $agent_ticket,
         'price_ticket' => $price_ticket,
+        'comment' => $comment,
         ]);
+
         $ticket_page = $pages->get('title=' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat . '');
         $ticket_id = $ticket_page->id;
         $log = '';
@@ -130,6 +150,7 @@ if ($operator == 'Котельники') {
         <p class="uk-margin-remove">Последние цифры документа пассажира: <span style="font-weight: 700;">.....<?php echo $lite_selected_document; ?></span></p>
         <p class="uk-margin-remove">Агент билета: <span style="font-weight: 700;"><?php echo $agent_ticket; ?></span></p>
         <p class="uk-margin-remove">Цена билета: <span style="font-weight: 700;"><?php echo $price_ticket; ?></span></p>
+        <p class="uk-margin-remove">Комментарий: <span style="font-weight: 700;"><?php echo $comment; ?></span></p>
 
         <form class="uk-flex uk-flex-column" id="select_bus" action="/agent-registratciia-bileta-vybor-mesta/" method="post">
             <div class="uk-margin-small-top uk-hidden">
@@ -166,6 +187,22 @@ if ($operator == 'Котельники') {
             </div>
         </form>
         -->
+
+        <div class="uk-margin-small-top uk-hidden">
+            <input class="uk-input" id="sb_idbus" type="text" name="sb_idbus" value="<?php echo $sb_idbus_forreg ; ?>">
+            <input class="uk-input" id="sb_seat" type="text" name="sb_seat" value="<?php echo $selected_seat ; ?>">
+            <input class="uk-input" id="sb_birthday" type="text" name="sb_birthday" value="<?php echo $sb_birthday ; ?>">
+            <input class="uk-input" id="sb_docnum" type="text" name="sb_docnum" value="<?php echo $sb_docnum ; ?>">
+            <input class="uk-input" id="sb_docseries" type="text" name="sb_docseries" value="<?php echo $sb_docseries ; ?>">
+            <input class="uk-input" id="sb_passengername" type="text" name="sb_passengername" value="<?php echo $sb_namepassenger ; ?>">
+            <input class="uk-input" id="sb_gender" type="text" name="sb_gender" value="<?php echo $sb_gender ; ?>">
+            <input class="uk-input" id="sb_phone" type="text" name="sb_phone" value="<?php echo $sb_phone ; ?>">
+            <input class="uk-input" id="sb_idticket" type="text" name="sb_idticket" value="<?php echo $ticket_page->id ; ?>">
+        </div>
+        <?php echo $sb_button_reg ; ?>
+        <div id="reg_messages" class="messages-block" style="margin: 10px 0 0 0;">
+            <p class="messages" style="color: green;"></p>
+        </div>
 
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>

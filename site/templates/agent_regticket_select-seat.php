@@ -164,6 +164,12 @@ if ($bus_on == false) {
 $max_seat = 53;
 $button_seat = '';
 for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
+    $sb_disabled = '';
+    $sb_occupied = '';
+    if (in_array($num_seat, $sb_free_seats)) {
+        $sb_disabled = 'disabled';
+        $sb_occupied = '<p class="sb_occupied"></p>'; 
+    }
     $free = true;
     foreach ($arr_reserv_seat as $key => $val) {
         $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
@@ -176,14 +182,18 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 } else {
                     $conf_status = '<p class="noappeared"><i class="fa-solid fa-triangle-exclamation"></i></p>';
                 }
+                if ($val['agent_ticket'] == 'Site' || $val['agent_ticket'] == 'APP') {
+                    $conf_status = '<p class="noappeared">API</p>';
+                }
+
                 if ($val['pay_or_booking'] == 'забронировано') {
                     $button_seat .= '
-                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_reserv" disabled title="Место забронировано: ' . $val['passenger'] . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_reserv" disabled title="Место забронировано: ' . $val['passenger'] . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '</button>
                     ';
                 }
                 if ($val['pay_or_booking'] == 'оплачено') {
                     $button_seat .= '
-                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_pay" disabled title="Место оплачено: ' . $val['passenger'] . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_pay" disabled title="Место оплачено: ' . $val['passenger'] . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '</button>
                     ';
                 }
         }
@@ -209,9 +219,19 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 }
             }
         }
-        $button_seat .= '
-        <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '" ' . $disabled_ticket . '>' . $num_seat . '</button>
-        ';
+
+        if ($sb_disabled != 'disabled') {
+            $button_seat .= '
+            <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '" ' . $disabled_ticket . '>' . $num_seat . '</button>
+            ';
+        } else {
+            // $button_seat .= '
+            // <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default sb_seat_reserv" disabled>' . $num_seat . '' . $sb_occupied . '</button>
+            // ';
+            $button_seat .= '
+            <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '" ' . $disabled_ticket . '>' . $num_seat . '' . $sb_occupied . '</button>
+            ';
+        }
     }
 }
 
@@ -259,6 +279,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_date" type="text" name="selected_date" value="<?php echo $selected_date; ?>">
                     </div>
+                    <p id="departure_date" class="uk-hidden"><?php echo strtotime($selected_date); ?></p>
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_time" type="text" name="selected_time" value="<?php echo $selected_time; ?>">
                     </div>
@@ -336,6 +357,13 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <div class="uk-margin-small-top">
                         <label for="price_ticket">Цена билета</label>
                         <input class="uk-input" id="price_ticket" type="number" name="price_ticket" value="" autocomplete="off" required>
+                    </div>
+                    <div class="uk-margin-small-top">
+                        <label for="comment">Комментарий</label>
+                        <input class="uk-input" id="comment" type="text" name="comment" value="" autocomplete="off">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_idbus_forpost" type="text" name="sb_idbus_forpost" value="" autocomplete="off">
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">

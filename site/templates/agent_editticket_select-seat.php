@@ -45,7 +45,8 @@ foreach ($reserv_seat as $reserv_seat_item) {
         "type_ticket"=>$reserv_seat_item->type_ticket,
         "passenger_doc"=>$reserv_seat_item->passenger_doc,
         "operator"=>$reserv_seat_item->operator,
-        "agent_ticket"=>$reserv_seat_item->agent_ticket
+        "agent_ticket"=>$reserv_seat_item->agent_ticket,
+        "comment"=>$reserv_seat_item->comment
         );
 }
 //echo '<pre>'; print_r($arr_reserv_seat); echo '</pre>';
@@ -56,7 +57,17 @@ $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] 
 $phone_passenger = $data_passenger->phone_passenger;
 $birthday_passenger = $data_passenger->birthday_passenger;
 $reestr_seat .= '
-    <p class="reestr_seat_item">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br> Станция посадки: ' . $val['station'] . '<br>' . $val['passenger'] . '<br>' . $birthday_passenger . '<br>тип билета: ' . $val['type_ticket'] . '<br>агент: ' . $val['agent_ticket'] . '<br><span> - Регистратор: ' . $val['operator'] . '</span></p>
+    <p class="reestr_seat_item">
+        Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br>
+        Станция посадки: ' . $val['station'] . '<br>' . 
+        $val['passenger'] . '<br>' . 
+        $birthday_passenger . '<br>
+        тип билета: ' . 
+        $val['type_ticket'] . '<br>
+        агент: ' . $val['agent_ticket'] . '<br>
+        комментарий: ' . $val['comment'] . '<br>
+        <span> - Регистратор: ' . $val['operator'] . '</span>
+    </p>
 ';
 }
 
@@ -104,6 +115,10 @@ foreach ($arr_reserv_seat as $key => $val) {
     } else {
         $conf_status = '<p class="noappeared"><i class="fa-solid fa-triangle-exclamation"></i></p>';
     }
+    if ($val['agent_ticket'] == 'Site' || $val['agent_ticket'] == 'APP') {
+        $conf_status = '<p class="noappeared">API</p>';
+    }
+
     if ($val['pay_or_booking'] == 'забронировано') {
         $button_seat .= '
         <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_reserv" title="Место забронировано: ' . $val['passenger'] . ', станция посадки: ' . $val['station'] . '">' . $val['seat'] . '' . $conf_status . '</button>
@@ -154,6 +169,9 @@ if ($operator == 'Котельники') {
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_time" type="text" name="selected_time" value="<?php echo $selected_time; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_idbus" type="text" name="sb_idbus" value="<?php echo $uid; ?>">
                     </div>
                     
                     <div class="uk-margin-small-top">

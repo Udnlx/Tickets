@@ -22,7 +22,7 @@ if ($operator == 'admin-test' || $operator == 'Директор') {
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-data-registratcii-vybor-agenta/">Отчет по агенту - по дате регистрации билета</a>
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-registratcii-passazhirov-vybor-perioda/">Отчет по регистрации пассажиров</a>
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-biletam-vybor-parametrov/">Отчет по билетам</a>
-    <a class="uk-margin-small uk-button uk-button-default" href="">Отчет по пассажиру (в разработке)</a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-prodazhe-komissiia-za-period-vybor-avtobusa/">Отчет по продаже комиссия за период</a>
     ';
 }
 if ($operator == 'Сидорова') {

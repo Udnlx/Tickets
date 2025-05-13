@@ -178,7 +178,7 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
         $id_edit_ticket = $sb_reg_ticket;
         $log = '';
         $log .= date('Y-m-d H:i:s') . ' - Билету с ID ' . $id_edit_ticket . ' присвоен ID билета в 1С: ' . $answer_confirm_order['tickets'][0]['id'] . '';
-        file_put_contents(__DIR__ . '/log_agent__1c_ticket_registration.txt', $log . PHP_EOL, FILE_APPEND);
+        file_put_contents(__DIR__ . '/log_agent_1c_ticket_registration.txt', $log . PHP_EOL, FILE_APPEND);
         //Записываем регистрация билета в 1С в лог
 
         //Записываем 1С ID билета в билет

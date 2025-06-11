@@ -175,9 +175,6 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
             <button class="uk-mass-reserv-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '">' . $num_seat . '' . $sb_occupied . '</button>
             ';
         } else {
-            // $button_seat .= '
-            // <button class="uk-mass-reserv-seat uk-margin-small-top uk-button uk-button-default seat_free" disabled>' . $num_seat . '' . $sb_occupied . '</button>
-            // ';
             $button_seat .= '
             <button class="uk-mass-reserv-seat uk-margin-small-top uk-button uk-button-default seat_free" disabled>' . $num_seat . '' . $sb_occupied . '</button>
             ';

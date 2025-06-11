@@ -9,9 +9,6 @@ $agent = !empty($_POST['agent'])?$_POST['agent']:NULL;
 $start_date = !empty($_POST['start_date'])?$_POST['start_date']:NULL;
 $finish_date = !empty($_POST['finish_date'])?$_POST['finish_date']:NULL;
 
-$s_date = strtotime($start_date);
-$f_date = strtotime($finish_date . ' +1 day');
-
 if(isset($_SESSION['operator'])){
     $operator = $_SESSION['operator'];
 } else {
@@ -23,8 +20,8 @@ if ($operator == 'no_operator') {
 
 <div id="content" style="max-width: 700px;">
 	<h1 class="uk-heading-hero uk-text-center">Отчет по рейсу и агенту за период</h1>
-	<h3 class="uk-margin-remove uk-card-title uk-text-center">По дате регистрации билета</h3> 
-    <br>          
+    <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
+	<br>       
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <h3 class="uk-card-title">Сессия потеряна, перезайти</h3>
         <a class="uk-margin-small uk-button uk-button-default" href="/login/">Перезайти</a>
@@ -36,7 +33,7 @@ if ($operator == 'no_operator') {
 ?>
 
 <?php
-$all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', created>=' . $s_date . ', created<=' . $f_date . ', agent_ticket=' . $agent . ', sort=created');
+$all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart');
 $arr_all_agent_tickets = [];
 foreach ($all_agent_tickets as $all_agent_tickets_item) {
         $arr_all_agent_tickets[] = array(
@@ -74,7 +71,7 @@ foreach ($arr_all_agent_tickets as $key => $val) {
 
 <div id="content">
 	<h1 class="uk-heading-hero uk-text-center">Отчет по рейсу и агенту за период</h1>
-    <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате регистрации билета</h3> 
+    <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
     <br>
 	<div class="uk-child-width-1-2@m" uk-grid>
 	    
@@ -84,7 +81,7 @@ foreach ($arr_all_agent_tickets as $key => $val) {
                 <h4 class="uk-margin-remove">Выбранный рейс:<br><span style="font-weight: 700;"><?php echo $selected_bus; ?></span></h4>
                 <h4 class="uk-margin-remove">Выбранный агент:<br><span style="font-weight: 700;"><?php echo $agent; ?></span></h4>
                 <h4 class="uk-margin-remove">Дата: с <span style="font-weight: 700;"><?php echo $start_date; ?></span> по <span style="font-weight: 700;"><?php echo $finish_date; ?></span></h4>
-                <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-i-agentam-za-period-vybor-avtobusa/">Выбрать другие параметры</a>
+                <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-i-agentam-za-period-dd-vybor-avtobusa/">Выбрать другие параметры</a>
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Вернутся на главную</a>
             </div>
         </div>
@@ -97,7 +94,7 @@ foreach ($arr_all_agent_tickets as $key => $val) {
                 </div>
                 
                 
-                <form class="uk-flex uk-flex-column" id="" action="/otchet-po-reisu-i-agentam-za-period-pechat/" method="post">
+                <form class="uk-flex uk-flex-column" id="" action="/otchet-po-reisu-i-agentam-za-period-dd-pechat/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input readonly" id="print_bus" type="text" name="print_bus" value="<?php echo $selected_bus ; ?>">
                     </div>

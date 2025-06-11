@@ -52,7 +52,8 @@ foreach ($reserv_seat as $reserv_seat_item) {
         "passenger_doc"=>$reserv_seat_item->passenger_doc,
         "operator"=>$reserv_seat_item->operator,
         "agent_ticket"=>$reserv_seat_item->agent_ticket,
-        "comment"=>$reserv_seat_item->comment
+        "comment"=>$reserv_seat_item->comment,
+        "sb_ticket_id"=>$reserv_seat_item->sb_ticket_id
         );
 }
 //echo '<pre>'; print_r($arr_reserv_seat); echo '</pre>';
@@ -114,27 +115,47 @@ if ($bus_on == false) {
 // echo '</pre>';
 
 $button_seat = '';
+$sb_title_error = '';
 foreach ($arr_reserv_seat as $key => $val) {
+    $sb_disabled = '';
+    $sb_occupied = '';
+    $sb_on = '';
+    if (in_array($val['seat'], $sb_free_seats)) {
+        $sb_occupied = '<p class="sb_occupied"></p>'; 
+    }
+    if (in_array($val['seat'], $sb_occupied_seats)) {
+        $sb_disabled = 'disabled';
+        $sb_occupied = '<p class="sb-marker">1С</p>'; 
+        $sb_on = 'on';
+    }
+
     $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
     $phone_passenger = $data_passenger->phone_passenger;
+    $sb_error = '';
+    if ($sb_on == 'on' && !$val['sb_ticket_id']) {
+        $sb_error = '<p class="sb_error"></p>';
+        $sb_title_error = '
+        <p class="uk-margin-remove" style="color: red; font-weight: 700; line-height: 1;">Внимание, расхождение данных! На рейсе имеются места, которые в 1С уже заняты, но в системе по 1С не проведены</p>
+        ';
+    }
     $conf_status = '';
     if ($val['confirm'] == 'не подтверждено' || $val['confirm'] == 'подтверждено' || $val['confirm'] == 'явился') {
         $conf_status = '<p class="appeared"></p>';
     } else {
         $conf_status = '<p class="noappeared"><i class="fa-solid fa-triangle-exclamation"></i></p>';
     }
-    if ($val['agent_ticket'] == 'Site' || $val['agent_ticket'] == 'APP') {
+    if ($val['agent_ticket'] == 'TestAPI' || $val['agent_ticket'] == 'Site' || $val['agent_ticket'] == 'APP') {
         $conf_status = '<p class="noappeared">API</p>';
     }
 
     if ($val['pay_or_booking'] == 'забронировано') {
         $button_seat .= '
-        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_reserv" title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_reserv" title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '' . $sb_error . '</button>
         ';
     }
     if ($val['pay_or_booking'] == 'оплачено') {
         $button_seat .= '
-        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_pay" title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . '">' . $val['seat'] . '' . $conf_status . '</button>
+        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_pay" title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '' . $sb_error . '</button>
         ';
     }
 }
@@ -212,6 +233,7 @@ foreach ($arr_reserv_seat as $key => $val) {
                     <?php echo $switch_sb_bus;?>
                 </div>
                 <h3 class="uk-margin-remove uk-card-title">Занятые места</h3>
+                <?php echo $sb_title_error;?>
                 <div class="buttons_seat uk-flex uk-flex-wrap">
                     <?php echo $button_seat; ?>
                 </div>

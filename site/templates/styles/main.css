@@ -142,6 +142,7 @@ button.uk-ticket-edit-seat {
 button.uk-ticket-edit-seat:hover {
     background-color: #52af52;}
 button.uk-mass-reserv-seat {
+    position: relative;
     margin: 5px;
     padding: 0;
     line-height: 1.4;
@@ -198,6 +199,7 @@ button.seat_select_mass_for_agent {
     color: #333!important;
     background-color: #00a4ff!important;}
 button.uk-mass-reserv-seat-agent {
+    position: relative;
     margin: 5px;
     padding: 0;
     line-height: 1.4;
@@ -300,6 +302,13 @@ button.seat_select {
     width: 43px;
     height: 10px;
     background-color: #6c6c6c;}
+.sb_error {
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+    width: 43px;
+    height: 10px;
+    background-color: red;}
 button.sb_seat_reserv {
     position: relative;
     background-color: #ffffff!important;
@@ -325,6 +334,13 @@ button.sb_seat_reserv {
 .legend-title {
     margin: 0 0 0 5px;
     line-height: 1;}
+.sb-marker {
+    margin: 0;
+    position: absolute;
+    top: -1px;
+    right: 2px;
+    font-size: 10px;
+    color: #000000;}
 
 
 

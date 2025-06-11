@@ -21,16 +21,23 @@ $menu = '
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
                 <br><br>
                 <div class="uk-flex-column">
+                    
                     <div class="uk-flex uk-flex-middle">
                         <button class="demo-seat uk-button" disabled>00</button>
                         <p class="uk-margin-remove">-</p>
                         <p class="legend-title">Место свободное</p>
                     </div>
                     <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button" disabled>00<p class="sb-marker">1С</p></button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место свободное,<br>но в 1С числется как занятое</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
                         <button class="demo-seat uk-button" disabled>00<p class="sb_occupied"></p></button>
                         <p class="uk-margin-remove">-</p>
-                        <p class="legend-title">Место свободное,<br>синхрон с 1С</p>
+                        <p class="legend-title">Место свободное,<br>и свободное в 1С</p>
                     </div>
+
                     <div class="uk-flex uk-flex-middle">
                         <button class="demo-seat uk-button seat_reserv" disabled>00<p class="appeared"></p></button>
                         <p class="uk-margin-remove">-</p>
@@ -39,8 +46,19 @@ $menu = '
                     <div class="uk-flex uk-flex-middle">
                         <button class="demo-seat uk-button seat_reserv" disabled>00<p class="noappeared"><i class="fa-solid fa-triangle-exclamation"></i></p></button>
                         <p class="uk-margin-remove">-</p>
-                        <p class="legend-title">Место забронировано,<br>не подтвержденно</p>
+                        <p class="legend-title">Место забронировано пассажиром, не подтвержденно</p>
                     </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_reserv" disabled>00<p class="sb-marker">1С</p></button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место забронировано пассажиром,<br>но в 1С числется как занятое</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_reserv" disabled>00<p class="appeared"></p><p class="sb_occupied"></p></button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место забронировано пассажиром, и свободное в 1С</p>
+                    </div>
+
                     <div class="uk-flex uk-flex-middle">
                         <button class="demo-seat uk-button seat_pay" disabled>00</button>
                         <p class="uk-margin-remove">-</p>
@@ -52,6 +70,22 @@ $menu = '
                         <p class="legend-title">Место оплаченно,<br>купленно через API систему</p>
                     </div>
                     <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_pay" disabled>00<p class="sb-marker">1С</p></button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место оплаченно,<br>и проведено в 1С</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_pay" disabled>00<p class="sb_occupied"></p></button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место оплаченно,<br>но в 1С числется как свободное</p>
+                    </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_pay" disabled>00<p class="sb-marker">1С</p><p class="sb_error"></p></button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место оплаченно и в 1С уже занято, но в системе по 1С не проведено</p>
+                    </div>
+
+                    <div class="uk-flex uk-flex-middle">
                         <button class="demo-seat uk-button seat_select_mass" disabled>00</button>
                         <p class="uk-margin-remove">-</p>
                         <p class="legend-title">Место забронировано оператором</p>
@@ -61,6 +95,7 @@ $menu = '
                         <p class="uk-margin-remove">-</p>
                         <p class="legend-title">Место забронировано агентом</p>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -17,9 +17,10 @@ $informer_button = '
 if ($operator == 'admin-test' || $operator == 'Директор') {
     $informer_button .= '
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-agenty-vybor-avtobusa/">Отчет по рейсу - по агентам</a>
-    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-i-agentam-za-period-vybor-avtobusa/">Отчет по рейсу и агенту за период</a>
-    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-vybor-agenta/">Отчет по агенту - по дате выезда</a>
-    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-data-registratcii-vybor-agenta/">Отчет по агенту - по дате регистрации билета</a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-i-agentam-za-period-vybor-avtobusa/">Отчет по рейсу и агенту за период<br><span style="font-size:10px">(по дате регистрации билета)</span></a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-i-agentam-za-period-dd-vybor-avtobusa/">Отчет по рейсу и агенту за период<br><span style="font-size:10px">(по дате выезда)</span></a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-data-registratcii-vybor-agenta/">Отчет по агенту<br><span style="font-size:10px">(по дате регистрации билета)</span></a>
+    <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-agentu-vybor-agenta/">Отчет по агенту<br><span style="font-size:10px">(по дате выезда)</span></a>
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-registratcii-passazhirov-vybor-perioda/">Отчет по регистрации пассажиров</a>
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-biletam-vybor-parametrov/">Отчет по билетам</a>
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-prodazhe-komissiia-za-period-vybor-avtobusa/">Отчет по продаже комиссия за период</a>

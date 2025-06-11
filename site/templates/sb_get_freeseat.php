@@ -100,4 +100,18 @@ if ($found == true) {
     foreach ($sb_free_seats as $sb_free_seat) {
         $sb_log .=  $sb_free_seat . ', ';
     }
+
+    $sb_log .=  '<p style="color:green;font-weight:700;text-align:center;">Занятые места в автобусе: </p>';
+
+    $sb_max_seat = 51;
+    $sb_occupied_seats = [];
+    for ($sb_num_seat = 1; $sb_num_seat <= $sb_max_seat; $sb_num_seat++) {
+        if (!in_array($sb_num_seat, $sb_free_seats)) {
+            $sb_occupied_seats[] = $sb_num_seat;
+        }
+    }
+
+    foreach ($sb_occupied_seats as $sb_occupied_seat) {
+        $sb_log .=  $sb_occupied_seat . ', ';
+    }
 }

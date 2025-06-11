@@ -9,9 +9,6 @@ $agent = !empty($_POST['print_agent'])?$_POST['print_agent']:NULL;
 $start_date = !empty($_POST['print_start_date'])?$_POST['print_start_date']:NULL;
 $finish_date = !empty($_POST['print_finish_date'])?$_POST['print_finish_date']:NULL;
 
-$s_date = strtotime($start_date);
-$f_date = strtotime($finish_date . ' +1 day');
-
 if(isset($_SESSION['operator'])){
     $operator = $_SESSION['operator'];
 } else {
@@ -36,7 +33,7 @@ if ($operator == 'no_operator') {
 ?>
 
 <?php
-$all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', created>=' . $s_date . ', created<=' . $f_date . ', agent_ticket=' . $agent . ', sort=created');
+$all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart');
 $sum_price_ticket = 0;
 $sum_commission = 0;
 $sum_predoplata = 0;

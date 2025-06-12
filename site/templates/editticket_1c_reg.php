@@ -110,6 +110,8 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
             $sb_gender = 'F';
         }
         $sb_phone = $passenger_page->phone_passenger;
+        $sb_phone = preg_replace('/[^0-9]/', '', $sb_phone);
+        $sb_phone = substr($sb_phone, 0, 11);
 
         $fr_racecode = $sb_idbus;
         $fr_birthday = $sb_birthday;

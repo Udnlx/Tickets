@@ -40,7 +40,7 @@ try{
     $dataSeat = $client->getRaceSeats(["raceCode"=>'' . $sb_idbus . '']);
 }
 catch (SoapFault $soapFault){
-    $sb_log .=  '<p style="color:red;margin:0;">Не удалось вызвать функцию</p>';
+    $sb_log .=  '<p style="color:red;margin:0;">Не удалось вызвать функцию getRaceSeats</p>';
     $info_json = json_encode($soapFault);
     $sb_log .=  '<p style="color:red;">' . $info_json . '</p>';
 }
@@ -133,7 +133,7 @@ if ($seat_busy == 'off') {
         ]);
     }
     catch (SoapFault $soapFault){
-        $sb_log .=  '<p style="color:red;margin:0;">Не удалось вызвать функцию</p>';
+        $sb_log .=  '<p style="color:red;margin:0;">Не удалось вызвать функцию bookOrder</p>';
         $info_json = json_encode($soapFault);
         $sb_log .=  '<p style="color:red;">' . $info_json . '</p>';
     }
@@ -149,7 +149,7 @@ if ($seat_busy == 'off') {
         $sb_log .= '<p style="color:green;margin:0;">Билет успешно зарегистрирован в системе 1С</p>';
     }
     catch (SoapFault $soapFault){
-        $sb_log .=  '<p style="color:red;margin:0;">Не удалось вызвать функцию</p>';
+        $sb_log .=  '<p style="color:red;margin:0;">Не удалось вызвать функцию confirmOrder</p>';
         $info_json = json_encode($soapFault);
         $sb_log .=  '<p style="color:red;">' . $info_json . '</p>';
     }

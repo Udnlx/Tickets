@@ -54,7 +54,7 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
         $dataSeat = $client->getRaceSeats(["raceCode"=>'' . $sb_idbus . '']);
     }
     catch (SoapFault $soapFault){
-        echo '<h2>Не удалось вызвать функцию</h2>';
+        echo '<h2>Не удалось вызвать функцию getRaceSeats</h2>';
         echo '<pre>'; 
         var_dump($soapFault);
         echo '</pre>';
@@ -146,7 +146,7 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
             ]);
         }
         catch (SoapFault $soapFault){
-            echo '<h2>Не удалось вызвать функцию</h2>';
+            echo '<h2>Не удалось вызвать функцию bookOrder</h2>';
             echo '<pre>'; 
             var_dump($soapFault);
             echo '</pre>';
@@ -158,11 +158,17 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
         // echo '</pre>';
         // echo $answer_book_order['id'];
 
+        if (!$answer_book_order['id']) {
+            echo '<pre>'; 
+            var_dump($answer_book_order);
+            echo '</pre>';
+        }
+
         try{
             $dataList = $client->confirmOrder(["orderId"=>$answer_book_order['id'],"paymentMethod"=>'Безналичный расчет']);
         }
         catch (SoapFault $soapFault){
-            echo '<h2>Не удалось вызвать функцию</h2>';
+            echo '<h2>Не удалось вызвать функцию confirmOrder</h2>';
             echo '<pre>'; 
             var_dump($soapFault);
             echo '</pre>';

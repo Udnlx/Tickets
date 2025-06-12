@@ -69,10 +69,12 @@ if ($input->get['bus'] && $input->get['data']) {
 
     $sb_max_seat = 51;
     $sb_occupied_seats = [];
-    for ($sb_num_seat = 1; $sb_num_seat <= $sb_max_seat; $sb_num_seat++) {
-        if (!in_array($sb_num_seat, $sb_free_seats)) {
-            $sb_occupied_seats[] = $sb_num_seat;
-        }
+    if (strlen($uid) != 0) {
+    	for ($sb_num_seat = 1; $sb_num_seat <= $sb_max_seat; $sb_num_seat++) {
+	        if (!in_array($sb_num_seat, $sb_free_seats)) {
+	            $sb_occupied_seats[] = $sb_num_seat;
+	        }
+	    }
     }
 	//Получаем свободные и занятые места
 	//==================ПОЛУЧАЕМ ЗАНЯТЫЕ МЕСТА В 1С==================//

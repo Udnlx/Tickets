@@ -98,6 +98,22 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
         $sb_birthday = $passenger_page->birthday_passenger;
         $old_date_timestamp = strtotime($sb_birthday);
         $sb_birthday = date('Y-m-d', $old_date_timestamp);
+        $sb_doc = $passenger_page->type_doc_passenger;
+        if ($sb_doc == 'Паспорт РФ') {
+            $sb_doc = '1';
+        }
+        if ($sb_doc == 'Свидетельство о рождении') {
+            $sb_doc = '2';
+        }
+        if ($sb_doc == 'Военный билет') {
+            $sb_doc = '3';
+        }
+        if ($sb_doc == 'Паспорт иностранного пассажира') {
+            $sb_doc = '52';
+        }
+        if ($sb_doc == 'Заграничный паспорт РФ') {
+            $sb_doc = '63';
+        }
         $sb_docnum = $passenger_page->num_doc_passenger;
         $sb_docseries = $passenger_page->passport_passenger;
         $sb_passengername = $passenger_page->name_passenger;
@@ -115,6 +131,7 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
 
         $fr_racecode = $sb_idbus;
         $fr_birthday = $sb_birthday;
+        $fr_doc = $sb_doc;
         $fr_docnum = $sb_docnum;
         $fr_docseries = $sb_docseries;
         $fr_firstname = $parts_name[1];
@@ -135,7 +152,7 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
                         'citizenship' => 'RU',
                         'docNum' => $fr_docnum,
                         'docSeries' => $fr_docseries,
-                        'docTypeCode' => '1',
+                        'docTypeCode' => $fr_doc,
                         'firstName' => $fr_firstname,
                         'gender' => $fr_gender,
                         'lastName' => $fr_lastname,

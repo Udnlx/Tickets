@@ -36,15 +36,18 @@ if ($operator == 'no_operator') {
 $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
 
 $sb_status = '';
+$sb_btn_disabled = '';
 if ($ticket->sb_ticket_id) {
     $sb_status = '
     <p class="uk-margin-remove uk-text-success uk-text-bold uk-text-center">Статус: Билет проведен в 1С</p>
     <p class="uk-margin-remove uk-text-success uk-text-bold uk-text-center">ID билета в 1С: ' . $ticket->sb_ticket_id . '</p>
     ';
+    $sb_btn_disabled = 'disabled';
 } else {
     $sb_status = '
     <p class="uk-margin-remove uk-text-warning uk-text-bold uk-text-center">Статус: Билет не проведен в 1С</p>
     ';
+    $sb_btn_disabled = '';
 }
 ?>
 
@@ -226,7 +229,7 @@ if ($ticket->sb_ticket_id) {
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
-                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Освободить место</button>
+                        <button class="uk-margin-small-top uk-button uk-button-default" <?php echo $sb_btn_disabled; ?> type="submit">Освободить место</button>
                     </div>
                 </form>
             </div>

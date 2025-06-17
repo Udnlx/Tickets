@@ -39,6 +39,7 @@ if ($sb_idbus_forreg != '') {
 }
 $page_passenger = $pages->get('template=passengers, id=' . $selected_idpassenger . '');
 $sb_birthday = $page_passenger->birthday_passenger;
+$sb_doc = $page_passenger->type_doc_passenger;
 $sb_docnum = $page_passenger->num_doc_passenger;
 $sb_docseries = $page_passenger->passport_passenger;
 $sb_namepassenger = $page_passenger->name_passenger;
@@ -192,6 +193,7 @@ if ($operator == 'Котельники') {
             <input class="uk-input" id="sb_idbus" type="text" name="sb_idbus" value="<?php echo $sb_idbus_forreg ; ?>">
             <input class="uk-input" id="sb_seat" type="text" name="sb_seat" value="<?php echo $selected_seat ; ?>">
             <input class="uk-input" id="sb_birthday" type="text" name="sb_birthday" value="<?php echo $sb_birthday ; ?>">
+            <input class="uk-input" id="sb_doc" type="text" name="sb_doc" value="<?php echo $sb_doc ; ?>">
             <input class="uk-input" id="sb_docnum" type="text" name="sb_docnum" value="<?php echo $sb_docnum ; ?>">
             <input class="uk-input" id="sb_docseries" type="text" name="sb_docseries" value="<?php echo $sb_docseries ; ?>">
             <input class="uk-input" id="sb_passengername" type="text" name="sb_passengername" value="<?php echo $sb_namepassenger ; ?>">

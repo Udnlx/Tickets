@@ -224,6 +224,22 @@ if (isset($data['idBus'])) {
 				    $sb_birthday = $data['birthdayPassenger'];
 				    $old_date_timestamp = strtotime($sb_birthday);
 				    $sb_birthday = date('Y-m-d', $old_date_timestamp);
+				    $sb_doc = $data['passengerDoc'];
+				    if ($sb_doc == 'Паспорт РФ') {
+			            $sb_doc = '1';
+			        }
+			        if ($sb_doc == 'Свидетельство о рождении') {
+			            $sb_doc = '2';
+			        }
+			        if ($sb_doc == 'Военный билет') {
+			            $sb_doc = '3';
+			        }
+			        if ($sb_doc == 'Паспорт иностранного пассажира') {
+			            $sb_doc = '52';
+			        }
+			        if ($sb_doc == 'Заграничный паспорт РФ') {
+			            $sb_doc = '63';
+			        }
 				    $sb_docnum = $data['passengerDocNumber'];
 				    $sb_docseries = $data['passengerDocSerial'];
 				    $sb_passengername = $data['passenger'];
@@ -239,6 +255,7 @@ if (isset($data['idBus'])) {
 
 				    $fr_racecode = $uid;
 				    $fr_birthday = $sb_birthday;
+				    $fr_doc = $sb_doc;
 				    $fr_docnum = $sb_docnum;
 				    $fr_docseries = $sb_docseries;
 				    $fr_firstname = $parts_name[1];
@@ -257,7 +274,7 @@ if (isset($data['idBus'])) {
 				                    'citizenship' => 'RU',
 				                    'docNum' => $fr_docnum,
 				                    'docSeries' => $fr_docseries,
-				                    'docTypeCode' => '1',
+				                    'docTypeCode' => $fr_doc,
 				                    'firstName' => $fr_firstname,
 				                    'gender' => $fr_gender,
 				                    'lastName' => $fr_lastname,

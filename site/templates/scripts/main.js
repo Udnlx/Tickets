@@ -968,6 +968,7 @@ $('#sb_reg_ticket').click(function() {
     var sb_idbus = $('#sb_idbus').val();
     var sb_seat = $('#sb_seat').val();
     var sb_birthday = $('#sb_birthday').val();
+    var sb_doc = $('#sb_doc').val();
     var sb_docnum = $('#sb_docnum').val();
     var sb_docseries = $('#sb_docseries').val();
     var sb_passengername = $('#sb_passengername').val();
@@ -982,6 +983,7 @@ $.ajax({
         'sb_idbus':sb_idbus, 
         'sb_seat':sb_seat, 
         'sb_birthday':sb_birthday, 
+        'sb_doc':sb_doc, 
         'sb_docnum':sb_docnum, 
         'sb_docseries':sb_docseries, 
         'sb_passengername':sb_passengername, 

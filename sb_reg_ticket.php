@@ -7,6 +7,7 @@ $seat_busy = 'off';
 
 $sb_idbus = $_POST['sb_idbus'];
 $sb_seat = $_POST['sb_seat'];
+$sb_operator = $_POST['sb_operator'];
 
 // $sb_log .= $sb_idbus;
 // $sb_log .= $sb_seat;
@@ -146,6 +147,14 @@ if ($seat_busy == 'off') {
     // echo '</pre>';
     // echo $answer_book_order['id'];
 
+    $sb_error = '';
+    if (!$answer_book_order['id']) {
+        echo '<pre>'; 
+        var_dump($answer_book_order);
+        echo '</pre>';
+        $sb_error = json_encode($answer_book_order, JSON_UNESCAPED_UNICODE);
+    }
+
     try{
         $dataList = $client->confirmOrder(["orderId"=>$answer_book_order['id'],"paymentMethod"=>'Безналичный расчет']);
         $sb_log .= '<p style="color:green;margin:0;">Билет успешно зарегистрирован в системе 1С</p>';
@@ -166,6 +175,8 @@ if ($seat_busy == 'off') {
     $id_edit_ticket = $_POST['sb_idticket'];
     $log = '';
     $log .= date('Y-m-d H:i:s') . ' - Билету с ID ' . $id_edit_ticket . ' присвоен ID билета в 1С: ' . $answer_confirm_order['tickets'][0]['id'] . '';
+    $log .= ' Билет проводился со страницы регистрации билета, оператор: ' . $sb_operator . ' ';
+    $log .= $sb_error;
     file_put_contents(__DIR__ . '/site/templates/log_1c_ticket_registration.txt', $log . PHP_EOL, FILE_APPEND);
     //Записываем регистрация билета в 1С в лог
 

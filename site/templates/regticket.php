@@ -189,6 +189,7 @@ if ($operator == 'no_operator' || $access == 'agent') {
             <input class="uk-input" id="sb_gender" type="text" name="sb_gender" value="<?php echo $sb_gender ; ?>">
             <input class="uk-input" id="sb_phone" type="text" name="sb_phone" value="<?php echo $sb_phone ; ?>">
             <input class="uk-input" id="sb_idticket" type="text" name="sb_idticket" value="<?php echo $ticket_page->id ; ?>">
+            <input class="uk-input" id="sb_operator" type="text" name="sb_operator" value="<?php echo $operator; ?>">
         </div>
         <?php echo $sb_button_reg ; ?>
         <div id="reg_messages" class="messages-block" style="margin: 10px 0 0 0;">

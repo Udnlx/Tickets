@@ -974,6 +974,7 @@ $('#sb_reg_ticket').click(function() {
     var sb_gender = $('#sb_gender').val();
     var sb_phone = $('#sb_phone').val();
     var sb_idticket = $('#sb_idticket').val();
+    var sb_operator = $('#sb_operator').val();
 $.ajax({
     type: "POST",
     url: '/sb_reg_ticket.php',
@@ -987,6 +988,7 @@ $.ajax({
         'sb_gender':sb_gender, 
         'sb_phone':sb_phone, 
         'sb_idticket':sb_idticket, 
+        'sb_operator':sb_operator, 
     },
     beforeSend: function () {
         $('#reg_messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');

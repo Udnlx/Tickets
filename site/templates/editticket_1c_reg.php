@@ -160,10 +160,12 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
         // echo '</pre>';
         // echo $answer_book_order['id'];
 
+        $sb_error = '';
         if (!$answer_book_order['id']) {
             echo '<pre>'; 
             var_dump($answer_book_order);
             echo '</pre>';
+            $sb_error = json_encode($answer_book_order, JSON_UNESCAPED_UNICODE);
         }
 
         try{
@@ -186,6 +188,8 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
         $id_edit_ticket = $sb_reg_ticket;
         $log = '';
         $log .= date('Y-m-d H:i:s') . ' - Билету с ID ' . $id_edit_ticket . ' присвоен ID билета в 1С: ' . $answer_confirm_order['tickets'][0]['id'] . '';
+        $log .= ' Билет проводился со страницы редактирования билета, оператор: ' . $operator . ' ';
+        $log .= $sb_error;
         file_put_contents(__DIR__ . '/log_1c_ticket_registration.txt', $log . PHP_EOL, FILE_APPEND);
         //Записываем регистрация билета в 1С в лог
 

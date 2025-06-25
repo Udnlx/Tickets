@@ -11,6 +11,7 @@ if(isset($_SESSION['operator'])){
     $operator = 'no_operator';
 }
 
+$sb_idbus = $_POST['sb_idbus'];
 $sb_del_ticket = !empty($_POST['sb_del_ticket'])?$_POST['sb_del_ticket']:NULL;
 $ticket_page = $pages->get('template=purchased_tickets, id=' . $sb_del_ticket . '');
 if ($ticket_page->sb_ticket_id) {
@@ -106,6 +107,19 @@ if ($operator == 'no_operator') {
         <p class="uk-margin-remove">Дата и время отправления: <span style="font-weight: 700;"><?php echo $ticket_page->date_depart; ?> <?php echo $ticket_page->time_depart; ?></span></p>
         <p class="uk-margin-remove">Место: <span class="uk-text-success" style="font-weight: 700;"><?php echo $ticket_page->seat; ?></span></p>
         <p class="uk-margin-remove">ID билета: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $ticket_page->id; ?></span></p>
+
+        <form class="uk-flex uk-flex-column" id="select_edit_seat" action="/pravka-bileta-forma/" method="post">
+            <div class="uk-margin-small-top uk-hidden">
+                <input class="uk-input" id="sb_idbus" type="text" name="sb_idbus" value="<?php echo $sb_idbus; ?>">
+            </div>
+            <div class="uk-margin-small-top uk-hidden">
+                <input class="uk-input" id="id_seat" type="text" name="id_seat" value="<?php echo $sb_del_ticket ?>">
+            </div>
+            
+            <div class="uk-margin-small-top uk-flex uk-flex-column">
+                <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Назад</button>
+            </div>
+        </form>
 
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>

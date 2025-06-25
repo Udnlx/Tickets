@@ -235,6 +235,9 @@ if (count($bus_page->table_price) > 0) {
                 <?php echo $sb_status; ?>
                 <form class="uk-flex uk-flex-column" id="del_ticket" action="/pravka-bileta-udalenie-iz-1s/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="sb_idbus" type="text" name="sb_idbus" value="<?php echo $sb_idbus; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="sb_del_ticket" type="text" name="sb_del_ticket" value="<?php echo $id_seat; ?>">
                     </div>
                     

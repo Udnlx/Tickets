@@ -131,6 +131,9 @@ $reestr_seat .= '
                 <input class="uk-input readonly" id="old_name_passenger" type="text" name="old_name_passenger" value="<?php echo $page_passenger->name_passenger ?>" placeholder="ФИО пассажира" autocomplete="off" required>
             </div>
             <div class="uk-margin-small-top uk-hidden">
+                <input class="uk-input readonly" id="old_gender_passenger" type="text" name="old_gender_passenger" value="<?php echo $page_passenger->gender_passenger ?>" placeholder="Пол" autocomplete="off" required>
+            </div>
+            <div class="uk-margin-small-top uk-hidden">
                 <input class="uk-input readonly" id="old_birthday_passenger" type="date" name="old_birthday_passenger" value="<?php echo $dayformat ?>" placeholder="Дата рождения" autocomplete="off" required>
             </div>
             <div class="uk-margin-small-top uk-hidden">
@@ -148,6 +151,14 @@ $reestr_seat .= '
             
             <div class="uk-margin-small-top">
                 <input class="uk-input" id="name_passenger" type="text" name="name_passenger" value="<?php echo $page_passenger->name_passenger ?>" placeholder="ФИО пассажира" autocomplete="off" required>
+            </div>
+            <div class="uk-margin-small-top">
+                <label for="gender_passenger">Пол</label>
+                <select class="uk-select" id="gender_passenger" name="gender_passenger" required>
+                    <option value="<?php echo $page_passenger->gender_passenger ?>"><?php echo $page_passenger->gender_passenger ?></option>
+                    <option value="М">М</option>
+                    <option value="Ж">Ж</option>
+                </select>
             </div>
             <div class="uk-margin-small-top">
                 <input class="uk-input" id="birthday_passenger" type="date" name="birthday_passenger" value="<?php echo $dayformat ?>" placeholder="Дата рождения" autocomplete="off" required>

@@ -28,7 +28,7 @@ foreach ($all_bus as $bus) {
     <div id="modal-add_gender" uk-modal>
         <div class="uk-modal-dialog uk-modal-body">
             <button class="uk-modal-close-default" type="button" uk-close></button>
-            <p style="font-weight: 700;text-align:center">У пассажира не указан пол.<br>Выберите пожалуйста пол для этого пассажира.</p>
+            <p style="font-weight: 700;text-align:center">У пассажира не верный или не указан пол.<br>Выберите пожалуйста пол для этого пассажира.</p>
             <div id="messages_add_gender" class="messages-block">
                 <p class="messages" style="color: green;"></p>
             </div>

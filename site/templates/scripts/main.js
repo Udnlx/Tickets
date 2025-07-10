@@ -310,10 +310,16 @@ $(document).on('click', 'p.passengers_item', function(){
     $('#passenger_document').val(type_doc_passenger + ' ' + series_doc_passenger + ' ' + num_doc_passenger);
 
     //console.log ('Проверяем заполненость поля пол пассажира');
-    if ($('#selected_gender').val() == '') {
-        $('#messages_add_gender p.messages').text('');
-        $('#footer_gender_passenger option:first').prop('selected', true);
-        UIkit.modal('#modal-add_gender').show();
+    if ($('#selected_gender').val() == 'М' || $('#selected_gender').val() == 'Ж') {
+        //ОК
+    } else {
+        let url = window.location.pathname
+        if (url != '/reestr-passazhirov-vybor-passazhira/') {
+            $('#messages_add_gender p.messages').text('');
+            $('#footer_gender_passenger option:first').prop('selected', true);
+            $('#selected_gender').val('');
+            UIkit.modal('#modal-add_gender').show();
+        }
     }
 
     //console.log ('Проверяем количество поездок пассажира');
@@ -818,6 +824,7 @@ return false;
 $('#edit_passenger').click(function() {
     var id_passenger = $('#id_passenger').val();
     var edit_name_passenger = $('#name_passenger').val();
+    var edit_gender_passenger = $('#gender_passenger').val();
     var edit_birthday_passenger = $('#birthday_passenger').val();
     var day_rev = edit_birthday_passenger.split("-").reverse().join(".");
     var edit_birthday_passenger = day_rev;
@@ -827,6 +834,7 @@ $('#edit_passenger').click(function() {
     var edit_phone_passenger = $('#phone_passenger').val();
     
     var old_name_passenger = $('#old_name_passenger').val();
+    var old_gender_passenger = $('#old_gender_passenger').val();
     var old_birthday_passenger = $('#old_birthday_passenger').val();
     var old_day_rev = old_birthday_passenger.split("-").reverse().join(".");
     var old_birthday_passenger = old_day_rev;
@@ -835,36 +843,43 @@ $('#edit_passenger').click(function() {
     var old_passport_passenger = $('#old_passport_passenger').val();
     var old_phone_passenger = $('#old_phone_passenger').val();
     //console.log(id_passenger, edit_name_passenger, edit_birthday_passenger, edit_type_doc_passenger, edit_num_doc_passenger, edit_passport_passenger, edit_phone_passenger);
-$.ajax({
-    type: "POST",
-    url: '/edit_passenger.php',
-    data: {
-        'id_passenger':id_passenger, 
-        'edit_name_passenger':edit_name_passenger, 
-        'edit_birthday_passenger':edit_birthday_passenger,
-        'edit_type_doc_passenger':edit_type_doc_passenger,
-        'edit_num_doc_passenger':edit_num_doc_passenger,
-        'edit_passport_passenger':edit_passport_passenger,
-        'edit_phone_passenger':edit_phone_passenger,
-        
-        'old_name_passenger':old_name_passenger, 
-        'old_birthday_passenger':old_birthday_passenger,
-        'old_type_doc_passenger':old_type_doc_passenger,
-        'old_num_doc_passenger':old_num_doc_passenger,
-        'old_passport_passenger':old_passport_passenger,
-        'old_phone_passenger':old_phone_passenger
-    },
-    beforeSend: function () {
-        $('#edit_messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
-    },
-    success: function (data) {
-        $('#edit_messages').html(data);
-        window.setTimeout('window.location.replace("/reestr-passazhirov-vybor-passazhira/");', 2000);
-    },
-    error: function (jqXHR, text, error) {
-        $('#edit_messages').html(error);
+    console.log (edit_gender_passenger);
+    if (edit_gender_passenger == 'М' || edit_gender_passenger == 'Ж') {
+        $.ajax({
+            type: "POST",
+            url: '/edit_passenger.php',
+            data: {
+                'id_passenger':id_passenger, 
+                'edit_name_passenger':edit_name_passenger, 
+                'edit_gender_passenger':edit_gender_passenger, 
+                'edit_birthday_passenger':edit_birthday_passenger,
+                'edit_type_doc_passenger':edit_type_doc_passenger,
+                'edit_num_doc_passenger':edit_num_doc_passenger,
+                'edit_passport_passenger':edit_passport_passenger,
+                'edit_phone_passenger':edit_phone_passenger,
+                
+                'old_name_passenger':old_name_passenger, 
+                'old_gender_passenger':old_gender_passenger, 
+                'old_birthday_passenger':old_birthday_passenger,
+                'old_type_doc_passenger':old_type_doc_passenger,
+                'old_num_doc_passenger':old_num_doc_passenger,
+                'old_passport_passenger':old_passport_passenger,
+                'old_phone_passenger':old_phone_passenger
+            },
+            beforeSend: function () {
+                $('#edit_messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
+            },
+            success: function (data) {
+                $('#edit_messages').html(data);
+                window.setTimeout('window.location.replace("/reestr-passazhirov-vybor-passazhira/");', 2000);
+            },
+            error: function (jqXHR, text, error) {
+                $('#edit_messages').html(error);
+            }
+        });
+    } else {
+        alert ('Укажите корректный пол пассажира');
     }
-});
 return false;    
 });
 //Редактирование пассажира

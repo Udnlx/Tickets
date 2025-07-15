@@ -710,6 +710,7 @@ $('#search_tickets').keyup(function(){
 $('#add_passenger').click(function() {
     var add_name_passenger = $('#name_passenger').val();
     var add_gender_passenger = $('#gender_passenger').val();
+    var add_citizenship_passenger = $('#citizenship_passenger').val();
     var add_birthday_passenger = $('#birthday_passenger').val();
     var day_rev = add_birthday_passenger.split("-").reverse().join(".");
     var add_birthday_passenger = day_rev;
@@ -725,6 +726,7 @@ $.ajax({
     data: {
         'add_name_passenger':add_name_passenger, 
         'add_gender_passenger':add_gender_passenger, 
+        'add_citizenship_passenger':add_citizenship_passenger,
         'add_birthday_passenger':add_birthday_passenger,
         'add_type_doc_passenger':add_type_doc_passenger,
         'add_num_doc_passenger':add_num_doc_passenger,
@@ -742,6 +744,7 @@ $.ajax({
         if (v.indexOf('Ошибка') == -1) {
         $('#name_passenger').val('');
         $('#gender_passenger').val('');
+        $('#citizenship_passenger').val('RU');
         $('#birthday_passenger').val('');
         $('#type_doc_passenger').val('');
         $('#num_doc_passenger').val('');
@@ -767,6 +770,7 @@ return false;
 $('#agent_add_passenger').click(function() {
     var add_name_passenger = $('#name_passenger').val();
     var add_gender_passenger = $('#gender_passenger').val();
+    var add_citizenship_passenger = $('#citizenship_passenger').val();
     var add_birthday_passenger = $('#birthday_passenger').val();
     var day_rev = add_birthday_passenger.split("-").reverse().join(".");
     var add_birthday_passenger = day_rev;
@@ -782,6 +786,7 @@ $.ajax({
     data: {
         'add_name_passenger':add_name_passenger, 
         'add_gender_passenger':add_gender_passenger, 
+        'add_citizenship_passenger':add_citizenship_passenger,
         'add_birthday_passenger':add_birthday_passenger,
         'add_type_doc_passenger':add_type_doc_passenger,
         'add_num_doc_passenger':add_num_doc_passenger,
@@ -799,6 +804,7 @@ $.ajax({
         if (v.indexOf('Ошибка') == -1) {
         $('#name_passenger').val('');
         $('#gender_passenger').val('');
+        $('#citizenship_passenger').val('RU');
         $('#birthday_passenger').val('');
         $('#type_doc_passenger').val('');
         $('#num_doc_passenger').val('');

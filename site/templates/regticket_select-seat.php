@@ -481,6 +481,18 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 </select>
             </div>
             <div class="uk-margin-small-top">
+                <label for="gender_passenger">Гражданство</label>
+                <select class="uk-select" id="citizenship_passenger" name="citizenship_passenger" required>
+                    <option value="RU">Россия</option>
+                    <option value="TJ">Таджикистан</option>
+                    <option value="UZ">Узбекистан</option>
+                    <option value="KG">Киргизия</option>
+                    <option value="KZ">Казахстан</option>
+                    <option value="BY">Беларусь</option>
+                    <option value="UA">Украина</option>
+                </select>
+            </div>
+            <div class="uk-margin-small-top">
                 <label for="birthday_passenger">Дата рождения</label>
                 <input class="uk-input" id="birthday_passenger" type="date" name="birthday_passenger" value="" placeholder="Дата рождения" autocomplete="off" required>
             </div>

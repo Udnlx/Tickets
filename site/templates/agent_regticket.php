@@ -44,6 +44,7 @@ $sb_docnum = $page_passenger->num_doc_passenger;
 $sb_docseries = $page_passenger->passport_passenger;
 $sb_namepassenger = $page_passenger->name_passenger;
 $sb_gender = $page_passenger->gender_passenger;
+$sb_citizenship = $page_passenger->citizenship_passenger;
 $sb_phone = $page_passenger->phone_passenger;
 
 $success = 'Билет успешно зарегистрирован';
@@ -198,6 +199,7 @@ if ($operator == 'Котельники') {
             <input class="uk-input" id="sb_docseries" type="text" name="sb_docseries" value="<?php echo $sb_docseries ; ?>">
             <input class="uk-input" id="sb_passengername" type="text" name="sb_passengername" value="<?php echo $sb_namepassenger ; ?>">
             <input class="uk-input" id="sb_gender" type="text" name="sb_gender" value="<?php echo $sb_gender ; ?>">
+            <input class="uk-input" id="sb_citizenship" type="text" name="sb_citizenship" value="<?php echo $sb_citizenship ; ?>">
             <input class="uk-input" id="sb_phone" type="text" name="sb_phone" value="<?php echo $sb_phone ; ?>">
             <input class="uk-input" id="sb_idticket" type="text" name="sb_idticket" value="<?php echo $ticket_page->id ; ?>">
             <input class="uk-input" id="sb_operator" type="text" name="sb_operator" value="агент, <?php echo $operator; ?>">

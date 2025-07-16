@@ -998,6 +998,7 @@ $('#sb_reg_ticket').click(function() {
     var sb_docseries = $('#sb_docseries').val();
     var sb_passengername = $('#sb_passengername').val();
     var sb_gender = $('#sb_gender').val();
+    var sb_citizenship = $('#sb_citizenship').val();
     var sb_phone = $('#sb_phone').val();
     var sb_idticket = $('#sb_idticket').val();
     var sb_operator = $('#sb_operator').val();
@@ -1013,6 +1014,7 @@ $.ajax({
         'sb_docseries':sb_docseries, 
         'sb_passengername':sb_passengername, 
         'sb_gender':sb_gender, 
+        'sb_citizenship':sb_citizenship, 
         'sb_phone':sb_phone, 
         'sb_idticket':sb_idticket, 
         'sb_operator':sb_operator, 

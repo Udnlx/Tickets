@@ -113,6 +113,10 @@ if ($seat_busy == 'off') {
     if ($sb_gender == 'Ж') {
         $sb_gender = 'F';
     }
+    $sb_citizenship = $_POST['sb_citizenship'];
+    if ($sb_citizenship == '') {
+        $sb_citizenship = 'RU';
+    }
     $sb_phone = $_POST['sb_phone'];
     $sb_phone = preg_replace('/[^0-9]/', '', $sb_phone);
     $sb_phone = substr($sb_phone, 0, 11);
@@ -124,6 +128,7 @@ if ($seat_busy == 'off') {
     $fr_docseries = $sb_docseries;
     $fr_firstname = $parts_name[1];
     $fr_gender = $sb_gender;
+    $fr_citizenship = $sb_citizenship;
     $fr_lastname = $parts_name[0];
     $fr_middlename = $parts_name[2];
     $fr_phone = $sb_phone;
@@ -137,7 +142,7 @@ if ($seat_busy == 'off') {
             'sales' => json_encode([
                 [
                     'birthday' => $fr_birthday,
-                    'citizenship' => 'RU',
+                    'citizenship' => $fr_citizenship,
                     'docNum' => $fr_docnum,
                     'docSeries' => $fr_docseries,
                     'docTypeCode' => $fr_doc,

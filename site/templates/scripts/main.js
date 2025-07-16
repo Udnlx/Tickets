@@ -831,6 +831,7 @@ $('#edit_passenger').click(function() {
     var id_passenger = $('#id_passenger').val();
     var edit_name_passenger = $('#name_passenger').val();
     var edit_gender_passenger = $('#gender_passenger').val();
+    var edit_citizenship_passenger = $('#citizenship_passenger').val();
     var edit_birthday_passenger = $('#birthday_passenger').val();
     var day_rev = edit_birthday_passenger.split("-").reverse().join(".");
     var edit_birthday_passenger = day_rev;
@@ -841,6 +842,7 @@ $('#edit_passenger').click(function() {
     
     var old_name_passenger = $('#old_name_passenger').val();
     var old_gender_passenger = $('#old_gender_passenger').val();
+    var old_citizenship_passenger = $('#old_citizenship_passenger').val();
     var old_birthday_passenger = $('#old_birthday_passenger').val();
     var old_day_rev = old_birthday_passenger.split("-").reverse().join(".");
     var old_birthday_passenger = old_day_rev;
@@ -858,6 +860,7 @@ $('#edit_passenger').click(function() {
                 'id_passenger':id_passenger, 
                 'edit_name_passenger':edit_name_passenger, 
                 'edit_gender_passenger':edit_gender_passenger, 
+                'edit_citizenship_passenger':edit_citizenship_passenger, 
                 'edit_birthday_passenger':edit_birthday_passenger,
                 'edit_type_doc_passenger':edit_type_doc_passenger,
                 'edit_num_doc_passenger':edit_num_doc_passenger,
@@ -866,6 +869,7 @@ $('#edit_passenger').click(function() {
                 
                 'old_name_passenger':old_name_passenger, 
                 'old_gender_passenger':old_gender_passenger, 
+                'old_citizenship_passenger':old_citizenship_passenger, 
                 'old_birthday_passenger':old_birthday_passenger,
                 'old_type_doc_passenger':old_type_doc_passenger,
                 'old_num_doc_passenger':old_num_doc_passenger,

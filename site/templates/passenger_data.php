@@ -134,6 +134,9 @@ $reestr_seat .= '
                 <input class="uk-input readonly" id="old_gender_passenger" type="text" name="old_gender_passenger" value="<?php echo $page_passenger->gender_passenger ?>" placeholder="Пол" autocomplete="off" required>
             </div>
             <div class="uk-margin-small-top uk-hidden">
+                <input class="uk-input readonly" id="old_citizenship_passenger" type="text" name="old_citizenship_passenger" value="<?php echo $page_passenger->citizenship_passenger ?>" placeholder="Пол" autocomplete="off" required>
+            </div>
+            <div class="uk-margin-small-top uk-hidden">
                 <input class="uk-input readonly" id="old_birthday_passenger" type="date" name="old_birthday_passenger" value="<?php echo $dayformat ?>" placeholder="Дата рождения" autocomplete="off" required>
             </div>
             <div class="uk-margin-small-top uk-hidden">
@@ -161,10 +164,32 @@ $reestr_seat .= '
                 </select>
             </div>
             <div class="uk-margin-small-top">
+                <label for="gender_passenger">Гражданство</label>
+                <select class="uk-select" id="citizenship_passenger" name="citizenship_passenger" required>
+                    <option value="<?php echo $page_passenger->citizenship_passenger ?>"><?php echo $page_passenger->citizenship_passenger ?></option>
+                    <option value="RU">Россия</option>
+                    <option value="TJ">Таджикистан</option>
+                    <option value="UZ">Узбекистан</option>
+                    <option value="KG">Киргизия</option>
+                    <option value="KZ">Казахстан</option>
+                    <option value="BY">Беларусь</option>
+                    <option value="UA">Украина</option>
+                </select>
+            </div>
+            <div class="uk-margin-small-top">
                 <input class="uk-input" id="birthday_passenger" type="date" name="birthday_passenger" value="<?php echo $dayformat ?>" placeholder="Дата рождения" autocomplete="off" required>
             </div>
-            <div class="uk-margin-small-top uk-hidden">
-                <input class="uk-input" id="type_doc_passenger" type="text" name="type_doc_passenger" value="<?php echo $page_passenger->type_doc_passenger ?>" placeholder="Тип документа" required>
+            <div class="uk-margin-small-top">
+                <label for="type_doc_passenger">Документ</label>
+                <select class="uk-select" id="type_doc_passenger" name="type_doc_passenger" required>
+                    <option value="<?php echo $page_passenger->type_doc_passenger ?>"><?php echo $page_passenger->type_doc_passenger ?></option>
+                    <option value="Паспорт РФ">Паспорт РФ</option>
+                    <option value="Заграничный паспорт РФ">Заграничный паспорт РФ</option>
+                    <option value="Паспорт иностранного пассажира">Паспорт иностранного пассажира</option>
+                    <option value="Свидетельство о рождении">Свидетельство о рождении</option>
+                    <option value="Военный билет">Военный билет</option>
+                    <option value="Другой документ">Другой документ</option>
+                </select>
             </div>
             <div class="uk-margin-small-top">
                 <label for="passport_passenger">Серия документа</label>

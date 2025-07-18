@@ -91,10 +91,18 @@ if (isset($data['idBus'])) {
 			$forreg_id_passenger = $passenger_page->id;
 			$forreg_passenger_doc = $data['passengerDoc'] . ' ' . $data['passengerDocSerial'] . ' ' . $data['passengerDocNumber'];
 		} else {
+			$citizenship_passenger = 'RU';
+		    if (isset($data['citizenshipPassenger'])) {
+				$citizenship_passenger = $data['citizenshipPassenger'];
+				if ($citizenship_passenger == '') {
+				    $citizenship_passenger = 'RU';
+				}
+			}
 			$pages->add('passengers', '/passazhiry/', [
             'title' => $data['passenger'],
             'name_passenger' => $data['passenger'],
             'gender_passenger' => $data['genderPassenger'],
+            'citizenship_passenger' => $citizenship_passenger,
             'birthday_passenger' => $data['birthdayPassenger'],
             'type_doc_passenger' => $data['passengerDoc'],
             'passport_passenger' => $data['passengerDocSerial'],
@@ -107,7 +115,7 @@ if (isset($data['idBus'])) {
 
 	        $log = '';
 	        $log .= date('Y-m-d H:i:s') . ' - Добавлен новый пассажир id - ' . $new_passenger_page_id . ' агентом ' . $data['passengerCreate'] . '.   ';
-	        $log .= 'Данные добавленного пассажира: ' . $data['passenger'] . ' - ' . $data['genderPassenger'] . ' - ' . $data['birthdayPassenger'] . ' - ' . $data['passengerDoc'] . ' - ' . $data['passengerDocSerial'] . ' - ' . $data['passengerDocNumber'] . ' - ' . $data['passengerPhone'];
+	        $log .= 'Данные добавленного пассажира: ' . $data['passenger'] . ' - ' . $data['genderPassenger'] . ' - ' . $citizenship_passenger . ' - ' . $data['birthdayPassenger'] . ' - ' . $data['passengerDoc'] . ' - ' . $data['passengerDocSerial'] . ' - ' . $data['passengerDocNumber'] . ' - ' . $data['passengerPhone'];
 	        file_put_contents(__DIR__ . '/../../../log_add_passengers_api.txt', $log . PHP_EOL, FILE_APPEND);
 
 			$forreg_passenger = $data['passenger'];
@@ -189,7 +197,7 @@ if (isset($data['idBus'])) {
 				    $dataSeat = $client->getRaceSeats(["raceCode"=>'' . $uid . '']);
 				}
 				catch (SoapFault $soapFault){
-				    $sb_log .=  'Не удалось вызвать функцию;';
+				    $sb_log .=  'Не удалось вызвать функцию getRaceSeats;';
 				    $info_json = json_encode($soapFault);
 				    $sb_log .=  $info_json;
 				}
@@ -251,6 +259,13 @@ if (isset($data['idBus'])) {
 				    if ($sb_gender == 'Ж') {
 				        $sb_gender = 'F';
 				    }
+				    $sb_citizenship = 'RU';
+				    if (isset($data['citizenshipPassenger'])) {
+						$sb_citizenship = $data['citizenshipPassenger'];
+						if ($sb_citizenship == '') {
+						    $sb_citizenship = 'RU';
+						}
+					}
 				    $sb_phone = $data['passengerPhone'];
 
 				    $fr_racecode = $uid;
@@ -260,10 +275,24 @@ if (isset($data['idBus'])) {
 				    $fr_docseries = $sb_docseries;
 				    $fr_firstname = $parts_name[1];
 				    $fr_gender = $sb_gender;
+				    $fr_citizenship = $sb_citizenship;
 				    $fr_lastname = $parts_name[0];
 				    $fr_middlename = $parts_name[2];
 				    $fr_phone = $sb_phone;
 				    $fr_seatcode = $sb_seat_id;
+
+				    // echo $fr_racecode . '<br>';
+				    // echo $fr_birthday . '<br>';
+				    // echo $fr_doc . '<br>';
+				    // echo $fr_docnum . '<br>';
+				    // echo $fr_docseries . '<br>';
+				    // echo $fr_firstname . '<br>';
+				    // echo $fr_gender . '<br>';
+				    // echo $fr_citizenship . '<br>';
+				    // echo $fr_lastname . '<br>';
+				    // echo $fr_middlename . '<br>';
+				    // echo $fr_phone . '<br>';
+				    // echo $fr_seatcode . '<br>';
 
 				    try{
 				        $dataList = $client->bookOrder([
@@ -271,7 +300,7 @@ if (isset($data['idBus'])) {
 				            'sales' => json_encode([
 				                [
 				                    'birthday' => $fr_birthday,
-				                    'citizenship' => 'RU',
+				                    'citizenship' => $fr_citizenship,
 				                    'docNum' => $fr_docnum,
 				                    'docSeries' => $fr_docseries,
 				                    'docTypeCode' => $fr_doc,
@@ -287,7 +316,7 @@ if (isset($data['idBus'])) {
 				        ]);
 				    }
 				    catch (SoapFault $soapFault){
-				        $sb_log .=  'Не удалось вызвать функцию;';
+				        $sb_log .=  'Не удалось вызвать функцию bookOrder;';
 				        $info_json = json_encode($soapFault);
 				        $sb_log .=  $info_json;
 				    }
@@ -303,7 +332,7 @@ if (isset($data['idBus'])) {
 				        $sb_log .= 'Билет успешно зарегистрирован в системе 1С;';
 				    }
 				    catch (SoapFault $soapFault){
-				        $sb_log .=  'Не удалось вызвать функцию;';
+				        $sb_log .=  'Не удалось вызвать функцию confirmOrder;';
 				        $info_json = json_encode($soapFault);
 				        $sb_log .=  $info_json;
 				    }

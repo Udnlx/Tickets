@@ -72,8 +72,9 @@ $bus_page = $pages->get('id=' . $selected_id_bus . '');
 if (count($bus_page->table_price) > 0) {
     foreach ($bus_page->table_price as $item) {
     $prices .= '
-    <p class="price-itm" ss="' . $item->name_station . '" sf="' . $item->name_station_finish . '" tp="' . $item->price_ticket . '">
-        ' . $item->name_station . ' - ' . $item->name_station_finish . ' - ' . $item->price_ticket . '
+    <p class="price-itm" ss="' . $item->name_station . '" idss="' . $item->sbid_station_start . '" sf="' . $item->name_station_finish . '" idsf="' . $item->sbid_station_finish . '" tp="' . $item->price_ticket . '">
+        ' . $item->name_station . ' - ' . $item->name_station_finish . ' - ' . $item->price_ticket . '<br>
+        ' . $item->sbid_station_start . ' - ' . $item->sbid_station_finish . '
     </p>
     ';
     }

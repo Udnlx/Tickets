@@ -63,7 +63,9 @@ foreach ($array as $array_item) {
         $uid = mb_substr($sb_bus[0], 3);
         $uid = mb_substr($uid, 0, -1);
         $sb_log .= '<p style="color:green;font-weight:700;text-align:center;">ID автобуса в системе 1С: </p>';
-        $sb_log .= '<p id="sb_idbus">' . $uid . '</p><br>';
+        $sb_log .= '<p id="sb_idbus">' . $uid . '</p>';
+        $sb_log .= '<p style="color:green;font-weight:700;text-align:center;">ID автобуса по станциям посадки и высадки: </p>';
+        $sb_log .= '<p id="new_sb_idbus">Автобус не найден</p><br>';
         $bus_on = true;
         break;
     }

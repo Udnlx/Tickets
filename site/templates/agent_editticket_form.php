@@ -35,6 +35,12 @@ if ($operator == 'no_operator') {
 <?php
 $ticket = $pages->get('template=purchased_tickets, id=' . $id_seat . '');
 
+if ($ticket->sb_bus_id != '') {
+    $sb_idbus = $ticket->sb_bus_id;
+} else {
+    $sb_idbus = $_POST['sb_idbus'];
+}
+
 $sb_status = '';
 $sb_btn_disabled = '';
 if ($ticket->sb_ticket_id) {

@@ -77,6 +77,7 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
         'agent_ticket' => $agent_ticket,
         'price_ticket' => $price_ticket,
         'comment' => $comment,
+        'sb_bus_id' => $sb_idbus_forreg,
         ]);
 
         $ticket_page = $pages->get('title=' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat . '');

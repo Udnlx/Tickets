@@ -383,7 +383,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
-                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Зарегистрировать</button>
+                        <button id="btn_for_reg" class="uk-margin-small-top uk-button uk-button-default" type="submit">Зарегистрировать</button>
                         <a class="uk-margin-small uk-button uk-button-default" href="/agent-registratciia-bileta-vybor-reisa/">К выбору рейса</a>
                     </div>
                     <div id="seat_messages" class="messages-block">

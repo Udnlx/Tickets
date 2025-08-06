@@ -1,0 +1,509 @@
+<?php
+
+//namespace ProcessWire;
+error_reporting(E_ERROR | E_PARSE);
+
+$postData = file_get_contents('php://input');
+$data = json_decode($postData, true);
+
+$ticket_id = 0;
+$validation = true;
+$message = 'Билет успешно зарегистрирован';
+
+if (isset($data['idBus'])) {
+	$bus = $pages->get("template=buses_item, id=" . $data['idBus'] . "");
+	if ($bus->id) {
+
+		//Получение и обработка данных
+		$forreg_bus = $bus->title;
+
+		$forreg_id_bus = $data['idBus'];
+
+		$date_departure = $data['dateDeparture'];
+		$parts = explode('-', $date_departure);
+		if(isset($parts[0]) && isset($parts[1]) && isset($parts[2])) {
+			$y = strlen($parts[0]);
+			$m = strlen($parts[1]);
+			$d = strlen($parts[2]);
+		    if($y == 4 && $m == 2 && $d == 2) {
+		        $forreg_date_departure = $date_departure;
+		    } else {
+		    	$validation = false;
+				$message = '[dateDeparture] неверный формат даты';
+		    }
+		} else {
+	    	$validation = false;
+			$message = '[dateDeparture] неверный формат даты';
+		}
+		if ($date_departure == '') {
+			$validation = false;
+			$message = '[dateDeparture] значение не должно быть пустым';
+		}
+
+		$time_departure = $bus->option_bus;
+		$forreg_time_departure = mb_substr($time_departure, -7, 7);
+
+		$forreg_id_ss = $data['idStationStart'];
+		$page_ss = $pages->get("id=" . $forreg_id_ss . "");
+		if ($page_ss->template != 'repeater_station_start') {
+			$validation = false;
+			$message = '[idStationStart] не относится к станциям';
+		}
+		$forreg_ss_name = $page_ss->title;
+
+		$forreg_id_sf = $data['idStationFinish'];
+		$page_sf = $pages->get("id=" . $forreg_id_sf . "");
+		if ($page_sf->template != 'repeater_station_finish') {
+			$validation = false;
+			$message = '[idStationFinish] не относится к станциям';
+		}
+		$forreg_sf_name = $page_sf->title;
+
+		$seat = $data['seat'];
+		$seat_padded = sprintf("%02d", $seat);
+		$forreg_seat = $seat_padded;
+		if ($forreg_seat > 53 || $forreg_seat <= 0) {
+			$validation = false;
+			$message = '[seat] место не может быть меньше 0 и больше 54';
+		}
+
+		$forreg_pay_or_booking = "оплачено";
+
+		$forreg_booking_sum = "";
+
+		$forreg_confirm = "явился";
+
+		$type_ticket = $data['typeTicket'];
+		if ($type_ticket == "adult") {
+			$forreg_type_ticket = "взрослый";
+		}
+		if ($type_ticket == "child") {
+			$forreg_type_ticket = "детский";
+		}
+		if ($type_ticket != "adult" && $type_ticket != "child") {
+			$validation = false;
+			$message = '[typeTicket] значение должно быть только adult или child';
+		}
+
+		$passenger_page = $pages->get("template=passengers, title=" . $data['passenger'] . ", birthday_passenger=" . $data['birthdayPassenger'] . ", passport_passenger=" . $data['passengerDocSerial'] . ", num_doc_passenger=" . $data['passengerDocNumber'] . "");
+		if ($passenger_page->id) {
+			$forreg_passenger = $data['passenger'];
+			$forreg_id_passenger = $passenger_page->id;
+			$forreg_passenger_doc = $data['passengerDoc'] . ' ' . $data['passengerDocSerial'] . ' ' . $data['passengerDocNumber'];
+		} else {
+			$citizenship_passenger = 'RU';
+		    if (isset($data['citizenshipPassenger'])) {
+				$citizenship_passenger = $data['citizenshipPassenger'];
+				if ($citizenship_passenger == '') {
+				    $citizenship_passenger = 'RU';
+				}
+			}
+			$pages->add('passengers', '/passazhiry/', [
+            'title' => $data['passenger'],
+            'name_passenger' => $data['passenger'],
+            'gender_passenger' => $data['genderPassenger'],
+            'citizenship_passenger' => $citizenship_passenger,
+            'birthday_passenger' => $data['birthdayPassenger'],
+            'type_doc_passenger' => $data['passengerDoc'],
+            'passport_passenger' => $data['passengerDocSerial'],
+            'num_doc_passenger' => $data['passengerDocNumber'],
+            'phone_passenger' => $data['passengerPhone'],
+            'agent' => $data['passengerCreate'],
+	        ]);
+	        $new_passenger_page = $pages->get("template=passengers, title=" . $data['passenger'] . ", birthday_passenger=" . $data['birthdayPassenger'] . ", passport_passenger=" . $data['passengerDocSerial'] . ", num_doc_passenger=" . $data['passengerDocNumber'] . "");
+	        $new_passenger_page_id = $new_passenger_page->id;
+
+	        $log = '';
+	        $log .= date('Y-m-d H:i:s') . ' - Добавлен новый пассажир id - ' . $new_passenger_page_id . ' агентом ' . $data['passengerCreate'] . '.   ';
+	        $log .= 'Данные добавленного пассажира: ' . $data['passenger'] . ' - ' . $data['genderPassenger'] . ' - ' . $citizenship_passenger . ' - ' . $data['birthdayPassenger'] . ' - ' . $data['passengerDoc'] . ' - ' . $data['passengerDocSerial'] . ' - ' . $data['passengerDocNumber'] . ' - ' . $data['passengerPhone'];
+	        file_put_contents(__DIR__ . '/../../../log_add_passengers_api.txt', $log . PHP_EOL, FILE_APPEND);
+
+			$forreg_passenger = $data['passenger'];
+			$forreg_id_passenger = $new_passenger_page_id;
+			$forreg_passenger_doc = $data['passengerDoc'] . ' ' . $data['passengerDocSerial'] . ' ' . $data['passengerDocNumber'];
+		}
+
+		$forreg_operator = $data['operator'];
+		if ($forreg_operator == '') {
+			$validation = false;
+			$message = '[operator] значение не должно быть пустым';
+		}
+
+		$forreg_agent_ticket = $data['agentTicket'];
+		if ($forreg_agent_ticket == '') {
+			$validation = false;
+			$message = '[agentTicket] значение не должно быть пустым';
+		}
+
+		$forreg_price_ticket = $data['priceTicket'];
+		if ($forreg_price_ticket == '') {
+			$validation = false;
+			$message = '[priceTicket] не указана цена';
+		}
+		$forreg_comment = $data['comment'];
+		//Получение и обработка данных
+
+		//Проверка места и регистрация билета
+		if ($validation == true) {
+			$reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $data['idBus'] . ', date_depart=' . $data['dateDeparture'] . ',sort=seat');
+			$arr_reserv_seat = [];
+			foreach ($reserv_seat as $reserv_seat_item) {
+			    $arr_reserv_seat[] = (int)$reserv_seat_item->seat;
+			}
+			if (!in_array($data['seat'], $arr_reserv_seat)) {
+			    //РЕГЕСТРИРУЕМ БИЛЕТ В 1С//
+			    $sb = [];
+			    $sb_log = '';
+
+			    //Подключаемся к 1С
+				try{
+				    $param = array(
+				    'login' => 'atp5027241683-web',
+				    'password' => 'atp5027241683022020web0924',
+				    'trace' => true,
+				    'cache_wsdl' => 0,
+				    'encoding' => 'utf-8',
+				    'location' => 'http://cluster.avtovokzal.ru/gds114/soap/json',
+				    );
+				    $client = new SoapClient('http://cluster.avtovokzal.ru/gds114/soap/json?wsdl', $param);
+				    $sb_log .= 'Подключение к 1C прошло успешно;';
+				}
+				catch (SoapFault $soapFault){
+				    $sb_log .=  'Не подключились к 1C;';
+				    $info_json = json_encode($soapFault);
+				    $sb_log .=  $info_json;
+				}
+				//Подключаемся к 1С
+
+				//Проверка второстепенных станций на ID в 1С в таблице цен
+				$station_start = $bus->station_start->get("id=" . $data['idStationStart']);
+				if ($station_start) {
+					$station_start_title = preg_split('/[—]/u', $station_start->title, -1, PREG_SPLIT_NO_EMPTY);
+					$start_title = trim($station_start_title[0]);
+				} else {
+					$start_title = '';
+				}
+				//echo $start_title;
+
+				$station_finish = $bus->station_finish->get("id=" . $data['idStationFinish']);
+				if ($station_finish) {
+					$station_finish_title = preg_split('/[—]/u', $station_finish->title, -1, PREG_SPLIT_NO_EMPTY);
+					$finish_title = trim($station_finish_title[0]);
+				} else {
+					$finish_title = '';
+				}
+				//echo $finish_title;
+
+				foreach ($bus->table_price as $item_price) {
+					if ($item_price->name_station == $start_title && $item_price->name_station_finish == $finish_title) {
+						$id_selected_ss = $item_price->sbid_station_start;
+						$id_selected_sf = $item_price->sbid_station_finish;
+						break;
+					} else {
+						$id_selected_ss = '';
+						$id_selected_sf = '';
+					}
+				}
+				//echo $id_selected_ss;
+				//echo $id_selected_sf;
+				//Проверка второстепенных станций на ID в 1С в таблице цен
+
+				//Получаем ID автобуса
+				if ($id_selected_ss != '' || $id_selected_sf != '') {
+					try{
+				    $dataList = $client->getRaces(["dispatchPlaceId"=>$id_selected_ss,"arrivalPlaceId"=>$id_selected_sf,"date"=>$date_departure]);
+					}
+					catch (SoapFault $soapFault){
+					    $sb_log .=  'Не удалось вызвать функцию по получению ID автобуса;';
+					    $info_json = json_encode($soapFault);
+					    $sb_log .=  $info_json;
+					}
+					$array = explode("uid",$dataList->return);
+
+			        $sb_bus = $array[1];
+			        $sb_bus = explode(",",$sb_bus);
+			        $uid = mb_substr($sb_bus[0], 3);
+			        $uid = mb_substr($uid, 0, -1);
+				} else {
+					try{
+					    $dataList = $client->getRaces(["dispatchPlaceId"=>$bus->sb_dispatch_place_id,"arrivalPlaceId"=>$bus->sb_arrival_place_id,"date"=>$date_departure]);
+					}
+					catch (SoapFault $soapFault){
+					    $sb_log .=  'Не удалось вызвать функцию по получению ID автобуса;';
+					    $info_json = json_encode($soapFault);
+					    $sb_log .=  $info_json;
+					}
+					$array = explode("uid",$dataList->return);
+
+			        $sb_bus = $array[1];
+			        $sb_bus = explode(",",$sb_bus);
+			        $uid = mb_substr($sb_bus[0], 3);
+			        $uid = mb_substr($uid, 0, -1);
+				}
+				//Получаем ID автобуса
+
+				//Получаем свободные места
+				try{
+				    $dataSeat = $client->getRaceSeats(["raceCode"=>'' . $uid . '']);
+				}
+				catch (SoapFault $soapFault){
+				    $sb_log .=  'Не удалось вызвать функцию getRaceSeats;';
+				    $info_json = json_encode($soapFault);
+				    $sb_log .=  $info_json;
+				}
+
+				$array_seat = json_decode($dataSeat->return, JSON_UNESCAPED_UNICODE);
+				//Получаем свободные места
+
+				//Проверяем, свободно ли место которое сейчас будем регистрировать и получаем его ID
+				$sb_free_seats = [];
+				foreach ($array_seat as $seat) {
+				    $str = mb_substr($seat['name'], -2, 2);
+				    $str = sprintf("%02d", $str);
+				    if ($str == $forreg_seat) {
+				        $sb_seat_id = $seat['code'];
+				        //echo $sb_seat_id;
+				    }
+				    $sb_free_seats[] = $str;
+				}
+				if (in_array("00", $sb_free_seats)) {
+				    $sb_log .=  'Регистрация в 1С не прошла, получен нулевой массив мест';
+				}
+				if (!in_array($forreg_seat, $sb_free_seats)) {
+				    $sb_log .=  'Регистрация в 1С не прошла, место уже занято';
+				    $seat_busy = 'on';
+				} else {
+				    $seat_busy = 'off';
+				}
+				//Проверяем, свободно ли место которое сейчас будем регистрировать и получаем его ID
+
+				//Регистрируем билет
+				if ($seat_busy == 'off') {
+				    $sb_birthday = $data['birthdayPassenger'];
+				    $old_date_timestamp = strtotime($sb_birthday);
+				    $sb_birthday = date('Y-m-d', $old_date_timestamp);
+				    $sb_doc = $data['passengerDoc'];
+				    if ($sb_doc == 'Паспорт РФ') {
+			            $sb_doc = '1';
+			        }
+			        if ($sb_doc == 'Свидетельство о рождении') {
+			            $sb_doc = '2';
+			        }
+			        if ($sb_doc == 'Военный билет') {
+			            $sb_doc = '3';
+			        }
+			        if ($sb_doc == 'Паспорт иностранного пассажира') {
+			            $sb_doc = '52';
+			        }
+			        if ($sb_doc == 'Заграничный паспорт РФ') {
+			            $sb_doc = '63';
+			        }
+				    $sb_docnum = $data['passengerDocNumber'];
+				    $sb_docseries = $data['passengerDocSerial'];
+				    $sb_passengername = $data['passenger'];
+				    $parts_name = explode(' ', $sb_passengername);
+				    $sb_gender = $data['genderPassenger'];
+				    if ($sb_gender == 'М') {
+				        $sb_gender = 'M';
+				    }
+				    if ($sb_gender == 'Ж') {
+				        $sb_gender = 'F';
+				    }
+				    $sb_citizenship = 'RU';
+				    if (isset($data['citizenshipPassenger'])) {
+						$sb_citizenship = $data['citizenshipPassenger'];
+						if ($sb_citizenship == '') {
+						    $sb_citizenship = 'RU';
+						}
+					}
+				    $sb_phone = $data['passengerPhone'];
+
+				    $fr_racecode = $uid;
+				    $fr_birthday = $sb_birthday;
+				    $fr_doc = $sb_doc;
+				    $fr_docnum = $sb_docnum;
+				    $fr_docseries = $sb_docseries;
+				    $fr_firstname = $parts_name[1];
+				    $fr_gender = $sb_gender;
+				    $fr_citizenship = $sb_citizenship;
+				    $fr_lastname = $parts_name[0];
+				    $fr_middlename = $parts_name[2];
+				    $fr_phone = $sb_phone;
+				    $fr_seatcode = $sb_seat_id;
+
+				    // echo $fr_racecode . '<br>';
+				    // echo $fr_birthday . '<br>';
+				    // echo $fr_doc . '<br>';
+				    // echo $fr_docnum . '<br>';
+				    // echo $fr_docseries . '<br>';
+				    // echo $fr_firstname . '<br>';
+				    // echo $fr_gender . '<br>';
+				    // echo $fr_citizenship . '<br>';
+				    // echo $fr_lastname . '<br>';
+				    // echo $fr_middlename . '<br>';
+				    // echo $fr_phone . '<br>';
+				    // echo $fr_seatcode . '<br>';
+
+				    try{
+				        $dataList = $client->bookOrder([
+				            "raceCode" => $fr_racecode,
+				            'sales' => json_encode([
+				                [
+				                    'birthday' => $fr_birthday,
+				                    'citizenship' => $fr_citizenship,
+				                    'docNum' => $fr_docnum,
+				                    'docSeries' => $fr_docseries,
+				                    'docTypeCode' => $fr_doc,
+				                    'firstName' => $fr_firstname,
+				                    'gender' => $fr_gender,
+				                    'lastName' => $fr_lastname,
+				                    'middleName' => $fr_middlename,
+				                    'phone' => $fr_phone,
+				                    'seatCode' => $fr_seatcode,
+				                    'ticketTypeCode' => '1#1#1',
+				                ]
+				            ]),
+				        ]);
+				    }
+				    catch (SoapFault $soapFault){
+				        $sb_log .=  'Не удалось вызвать функцию bookOrder;';
+				        $info_json = json_encode($soapFault);
+				        $sb_log .=  $info_json;
+				    }
+
+				    $answer_book_order = json_decode($dataList->return, JSON_UNESCAPED_UNICODE);
+				    // echo '<pre>'; 
+				    // var_dump($answer_book_order);
+				    // echo '</pre>';
+				    // echo $answer_book_order['id'];
+
+				    try{
+				        $dataList = $client->confirmOrder(["orderId"=>$answer_book_order['id'],"paymentMethod"=>'Безналичный расчет']);
+				        $sb_log .= 'Билет успешно зарегистрирован в системе 1С;';
+				    }
+				    catch (SoapFault $soapFault){
+				        $sb_log .=  'Не удалось вызвать функцию confirmOrder;';
+				        $info_json = json_encode($soapFault);
+				        $sb_log .=  $info_json;
+				    }
+				        
+				    $answer_confirm_order = json_decode($dataList->return, JSON_UNESCAPED_UNICODE);
+				    // echo '<pre>'; 
+				    // var_dump($answer_confirm_order);
+				    // echo '</pre>';
+				    // echo $answer_confirm_order['tickets'][0]['id'];
+				}
+				//Регистрируем билет
+
+				$sb['sbLog'] = $sb_log;
+				$sb['sbIdBus'] = $uid;
+				$sb['sbSeatBusy'] = $seat_busy;
+				$sb['sbSeatId'] = $sb_seat_id;
+				$sb['sbOrderId'] = $answer_book_order['id'];
+				$sb['sbTicketId'] = $answer_confirm_order['tickets'][0]['id'];
+			    //РЕГЕСТРИРУЕМ БИЛЕТ В 1С//
+
+			    //РЕГЕСТРИРУЕМ БИЛЕТ В СИСТЕМЕ//
+			    $pages->add('purchased_tickets', 1026 , [
+			    'title' => $forreg_bus . ' - ' . $forreg_date_departure . ' ' . $forreg_time_departure . ' место-' . $forreg_seat,
+			    'bus' => $forreg_bus,
+			    'id_bus' => $forreg_id_bus,
+			    'date_depart' => $forreg_date_departure,
+			    'time_depart' => $forreg_time_departure,
+			    'id_station' => $forreg_id_ss,
+			    'name_station' => $forreg_ss_name,
+			    'id_station_finish' => $forreg_id_sf,
+			    'name_station_finish' => $forreg_sf_name,
+			    'seat' => $forreg_seat,
+			    'pay_or_booking' => $forreg_pay_or_booking,
+			    'booking_sum' => $forreg_booking_sum,
+			    'confirm' => $forreg_confirm,
+			    'type_ticket' => $forreg_type_ticket,
+			    'id_passenger' => $forreg_id_passenger,
+			    'passenger' => $forreg_passenger,
+			    'passenger_doc' => $forreg_passenger_doc,
+			    'operator' => $forreg_operator,
+			    'agent_ticket' => $forreg_agent_ticket,
+			    'price_ticket' => $forreg_price_ticket,
+			    'comment' => $forreg_comment,
+			    'sb_bus_id' => $uid,
+			    'sb_ticket_id' => $answer_confirm_order['tickets'][0]['id'],
+			    ]);
+			    $ticket_page = $pages->get('title=' . $forreg_bus . ' - ' . $forreg_date_departure . ' ' . $forreg_time_departure . ' место-' . $forreg_seat . '');
+				$ticket_id = $ticket_page->id;
+
+				$sb_log = json_encode($sb, JSON_UNESCAPED_UNICODE);
+			    $log = '';
+			    $log .= date('Y-m-d H:i:s') . ' - Зарегистрирован новый билет id - ' . $ticket_id . ' оператором ' . $forreg_operator . '.   ';
+			    $log .= 'Данные билета: ' . $ticket_page->title . ' - ' . $forreg_passenger;
+			    $log .= 'Лог 1С: ' . $sb_log;
+			    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+			    //РЕГЕСТРИРУЕМ БИЛЕТ В СИСТЕМЕ//
+
+			    $result["message"] = $message;
+			    $result["idTicket"] = $ticket_id;
+				$result["bus"] = $forreg_bus;
+				$result["idBus"] = $forreg_id_bus;
+				$result["dateDeparture"] = $forreg_date_departure;
+				$result["timeDeparture"] = $forreg_time_departure;
+				$result["idStationStart"] = $forreg_id_ss;
+				$result["stationStartName"] = $forreg_ss_name;
+				$result["idStationFinish"] = $forreg_id_sf;
+				$result["stationFinishName"] = $forreg_sf_name;
+				$result["seat"] = $forreg_seat;
+				$result["payOrBooking"] = $forreg_pay_or_booking;
+				$result["bookingSum"] = $forreg_booking_sum;
+				$result["confirm"] = $forreg_confirm;
+				$result["typeTicket"] = $forreg_type_ticket;
+				$result["passenger"] = $forreg_passenger;
+				$result["idPassenger"] = $forreg_id_passenger;
+				$result["passengerDoc"] = $forreg_passenger_doc;
+				$result["operator"] = $forreg_operator;
+				$result["agentTicket"] = $forreg_agent_ticket;
+				$result["priceTicket"] = $forreg_price_ticket;
+				$result["comment"] = $forreg_comment;
+				$result["1C"] = $sb;
+			} else {
+				$result["statusCode"] = 400;
+				$result["error"] = "Текущее место занято, регистрация не возможна";
+				$error_for_log = json_encode($data, JSON_UNESCAPED_UNICODE);
+        	    $log = '';
+        	    $log .= date('Y-m-d H:i:s') . ' - Была попытка регистрации билета оператором ' . $data['operator'] . '; ';
+        	    $log .= 'Ошибка: ' . $result["error"] . '; ';
+        	    $log .= 'Данные при регистрации: ' . $error_for_log;
+        	    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+			}
+		} else {
+			$result["statusCode"] = 400;
+			$result["error"] = "Ошибка в приходящих данных, регистрация не возможна";
+			$result["message"] = $message;
+			$error_for_log = json_encode($data, JSON_UNESCAPED_UNICODE);
+    	    $log = '';
+    	    $log .= date('Y-m-d H:i:s') . ' - Была попытка регистрации билета оператором ' . $data['operator'] . '; ';
+    	    $log .= 'Ошибка: ' . $result["error"] . '; ';
+    	    $log .= 'Сообщение: ' . $result["message"] . '; ';
+    	    $log .= 'Данные при регистрации: ' . $error_for_log;
+    	    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+		}
+		//Проверка места и регистрация билета
+
+	} else {
+		$result["statusCode"] = 400;
+		$result["error"] = "Автобус с таким ID не найден";
+		$error_for_log = json_encode($data, JSON_UNESCAPED_UNICODE);
+	    $log = '';
+	    $log .= date('Y-m-d H:i:s') . ' - Была попытка регистрации билета оператором ' . $data['operator'] . '; ';
+	    $log .= 'Ошибка: ' . $result["error"] . '; ';
+	    $log .= 'Данные при регистрации: ' . $error_for_log;
+	    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+	}
+} else {
+	$result["statusCode"] = 400;
+	$result["error"] = "Не указан ID автобуса";
+	$error_for_log = json_encode($data, JSON_UNESCAPED_UNICODE);
+    $log = '';
+    $log .= date('Y-m-d H:i:s') . ' - Была попытка регистрации билета оператором ' . $data['operator'] . '; ';
+    $log .= 'Ошибка: ' . $result["error"] . '; ';
+    $log .= 'Данные при регистрации: ' . $error_for_log;
+    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+}

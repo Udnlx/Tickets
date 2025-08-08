@@ -197,7 +197,7 @@ if ($ticket->sb_ticket_id) {
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
-                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Провести билет в 1С</button>
+                        <button class="uk-margin-small-top uk-button uk-button-default" disabled type="submit">Провести билет в 1С</button>
                     </div>
                 </form>
             </div>
@@ -215,7 +215,7 @@ if ($ticket->sb_ticket_id) {
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
-                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Удалить билет из 1С</button>
+                        <button class="uk-margin-small-top uk-button uk-button-default" disabled type="submit">Удалить билет из 1С</button>
                     </div>
                 </form>
             </div>

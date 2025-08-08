@@ -1,4 +1,4 @@
-<?php namespace ProcessWire;
+<?php //namespace ProcessWire;
 
 $access = '';
 if(isset($_SESSION['access'])){
@@ -40,6 +40,70 @@ $price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;
 
 $ticket = $pages->get('template=purchased_tickets, id=' . $id_edit_ticket . '');
 
+//Получаем 1С ID автобуса
+$old_sb_bus_id = $ticket->sb_bus_id;
+$new_sb_bus_id = '';
+
+$id_bus = $ticket->id_bus;
+$page_bus = $pages->get('template=buses_item, id=' . $id_bus . '');
+$sbid_station_start = '';
+$sbid_station_finish = '';
+$sb_dispatch_date = $ticket->date_depart;
+foreach ($page_bus->table_price as $item) {
+    if (trim($item->name_station) == trim($selected_station_start_name) && trim($item->name_station_finish) == trim($selected_station_finish_name)) {
+        $sbid_station_start = $item->sbid_station_start;
+        $sbid_station_finish = $item->sbid_station_finish;
+    }
+}
+// echo $sbid_station_start;
+// echo $sbid_station_finish;
+// echo $sb_dispatch_date;
+
+try{
+    $param = array(
+    'login' => 'atp5027241683-web',
+    'password' => 'atp5027241683022020web0924',
+    'trace' => true,
+    'cache_wsdl' => 0,
+    'encoding' => 'utf-8',
+    'location' => 'http://cluster.avtovokzal.ru/gds114/soap/json',
+    );
+    $client = new SoapClient('http://cluster.avtovokzal.ru/gds114/soap/json?wsdl', $param);
+    // echo '<h2>Подключение прошло успешно</h2>';
+}
+catch (SoapFault $soapFault){
+    // echo '<h2>не подключились</h2>';
+    // echo '<pre>'; 
+    // var_dump($soapFault);
+    // echo '</pre>';
+}
+
+try{
+    $dataList = $client->getRaces(["dispatchPlaceId"=>$sbid_station_start,"arrivalPlaceId"=>$sbid_station_finish,"date"=>$sb_dispatch_date]);
+    // echo '<h2>Функция на сервер отправлена</h2>';
+}
+catch (SoapFault $soapFault){
+    // echo '<h2>не удалось вызвать функцию</h2>';
+    // echo '<pre>'; 
+    // var_dump($soapFault);
+    // echo '</pre>';
+}
+
+$dataListjson = json_decode($dataList->return, JSON_UNESCAPED_UNICODE);
+// echo '<pre>'; 
+// var_dump($dataListjson);
+// echo '</pre>';
+
+$new_sb_bus_id = $old_sb_bus_id;
+$array = $dataListjson[0];
+if ($array['uid']) {
+    $new_sb_bus_id = $array['uid'];
+    //echo $uid_bus;
+} else {
+    //echo 'Автобус не найден';
+}
+//Получаем 1С ID автобуса
+
 $success = 'Правки билета успешно внесены';
 $log = '';
 if ($id_edit_ticket && $selected_station_start && $selected_station_finish && $pay_or_booking && $confirm && $type_ticket && $agent_ticket && $price_ticket) {
@@ -54,6 +118,7 @@ if ($id_edit_ticket && $selected_station_start && $selected_station_finish && $p
     $log .= 'Тип билета изменен с ' . $old_type_ticket . ' на ' . $type_ticket . '; '; 
     $log .= 'Агент изменен с ' . $old_agent_ticket . ' на ' . $agent_ticket . '; '; 
     $log .= 'Цена билета изменена с ' . $old_price_ticket . ' на ' . $price_ticket . '; '; 
+    $log .= '1C ID автобуса изменено с ' . $old_sb_bus_id . ' на ' . $new_sb_bus_id . '; '; 
     file_put_contents(__DIR__ . '/log_edit_tikets.txt', $log . PHP_EOL, FILE_APPEND);
     
     $edit_page = $pages->get('template=purchased_tickets, id=' . $id_edit_ticket . '');
@@ -68,6 +133,7 @@ if ($id_edit_ticket && $selected_station_start && $selected_station_finish && $p
     $edit_page->type_ticket = $type_ticket;
     $edit_page->agent_ticket = $agent_ticket;
     $edit_page->price_ticket = $price_ticket;
+    $edit_page->sb_bus_id = $new_sb_bus_id;
     $edit_page->save();
 } else {
     $success = 'Правки билета не внесены!<br>Ошибка в данных';
@@ -140,6 +206,10 @@ if ($operator == 'no_operator' || $access == 'agent') {
 
         <p class="uk-margin-remove">Цена билета старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_price_ticket; ?></span></p>
         <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $price_ticket; ?></span></p>
+        <br>
+
+        <p class="uk-margin-remove">1C ID автобуса старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_sb_bus_id; ?></span></p>
+        <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $new_sb_bus_id; ?></span></p>
         <br>
 
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>

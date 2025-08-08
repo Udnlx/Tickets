@@ -43,17 +43,27 @@ if ($ticket->sb_bus_id != '') {
 
 $sb_status = '';
 $sb_btn_disabled = '';
+$sb_status_foredit = '';
+$sb_btn_disabled_foredit = '';
 if ($ticket->sb_ticket_id) {
     $sb_status = '
     <p class="uk-margin-remove uk-text-success uk-text-bold uk-text-center">Статус: Билет проведен в 1С</p>
     <p class="uk-margin-remove uk-text-success uk-text-bold uk-text-center">ID билета в 1С: ' . $ticket->sb_ticket_id . '</p>
     ';
     $sb_btn_disabled = 'disabled';
+
+    $sb_status_foredit = '
+    <p class="uk-margin-remove uk-text-danger uk-text-bold uk-text-center">Билет проведен в 1С, редактирование не возможно</p>
+    ';
+    $sb_btn_disabled_foredit = 'disabled';
 } else {
     $sb_status = '
     <p class="uk-margin-remove uk-text-warning uk-text-bold uk-text-center">Статус: Билет не проведен в 1С</p>
     ';
     $sb_btn_disabled = '';
+
+    $sb_status_foredit = '';
+    $sb_btn_disabled_foredit = '';
 }
 ?>
 
@@ -168,7 +178,8 @@ if ($ticket->sb_ticket_id) {
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
-                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Внести правки</button>
+                        <?php echo $sb_status_foredit; ?>
+                        <button class="uk-margin-small-top uk-button uk-button-default" <?php echo $sb_btn_disabled_foredit; ?> type="submit">Внести правки</button>
                     </div>
                 </form>
             </div>

@@ -45,22 +45,23 @@ $('button.uk-ticket-seat').click(function() {
     $('#agent_search_passenger').focus();
     let sb_idbus = $('#sb_idbus').text();
     let new_sb_idbus = $('#new_sb_idbus').text();
-    if (new_sb_idbus == 'Автобус не найден') {
-        $('#sb_idbus_forpost').val(sb_idbus);   
-    } else {
-        $('#sb_idbus_forpost').val(new_sb_idbus);
-    }
+    $('#sb_idbus_forpost').val(sb_idbus); 
+    // if (new_sb_idbus == 'Автобус не найден') {
+    //     $('#sb_idbus_forpost').val(sb_idbus);   
+    // } else {
+    //     $('#sb_idbus_forpost').val(new_sb_idbus);
+    // }
 });
 
-$('#btn_for_reg').hover(function() {
-    let sb_idbus = $('#sb_idbus').text();
-    let new_sb_idbus = $('#new_sb_idbus').text();
-    if (new_sb_idbus == 'Автобус не найден') {
-        $('#sb_idbus_forpost').val(sb_idbus);   
-    } else {
-        $('#sb_idbus_forpost').val(new_sb_idbus);
-    }
-});
+// $('#btn_for_reg').hover(function() {
+//     let sb_idbus = $('#sb_idbus').text();
+//     let new_sb_idbus = $('#new_sb_idbus').text();
+//     if (new_sb_idbus == 'Автобус не найден') {
+//         $('#sb_idbus_forpost').val(sb_idbus);   
+//     } else {
+//         $('#sb_idbus_forpost').val(new_sb_idbus);
+//     }
+// });
 
 
 

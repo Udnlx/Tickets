@@ -2,7 +2,7 @@
 
 $sbidStationStart = $_POST['sbidStationStart'];
 $sbidStationFinish = $_POST['sbidStationFinish'];
-$sb_dispatch_date = '2025-08-10';
+$sb_dispatch_date = $_POST['sbDispatchDate'];
 
 // echo $sbidStationStart . ' - ' . $sbidStationFinish;
 

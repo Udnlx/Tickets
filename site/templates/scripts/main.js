@@ -46,22 +46,22 @@ $('button.uk-ticket-seat').click(function() {
     let sb_idbus = $('#sb_idbus').text();
     let new_sb_idbus = $('#new_sb_idbus').text();
     $('#sb_idbus_forpost').val(sb_idbus); 
-    // if (new_sb_idbus == 'Автобус не найден') {
-    //     $('#sb_idbus_forpost').val(sb_idbus);   
-    // } else {
-    //     $('#sb_idbus_forpost').val(new_sb_idbus);
-    // }
+    if (new_sb_idbus == 'Автобус не найден') {
+        $('#sb_idbus_forpost').val(sb_idbus);   
+    } else {
+        $('#sb_idbus_forpost').val(new_sb_idbus);
+    }
 });
 
-// $('#btn_for_reg').hover(function() {
-//     let sb_idbus = $('#sb_idbus').text();
-//     let new_sb_idbus = $('#new_sb_idbus').text();
-//     if (new_sb_idbus == 'Автобус не найден') {
-//         $('#sb_idbus_forpost').val(sb_idbus);   
-//     } else {
-//         $('#sb_idbus_forpost').val(new_sb_idbus);
-//     }
-// });
+$('#btn_for_reg').hover(function() {
+    let sb_idbus = $('#sb_idbus').text();
+    let new_sb_idbus = $('#new_sb_idbus').text();
+    if (new_sb_idbus == 'Автобус не найден') {
+        $('#sb_idbus_forpost').val(sb_idbus);   
+    } else {
+        $('#sb_idbus_forpost').val(new_sb_idbus);
+    }
+});
 
 
 
@@ -384,6 +384,7 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
 
     let sbidStationStart = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('idss');
     let sbidStationFinish = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('idsf');
+    let sbDispatchDate = $('#dispatch_date').text();
     if (sbidStationStart && sbidStationFinish) {
         console.log ('Параметры по станциям получены, делаем запрос ID рейса в 1С');
         console.log (sbidStationStart + ' - ' + sbidStationFinish);
@@ -392,7 +393,8 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
             url: '/sb_get_idbus.php',
             data: {
                 'sbidStationStart':sbidStationStart,
-                'sbidStationFinish':sbidStationFinish
+                'sbidStationFinish':sbidStationFinish,
+                'sbDispatchDate':sbDispatchDate
             },
             beforeSend: function () {
                 //Отрпавили данные
@@ -444,6 +446,7 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
 
     let sbidStationStart = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('idss');
     let sbidStationFinish = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('idsf');
+    let sbDispatchDate = $('#dispatch_date').text();
     if (sbidStationStart && sbidStationFinish) {
         console.log ('Параметры по станциям получены, делаем запрос ID рейса в 1С');
         console.log (sbidStationStart + ' - ' + sbidStationFinish);
@@ -452,7 +455,8 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
             url: '/sb_get_idbus.php',
             data: {
                 'sbidStationStart':sbidStationStart,
-                'sbidStationFinish':sbidStationFinish
+                'sbidStationFinish':sbidStationFinish,
+                'sbDispatchDate':sbDispatchDate
             },
             beforeSend: function () {
                 //Отрпавили данные

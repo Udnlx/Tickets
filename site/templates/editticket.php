@@ -42,7 +42,7 @@ $ticket = $pages->get('template=purchased_tickets, id=' . $id_edit_ticket . '');
 
 //Получаем 1С ID автобуса
 $old_sb_bus_id = $ticket->sb_bus_id;
-$new_sb_bus_id = $ticket->sb_bus_id;
+$new_sb_bus_id = '';
 
 $id_bus = $ticket->id_bus;
 $page_bus = $pages->get('template=buses_item, id=' . $id_bus . '');
@@ -97,7 +97,7 @@ $dataListjson = json_decode($dataList->return, JSON_UNESCAPED_UNICODE);
 $new_sb_bus_id = $old_sb_bus_id;
 $array = $dataListjson[0];
 if ($array['uid']) {
-    //$new_sb_bus_id = $array['uid'];
+    $new_sb_bus_id = $array['uid'];
     //echo $uid_bus;
 } else {
     //echo 'Автобус не найден';

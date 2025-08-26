@@ -101,11 +101,11 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
 
     $remains = 0;
     if ($all_agent_tickets_item->booking_sum > 0) {
-        $remains = $commission - $all_agent_tickets_item->booking_sum;
+        $remains = $all_agent_tickets_item->price_ticket - $commission - $all_agent_tickets_item->booking_sum;
         $sum_predoplata = $sum_predoplata + $all_agent_tickets_item->booking_sum;
         $sum_ostatok = $sum_ostatok + $remains;
     } else {
-        $remains = $commission;
+        $remains = $all_agent_tickets_item->price_ticket - $commission;
         $sum_ostatok = $sum_ostatok + $remains;
     }
 

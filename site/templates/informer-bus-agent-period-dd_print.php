@@ -20,7 +20,7 @@ if ($operator == 'no_operator') {
 
 <div id="content" style="max-width: 700px;">
 	<h1 class="uk-heading-hero uk-text-center">Печать отчета по рейсу и агенту за период</h1>
-	<h3 class="uk-margin-remove uk-card-title uk-text-center">По дате регистрации билета</h3> 
+	<h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
     <br>
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <h3 class="uk-card-title">Сессия потеряна, перезайти</h3>
@@ -98,11 +98,11 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
 
     $remains = 0;
     if ($all_agent_tickets_item->booking_sum > 0) {
-        $remains = $commission - $all_agent_tickets_item->booking_sum;
+        $remains = $all_agent_tickets_item->price_ticket - $commission - $all_agent_tickets_item->booking_sum;
         $sum_predoplata = $sum_predoplata + $all_agent_tickets_item->booking_sum;
         $sum_ostatok = $sum_ostatok + $remains;
     } else {
-        $remains = $commission;
+        $remains = $all_agent_tickets_item->price_ticket - $commission;
         $sum_ostatok = $sum_ostatok + $remains;
     }
 
@@ -205,7 +205,7 @@ exit();
 
 <div id="content" style="max-width: 700px;">
 	<h1 class="uk-heading-hero uk-text-center">Печать отчета по рейсу и агенту за период</h1>
-    <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате регистрации билета</h3> 
+    <h3 class="uk-margin-remove uk-card-title uk-text-center">По дате выезда</h3> 
     <br>
 	
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">

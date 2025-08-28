@@ -5,6 +5,11 @@ $selected_id_bus = !empty($_POST['print_id_bus'])?$_POST['print_id_bus']:NULL;
 $selected_time = !empty($_POST['print_time'])?$_POST['print_time']:NULL;
 
 $agent = !empty($_POST['print_agent'])?$_POST['print_agent']:NULL;
+$print_agent = !empty($_POST['print_agent'])?$_POST['print_agent']:NULL;
+if ($agent == 'Олимп|Site|APP') {
+    $agent = 'Олимп|Site|APP';
+    $print_agent = 'Олимп + API';
+}
 
 $start_date = !empty($_POST['print_start_date'])?$_POST['print_start_date']:NULL;
 $finish_date = !empty($_POST['print_finish_date'])?$_POST['print_finish_date']:NULL;
@@ -142,7 +147,7 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
 
 $title = array
 (
-'Отчет по маршруту ' . $selected_bus . ' агент: ' . $agent . ' за период с ' . $start_date . ' по ' . $finish_date,
+'Отчет по маршруту ' . $selected_bus . ' агент: ' . $print_agent . ' за период с ' . $start_date . ' по ' . $finish_date,
 '',
 );
 
@@ -176,7 +181,7 @@ $footer = array(
 );
 
 header('Content-Type: text/csv; charset=utf-8' );
-header(sprintf( 'Content-Disposition: attachment; filename=Отчет по маршруту ' . $selected_bus . ' и агенту ' . $agent . ' - %s.csv', date( 'dmY-His' ) ) );
+header(sprintf( 'Content-Disposition: attachment; filename=Отчет по маршруту ' . $selected_bus . ' и агенту ' . $print_agent . ' - %s.csv', date( 'dmY-His' ) ) );
 header('Content-Transfer-Encoding: binary');
 header('Expires: 0');
 header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -211,7 +216,7 @@ exit();
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
         <h4 class="uk-margin-remove">Выбранный рейс:<br><span style="font-weight: 700;"><?php echo $selected_bus; ?></span></h4>
-        <h4 class="uk-margin-remove">Выбранный агент:<br><span style="font-weight: 700;"><?php echo $agent; ?></span></h4>
+        <h4 class="uk-margin-remove">Выбранный агент:<br><span style="font-weight: 700;"><?php echo $print_agent; ?></span></h4>
         <h4 class="uk-margin-remove">Дата: с <span style="font-weight: 700;"><?php echo $start_date; ?></span> по <span style="font-weight: 700;"><?php echo $finish_date; ?></span></h4>
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>

@@ -110,6 +110,7 @@ if ($operator == 'no_operator') {
                                 <select class="uk-select" id="agent" name="agent" required>
                                     <option></option>
                                     <?php echo $agents; ?>
+                                    <option>Олимп + API</option>
                                 </select>
                             </div>
 

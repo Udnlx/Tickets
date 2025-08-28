@@ -5,6 +5,10 @@ $selected_id_bus = !empty($_POST['post_id_bus'])?$_POST['post_id_bus']:NULL;
 $selected_time = !empty($_POST['post_time'])?$_POST['post_time']:NULL;
 
 $agent = !empty($_POST['agent'])?$_POST['agent']:NULL;
+$print_agent = !empty($_POST['agent'])?$_POST['agent']:NULL;
+if ($agent == 'Олимп + API') {
+    $agent = 'Олимп|Site|APP';
+}
 
 $start_date = !empty($_POST['start_date'])?$_POST['start_date']:NULL;
 $finish_date = !empty($_POST['finish_date'])?$_POST['finish_date']:NULL;
@@ -79,7 +83,7 @@ foreach ($arr_all_agent_tickets as $key => $val) {
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column" uk-sticky>
                 <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
                 <h4 class="uk-margin-remove">Выбранный рейс:<br><span style="font-weight: 700;"><?php echo $selected_bus; ?></span></h4>
-                <h4 class="uk-margin-remove">Выбранный агент:<br><span style="font-weight: 700;"><?php echo $agent; ?></span></h4>
+                <h4 class="uk-margin-remove">Выбранный агент:<br><span style="font-weight: 700;"><?php echo $print_agent; ?></span></h4>
                 <h4 class="uk-margin-remove">Дата: с <span style="font-weight: 700;"><?php echo $start_date; ?></span> по <span style="font-weight: 700;"><?php echo $finish_date; ?></span></h4>
                 <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-i-agentam-za-period-dd-vybor-avtobusa/">Выбрать другие параметры</a>
                 <a class="uk-margin-small uk-button uk-button-default" href="/">Вернутся на главную</a>

@@ -110,9 +110,9 @@ if ($input->get['bus'] && $input->get['data']) {
 	//==================ПОЛУЧАЕМ ЗАНЯТЫЕ МЕСТА В НАШЕЙ СИСТЕМЕ И ГРУПИРУЕМ ВСЕ ЗАНЯТОЕ В ОДИН МАССИВ==================//
 	$reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $id_bus . ', date_depart=' . $data . ',sort=seat');
 	$arr_reserv_seat = [];
-	// foreach ($sb_occupied_seats as $sb_occupied_seats_item) {
-	//     $arr_reserv_seat[] = (int)$sb_occupied_seats_item;
-	// }
+	foreach ($sb_occupied_seats as $sb_occupied_seats_item) {
+	    $arr_reserv_seat[] = (int)$sb_occupied_seats_item;
+	}
 	foreach ($mass_reserv_seat as $mass_reserv_seat_item) {
 	    $arr_reserv_seat[] = (int)$mass_reserv_seat_item;
 	}

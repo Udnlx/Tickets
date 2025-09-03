@@ -8,6 +8,12 @@ if ($input->get['bus'] && $input->get['data']) {
 
 	$id_bus = $input->get('bus');
 	$data = $input->get('data');
+	$time = '';
+	$bus = $pages->get("template=buses_item, id=" . $id_bus . "");
+	$option_bus = $bus->option_bus;
+	$option_time = substr($option_bus, -5);
+	$time = $option_time . ':00';
+	// echo $time;
 
 	//==================ПОЛУЧАЕМ ЗАНЯТЫЕ МЕСТА В 1С==================//
 	//Подключаемся к 1С
@@ -42,10 +48,15 @@ if ($input->get['bus'] && $input->get['data']) {
 	}
 	$array = explode("uid",$dataList->return);
 
-    $sb_bus = $array[1];
-    $sb_bus = explode(",",$sb_bus);
-    $uid = mb_substr($sb_bus[0], 3);
-    $uid = mb_substr($uid, 0, -1);
+	foreach ($array as $array_item) {
+	    if (stristr($array_item,'"dispatchDate":"' . $data . ' ' . $time . '"')!==false) {
+	        $sb_bus = $array_item;
+	        $sb_bus = explode(",",$sb_bus);
+	        $uid = mb_substr($sb_bus[0], 3);
+	        $uid = mb_substr($uid, 0, -1);
+	        break;
+	    }
+	}
     $sb_log .= 'ID автобуса в 1С: ' . $uid . ';';
 	//Получаем ID автобуса
 

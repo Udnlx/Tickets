@@ -386,6 +386,7 @@ if (isset($data['idBus'])) {
 				    }
 				    catch (SoapFault $soapFault){
 				        $sb_log .=  'Не удалось вызвать функцию confirmOrder;';
+				        $sb_log .=  'Пришедший ответ book_order=' . $answer_book_order . ';';
 				        $sb_log .=  'Значение orderId=' . $answer_book_order['id'] . ';';
 				        $info_json = json_encode($soapFault);
 				        $sb_log .=  $info_json;

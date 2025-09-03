@@ -139,7 +139,10 @@ if (isset($data['idBus'])) {
 		if ($forreg_price_ticket == '') {
 			$validation = false;
 			$message = '[priceTicket] не указана цена';
+		} else {
+			$forreg_price_ticket = (int)$forreg_price_ticket;
 		}
+
 		$forreg_comment = $data['comment'];
 		//Получение и обработка данных
 

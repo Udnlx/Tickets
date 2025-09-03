@@ -77,7 +77,7 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
         $sum_commission = $sum_commission + $commission;
         $sum_price_ticket = $sum_price_ticket + $all_agent_tickets_item->price_ticket;
     } elseif ($all_agent_tickets_item->id_bus == 73710 || $all_agent_tickets_item->id_bus == 73723) {
-        if ($all_agent_tickets_item->agent_ticket == 'Олимп') {
+        if ($all_agent_tickets_item->agent_ticket == 'Олимп' || $all_agent_tickets_item->agent_ticket == 'Site' || $all_agent_tickets_item->agent_ticket == 'APP') {
             if ($all_agent_tickets_item->confirm == 'не явился') {
                 $commission = 0;
             } else {
@@ -119,12 +119,14 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
         $confirm = 'не явился';
     }
 
+    $price_ticket = (int)$all_agent_tickets_item->price_ticket;
+
     $arr_all_agent_tickets[] = array(
         "date"=>$all_agent_tickets_item->date_depart,
         "passenger"=>$all_agent_tickets_item->passenger,
         "type_ticket"=>$all_agent_tickets_item->type_ticket,
         "bus"=>$all_agent_tickets_item->bus,
-        "price_ticket"=>$all_agent_tickets_item->price_ticket,
+        "price_ticket"=>$price_ticket,
         "commission"=>$commission,
         "booking_sum"=>$all_agent_tickets_item->booking_sum,
         "remains"=>$remains,

@@ -9,10 +9,10 @@ ini_set('memory_limit', '4096M');
 
 echo 'Delete all Tickets' . '<br>';
 
-$all_tickets = $pages->find('template=purchased_tickets, limit=1000');
+// $all_passengers = $pages->find('template=passengers, limit=1000');
 
-foreach ($all_tickets as $ticket) {
-	echo $ticket->title . '<br>';
-	$del_page = $ticket;
-	$pages->delete($del_page);
-}
+// foreach ($all_passengers as $passenger) {
+// 	echo $passenger->title . '<br>';
+// 	$del_page = $passenger;
+// 	$pages->delete($del_page);
+// }

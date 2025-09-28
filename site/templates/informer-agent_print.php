@@ -78,7 +78,7 @@ foreach ($all_transporters as $transporter) {
             }
             $sum_commission = $sum_commission + $commission;
         } elseif ($all_agent_tickets_item->id_bus == 73710 || $all_agent_tickets_item->id_bus == 73723) {
-            if ($all_agent_tickets_item->agent_ticket == 'Олимп') {
+            if ($all_agent_tickets_item->agent_ticket == 'Олимп' || $all_agent_tickets_item->agent_ticket == 'Котельники') {
                 if ($all_agent_tickets_item->confirm == 'не явился') {
                     $commission = 0;
                 } else {

@@ -58,7 +58,6 @@ $reestr_seat .= '
         $val['passenger'] . '<br>
         тип билета: ' . $val['type_ticket'] . '<br>' . 
         $val['passenger_doc'] . '<br>
-        телефон: ' . $phone_passenger . '<br>
         комментарий: ' . $val['comment'] . '<br>
         <span> - Регистратор: ' . $val['operator'] . '</span>
     </p>

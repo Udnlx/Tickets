@@ -60,7 +60,7 @@ foreach ($all_agents->agent_items as $agent_itm) {
         $data_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
         $phone_passenger = $data_passenger->phone_passenger;
         $reestr_seat .= '
-            <p class="reestr_seat_item" style="margin: 10px 0 0 0;">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br> Станция посадки: ' . $val['station'] . '<br>' . $val['passenger'] . '<br>тип билета: ' . $val['type_ticket'] . '<br>' . $val['passenger_doc'] . '<br>телефон: ' . $phone_passenger . '<br><span> - Регистратор: ' . $val['operator'] . '</span><br><span> - Агент: ' . $val['agent_ticket'] . '</span></p>
+            <p class="reestr_seat_item" style="margin: 10px 0 0 0;">Место - ' . $val['seat'] . ' - ' . $val['pay_or_booking'] . ' - ' . $val['confirm'] . '<br> Станция посадки: ' . $val['station'] . '<br>' . $val['passenger'] . '<br>тип билета: ' . $val['type_ticket'] . '<br>' . $val['passenger_doc'] . '<br><span> - Регистратор: ' . $val['operator'] . '</span><br><span> - Агент: ' . $val['agent_ticket'] . '</span></p>
         ';
         }
         $reestr_seat .= '

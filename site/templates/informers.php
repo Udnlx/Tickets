@@ -14,7 +14,7 @@ if(isset($_SESSION['access'])){
 $informer_button = '
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-vybor-avtobusa/">Отчет по рейсу</a>
 ';
-if ($operator == 'admin-test' || $operator == 'Директор') {
+if ($operator == 'admin-test' || $operator == 'Директор' || $operator == 'Пользователь') {
     $informer_button .= '
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-agenty-vybor-avtobusa/">Отчет по рейсу - по агентам</a>
     <a class="uk-margin-small uk-button uk-button-default" href="/otchet-po-reisu-i-agentam-za-period-vybor-avtobusa/">Отчет по рейсу и агенту за период<br><span style="font-size:10px">(по дате регистрации билета)</span></a>
@@ -48,7 +48,7 @@ if ($operator == 'no_operator') {
     </div>
 <?php    
 } else {
-    if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver' || $access == 'operator') {
+    if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver' || $access == 'managerReports' || $access == 'operator') {
     ?>
         <div id="content" style="max-width: 700px;">
             <h1 class="uk-heading-hero uk-text-center">Отчеты</h1>

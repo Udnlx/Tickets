@@ -33,7 +33,7 @@ if ($access == 'admin' || $access == 'supermanager' || $access == 'managerReserv
 if ($access == 'admin' || $access == 'supermanager' || $access == 'managerEditor') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/reestr-passazhirov-vybor-passazhira/">Редактор пассажиров</a>';
 }
-if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver' || $access == 'operator') {
+if ($access == 'admin' || $access == 'supermanager' || $access == 'manager' || $access == 'managerEditor' || $access == 'managerReserver' || $access == 'managerReports' || $access == 'operator') {
     $button_informers .= '<a class="uk-margin-small uk-button uk-button-default" href="/otchety/">Отчеты</a>';
 }
 if ($access == 'admin') {
@@ -57,6 +57,15 @@ if ($access == 'agent') {
         <a class="uk-margin-small uk-button uk-button-default" href="/agent-registratciia-bileta-vybor-reisa/">Зарегистрировать билет</a>
         <a class="uk-margin-small uk-button uk-button-default" href="/agent-pravka-bileta-vybor-reisa/">Правка билета</a>
         <a class="uk-margin-small uk-button uk-button-default" href="/agent-rezerv-biletov-vybor-reisa/">Резерв билетов</a>
+    </div>
+    ';
+}
+if ($access == 'managerReports') {
+    $basemenu = '
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
+        <h3 class="uk-card-title">Выберите действие</h3>
+        ' . $button_informers . '
+        <a class="uk-margin-small uk-button uk-button-default" href="" uk-toggle="target: #modal-help">Техподдержка</a>
     </div>
     ';
 }

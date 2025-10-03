@@ -235,6 +235,22 @@ if (isset($data['idBus'])) {
 				    $sb_birthday = $data['birthdayPassenger'];
 				    $old_date_timestamp = strtotime($sb_birthday);
 				    $sb_birthday = date('Y-m-d', $old_date_timestamp);
+			            $birth_date = $sb_birthday;  
+			            $current_date = date('Y-m-d');  
+			            $birth_timestamp = strtotime($birth_date);  
+			            $current_timestamp = strtotime($current_date);  
+			            $diff_seconds = $current_timestamp - $birth_timestamp;  
+			            $age_years = $diff_seconds / (60 * 60 * 24 * 365.25);  
+			            $age_years = round($age_years);  
+			            //echo $age_years;
+			        $ticket_type_code = '1#1#1';
+			        if ($age_years <= 11) {
+			            //echo 'Детский';
+			            $ticket_type_code = '38#6#1';
+			        } else {
+			            //echo 'Взрослый';
+			            $ticket_type_code = '1#1#1';
+			        }
 				    $sb_doc = $data['passengerDoc'];
 				    if ($sb_doc == 'Паспорт РФ') {
 			            $sb_doc = '1';
@@ -283,6 +299,7 @@ if (isset($data['idBus'])) {
 				    $fr_middlename = $parts_name[2];
 				    $fr_phone = $sb_phone;
 				    $fr_seatcode = $sb_seat_id;
+				    $fr_ticket_type_code = $ticket_type_code;
 
 				    // echo $fr_racecode . '<br>';
 				    // echo $fr_birthday . '<br>';
@@ -296,6 +313,7 @@ if (isset($data['idBus'])) {
 				    // echo $fr_middlename . '<br>';
 				    // echo $fr_phone . '<br>';
 				    // echo $fr_seatcode . '<br>';
+				    // echo $fr_ticket_type_code . '<br>';
 
 				    try{
 				        $dataList = $client->bookOrder([
@@ -313,7 +331,7 @@ if (isset($data['idBus'])) {
 				                    'middleName' => $fr_middlename,
 				                    'phone' => $fr_phone,
 				                    'seatCode' => $fr_seatcode,
-				                    'ticketTypeCode' => '1#1#1',
+				                    'ticketTypeCode' => $fr_ticket_type_code,
 				                ]
 				            ]),
 				        ]);

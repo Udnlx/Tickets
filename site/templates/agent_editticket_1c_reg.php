@@ -99,6 +99,22 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
         $sb_birthday = $passenger_page->birthday_passenger;
         $old_date_timestamp = strtotime($sb_birthday);
         $sb_birthday = date('Y-m-d', $old_date_timestamp);
+            $birth_date = $sb_birthday;  
+            $current_date = date('Y-m-d');  
+            $birth_timestamp = strtotime($birth_date);  
+            $current_timestamp = strtotime($current_date);  
+            $diff_seconds = $current_timestamp - $birth_timestamp;  
+            $age_years = $diff_seconds / (60 * 60 * 24 * 365.25);  
+            $age_years = round($age_years);  
+            //echo $age_years;
+        $ticket_type_code = '1#1#1';
+        if ($age_years <= 11) {
+            //echo 'Детский';
+            $ticket_type_code = '38#6#1';
+        } else {
+            //echo 'Взрослый';
+            $ticket_type_code = '1#1#1';
+        }
         $sb_doc = $passenger_page->type_doc_passenger;
         if ($sb_doc == 'Паспорт РФ') {
             $sb_doc = '1';
@@ -160,7 +176,7 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
                         'middleName' => $fr_middlename,
                         'phone' => $fr_phone,
                         'seatCode' => $fr_seatcode,
-                        'ticketTypeCode' => '1#1#1',
+                        'ticketTypeCode' => $ticket_type_code,
                     ]
                 ]),
             ]);

@@ -5,6 +5,11 @@ error_reporting(E_ERROR | E_PARSE);
 
 $postData = file_get_contents('php://input');
 $data = json_decode($postData, true);
+$go_sb_reg = true;
+
+if ($data['idStationStart'] == 109386) {
+    $go_sb_reg = false;
+}
 
 $ticket_id = 0;
 $validation = true;
@@ -158,215 +163,219 @@ if (isset($data['idBus'])) {
 			    $sb = [];
 			    $sb_log = '';
 
-			    //Подключаемся к 1С
-				try{
-				    $param = array(
-				    'login' => 'atp5027241683-web',
-				    'password' => 'atp5027241683022020web0924',
-				    'trace' => true,
-				    'cache_wsdl' => 0,
-				    'encoding' => 'utf-8',
-				    'location' => 'http://cluster.avtovokzal.ru/gds114/soap/json',
-				    );
-				    $client = new SoapClient('http://cluster.avtovokzal.ru/gds114/soap/json?wsdl', $param);
-				    $sb_log .= 'Подключение к 1C прошло успешно;';
-				}
-				catch (SoapFault $soapFault){
-				    $sb_log .=  'Не подключились к 1C;';
-				    $info_json = json_encode($soapFault);
-				    $sb_log .=  $info_json;
-				}
-				//Подключаемся к 1С
-
-				//Получаем ID автобуса
-				try{
-				    $dataList = $client->getRaces(["dispatchPlaceId"=>$bus->sb_dispatch_place_id,"arrivalPlaceId"=>$bus->sb_arrival_place_id,"date"=>$date_departure]);
-				}
-				catch (SoapFault $soapFault){
-				    $sb_log .=  'Не удалось вызвать функцию по получению ID автобуса;';
-				    $info_json = json_encode($soapFault);
-				    $sb_log .=  $info_json;
-				}
-				$array = explode("uid",$dataList->return);
-
-		        $sb_bus = $array[1];
-		        $sb_bus = explode(",",$sb_bus);
-		        $uid = mb_substr($sb_bus[0], 3);
-		        $uid = mb_substr($uid, 0, -1);
-				//Получаем ID автобуса
-
-				//Получаем свободные места
-				try{
-				    $dataSeat = $client->getRaceSeats(["raceCode"=>'' . $uid . '']);
-				}
-				catch (SoapFault $soapFault){
-				    $sb_log .=  'Не удалось вызвать функцию getRaceSeats;';
-				    $info_json = json_encode($soapFault);
-				    $sb_log .=  $info_json;
-				}
-
-				$array_seat = json_decode($dataSeat->return, JSON_UNESCAPED_UNICODE);
-				//Получаем свободные места
-
-				//Проверяем, свободно ли место которое сейчас будем регистрировать и получаем его ID
-				$sb_free_seats = [];
-				foreach ($array_seat as $seat) {
-				    $str = mb_substr($seat['name'], -2, 2);
-				    $str = sprintf("%02d", $str);
-				    if ($str == $forreg_seat) {
-				        $sb_seat_id = $seat['code'];
-				        //echo $sb_seat_id;
-				    }
-				    $sb_free_seats[] = $str;
-				}
-				if (in_array("00", $sb_free_seats)) {
-				    $sb_log .=  'Регистрация в 1С не прошла, получен нулевой массив мест';
-				}
-				if (!in_array($forreg_seat, $sb_free_seats)) {
-				    $sb_log .=  'Регистрация в 1С не прошла, место уже занято';
-				    $seat_busy = 'on';
-				} else {
-				    $seat_busy = 'off';
-				}
-				//Проверяем, свободно ли место которое сейчас будем регистрировать и получаем его ID
-
-				//Регистрируем билет
-				if ($seat_busy == 'off') {
-				    $sb_birthday = $data['birthdayPassenger'];
-				    $old_date_timestamp = strtotime($sb_birthday);
-				    $sb_birthday = date('Y-m-d', $old_date_timestamp);
-			            $birth_date = $sb_birthday;  
-			            $current_date = date('Y-m-d');  
-			            $birth_timestamp = strtotime($birth_date);  
-			            $current_timestamp = strtotime($current_date);  
-			            $diff_seconds = $current_timestamp - $birth_timestamp;  
-			            $age_years = $diff_seconds / (60 * 60 * 24 * 365.25);  
-			            $age_years = round($age_years);  
-			            //echo $age_years;
-			        $ticket_type_code = '1#1#1';
-			        if ($age_years <= 11) {
-			            //echo 'Детский';
-			            $ticket_type_code = '38#6#1';
-			        } else {
-			            //echo 'Взрослый';
-			            $ticket_type_code = '1#1#1';
-			        }
-				    $sb_doc = $data['passengerDoc'];
-				    if ($sb_doc == 'Паспорт РФ') {
-			            $sb_doc = '1';
-			        }
-			        if ($sb_doc == 'Свидетельство о рождении') {
-			            $sb_doc = '2';
-			        }
-			        if ($sb_doc == 'Военный билет') {
-			            $sb_doc = '3';
-			        }
-			        if ($sb_doc == 'Паспорт иностранного пассажира') {
-			            $sb_doc = '52';
-			        }
-			        if ($sb_doc == 'Заграничный паспорт РФ') {
-			            $sb_doc = '63';
-			        }
-				    $sb_docnum = $data['passengerDocNumber'];
-				    $sb_docseries = $data['passengerDocSerial'];
-				    $sb_passengername = $data['passenger'];
-				    $parts_name = explode(' ', $sb_passengername);
-				    $sb_gender = $data['genderPassenger'];
-				    if ($sb_gender == 'М') {
-				        $sb_gender = 'M';
-				    }
-				    if ($sb_gender == 'Ж') {
-				        $sb_gender = 'F';
-				    }
-				    $sb_citizenship = 'RU';
-				    if (isset($data['citizenshipPassenger'])) {
-						$sb_citizenship = $data['citizenshipPassenger'];
-						if ($sb_citizenship == '') {
-						    $sb_citizenship = 'RU';
-						}
+			    if ($go_sb_reg == true) {
+			    	//Подключаемся к 1С
+					try{
+					    $param = array(
+					    'login' => 'atp5027241683-web',
+					    'password' => 'atp5027241683022020web0924',
+					    'trace' => true,
+					    'cache_wsdl' => 0,
+					    'encoding' => 'utf-8',
+					    'location' => 'http://cluster.avtovokzal.ru/gds114/soap/json',
+					    );
+					    $client = new SoapClient('http://cluster.avtovokzal.ru/gds114/soap/json?wsdl', $param);
+					    $sb_log .= 'Подключение к 1C прошло успешно;';
 					}
-				    $sb_phone = $data['passengerPhone'];
+					catch (SoapFault $soapFault){
+					    $sb_log .=  'Не подключились к 1C;';
+					    $info_json = json_encode($soapFault);
+					    $sb_log .=  $info_json;
+					}
+					//Подключаемся к 1С
 
-				    $fr_racecode = $uid;
-				    $fr_birthday = $sb_birthday;
-				    $fr_doc = $sb_doc;
-				    $fr_docnum = $sb_docnum;
-				    $fr_docseries = $sb_docseries;
-				    $fr_firstname = $parts_name[1];
-				    $fr_gender = $sb_gender;
-				    $fr_citizenship = $sb_citizenship;
-				    $fr_lastname = $parts_name[0];
-				    $fr_middlename = $parts_name[2];
-				    $fr_phone = $sb_phone;
-				    $fr_seatcode = $sb_seat_id;
-				    $fr_ticket_type_code = $ticket_type_code;
+					//Получаем ID автобуса
+					try{
+					    $dataList = $client->getRaces(["dispatchPlaceId"=>$bus->sb_dispatch_place_id,"arrivalPlaceId"=>$bus->sb_arrival_place_id,"date"=>$date_departure]);
+					}
+					catch (SoapFault $soapFault){
+					    $sb_log .=  'Не удалось вызвать функцию по получению ID автобуса;';
+					    $info_json = json_encode($soapFault);
+					    $sb_log .=  $info_json;
+					}
+					$array = explode("uid",$dataList->return);
 
-				    // echo $fr_racecode . '<br>';
-				    // echo $fr_birthday . '<br>';
-				    // echo $fr_doc . '<br>';
-				    // echo $fr_docnum . '<br>';
-				    // echo $fr_docseries . '<br>';
-				    // echo $fr_firstname . '<br>';
-				    // echo $fr_gender . '<br>';
-				    // echo $fr_citizenship . '<br>';
-				    // echo $fr_lastname . '<br>';
-				    // echo $fr_middlename . '<br>';
-				    // echo $fr_phone . '<br>';
-				    // echo $fr_seatcode . '<br>';
-				    // echo $fr_ticket_type_code . '<br>';
+			        $sb_bus = $array[1];
+			        $sb_bus = explode(",",$sb_bus);
+			        $uid = mb_substr($sb_bus[0], 3);
+			        $uid = mb_substr($uid, 0, -1);
+					//Получаем ID автобуса
 
-				    try{
-				        $dataList = $client->bookOrder([
-				            "raceCode" => $fr_racecode,
-				            'sales' => json_encode([
-				                [
-				                    'birthday' => $fr_birthday,
-				                    'citizenship' => $fr_citizenship,
-				                    'docNum' => $fr_docnum,
-				                    'docSeries' => $fr_docseries,
-				                    'docTypeCode' => $fr_doc,
-				                    'firstName' => $fr_firstname,
-				                    'gender' => $fr_gender,
-				                    'lastName' => $fr_lastname,
-				                    'middleName' => $fr_middlename,
-				                    'phone' => $fr_phone,
-				                    'seatCode' => $fr_seatcode,
-				                    'ticketTypeCode' => $fr_ticket_type_code,
-				                ]
-				            ]),
-				        ]);
-				    }
-				    catch (SoapFault $soapFault){
-				        $sb_log .=  'Не удалось вызвать функцию bookOrder;';
-				        $info_json = json_encode($soapFault);
-				        $sb_log .=  $info_json;
-				    }
+					//Получаем свободные места
+					try{
+					    $dataSeat = $client->getRaceSeats(["raceCode"=>'' . $uid . '']);
+					}
+					catch (SoapFault $soapFault){
+					    $sb_log .=  'Не удалось вызвать функцию getRaceSeats;';
+					    $info_json = json_encode($soapFault);
+					    $sb_log .=  $info_json;
+					}
 
-				    $answer_book_order = json_decode($dataList->return, JSON_UNESCAPED_UNICODE);
-				    // echo '<pre>'; 
-				    // var_dump($answer_book_order);
-				    // echo '</pre>';
-				    // echo $answer_book_order['id'];
+					$array_seat = json_decode($dataSeat->return, JSON_UNESCAPED_UNICODE);
+					//Получаем свободные места
 
-				    try{
-				        $dataList = $client->confirmOrder(["orderId"=>$answer_book_order['id'],"paymentMethod"=>'Безналичный расчет']);
-				        $sb_log .= 'Билет успешно зарегистрирован в системе 1С;';
-				    }
-				    catch (SoapFault $soapFault){
-				        $sb_log .=  'Не удалось вызвать функцию confirmOrder;';
-				        $sb_log .=  'Пришедший ответ book_order=' . $answer_book_order . ';';
-				        $sb_log .=  'Значение orderId=' . $answer_book_order['id'] . ';';
-				        $info_json = json_encode($soapFault);
-				        $sb_log .=  $info_json;
-				    }
-				        
-				    $answer_confirm_order = json_decode($dataList->return, JSON_UNESCAPED_UNICODE);
-				    // echo '<pre>'; 
-				    // var_dump($answer_confirm_order);
-				    // echo '</pre>';
-				    // echo $answer_confirm_order['tickets'][0]['id'];
-				}
-				//Регистрируем билет
+					//Проверяем, свободно ли место которое сейчас будем регистрировать и получаем его ID
+					$sb_free_seats = [];
+					foreach ($array_seat as $seat) {
+					    $str = mb_substr($seat['name'], -2, 2);
+					    $str = sprintf("%02d", $str);
+					    if ($str == $forreg_seat) {
+					        $sb_seat_id = $seat['code'];
+					        //echo $sb_seat_id;
+					    }
+					    $sb_free_seats[] = $str;
+					}
+					if (in_array("00", $sb_free_seats)) {
+					    $sb_log .=  'Регистрация в 1С не прошла, получен нулевой массив мест';
+					}
+					if (!in_array($forreg_seat, $sb_free_seats)) {
+					    $sb_log .=  'Регистрация в 1С не прошла, место уже занято';
+					    $seat_busy = 'on';
+					} else {
+					    $seat_busy = 'off';
+					}
+					//Проверяем, свободно ли место которое сейчас будем регистрировать и получаем его ID
+
+					//Регистрируем билет
+					if ($seat_busy == 'off') {
+					    $sb_birthday = $data['birthdayPassenger'];
+					    $old_date_timestamp = strtotime($sb_birthday);
+					    $sb_birthday = date('Y-m-d', $old_date_timestamp);
+				            $birth_date = $sb_birthday;  
+				            $current_date = date('Y-m-d');  
+				            $birth_timestamp = strtotime($birth_date);  
+				            $current_timestamp = strtotime($current_date);  
+				            $diff_seconds = $current_timestamp - $birth_timestamp;  
+				            $age_years = $diff_seconds / (60 * 60 * 24 * 365.25);  
+				            $age_years = round($age_years);  
+				            //echo $age_years;
+				        $ticket_type_code = '1#1#1';
+				        if ($age_years <= 11) {
+				            //echo 'Детский';
+				            $ticket_type_code = '38#6#1';
+				        } else {
+				            //echo 'Взрослый';
+				            $ticket_type_code = '1#1#1';
+				        }
+					    $sb_doc = $data['passengerDoc'];
+					    if ($sb_doc == 'Паспорт РФ') {
+				            $sb_doc = '1';
+				        }
+				        if ($sb_doc == 'Свидетельство о рождении') {
+				            $sb_doc = '2';
+				        }
+				        if ($sb_doc == 'Военный билет') {
+				            $sb_doc = '3';
+				        }
+				        if ($sb_doc == 'Паспорт иностранного пассажира') {
+				            $sb_doc = '52';
+				        }
+				        if ($sb_doc == 'Заграничный паспорт РФ') {
+				            $sb_doc = '63';
+				        }
+					    $sb_docnum = $data['passengerDocNumber'];
+					    $sb_docseries = $data['passengerDocSerial'];
+					    $sb_passengername = $data['passenger'];
+					    $parts_name = explode(' ', $sb_passengername);
+					    $sb_gender = $data['genderPassenger'];
+					    if ($sb_gender == 'М') {
+					        $sb_gender = 'M';
+					    }
+					    if ($sb_gender == 'Ж') {
+					        $sb_gender = 'F';
+					    }
+					    $sb_citizenship = 'RU';
+					    if (isset($data['citizenshipPassenger'])) {
+							$sb_citizenship = $data['citizenshipPassenger'];
+							if ($sb_citizenship == '') {
+							    $sb_citizenship = 'RU';
+							}
+						}
+					    $sb_phone = $data['passengerPhone'];
+
+					    $fr_racecode = $uid;
+					    $fr_birthday = $sb_birthday;
+					    $fr_doc = $sb_doc;
+					    $fr_docnum = $sb_docnum;
+					    $fr_docseries = $sb_docseries;
+					    $fr_firstname = $parts_name[1];
+					    $fr_gender = $sb_gender;
+					    $fr_citizenship = $sb_citizenship;
+					    $fr_lastname = $parts_name[0];
+					    $fr_middlename = $parts_name[2];
+					    $fr_phone = $sb_phone;
+					    $fr_seatcode = $sb_seat_id;
+					    $fr_ticket_type_code = $ticket_type_code;
+
+					    // echo $fr_racecode . '<br>';
+					    // echo $fr_birthday . '<br>';
+					    // echo $fr_doc . '<br>';
+					    // echo $fr_docnum . '<br>';
+					    // echo $fr_docseries . '<br>';
+					    // echo $fr_firstname . '<br>';
+					    // echo $fr_gender . '<br>';
+					    // echo $fr_citizenship . '<br>';
+					    // echo $fr_lastname . '<br>';
+					    // echo $fr_middlename . '<br>';
+					    // echo $fr_phone . '<br>';
+					    // echo $fr_seatcode . '<br>';
+					    // echo $fr_ticket_type_code . '<br>';
+
+					    try{
+					        $dataList = $client->bookOrder([
+					            "raceCode" => $fr_racecode,
+					            'sales' => json_encode([
+					                [
+					                    'birthday' => $fr_birthday,
+					                    'citizenship' => $fr_citizenship,
+					                    'docNum' => $fr_docnum,
+					                    'docSeries' => $fr_docseries,
+					                    'docTypeCode' => $fr_doc,
+					                    'firstName' => $fr_firstname,
+					                    'gender' => $fr_gender,
+					                    'lastName' => $fr_lastname,
+					                    'middleName' => $fr_middlename,
+					                    'phone' => $fr_phone,
+					                    'seatCode' => $fr_seatcode,
+					                    'ticketTypeCode' => $fr_ticket_type_code,
+					                ]
+					            ]),
+					        ]);
+					    }
+					    catch (SoapFault $soapFault){
+					        $sb_log .=  'Не удалось вызвать функцию bookOrder;';
+					        $info_json = json_encode($soapFault);
+					        $sb_log .=  $info_json;
+					    }
+
+					    $answer_book_order = json_decode($dataList->return, JSON_UNESCAPED_UNICODE);
+					    // echo '<pre>'; 
+					    // var_dump($answer_book_order);
+					    // echo '</pre>';
+					    // echo $answer_book_order['id'];
+
+					    try{
+					        $dataList = $client->confirmOrder(["orderId"=>$answer_book_order['id'],"paymentMethod"=>'Безналичный расчет']);
+					        $sb_log .= 'Билет успешно зарегистрирован в системе 1С;';
+					    }
+					    catch (SoapFault $soapFault){
+					        $sb_log .=  'Не удалось вызвать функцию confirmOrder;';
+					        $sb_log .=  'Пришедший ответ book_order=' . $answer_book_order . ';';
+					        $sb_log .=  'Значение orderId=' . $answer_book_order['id'] . ';';
+					        $info_json = json_encode($soapFault);
+					        $sb_log .=  $info_json;
+					    }
+					        
+					    $answer_confirm_order = json_decode($dataList->return, JSON_UNESCAPED_UNICODE);
+					    // echo '<pre>'; 
+					    // var_dump($answer_confirm_order);
+					    // echo '</pre>';
+					    // echo $answer_confirm_order['tickets'][0]['id'];
+					}
+					//Регистрируем билет
+			    } else {
+			    	$sb_log .=  'Регистрация билета в 1С запрещена по станции посадки';
+			    }
 
 				$sb['sbLog'] = $sb_log;
 				$sb['sbIdBus'] = $uid;

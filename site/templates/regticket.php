@@ -41,6 +41,11 @@ if ($sb_idbus_forreg != '') {
     </div>
     ';
 }
+//Убираем кнопку регистрации билета в 1С при определенной посадочной станции
+if ($id_selected_station_start == '109386') {
+    $sb_button_reg = '';
+}
+
 $page_passenger = $pages->get('template=passengers, id=' . $selected_idpassenger . '');
 $sb_birthday = $page_passenger->birthday_passenger;
 $sb_doc = $page_passenger->type_doc_passenger;

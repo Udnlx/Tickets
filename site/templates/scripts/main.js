@@ -372,13 +372,38 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
     let finishStation = $('div.finish-station').find('button.station_select').text();
     finishStation = $.trim(finishStation);
     let ticketPrice = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('tp');
+
     if (finishStation) {
+        let basePrice = 5000;
+        let s_date = $('#dispatch_date').text();
+        s_date = s_date.split('-', 3);
+        let date = s_date[2] + '.' + s_date[1] + '.' + s_date[0];
+        var dateFrom = "24.12.2025";
+        var dateTo = "12.01.2026";
+        var dateCheck = date;
+        var d1 = dateFrom.split(".");
+        var d2 = dateTo.split(".");
+        var c = dateCheck.split(".");
+        var from = new Date(d1[2], parseInt(d1[1])-1, d1[0]);
+        var to   = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
+        var check = new Date(c[2], parseInt(c[1])-1, c[0]);
+        let ep = parseInt($('#ep_sum').text());
+        if (check > from && check < to) {
+            console.log('Дата входит в диапазон наценки');
+            ticketPrice = parseInt(ticketPrice) + ep;
+            basePrice = 5000 + ep;
+        } else {
+            console.log('Дата не входит в диапазон наценки');
+            ticketPrice = parseInt(ticketPrice);
+            basePrice = 5000
+        }
+
         if (ticketPrice) {
             $('#sel_price').text(ticketPrice);
             $('#price_ticket').val(ticketPrice);
         } else {
-            $('#sel_price').text('5000');
-            $('#price_ticket').val('5000');
+            $('#sel_price').text(basePrice);
+            $('#price_ticket').val(basePrice);
         }
     }
 
@@ -435,12 +460,36 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
     finishStation = $.trim(finishStation);
     let ticketPrice = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('tp');
     if (finishStation) {
+        let basePrice = 5000;
+        let s_date = $('#dispatch_date').text();
+        s_date = s_date.split('-', 3);
+        let date = s_date[2] + '.' + s_date[1] + '.' + s_date[0];
+        var dateFrom = "24.12.2025";
+        var dateTo = "12.01.2026";
+        var dateCheck = date;
+        var d1 = dateFrom.split(".");
+        var d2 = dateTo.split(".");
+        var c = dateCheck.split(".");
+        var from = new Date(d1[2], parseInt(d1[1])-1, d1[0]);
+        var to   = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
+        var check = new Date(c[2], parseInt(c[1])-1, c[0]);
+        let ep = parseInt($('#ep_sum').text());
+        if (check > from && check < to) {
+            console.log('Дата входит в диапазон наценки');
+            ticketPrice = parseInt(ticketPrice) + ep;
+            basePrice = 5000 + ep;
+        } else {
+            console.log('Дата не входит в диапазон наценки');
+            ticketPrice = parseInt(ticketPrice);
+            basePrice = 5000
+        }
+
         if (ticketPrice) {
             $('#sel_price').text(ticketPrice);
             $('#price_ticket').val(ticketPrice);
         } else {
-            $('#sel_price').text('5000');
-            $('#price_ticket').val('5000');
+            $('#sel_price').text(basePrice);
+            $('#price_ticket').val(basePrice);
         }
     }
 

@@ -7,12 +7,9 @@ $postData = file_get_contents('php://input');
 $data = json_decode($postData, true);
 $go_sb_reg = true;
 
-if ($data['idStationStart'] == 109386) {
+if ($data['idStationStart'] == 129599) {
     $go_sb_reg = false;
 }
-
-$start_date = date ('2025-12-25');
-$finish_date = date ('2026-01-11');
 
 $ticket_id = 0;
 $validation = true;
@@ -148,18 +145,7 @@ if (isset($data['idBus'])) {
 			$validation = false;
 			$message = '[priceTicket] не указана цена';
 		} else {
-			if ((($date_departure >= $start_date) && ($date_departure <= $finish_date))) {
-				//echo 'Дата входит в диапазон наценки';
-				if ($forreg_agent_ticket == 'Site') {
-					$forreg_price_ticket = (int)$forreg_price_ticket;
-				} else {
-					$extra_price = $bus->extra_price;
-					$forreg_price_ticket = (int)$forreg_price_ticket + $extra_price;
-				}
-			} else {
-				//echo 'Дата не входит в диапазон наценки';
-				$forreg_price_ticket = (int)$forreg_price_ticket; 
-			}
+			$forreg_price_ticket = (int)$forreg_price_ticket;
 		}
 
 		$forreg_comment = $data['comment'];

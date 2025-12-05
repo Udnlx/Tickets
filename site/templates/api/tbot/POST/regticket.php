@@ -230,6 +230,9 @@ if (isset($data['idBus'])) {
 					}
 					if (!in_array($forreg_seat, $sb_free_seats)) {
 					    $sb_log .=  'Регистрация в 1С не прошла, место уже занято';
+					    $sb_log .=  'ID автобуса в 1С:' . $uid;
+					    $sb_log .=  'Желаемое место:' . $forreg_seat;
+					    $sb_log .=  'Полученные свободные места в 1С:' . $sb_free_seats;
 					    $seat_busy = 'on';
 					} else {
 					    $seat_busy = 'off';

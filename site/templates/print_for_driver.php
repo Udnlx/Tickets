@@ -42,14 +42,15 @@ foreach ($reserv_seat as $reserv_seat_item) {
         'pay_or_booking' => $reserv_seat_item->pay_or_booking,
         'booking_sum' => $reserv_seat_item->booking_sum,
         'confirm' => $reserv_seat_item->confirm,
-        "id_station"=>$reserv_seat_item->id_station,
-        "station"=>$reserv_seat_item->name_station,
-        "id_passenger"=>$reserv_seat_item->id_passenger,
+        'id_station'=>$reserv_seat_item->id_station,
+        'station'=>$reserv_seat_item->name_station,
+        'id_passenger'=>$reserv_seat_item->id_passenger,
         'passenger' => $reserv_seat_item->passenger,
-        "type_ticket"=>$reserv_seat_item->type_ticket,
+        'type_ticket'=>$reserv_seat_item->type_ticket,
         'passenger_doc' => $reserv_seat_item->passenger_doc,
         'operator' => $reserv_seat_item->operator,
-        "comment"=>$reserv_seat_item->comment
+        'agent_ticket' => $reserv_seat_item->agent_ticket,
+        'comment'=>$reserv_seat_item->comment
         );
 }
 // echo '<pre>';
@@ -108,24 +109,27 @@ foreach ($bus_stations as $bus_station) {
     foreach ($arr_reserv_seat as $key => $val) {
         $bus_station_id = $bus_station->id;
         $ticket_station_id = $val['id_station'];
+        $agent_ticket = $val['agent_ticket'];
         if ($bus_station_id == $ticket_station_id) {
-            $page_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
-            $booking_sum = '';
-            if ($val['booking_sum'] != '') {
-                $booking_sum = $val['booking_sum'];
+            if ($agent_ticket != 'Донбасс АВ') {
+                $page_passenger = $pages->get('template=passengers, id=' . $val['id_passenger'] . '');
+                $booking_sum = '';
+                if ($val['booking_sum'] != '') {
+                    $booking_sum = $val['booking_sum'];
+                }
+                $list .= '
+                    <tr>
+                        <td style="padding: 0px 10px;">' . $val['seat'] . '</td>
+                        <td style="padding: 0px 10px;">' . $val['pay_or_booking'] . '</td>
+                        <td style="padding: 0px 10px;">' . $booking_sum . '</td>
+                        <td style="padding: 0px 10px;">' . $val['passenger'] . '</td>
+                        <td style="padding: 0px 10px;">' . $val['type_ticket'] . '</td>
+                        <td style="padding: 0px 10px;">' . $page_passenger->birthday_passenger . '</td>
+                        <td style="padding: 0px 10px;">' . $page_passenger->type_doc_passenger . ' ' . $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger . '</td>
+                        <td style="padding: 0px 10px;font-size:10px;">' . $val['comment'] . '</td>
+                    </tr>
+                ';
             }
-            $list .= '
-                <tr>
-                    <td style="padding: 0px 10px;">' . $val['seat'] . '</td>
-                    <td style="padding: 0px 10px;">' . $val['pay_or_booking'] . '</td>
-                    <td style="padding: 0px 10px;">' . $booking_sum . '</td>
-                    <td style="padding: 0px 10px;">' . $val['passenger'] . '</td>
-                    <td style="padding: 0px 10px;">' . $val['type_ticket'] . '</td>
-                    <td style="padding: 0px 10px;">' . $page_passenger->birthday_passenger . '</td>
-                    <td style="padding: 0px 10px;">' . $page_passenger->type_doc_passenger . ' ' . $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger . '</td>
-                    <td style="padding: 0px 10px;font-size:10px;">' . $val['comment'] . '</td>
-                </tr>
-            ';
         }
     }
     // Новый метод по id станции

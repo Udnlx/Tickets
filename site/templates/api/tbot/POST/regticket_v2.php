@@ -504,6 +504,9 @@ if (isset($data['idBus'])) {
         	    $log .= 'Ошибка: ' . $result["error"] . '; ';
         	    $log .= 'Данные при регистрации: ' . $error_for_log;
         	    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+				$mail_message = "Текущее место занято, регистрация не возможна - ";
+        	    mail('Udnlx@yandex.ru', 'Ошибка при регистрации билета через API', $mail_message . $log);
+        	    mail('info@niki-group.ru', 'Ошибка при регистрации билета через API', $mail_message . $log);
 			}
 		} else {
 			$result["statusCode"] = 400;
@@ -516,6 +519,9 @@ if (isset($data['idBus'])) {
     	    $log .= 'Сообщение: ' . $result["message"] . '; ';
     	    $log .= 'Данные при регистрации: ' . $error_for_log;
     	    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+    	    $mail_message = "Ошибка в приходящих данных, регистрация не возможна - ";
+        	mail('Udnlx@yandex.ru', 'Ошибка при регистрации билета через API', $mail_message . $log);
+        	mail('info@niki-group.ru', 'Ошибка при регистрации билета через API', $mail_message . $log);
 		}
 		//Проверка места и регистрация билета
 
@@ -528,6 +534,9 @@ if (isset($data['idBus'])) {
 	    $log .= 'Ошибка: ' . $result["error"] . '; ';
 	    $log .= 'Данные при регистрации: ' . $error_for_log;
 	    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+	    $mail_message = "Автобус с таким ID не найден - ";
+        mail('Udnlx@yandex.ru', 'Ошибка при регистрации билета через API', $mail_message . $log);
+        mail('info@niki-group.ru', 'Ошибка при регистрации билета через API', $mail_message . $log);
 	}
 } else {
 	$result["statusCode"] = 400;
@@ -538,4 +547,7 @@ if (isset($data['idBus'])) {
     $log .= 'Ошибка: ' . $result["error"] . '; ';
     $log .= 'Данные при регистрации: ' . $error_for_log;
     file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+    $mail_message = "Не указан ID автобуса - ";
+    mail('Udnlx@yandex.ru', 'Ошибка при регистрации билета через API', $mail_message . $log);
+    mail('info@niki-group.ru', 'Ошибка при регистрации билета через API', $mail_message . $log);
 }

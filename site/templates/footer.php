@@ -28,7 +28,7 @@ foreach ($all_bus as $bus) {
     <div id="modal-add_gender" uk-modal>
         <div class="uk-modal-dialog uk-modal-body">
             <button class="uk-modal-close-default" type="button" uk-close></button>
-            <p style="font-weight: 700;text-align:center">У пассажира не верный или не указан пол.<br>Выберите пожалуйста пол для этого пассажира.</p>
+            <p style="font-weight: 700;text-align:center">У пассажира не хватает данных для регистрации.<br>Выберите пожалуйста пол и гражданство для этого пассажира.</p>
             <div id="messages_add_gender" class="messages-block">
                 <p class="messages" style="color: green;"></p>
             </div>
@@ -39,6 +39,19 @@ foreach ($all_bus as $bus) {
                     <option value="">Выберите пол</option>
                     <option value="М">М</option>
                     <option value="Ж">Ж</option>
+                </select>
+            </div>
+            <div class="uk-margin-small-top">
+                <label for="gender_passenger">Гражданство</label>
+                <select class="uk-select" id="footer_citizenship_passenger" name="footer_citizenship_passenger" required>
+                    <option value="">Выберите гражданство</option>
+                    <option value="RU">Россия</option>
+                    <option value="TJ">Таджикистан</option>
+                    <option value="UZ">Узбекистан</option>
+                    <option value="KG">Киргизия</option>
+                    <option value="KZ">Казахстан</option>
+                    <option value="BY">Беларусь</option>
+                    <option value="UA">Украина</option>
                 </select>
             </div>
             <br>

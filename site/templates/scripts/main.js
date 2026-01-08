@@ -311,6 +311,7 @@ $(document).on('click', 'p.passengers_item', function(){
     let type_doc_passenger = passenger_doc_arr[2];
     let series_doc_passenger = passenger_doc_arr[3];
     let num_doc_passenger = passenger_doc_arr[4];
+    let citizenship_passenger = passenger_doc_arr[5];
     let id_passenger = $(this).attr('id');
     let count_travel = $(this).attr('count_travel');
     //console.log (id_passenger);
@@ -325,18 +326,46 @@ $(document).on('click', 'p.passengers_item', function(){
     $('#passenger_name').val(name_passenger);
     $('#passenger_document').val(type_doc_passenger + ' ' + series_doc_passenger + ' ' + num_doc_passenger);
 
-    //console.log ('Проверяем заполненость поля пол пассажира');
-    if ($('#selected_gender').val() == 'М' || $('#selected_gender').val() == 'Ж') {
-        //ОК
+    //console.log ('Проверяем заполненость поля пол пассажира и гражданство');
+    let valid_gen = false;
+    if (gender_passenger == 'М' || gender_passenger == 'Ж') {
+        valid_gen = true;
+        $('#footer_gender_passenger option:contains("'+ gender_passenger +'")').prop('selected', true);
     } else {
+        valid_gen = false;
+        $('#footer_gender_passenger option:first').prop('selected', true);
+        $('#selected_gender').val('');
+    }
+
+    let valid_cit = false;
+    if (citizenship_passenger != '') {
+        valid_cit = true;
+        $('#footer_citizenship_passenger option[value=' + citizenship_passenger + ']').prop('selected', true);
+    } else {
+        valid_cit = false;
+        $('#footer_citizenship_passenger option:first').prop('selected', true);
+    }
+
+    if (valid_gen == false || valid_cit == false) {
         let url = window.location.pathname
         if (url != '/reestr-passazhirov-vybor-passazhira/') {
             $('#messages_add_gender p.messages').text('');
-            $('#footer_gender_passenger option:first').prop('selected', true);
-            $('#selected_gender').val('');
             UIkit.modal('#modal-add_gender').show();
         }
     }
+
+
+    // if ($('#selected_gender').val() == 'М' || $('#selected_gender').val() == 'Ж') {
+    //     //ОК
+    // } else {
+    //     let url = window.location.pathname
+    //     if (url != '/reestr-passazhirov-vybor-passazhira/') {
+    //         $('#messages_add_gender p.messages').text('');
+    //         $('#footer_gender_passenger option:first').prop('selected', true);
+    //         $('#selected_gender').val('');
+    //         UIkit.modal('#modal-add_gender').show();
+    //     }
+    // }
 
     //console.log ('Проверяем количество поездок пассажира');
     let departure_date = $('#departure_date').text();
@@ -1080,22 +1109,24 @@ $('#select_seat').submit(function(){
 $('#footer_add_gender').click(function() {
     var id_passenger = $('#selected_idpassenger').val();
     var gender_passenger = $('#footer_gender_passenger').val();
-    //console.log(id_passenger, gender_passenger);
+    var citizenship_passenger = $('#footer_citizenship_passenger').val();
+    //console.log(id_passenger, gender_passenger, citizenship_passenger);
 $.ajax({
     type: "POST",
     url: '/add_gender_passenger.php',
     data: {
         'id_passenger':id_passenger, 
-        'gender_passenger':gender_passenger, 
+        'gender_passenger':gender_passenger,
+        'citizenship_passenger':citizenship_passenger, 
     },
     beforeSend: function () {
         $('#messages_add_gender').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');
     },
     success: function (data) {
         $('#messages_add_gender').html(data);
-        $('#selected_gender').val(gender_passenger);
         let v = $('#messages_add_gender').html();
         if (v.indexOf('Ошибка') == -1) {
+            $('#selected_gender').val(gender_passenger);
             UIkit.modal('#modal-add_gender').hide();
         }
     },

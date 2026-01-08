@@ -16,17 +16,19 @@ if(isset($_SESSION['operator'])){
 
 $id_passenger = $_POST['id_passenger'];
 $gender_passenger = $_POST['gender_passenger'];
+$citizenship_passenger = $_POST['citizenship_passenger'];
 
-if ($id_passenger == '' || $gender_passenger == '') {
-    echo '<p class="messages" style="color: red;">Ошибка. Пол не добавлен.<br>Укажите пол и повторите попытку.</p>';    
+if ($id_passenger == '' || $gender_passenger == '' || $citizenship_passenger == '') {
+    echo '<p class="messages" style="color: red;">Ошибка. Данные не добавлены.<br>Проверьте заполненность полей и повторите попытку.</p>';    
 } else {
     $passenger = '';
     
-    echo '<p class="messages" style="color: green;">Пол добавлен успешно</p>';
+    echo '<p class="messages" style="color: green;">Данные добавлены успешно</p>';
     
     $edit_page = $pages->get('template=passengers, id=' . $id_passenger . '');
     $edit_page->of(false);
     $edit_page->gender_passenger = $gender_passenger;
+    $edit_page->citizenship_passenger = $citizenship_passenger;
     $edit_page->save();
         
 }

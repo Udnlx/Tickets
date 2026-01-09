@@ -101,6 +101,10 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
 
         $ticket_page = $pages->get('title=' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat . '');
         $ticket_id = $ticket_page->id;
+        $log = '';
+        $log .= date('Y-m-d H:i:s') . ' - Зарегистрирован билет id - ' . $ticket_id . ', оператором ' . $operator . '. ';
+        $log .= 'Автобус ' . $selected_bus . ', дата отправления ' . $selected_date . ', место посадки ' . $selected_seat . '. '; 
+        file_put_contents(__DIR__ . '/log_regtikets.txt', $log . PHP_EOL, FILE_APPEND);
     }
 } else {
     $success = 'Билет не зарегистрирован!<br>Ошибка в данных';

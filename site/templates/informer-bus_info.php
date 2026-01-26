@@ -124,6 +124,25 @@ $reestr_seat .= '
                     </div>
                 </form>
 
+                <form class="uk-flex uk-flex-column" id="print_select_seat_sf" target="_blank" action="/otchet-po-reisu-dlia-voditelia-sf/" method="post">
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="print_selected_bus_sf" type="text" name="print_selected_bus_sf" value="<?php echo $selected_bus; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="print_selected_id_bus_sf" type="text" name="print_selected_id_bus_sf" value="<?php echo $selected_id_bus; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="print_selected_date_sf" type="text" name="print_selected_date_sf" value="<?php echo $selected_date; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="print_selected_time_sf" type="text" name="print_selected_time_sf" value="<?php echo $selected_time; ?>">
+                    </div>
+                    
+                    <div class="uk-margin-small-top uk-flex uk-flex-column">
+                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Распечатка для водителя (станции высадки)</button>
+                    </div>
+                </form>
+
                 <form class="uk-flex uk-flex-column" id="print_select_seat" action="/otchet-po-reisu-dlia-avtovokzala/" method="post">
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="print_station_selected_bus" type="text" name="print_station_selected_bus" value="<?php echo $selected_bus; ?>">

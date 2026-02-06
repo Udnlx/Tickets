@@ -41,7 +41,7 @@ if ($id_passenger == '' || $edit_name_passenger == '' || $edit_gender_passenger 
     
     $log .= date('Y-m-d H:i:s') . ' - Изменены данные пассажира id - ' . $id_passenger . ' оператором ' . $operator . '.   ';
     $log .= 'Старые значения: ' . $old_name_passenger . ' - ' . $old_gender_passenger . ' - ' . $old_citizenship_passenger . ' - ' . $old_birthday_passenger . ' - ' . $old_type_doc_passenger . ' - ' . $old_num_doc_passenger . ' - ' . $old_passport_passenger . ' - ' . $old_phone_passenger . '   ';
-    $log .= 'Новые значения: ' . $edit_name_passenger . ' - ' . $edit_gender_passenger . ' - ' . $edit_citizenship_passenger . ' - ' . $edit_type_doc_passenger . ' - ' . $edit_num_doc_passenger . ' - ' . $edit_passport_passenger . ' - ' . $edit_phone_passenger;
+    $log .= 'Новые значения: ' . $edit_name_passenger . ' - ' . $edit_gender_passenger . ' - ' . $edit_citizenship_passenger . ' - ' . $edit_birthday_passenger . ' - ' . $edit_type_doc_passenger . ' - ' . $edit_num_doc_passenger . ' - ' . $edit_passport_passenger . ' - ' . $edit_phone_passenger;
     file_put_contents(__DIR__ . '/site/templates/log_edit_passengers.txt', $log . PHP_EOL, FILE_APPEND);
     
     echo '<p class="messages" style="color: green;">Правки внесены успешно,<br>сейчас страница пассажира будет перезагружена</p>';

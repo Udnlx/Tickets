@@ -1,5 +1,7 @@
 <?php //namespace ProcessWire;
 
+error_reporting(E_ERROR | E_PARSE);
+
 $access = '';
 if(isset($_SESSION['access'])){
     $access = $_SESSION['access'];
@@ -36,7 +38,10 @@ $old_agent_ticket = !empty($_POST['old_agent_ticket'])?$_POST['old_agent_ticket'
 $agent_ticket = !empty($_POST['agent_ticket'])?$_POST['agent_ticket']:NULL;  
 
 $old_price_ticket = !empty($_POST['old_price_ticket'])?$_POST['old_price_ticket']:NULL;  
-$price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;  
+$price_ticket = !empty($_POST['price_ticket'])?$_POST['price_ticket']:NULL;
+
+$old_comment_ticket = !empty($_POST['old_comment_ticket'])?$_POST['old_comment_ticket']:NULL;  
+$comment_ticket = !empty($_POST['comment_ticket'])?$_POST['comment_ticket']:NULL; 
 
 $ticket = $pages->get('template=purchased_tickets, id=' . $id_edit_ticket . '');
 
@@ -118,6 +123,7 @@ if ($id_edit_ticket && $selected_station_start && $selected_station_finish && $p
     $log .= 'Тип билета изменен с ' . $old_type_ticket . ' на ' . $type_ticket . '; '; 
     $log .= 'Агент изменен с ' . $old_agent_ticket . ' на ' . $agent_ticket . '; '; 
     $log .= 'Цена билета изменена с ' . $old_price_ticket . ' на ' . $price_ticket . '; '; 
+    $log .= 'Комментарий изменен с ' . $old_comment_ticket . ' на ' . $comment_ticket . '; '; 
     $log .= '1C ID автобуса изменено с ' . $old_sb_bus_id . ' на ' . $new_sb_bus_id . '; '; 
     file_put_contents(__DIR__ . '/log_edit_tikets.txt', $log . PHP_EOL, FILE_APPEND);
     
@@ -133,6 +139,7 @@ if ($id_edit_ticket && $selected_station_start && $selected_station_finish && $p
     $edit_page->type_ticket = $type_ticket;
     $edit_page->agent_ticket = $agent_ticket;
     $edit_page->price_ticket = $price_ticket;
+    $edit_page->comment = $comment_ticket;
     $edit_page->sb_bus_id = $new_sb_bus_id;
     $edit_page->save();
 } else {
@@ -206,6 +213,10 @@ if ($operator == 'no_operator' || $access == 'agent') {
 
         <p class="uk-margin-remove">Цена билета старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_price_ticket; ?></span></p>
         <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $price_ticket; ?></span></p>
+        <br>
+
+        <p class="uk-margin-remove">Комментарий билета старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_comment_ticket; ?></span></p>
+        <p class="uk-margin-remove">Изменено на: <span class="uk-text-success" style="font-weight: 700;"><?php echo $comment_ticket; ?></span></p>
         <br>
 
         <p class="uk-margin-remove">1C ID автобуса старое значение: <span class="uk-text-danger" style="font-weight: 700;"><?php echo $old_sb_bus_id; ?></span></p>

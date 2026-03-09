@@ -194,6 +194,12 @@ if (count($bus_page->table_price) > 0) {
                         <input class="uk-input readonly uk-hidden" id="old_price_ticket" type="text" name="old_price_ticket" value="<?php echo $ticket->price_ticket; ?>">
                         <input class="uk-input" id="price_ticket" type="number" name="price_ticket" value="" autocomplete="off" required>
                     </div>
+                    <div class="uk-margin-small-top">
+                        <label for="comment_ticket">Комментарий</label>
+                        <p class="old-value">Старое значение: <span><?php echo $ticket->comment; ?></span></p>
+                        <input class="uk-input readonly uk-hidden" id="old_comment_ticket" type="text" name="old_comment_ticket" value="<?php echo $ticket->comment; ?>">
+                        <input class="uk-input" id="comment_ticket" type="text" name="comment_ticket" value="<?php echo $ticket->comment; ?>" autocomplete="off" required>
+                    </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
                         <?php echo $sb_status_foredit; ?>

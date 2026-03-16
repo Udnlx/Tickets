@@ -369,9 +369,12 @@ $(document).on('click', 'p.passengers_item', function(){
 
     //console.log ('Проверяем количество поездок пассажира');
     let departure_date = $('#departure_date').text();
+    let agent_ticket = $('#agent_ticket').val();
     if (departure_date > 1735678800) {
-        if ((count_travel + 1) % 3 == 0) {
-            alert ('У пассажира намечается очередная третья поездка');
+        if (agent_ticket == 'Олимп' || agent_ticket == 'Site' || agent_ticket == 'APP') {
+            if ((count_travel + 1) % 3 == 0) {
+                alert ('У пассажира намечается очередная третья поездка');
+            }
         }
     }
 });

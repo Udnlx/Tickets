@@ -91,12 +91,17 @@ if ($selected_bus && $selected_id_bus && $selected_date && $selected_time && $se
 
         $departure_date = strtotime($selected_date);
         if ($departure_date > 1735678800) {
-            $departure_passenger = $pages->get('template=passengers, id=' . $selected_idpassenger . '');
-            //echo 'Плюсуем поездку пассажиру ' . $departure_passenger->title;
-            $departure_count = intval($departure_passenger->count_travel) + 1;
-            $departure_passenger->of(false);
-            $departure_passenger->count_travel = $departure_count;
-            $departure_passenger->save();
+            if ($agent_ticket == 'Олимп' || $agent_ticket == 'Site' || $agent_ticket == 'APP') {
+                $departure_passenger = $pages->get('template=passengers, id=' . $selected_idpassenger . '');
+                //echo 'Плюсуем поездку пассажиру ' . $departure_passenger->title;
+                $departure_count = intval($departure_passenger->count_travel) + 1;
+                $departure_passenger->of(false);
+                $departure_passenger->count_travel = $departure_count;
+                $departure_passenger->save();
+                $log = '';
+                $log .= date('Y-m-d H:i:s') . ' - Пассажиру id - ' . $selected_idpassenger . ', был прибавлен счетчик поездок, агент - ' . $agent_ticket;
+                file_put_contents(__DIR__ . '/log_regtikets.txt', $log . PHP_EOL, FILE_APPEND);
+            }
         }
 
         $ticket_page = $pages->get('title=' . $selected_bus . ' - ' . $selected_date . ' ' . $selected_time . ' место-' . $selected_seat . '');

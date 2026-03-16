@@ -416,6 +416,16 @@ if (isset($data['idBus'])) {
 			    $ticket_page = $pages->get('title=' . $forreg_bus . ' - ' . $forreg_date_departure . ' ' . $forreg_time_departure . ' место-' . $forreg_seat . '');
 				$ticket_id = $ticket_page->id;
 
+				$departure_passenger = $pages->get('template=passengers, id=' . $forreg_id_passenger . '');
+                //echo 'Плюсуем поездку пассажиру ' . $departure_passenger->title;
+                $departure_count = intval($departure_passenger->count_travel) + 1;
+                $departure_passenger->of(false);
+                $departure_passenger->count_travel = $departure_count;
+                $departure_passenger->save();
+                $log = '';
+                $log .= date('Y-m-d H:i:s') . ' - Пассажиру id - ' . $forreg_id_passenger . ', был прибавлен счетчик поездок, агент - ' . $forreg_agent_ticket;
+                file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+
 				$sb_log = json_encode($sb, JSON_UNESCAPED_UNICODE);
 			    $log = '';
 			    $log .= date('Y-m-d H:i:s') . ' - Зарегистрирован новый билет id - ' . $ticket_id . ' оператором ' . $forreg_operator . '.   ';

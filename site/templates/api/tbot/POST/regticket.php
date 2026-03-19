@@ -158,6 +158,21 @@ if (isset($data['idBus'])) {
 			foreach ($reserv_seat as $reserv_seat_item) {
 			    $arr_reserv_seat[] = (int)$reserv_seat_item->seat;
 			}
+
+			$all = range(1, 53);
+			$arr_free_seat = array_values(array_diff($all, $arr_reserv_seat));
+			if (in_array($data['seat'], $arr_reserv_seat)) {
+				if (!empty($arr_free_seat)) {
+					$seat = $arr_free_seat[0];
+					$seat_padded = sprintf("%02d", $seat);
+					$forreg_seat = $seat_padded;
+				} else {
+					$seat = $data['seat'];
+					$seat_padded = sprintf("%02d", $seat);
+					$forreg_seat = $seat_padded;
+				}
+			}
+
 			if (!in_array($data['seat'], $arr_reserv_seat)) {
 			    //РЕГЕСТРИРУЕМ БИЛЕТ В 1С//
 			    $sb = [];
@@ -459,7 +474,7 @@ if (isset($data['idBus'])) {
 				$result["1C"] = $sb;
 			} else {
 				$result["statusCode"] = 400;
-				$result["error"] = "Текущее место занято, регистрация не возможна";
+				$result["error"] = "Текущее место занято и свободных мест нет, регистрация не возможна";
 				$error_for_log = json_encode($data, JSON_UNESCAPED_UNICODE);
         	    $log = '';
         	    $log .= date('Y-m-d H:i:s') . ' - Была попытка регистрации билета оператором ' . $data['operator'] . '; ';

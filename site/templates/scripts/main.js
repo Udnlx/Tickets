@@ -410,8 +410,10 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
         let s_date = $('#dispatch_date').text();
         s_date = s_date.split('-', 3);
         let date = s_date[2] + '.' + s_date[1] + '.' + s_date[0];
-        var dateFrom = "24.12.2025";
-        var dateTo = "12.01.2026";
+        // var dateFrom = "24.12.2025";
+        // var dateTo = "12.01.2026";
+        var dateFrom = "07.05.2026";
+        var dateTo = "09.05.2026";
         var dateCheck = date;
         var d1 = dateFrom.split(".");
         var d2 = dateTo.split(".");
@@ -496,8 +498,10 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
         let s_date = $('#dispatch_date').text();
         s_date = s_date.split('-', 3);
         let date = s_date[2] + '.' + s_date[1] + '.' + s_date[0];
-        var dateFrom = "24.12.2025";
-        var dateTo = "12.01.2026";
+        // var dateFrom = "24.12.2025";
+        // var dateTo = "12.01.2026";
+        var dateFrom = "07.05.2026";
+        var dateTo = "09.05.2026";
         var dateCheck = date;
         var d1 = dateFrom.split(".");
         var d2 = dateTo.split(".");

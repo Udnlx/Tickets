@@ -2,8 +2,11 @@
 
 namespace ProcessWire;
 
-$start_date = date ('2025-12-25');
-$finish_date = date ('2026-01-11');
+// $start_date = date ('2025-12-25');
+// $finish_date = date ('2026-01-11');
+
+$start_date = date ('2026-05-08');
+$finish_date = date ('2026-05-08');
 
 $price = 0;
 if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && $input->get['age'] && $input->get['departure']) {

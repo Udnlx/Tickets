@@ -73,6 +73,36 @@ if (count($bus_page->table_price) > 0) {
     </p>
     ';
 }
+
+$arr_extra_calendar = [];
+$calendar_extra_price = 0;
+if (count($bus_page->extra_calendar) > 0) {
+    $year = date('Y');
+    $year_plus = strtotime('+1 year', strtotime($year));
+    $year_plus = date('Y', $year_plus);
+    foreach ($bus_page->extra_calendar as $ec_item) {
+        if ($ec_item->days && $ec_item->month) {
+            $arr_extra_calendar_days = explode(',', $ec_item->days);
+            foreach ($arr_extra_calendar_days as $day) {
+                $arr_extra_calendar[] = [
+                    'date' => $year . '-' . $ec_item->month . '-' . $day,
+                    'extra_price' => $ec_item->extra_price,
+                ];
+                $arr_extra_calendar[] = [
+                    'date' => $year_plus . '-' . $ec_item->month . '-' . $day,
+                    'extra_price' => $ec_item->extra_price,
+                ];
+            }
+        }
+    }
+    $needDate = $selected_date;
+    foreach ($arr_extra_calendar as $row) {
+      if (($row['date'] ?? null) === $needDate) {
+        $calendar_extra_price = $row['extra_price'] ?? null;
+        break;
+      }
+    }
+}
  
 ?>
 
@@ -401,6 +431,14 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <?php echo $prices;?>
                 </div>
                 <h4 class="uk-margin-remove">Цена выбранного маршрута: <span id="sel_price"></span></h4>
+            </div>
+            <br>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column uk-hidden">
+                <h3 class="uk-margin-remove uk-card-title">Надбавка по календарю</h3>
+                <div id="prices" class="uk-ticket-prices-items">
+                    <?php //print_r($arr_extra_calendar);?>
+                </div>
+                <h4 class="uk-margin-remove">Надбавка выбранного маршрута на <?php echo $selected_date;?>: <span id="ce_price"><?php echo $calendar_extra_price;?></span></h4>
             </div>
             <br>
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-column">

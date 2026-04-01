@@ -421,6 +421,7 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
         var from = new Date(d1[2], parseInt(d1[1])-1, d1[0]);
         var to   = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
         var check = new Date(c[2], parseInt(c[1])-1, c[0]);
+
         let ep = parseInt($('#ep_sum').text());
         if (check > from && check < to) {
             console.log('Дата входит в диапазон наценки');
@@ -428,6 +429,17 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
             basePrice = 5000 + ep;
         } else {
             console.log('Дата не входит в диапазон наценки');
+            ticketPrice = parseInt(ticketPrice);
+            basePrice = 5000
+        }
+
+        let ce_price = parseInt($('#ce_price').text());
+        if (ce_price > 0) {
+            console.log('Есть наценка по календарю');
+            ticketPrice = parseInt(ticketPrice) + ce_price;
+            basePrice = 5000 + ce_price;
+        } else {
+            console.log('Нет наценки по календарю');
             ticketPrice = parseInt(ticketPrice);
             basePrice = 5000
         }
@@ -509,6 +521,7 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
         var from = new Date(d1[2], parseInt(d1[1])-1, d1[0]);
         var to   = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
         var check = new Date(c[2], parseInt(c[1])-1, c[0]);
+
         let ep = parseInt($('#ep_sum').text());
         if (check > from && check < to) {
             console.log('Дата входит в диапазон наценки');
@@ -516,6 +529,17 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
             basePrice = 5000 + ep;
         } else {
             console.log('Дата не входит в диапазон наценки');
+            ticketPrice = parseInt(ticketPrice);
+            basePrice = 5000
+        }
+
+        let ce_price = parseInt($('#ce_price').text());
+        if (ce_price > 0) {
+            console.log('Есть наценка по календарю');
+            ticketPrice = parseInt(ticketPrice) + ce_price;
+            basePrice = 5000 + ce_price;
+        } else {
+            console.log('Нет наценки по календарю');
             ticketPrice = parseInt(ticketPrice);
             basePrice = 5000
         }

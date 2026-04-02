@@ -1,6 +1,7 @@
 <?php
 
 namespace ProcessWire;
+error_reporting(E_ERROR | E_PARSE);
 
 // $start_date = date ('2025-12-25');
 // $finish_date = date ('2026-01-11');
@@ -18,6 +19,37 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 	$departure = $input->get('departure');
 
 	$bus_page = $pages->get("template=buses_item, id=" . $id_bus);
+
+	$arr_extra_calendar = [];
+	$calendar_extra_price = 0;
+	if (count($bus_page->extra_calendar) > 0) {
+	    $year = date('Y');
+	    $year_plus = strtotime('+1 year', strtotime($year));
+	    $year_plus = date('Y', $year_plus);
+	    foreach ($bus_page->extra_calendar as $ec_item) {
+	        if ($ec_item->days && $ec_item->month) {
+	            $arr_extra_calendar_days = explode(',', $ec_item->days);
+	            foreach ($arr_extra_calendar_days as $day) {
+	                $arr_extra_calendar[] = [
+	                    'date' => $year . '-' . $ec_item->month . '-' . $day,
+	                    'extra_price' => $ec_item->extra_price,
+	                ];
+	                $arr_extra_calendar[] = [
+	                    'date' => $year_plus . '-' . $ec_item->month . '-' . $day,
+	                    'extra_price' => $ec_item->extra_price,
+	                ];
+	            }
+	        }
+	    }
+	    $needDate = $input->get['departure'];
+	    foreach ($arr_extra_calendar as $row) {
+	      if (($row['date'] ?? null) === $needDate) {
+	        $calendar_extra_price = $row['extra_price'] ?? null;
+	        break;
+	      }
+	    }
+	}
+	//echo $calendar_extra_price;
 
 	if ($bus_page->title) {
 
@@ -49,10 +81,10 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 		$received_price = 5000;
 		if ($age == 'child') {
 			$received_price = $received_price/2;
-			$received_price = $received_price + $extra_price;
+			$received_price = $received_price + $extra_price + $calendar_extra_price;
 		} else {
 			$received_price = 5000;
-			$received_price = $received_price + $extra_price;
+			$received_price = $received_price + $extra_price + $calendar_extra_price;
 		}
 
 		foreach ($bus_page->table_price as $item_price) {
@@ -61,14 +93,14 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 				if ($age == 'child') {
 					$received_price = $received_price/2;
 				}
-				$received_price = $received_price + $extra_price;
+				$received_price = $received_price + $extra_price + $calendar_extra_price;
 				break;
 			} else {
 				$received_price = 5000;
 				if ($age == 'child') {
 					$received_price = $received_price/2;
 				}
-				$received_price = $received_price + $extra_price;
+				$received_price = $received_price + $extra_price + $calendar_extra_price;
 			}
 		}
 

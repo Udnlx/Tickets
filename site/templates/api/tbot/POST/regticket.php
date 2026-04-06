@@ -5,6 +5,13 @@ error_reporting(E_ERROR | E_PARSE);
 
 $postData = file_get_contents('php://input');
 $data = json_decode($postData, true);
+
+$dataticket_api = json_encode($data, JSON_UNESCAPED_UNICODE);
+$log = '';
+$log .= date('Y-m-d H:i:s');
+$log .= ' Лог пришедших данных в точку regticket_v1: ' . $dataticket_api;
+file_put_contents(__DIR__ . '/../../../log_dataticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+
 $go_sb_reg = true;
 
 if ($data['idStationStart'] == 129599) {
@@ -173,7 +180,7 @@ if (isset($data['idBus'])) {
 				}
 			}
 
-			if (!in_array($data['seat'], $arr_reserv_seat)) {
+			if (!in_array($forreg_seat, $arr_reserv_seat)) {
 			    //РЕГЕСТРИРУЕМ БИЛЕТ В 1С//
 			    $sb = [];
 			    $sb_log = '';

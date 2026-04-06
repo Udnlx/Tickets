@@ -422,7 +422,9 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
         var to   = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
         var check = new Date(c[2], parseInt(c[1])-1, c[0]);
 
-        let ep = parseInt($('#ep_sum').text());
+        let epText = $('#ep_sum').text().replace(/\s/g, '').replace(/[^\d-]/g, '');
+        let ep = parseInt(epText, 10);
+        if (Number.isNaN(ep)) ep = 0;
         if (check > from && check < to) {
             console.log('Дата входит в диапазон наценки');
             ticketPrice = parseInt(ticketPrice) + ep;
@@ -433,7 +435,9 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
             basePrice = 5000
         }
 
-        let ce_price = parseInt($('#ce_price').text());
+        let ceText = $('#ce_price').text().replace(/\s/g, '').replace(/[^\d-]/g, '');
+        let ce_price = parseInt(ceText, 10);
+        if (Number.isNaN(ce_price)) ce_price = 0;
         if (ce_price > 0) {
             console.log('Есть наценка по календарю');
             ticketPrice = parseInt(ticketPrice) + ce_price;
@@ -522,7 +526,9 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
         var to   = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
         var check = new Date(c[2], parseInt(c[1])-1, c[0]);
 
-        let ep = parseInt($('#ep_sum').text());
+        let epText = $('#ep_sum').text().replace(/\s/g, '').replace(/[^\d-]/g, '');
+        let ep = parseInt(epText, 10);
+        if (Number.isNaN(ep)) ep = 0;
         if (check > from && check < to) {
             console.log('Дата входит в диапазон наценки');
             ticketPrice = parseInt(ticketPrice) + ep;
@@ -533,7 +539,9 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
             basePrice = 5000
         }
 
-        let ce_price = parseInt($('#ce_price').text());
+        let ceText = $('#ce_price').text().replace(/\s/g, '').replace(/[^\d-]/g, '');
+        let ce_price = parseInt(ceText, 10);
+        if (Number.isNaN(ce_price)) ce_price = 0;
         if (ce_price > 0) {
             console.log('Есть наценка по календарю');
             ticketPrice = parseInt(ticketPrice) + ce_price;

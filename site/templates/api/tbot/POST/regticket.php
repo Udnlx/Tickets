@@ -502,6 +502,11 @@ if (isset($data['idBus'])) {
     	    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
 		}
 		//Проверка места и регистрация билета
+		sleep(1);
+		$log = '';
+		$log .= date('Y-m-d H:i:s');
+		$log .= ' Обработка данных закончена';
+		file_put_contents(__DIR__ . '/../../../log_dataticket_api.txt', $log . PHP_EOL, FILE_APPEND);
 
 	} else {
 		$result["statusCode"] = 400;

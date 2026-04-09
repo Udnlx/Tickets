@@ -118,6 +118,9 @@ if ($seat_busy == 'off') {
     if ($sb_doc == 'Заграничный паспорт РФ') {
         $sb_doc = '63';
     }
+    if ($sb_doc == 'Вид на жительство') {
+        $sb_doc = '66';
+    }
     $sb_docnum = $_POST['sb_docnum'];
     $sb_docseries = $_POST['sb_docseries'];
     $sb_passengername = $_POST['sb_passengername'];

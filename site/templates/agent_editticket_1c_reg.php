@@ -131,6 +131,9 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
         if ($sb_doc == 'Заграничный паспорт РФ') {
             $sb_doc = '63';
         }
+        if ($sb_doc == 'Вид на жительство') {
+            $sb_doc = '66';
+        }
         $sb_docnum = $passenger_page->num_doc_passenger;
         $sb_docseries = $passenger_page->passport_passenger;
         $sb_passengername = $passenger_page->name_passenger;

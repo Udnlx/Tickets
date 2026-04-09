@@ -345,6 +345,9 @@ if (isset($data['idBus'])) {
 				        if ($sb_doc == 'Заграничный паспорт РФ') {
 				            $sb_doc = '63';
 				        }
+				        if ($sb_doc == 'Вид на жительство') {
+				            $sb_doc = '66';
+				        }
 					    $sb_docnum = $data['passengerDocNumber'];
 					    $sb_docseries = $data['passengerDocSerial'];
 					    $sb_passengername = $data['passenger'];

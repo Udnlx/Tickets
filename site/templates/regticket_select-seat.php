@@ -548,6 +548,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <option value="Паспорт иностранного пассажира">Паспорт иностранного пассажира</option>
                     <option value="Свидетельство о рождении">Свидетельство о рождении</option>
                     <option value="Военный билет">Военный билет</option>
+                    <option value="Вид на жительство">Вид на жительство</option>
                     <!-- <option value="Другой документ">Другой документ</option> -->
                 </select>
             </div>

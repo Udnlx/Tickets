@@ -530,6 +530,10 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <option value="KZ">Казахстан</option>
                     <option value="BY">Беларусь</option>
                     <option value="UA">Украина</option>
+                    <option value="AM">Армения</option>
+                    <option value="IT">Италия</option>
+                    <option value="ES">Испания</option>
+                    <option value="FR">Франция</option>
                 </select>
             </div>
             <div class="uk-margin-small-top">

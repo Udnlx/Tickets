@@ -52,6 +52,10 @@ foreach ($all_bus as $bus) {
                     <option value="KZ">Казахстан</option>
                     <option value="BY">Беларусь</option>
                     <option value="UA">Украина</option>
+                    <option value="AM">Армения</option>
+                    <option value="IT">Италия</option>
+                    <option value="ES">Испания</option>
+                    <option value="FR">Франция</option>
                 </select>
             </div>
             <br>

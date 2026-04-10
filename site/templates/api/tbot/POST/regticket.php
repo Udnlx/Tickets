@@ -275,12 +275,15 @@ if (isset($data['idBus'])) {
 				            $age_years = round($age_years);  
 				            //echo $age_years;
 				        $ticket_type_code = '1#1#1';
+				        $ticket_type_age = 'взрослый';
 				        if ($age_years <= 11) {
 				            //echo 'Детский';
 				            $ticket_type_code = '38#6#1';
+				            $ticket_type_age = 'детский';
 				        } else {
 				            //echo 'Взрослый';
 				            $ticket_type_code = '1#1#1';
+				            $ticket_type_age = 'взрослый';
 				        }
 					    $sb_doc = $data['passengerDoc'];
 					    if ($sb_doc == 'Паспорт РФ') {
@@ -453,7 +456,7 @@ if (isset($data['idBus'])) {
 
 				$sb_log = json_encode($sb, JSON_UNESCAPED_UNICODE);
 			    $log = '';
-			    $log .= date('Y-m-d H:i:s') . ' - Зарегистрирован новый билет id - ' . $ticket_id . ' оператором ' . $forreg_operator . '.   ';
+			    $log .= date('Y-m-d H:i:s') . ' - Зарегистрирован новый ' . $ticket_type_age . ' билет id - ' . $ticket_id . ' оператором ' . $forreg_operator . '.   ';
 			    $log .= 'Данные билета: ' . $ticket_page->title . ' - ' . $forreg_passenger;
 			    $log .= 'Лог 1С: ' . $sb_log;
 			    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);

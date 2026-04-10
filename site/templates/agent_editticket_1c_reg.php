@@ -108,12 +108,15 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
             $age_years = round($age_years);  
             //echo $age_years;
         $ticket_type_code = '1#1#1';
+        $ticket_type_age = 'взрослый';
         if ($age_years <= 11) {
             //echo 'Детский';
             $ticket_type_code = '38#6#1';
+            $ticket_type_age = 'детский';
         } else {
             //echo 'Взрослый';
             $ticket_type_code = '1#1#1';
+            $ticket_type_age = 'взрослый';
         }
         $sb_doc = $passenger_page->type_doc_passenger;
         if ($sb_doc == 'Паспорт РФ') {
@@ -225,7 +228,7 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
         $id_edit_ticket = $sb_reg_ticket;
         $log = '';
         $log .= date('Y-m-d H:i:s') . ' - Билету с ID ' . $id_edit_ticket . ' присвоен ID билета в 1С: ' . $answer_confirm_order['tickets'][0]['id'] . '';
-        $log .= ' Билет проводился со страницы агентского редактирования билета, оператор: ' . $operator . ' ';
+        $log .= ' Билет ' . $ticket_type_age . ' проводился со страницы агентского редактирования билета, оператор: ' . $operator . ' ';
         $log .= $sb_error;
         file_put_contents(__DIR__ . '/log_agent_1c_ticket_registration.txt', $log . PHP_EOL, FILE_APPEND);
         //Записываем регистрация билета в 1С в лог

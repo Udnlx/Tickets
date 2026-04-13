@@ -88,9 +88,11 @@ if (isset($data['idBus'])) {
 		$type_ticket = $data['typeTicket'];
 		if ($type_ticket == "adult") {
 			$forreg_type_ticket = "взрослый";
+			$ticket_type_age = "взрослый";
 		}
 		if ($type_ticket == "child") {
 			$forreg_type_ticket = "детский";
+			$ticket_type_age = "детский";
 		}
 		if ($type_ticket != "adult" && $type_ticket != "child") {
 			$validation = false;
@@ -275,15 +277,12 @@ if (isset($data['idBus'])) {
 				            $age_years = round($age_years);  
 				            //echo $age_years;
 				        $ticket_type_code = '1#1#1';
-				        $ticket_type_age = 'взрослый';
 				        if ($age_years <= 11) {
 				            //echo 'Детский';
 				            $ticket_type_code = '38#6#1';
-				            $ticket_type_age = 'детский';
 				        } else {
 				            //echo 'Взрослый';
 				            $ticket_type_code = '1#1#1';
-				            $ticket_type_age = 'взрослый';
 				        }
 					    $sb_doc = $data['passengerDoc'];
 					    if ($sb_doc == 'Паспорт РФ') {

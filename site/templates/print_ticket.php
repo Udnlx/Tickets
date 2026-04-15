@@ -153,6 +153,17 @@ if ($array_param_finish[1]) {
     ';
 }
 
+$information_ticket = '';
+if ($bus->information_ticket) {
+    $information_ticket = '
+        <p>' . $bus->information_ticket . '</p>
+    ';
+} else {
+    $information_ticket = '
+        <p>По предъявлению билета взять бесплатные бирки на багаж.</p>
+    ';
+}
+
 $content .= '
 <img class="logo_ticket" src="http://tickets/site/assets/images/Logo_OlimpTickets.png" alt="">
 <p class="maintext">ОЛИМП</p>
@@ -182,7 +193,7 @@ $content .= '
 
 <p class="pdf-big">ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ:</p>
 <div class="smalltext">
-    <p>По предъявлению билета взять бесплатные бирки на багаж.</p>
+    ' . $information_ticket . '
     <br>
     <p>Наша компания Олимп Осуществляет рейсы по следующим маршрутам:</p>
     <p>Москва – Таганрог</p>
@@ -190,17 +201,17 @@ $content .= '
     <p>Москва – Луганск</p>
     <p>Москва  - Алчевск</p>
     <p>Москва – Стаханов</p>
-    <br>
+    
     <p><strong>Заказ Билетов не выходя из дома</strong></p>
     <p>+7 (926) 947-55-55</p>
     <p>+7 (959) 276-48-12</p>
     <p>+7 (916) 021-30-05</p>
-    <br>
+    
     <!--
     <p><strong>Наше расписание:</strong></p>
     <p>' . $station_list . '</p>
-    <br>
     -->
+    
     <p>Пришлем электронный билет Вам на телефон (Вотсап, Телеграм).</p>
     <p>Оплата в Автобусе наличными водителю или на сайте olimp-tickets.ru</p>
 

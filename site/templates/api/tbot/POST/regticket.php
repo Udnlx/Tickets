@@ -483,6 +483,7 @@ if (isset($data['idBus'])) {
 				$result["agentTicket"] = $forreg_agent_ticket;
 				$result["priceTicket"] = $forreg_price_ticket;
 				$result["comment"] = $forreg_comment;
+				$result["informationTicket"] = $bus->information_ticket;
 				$result["1C"] = $sb;
 			} else {
 				$result["statusCode"] = 400;

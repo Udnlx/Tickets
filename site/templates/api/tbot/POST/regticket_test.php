@@ -39,30 +39,39 @@ $data = json_decode($postData, true);
 
 
 //==========================================================
-$seat = $data['seat'];
-$seat_padded = sprintf("%02d", $seat);
-$forreg_seat = $seat_padded;
+// $seat = $data['seat'];
+// $seat_padded = sprintf("%02d", $seat);
+// $forreg_seat = $seat_padded;
 
-$reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $data['idBus'] . ', date_depart=' . $data['dateDeparture'] . ',sort=seat');
-$arr_reserv_seat = [];
-foreach ($reserv_seat as $reserv_seat_item) {
-    $arr_reserv_seat[] = (int)$reserv_seat_item->seat;
-}
-$all = range(1, 53);
-$arr_free_seat = array_values(array_diff($all, $arr_reserv_seat));
-print_r($arr_reserv_seat);
-print_r($arr_free_seat);
+// $reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $data['idBus'] . ', date_depart=' . $data['dateDeparture'] . ',sort=seat');
+// $arr_reserv_seat = [];
+// foreach ($reserv_seat as $reserv_seat_item) {
+//     $arr_reserv_seat[] = (int)$reserv_seat_item->seat;
+// }
+// $all = range(1, 53);
+// $arr_free_seat = array_values(array_diff($all, $arr_reserv_seat));
+// print_r($arr_reserv_seat);
+// print_r($arr_free_seat);
 
-if (in_array($data['seat'], $arr_reserv_seat)) {
-	if (!empty($arr_free_seat)) {
-		$seat = $arr_free_seat[0];
-		$seat_padded = sprintf("%02d", $seat);
-		$forreg_seat = $seat_padded;
-	} else {
-		$seat = $data['seat'];
-		$seat_padded = sprintf("%02d", $seat);
-		$forreg_seat = $seat_padded;
-	}
-}
+// if (in_array($data['seat'], $arr_reserv_seat)) {
+// 	if (!empty($arr_free_seat)) {
+// 		$seat = $arr_free_seat[0];
+// 		$seat_padded = sprintf("%02d", $seat);
+// 		$forreg_seat = $seat_padded;
+// 	} else {
+// 		$seat = $data['seat'];
+// 		$seat_padded = sprintf("%02d", $seat);
+// 		$forreg_seat = $seat_padded;
+// 	}
+// }
 
-$result["seat"] = $forreg_seat;
+// $result["seat"] = $forreg_seat;
+//==========================================================
+
+
+
+//==========================================================
+$bus = $pages->get("template=buses_item, id=" . $data['idBus'] . "");
+
+$result["idBus"] = $bus->id;
+$result["informationTicket"] = $bus->information_ticket;

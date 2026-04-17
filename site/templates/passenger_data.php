@@ -175,6 +175,7 @@ $reestr_seat .= '
                     <option value="BY">Беларусь</option>
                     <option value="UA">Украина</option>
                     <option value="AM">Армения</option>
+                    <option value="AZ">Азербайджан</option>
                     <option value="IT">Италия</option>
                     <option value="ES">Испания</option>
                     <option value="FR">Франция</option>

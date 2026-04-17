@@ -6,6 +6,40 @@ error_reporting(E_ERROR | E_PARSE);
 $postData = file_get_contents('php://input');
 $data = json_decode($postData, true);
 
+$requestKey = md5(json_encode([
+    'operator' => $data['operator'] ?? '',
+    'idBus' => $data['idBus'] ?? '',
+    'dateDeparture' => $data['dateDeparture'] ?? '',
+    'idStationStart' => $data['idStationStart'] ?? '',
+    'idStationFinish' => $data['idStationFinish'] ?? '',
+    'seat' => $data['seat'] ?? '',
+    'passenger' => trim($data['passenger'] ?? ''),
+    'birthdayPassenger' => $data['birthdayPassenger'] ?? '',
+    'passengerDocSerial' => $data['passengerDocSerial'] ?? '',
+    'passengerDocNumber' => $data['passengerDocNumber'] ?? '',
+    'priceTicket' => $data['priceTicket'] ?? '',
+], JSON_UNESCAPED_UNICODE));
+
+$lockFile = sys_get_temp_dir() . '/regticket_' . $requestKey . '.lock';
+$lockFp = fopen($lockFile, 'c');
+
+if (!$lockFp || !flock($lockFp, LOCK_EX | LOCK_NB)) {
+    $result = [
+        'statusCode' => 409,
+        'error' => 'Такой запрос уже обрабатывается'
+    ];
+
+    $log = '';
+    $log .= date('Y-m-d H:i:s') . ' - Дубликат запроса заблокирован; ';
+    $log .= 'Ключ=' . $requestKey . '; ';
+    $log .= 'Данные=' . json_encode($data, JSON_UNESCAPED_UNICODE);
+    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($result, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 //==========================================================
 // $start_date = date ('2025-12-25');
 // $finish_date = date ('2026-01-11');
@@ -73,5 +107,14 @@ $data = json_decode($postData, true);
 //==========================================================
 $bus = $pages->get("template=buses_item, id=" . $data['idBus'] . "");
 
+$result["requestKey"] = $requestKey;
 $result["idBus"] = $bus->id;
 $result["informationTicket"] = $bus->information_ticket;
+//==========================================================
+
+
+
+if (isset($lockFp) && $lockFp) {
+    flock($lockFp, LOCK_UN);
+    fclose($lockFp);
+}

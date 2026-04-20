@@ -72,38 +72,56 @@ foreach ($all_transporters as $transporter) {
         //     $sum_commission = $sum_commission + $commission;
         // }
 
+        // $commission = 0;
+        // if ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
+        //     if ($all_agent_tickets_item->confirm == 'не явился') {
+        //         $commission = 0;
+        //     } else {
+        //         $commission = 550;
+        //     }
+        //     $sum_commission = $sum_commission + $commission;
+        // } elseif ($all_agent_tickets_item->id_bus == 73710 || $all_agent_tickets_item->id_bus == 73723) {
+        //     if ($all_agent_tickets_item->agent_ticket == 'Олимп' || $all_agent_tickets_item->agent_ticket == 'Котельники') {
+        //         if ($all_agent_tickets_item->confirm == 'не явился') {
+        //             $commission = 0;
+        //         } else {
+        //             $commission = 500;
+        //         }
+        //         $sum_commission = $sum_commission + $commission;
+        //     } else {
+        //         if ($all_agent_tickets_item->confirm == 'не явился') {
+        //             $commission = 0;
+        //         } else {
+        //             $commission = 650;
+        //         }
+        //         $sum_commission = $sum_commission + $commission;
+        //     }
+        // } else {
+        //     if ($all_agent_tickets_item->confirm == 'не явился') {
+        //         $commission = 0;
+        //     } else {
+        //         $commission = 650;
+        //     }
+        //     $sum_commission = $sum_commission + $commission;
+        // }
+
         $commission = 0;
-        if ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
-            if ($all_agent_tickets_item->confirm == 'не явился') {
-                $commission = 0;
-            } else {
+        if ($all_agent_tickets_item->confirm !== 'не явился') {
+            if ($all_agent_tickets_item->agent_ticket === 'ИП Слабоспицкий') {
+                $commission = 500;
+            } elseif ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
                 $commission = 550;
-            }
-            $sum_commission = $sum_commission + $commission;
-        } elseif ($all_agent_tickets_item->id_bus == 73710 || $all_agent_tickets_item->id_bus == 73723) {
-            if ($all_agent_tickets_item->agent_ticket == 'Олимп' || $all_agent_tickets_item->agent_ticket == 'Котельники') {
-                if ($all_agent_tickets_item->confirm == 'не явился') {
-                    $commission = 0;
-                } else {
+            } elseif ($all_agent_tickets_item->id_bus == 73710 || $all_agent_tickets_item->id_bus == 73723) {
+                if ($all_agent_tickets_item->agent_ticket === 'Олимп' || $all_agent_tickets_item->agent_ticket === 'Котельники') {
                     $commission = 500;
-                }
-                $sum_commission = $sum_commission + $commission;
-            } else {
-                if ($all_agent_tickets_item->confirm == 'не явился') {
-                    $commission = 0;
                 } else {
                     $commission = 650;
                 }
-                $sum_commission = $sum_commission + $commission;
-            }
-        } else {
-            if ($all_agent_tickets_item->confirm == 'не явился') {
-                $commission = 0;
             } else {
                 $commission = 650;
             }
-            $sum_commission = $sum_commission + $commission;
         }
+        $sum_commission += $commission;
 
         $remains = 0;
         if ($all_agent_tickets_item->booking_sum > 0) {

@@ -49,7 +49,8 @@ foreach ($all_transporters as $transporter) {
         'booking_sum' => 'Предоплата',
         'remains' => 'Остаток к расчету',
         'confirm' => 'Статус подтверждения',
-        'reg_ticket' => 'Регистрация билета'
+        'reg_ticket' => 'Регистрация билета',
+        'comment' => 'Комментарий'
             );
     foreach ($all_agent_tickets as $all_agent_tickets_item) {
         // $commission = 0;
@@ -126,7 +127,8 @@ foreach ($all_transporters as $transporter) {
             "booking_sum"=>$all_agent_tickets_item->booking_sum,
             "remains"=>$remains,
             "confirm"=>$confirm,
-            "reg_ticket"=>date("Y-m-d H:i:s", $all_agent_tickets_item->published)
+            "reg_ticket"=>date("Y-m-d H:i:s", $all_agent_tickets_item->published),
+            "comment"=>$all_agent_tickets_item->comment,
             );
     }
     //echo '<pre>'; print_r($arr_all_agent_tickets); echo '</pre>';
@@ -142,6 +144,7 @@ foreach ($all_transporters as $transporter) {
             );
     $arr_all_agent_tickets[] = array(
         'date' => '',
+        'comment' => '',
             );
 }
 
@@ -161,7 +164,8 @@ $headers = array(
         'booking_sum' => '',
         'remains' => '',
         'confirm' => '',
-        'reg_ticket' => ''
+        'reg_ticket' => '',
+        'comment' => '',
     ),   
 );
 
@@ -188,7 +192,9 @@ $footer = array(
         'commission' => '',
         'booking_sum' => '',
         'remains' => '',
-        'confirm' => ''
+        'confirm' => '',
+        'reg_ticket' => '',
+        'comment' => '',
     ),   
 );
 

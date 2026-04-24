@@ -6,45 +6,6 @@ error_reporting(E_ERROR | E_PARSE);
 $postData = file_get_contents('php://input');
 $data = json_decode($postData, true);
 
-$requestKey = md5(json_encode([
-    'operator' => $data['operator'] ?? '',
-    'idBus' => $data['idBus'] ?? '',
-    'dateDeparture' => $data['dateDeparture'] ?? '',
-    'idStationStart' => $data['idStationStart'] ?? '',
-    'idStationFinish' => $data['idStationFinish'] ?? '',
-    'seat' => $data['seat'] ?? '',
-    'passenger' => trim($data['passenger'] ?? ''),
-    'birthdayPassenger' => $data['birthdayPassenger'] ?? '',
-    'passengerDocSerial' => $data['passengerDocSerial'] ?? '',
-    'passengerDocNumber' => $data['passengerDocNumber'] ?? '',
-    'priceTicket' => $data['priceTicket'] ?? '',
-], JSON_UNESCAPED_UNICODE));
-
-$lockFile = sys_get_temp_dir() . '/regticket_' . $requestKey . '.lock';
-$lockFp = fopen($lockFile, 'c');
-
-if (!$lockFp || !flock($lockFp, LOCK_EX | LOCK_NB)) {
-    $result = [
-        'statusCode' => 409,
-        'error' => 'Такой запрос уже обрабатывается'
-    ];
-
-    $log = '';
-    $log .= date('Y-m-d H:i:s') . ' - Дубликат запроса заблокирован; ';
-    $log .= 'Ключ=' . $requestKey . '; ';
-    $log .= 'Данные=' . json_encode($data, JSON_UNESCAPED_UNICODE);
-    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
-
-    $log .= date('Y-m-d H:i:s') . ' - Дубликат запроса заблокирован; ';
-    $log .= 'Ключ=' . $requestKey . '; ';
-    $log .= 'Данные=' . json_encode($data, JSON_UNESCAPED_UNICODE);
-	file_put_contents(__DIR__ . '/../../../log_dataticket_api.txt', $log . PHP_EOL, FILE_APPEND);
-
-    header('Content-Type: application/json; charset=utf-8');
-    echo json_encode($result, JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
 $dataticket_api = json_encode($data, JSON_UNESCAPED_UNICODE);
 $log = '';
 $log .= date('Y-m-d H:i:s');
@@ -572,9 +533,4 @@ if (isset($data['idBus'])) {
     $log .= 'Ошибка: ' . $result["error"] . '; ';
     $log .= 'Данные при регистрации: ' . $error_for_log;
     file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
-}
-
-if (isset($lockFp) && $lockFp) {
-    flock($lockFp, LOCK_UN);
-    fclose($lockFp);
 }

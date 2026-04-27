@@ -6,6 +6,77 @@ error_reporting(E_ERROR | E_PARSE);
 $postData = file_get_contents('php://input');
 $data = json_decode($postData, true);
 
+//Отлавливаем дубликат
+$log = '';
+$log .= date('Y-m-d H:i:s') . ' - Отлавливаем дубликат; ';
+file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+file_put_contents(__DIR__ . '/../../../log_dataticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+
+if (!$data) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Некорректный JSON']);
+    exit;
+}
+
+$requestKey = hash('sha256', json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+
+$lockDir = __DIR__ . '/request_locks';
+if (!is_dir($lockDir)) {
+    mkdir($lockDir, 0777, true);
+}
+
+$lockFile = $lockDir . '/' . $requestKey . '.lock';
+$ttl = 10;
+$now = time();
+
+$fp = fopen($lockFile, 'c+');
+if (!$fp) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Не удалось открыть lock-файл'], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+if (!flock($fp, LOCK_EX)) {
+    fclose($fp);
+    http_response_code(500);
+    echo json_encode(['error' => 'Не удалось установить блокировку'], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+// Читаем текущее содержимое lock-файла
+$contents = stream_get_contents($fp);
+$lastTime = (int)trim($contents);
+
+// Если запрос был менее 10 секунд назад — дубликат
+if ($lastTime > 0 && ($now - $lastTime) < $ttl) {
+    flock($fp, LOCK_UN);
+    fclose($fp);
+
+    http_response_code(429);
+    echo json_encode([
+        'status' => 'duplicate',
+        'message' => 'Дубликат запроса: менее 10 секунд'
+    ], JSON_UNESCAPED_UNICODE);
+
+    $log = '';
+    $log .= date('Y-m-d H:i:s') . ' - Дубликат запроса заблокирован; ';
+    $log .= 'Данные=' . json_encode($data, JSON_UNESCAPED_UNICODE);
+    file_put_contents(__DIR__ . '/../../../log_regticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+    file_put_contents(__DIR__ . '/../../../log_dataticket_api.txt', $log . PHP_EOL, FILE_APPEND);
+
+    exit;
+}
+
+// Обновляем timestamp
+ftruncate($fp, 0);
+rewind($fp);
+fwrite($fp, (string)$now);
+fflush($fp);
+
+flock($fp, LOCK_UN);
+fclose($fp);
+//Отлавливаем дубликат
+
 $dataticket_api = json_encode($data, JSON_UNESCAPED_UNICODE);
 $log = '';
 $log .= date('Y-m-d H:i:s');

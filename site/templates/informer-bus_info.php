@@ -180,6 +180,25 @@ $reestr_seat .= '
                         <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Посадочная ведомость</button>
                     </div>
                 </form>
+
+                <form class="uk-flex uk-flex-column" id="print_select_seat" action="/otchet-po-reisu-dlia-storonnei-vedomosti-lugansk-zhd/" method="post">
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="print_ved02_selected_bus" type="text" name="print_ved02_selected_bus" value="<?php echo $selected_bus; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="print_ved02_selected_id_bus" type="text" name="print_ved02_selected_id_bus" value="<?php echo $selected_id_bus; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="print_ved02_selected_date" type="text" name="print_ved02_selected_date" value="<?php echo $selected_date; ?>">
+                    </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="print_ved02_selected_time" type="text" name="print_ved02_selected_time" value="<?php echo $selected_time; ?>">
+                    </div>
+                    
+                    <div class="uk-margin-small-top uk-flex uk-flex-column">
+                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Посадочная ведомость Луганск ЖД</button>
+                    </div>
+                </form>
             </div>
         </div>
         

@@ -177,7 +177,7 @@ $reestr_seat .= '
                     </div>
                     
                     <div class="uk-margin-small-top uk-flex uk-flex-column">
-                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Сторонняя ведомость</button>
+                        <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Посадочная ведомость</button>
                     </div>
                 </form>
             </div>

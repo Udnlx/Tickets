@@ -34,17 +34,43 @@ $reserv_seat = $pages->find('template=purchased_tickets, id_bus=' . $selected_id
 $arr_reserv_seat = [];
 $total_sum = 0;
 foreach ($reserv_seat as $reserv_seat_item) {
-    $total_sum = $total_sum + $reserv_seat_item->price_ticket;
-    $id_passenger = $reserv_seat_item->id_passenger;
-    $page_passenger = $pages->get('template=passengers, id=' . $id_passenger . '');
-    $arr_reserv_seat[] = array(
-        'seat' => $reserv_seat_item->seat,
-        'passenger' => $reserv_seat_item->passenger,
-        'birthday_passenger' => $page_passenger->birthday_passenger,
-        'doc_passenger' => $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger,
-        'citizenship_passenger' => $page_passenger->citizenship_passenger,
-        'price_ticket' => $reserv_seat_item->price_ticket,
+    //Не учитываем эти станции посадки
+    $string_station = $reserv_seat_item->name_station;
+    $string_agent = $reserv_seat_item->agent_ticket;
+    $found = false;
+    if (strpos($string_station, 'Луганск ЖД') !== false) {
+        //echo 'Найдено';
+        $found = true;
+    }
+    if (strpos($string_station, 'Краснодон') !== false) {
+        //echo 'Найдено';
+        $found = true;
+    }
+    if (strpos($string_station, 'Молодогвардейск') !== false) {
+        //echo 'Найдено';
+        $found = true;
+    }
+    if (strpos($string_agent, 'Донбасс АВ') !== false) {
+        //echo 'Найдено';
+        $found = true;
+    }
+    //Не учитываем эти станции посадки
+
+    if ($found == true) {
+        //echo 'Не добавляем элемент в массив отчета';
+    } else {
+        $total_sum = $total_sum + $reserv_seat_item->price_ticket;
+        $id_passenger = $reserv_seat_item->id_passenger;
+        $page_passenger = $pages->get('template=passengers, id=' . $id_passenger . '');
+        $arr_reserv_seat[] = array(
+            'seat' => $reserv_seat_item->seat,
+            'passenger' => $reserv_seat_item->passenger,
+            'birthday_passenger' => $page_passenger->birthday_passenger,
+            'doc_passenger' => $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger,
+            'citizenship_passenger' => $page_passenger->citizenship_passenger,
+            'price_ticket' => $reserv_seat_item->price_ticket,
         );
+    }
 }
 // echo '<pre>';
 // print_r($arr_reserv_seat);
@@ -52,7 +78,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
 
 $title = array
 (
-'СПИСОК ПАССАЖИРОВ',
+'ПОСАДОЧНАЯ ВЕДОМОСТЬ',
 'Автобус: ' . $selected_bus,
 'Водитель: ____________________',
 'Маршрут: ' . $selected_bus,
@@ -99,7 +125,7 @@ $footer_two = array
 );
 
 header('Content-Type: text/csv; charset=utf-8' );
-header(sprintf( 'Content-Disposition: attachment; filename=Сторонняя ведомость на  ' . $selected_bus . ' - %s.csv', date( 'dmY-His' ) ) );
+header(sprintf( 'Content-Disposition: attachment; filename=Посадочная ведомость на  ' . $selected_bus . ' - %s.csv', date( 'dmY-His' ) ) );
 header('Content-Transfer-Encoding: binary');
 header('Expires: 0');
 header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

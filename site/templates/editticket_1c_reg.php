@@ -131,6 +131,9 @@ if ($sb_idbus && $sb_reg_ticket && $sb_seat && $run_operation == 'on') {
         if ($sb_doc == 'Паспорт иностранного пассажира') {
             $sb_doc = '52';
         }
+        if ($sb_doc == 'Временное удостоверение ОВД') {
+            $sb_doc = '55';
+        }
         if ($sb_doc == 'Заграничный паспорт РФ') {
             $sb_doc = '63';
         }

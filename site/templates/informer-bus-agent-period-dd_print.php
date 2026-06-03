@@ -101,20 +101,38 @@ foreach ($all_agent_tickets as $all_agent_tickets_item) {
     //     $sum_price_ticket = $sum_price_ticket + $all_agent_tickets_item->price_ticket;
     // }
 
+    // $commission = 0;
+    // if ($all_agent_tickets_item->confirm !== 'не явился') {
+    //     if ($all_agent_tickets_item->agent_ticket === 'ИП Слабоспицкий') {
+    //         $commission = 500;
+    //     } elseif ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
+    //         $commission = 550;
+    //     } elseif ($all_agent_tickets_item->id_bus == 73710 || $all_agent_tickets_item->id_bus == 73723) {
+    //         if ($all_agent_tickets_item->agent_ticket === 'Олимп' || $all_agent_tickets_item->agent_ticket === 'Котельники') {
+    //             $commission = 500;
+    //         } else {
+    //             $commission = 650;
+    //         }
+    //     } else {
+    //         $commission = 650;
+    //     }
+    // }
+    // $sum_commission += $commission;
+
     $commission = 0;
     if ($all_agent_tickets_item->confirm !== 'не явился') {
         if ($all_agent_tickets_item->agent_ticket === 'ИП Слабоспицкий') {
             $commission = 500;
         } elseif ($all_agent_tickets_item->id_bus == 1019 || $all_agent_tickets_item->id_bus == 1022) {
-            $commission = 550;
+            $commission = 500;
         } elseif ($all_agent_tickets_item->id_bus == 73710 || $all_agent_tickets_item->id_bus == 73723) {
             if ($all_agent_tickets_item->agent_ticket === 'Олимп' || $all_agent_tickets_item->agent_ticket === 'Котельники') {
                 $commission = 500;
             } else {
-                $commission = 650;
+                $commission = 500;
             }
         } else {
-            $commission = 650;
+            $commission = 500;
         }
     }
     $sum_commission += $commission;

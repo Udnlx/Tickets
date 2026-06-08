@@ -326,6 +326,8 @@ $(document).on('click', 'p.passengers_item', function(){
     $('#passenger_name').val(name_passenger);
     $('#passenger_document').val(type_doc_passenger + ' ' + series_doc_passenger + ' ' + num_doc_passenger);
 
+
+
     //console.log ('Проверяем заполненость поля пол пассажира и гражданство');
     let valid_gen = false;
     if (gender_passenger == 'М' || gender_passenger == 'Ж') {
@@ -353,6 +355,8 @@ $(document).on('click', 'p.passengers_item', function(){
             UIkit.modal('#modal-add_gender').show();
         }
     }
+    //console.log ('Проверяем заполненость поля пол пассажира и гражданство');
+
 
 
     // if ($('#selected_gender').val() == 'М' || $('#selected_gender').val() == 'Ж') {
@@ -367,6 +371,8 @@ $(document).on('click', 'p.passengers_item', function(){
     //     }
     // }
 
+
+
     //console.log ('Проверяем количество поездок пассажира');
     let departure_date = $('#departure_date').text();
     let agent_ticket = $('#agent_ticket').val();
@@ -377,6 +383,42 @@ $(document).on('click', 'p.passengers_item', function(){
             }
         }
     }
+    //console.log ('Проверяем количество поездок пассажира');
+
+
+
+    //console.log ('Ищем в реестре купленных билетов на выбранного пассажира забронирнованный билет');
+    let passengerText = $(this).text().trim().replace(/\s+/g, ' ');
+    let fio = $(this).contents().filter(function () {
+        return this.nodeType === 3;
+    }).first().text().trim();
+    let dateMatch = passengerText.match(/\d{2}\.\d{2}\.\d{4}/);
+    let birthDate = dateMatch ? dateMatch[0] : '';
+
+    let foundItems = [];
+
+    $('.reestr_seat_item').each(function () {
+        let reestrText = $(this).text().trim().replace(/\s+/g, ' ');
+
+        if (reestrText.toLowerCase().includes('забронировано')) {
+            let fioFound = reestrText.includes(fio);
+            let dateFound = birthDate ? reestrText.includes(birthDate) : true;
+
+            if (fioFound && dateFound) {
+                foundItems.push(reestrText);
+            }
+        }
+    });
+
+    if (foundItems.length > 0) {
+        alert(
+            'Найдено забронированных мест для пассажира:\n\n' +
+            foundItems.join('\n\n----------------------\n\n')
+        );
+    } else {
+        //alert('Бронирований не найдено.');
+    }
+    //console.log ('Ищем в реестре купленных билетов на выбранного пассажира забронирнованный билет');
 });
 
 

@@ -276,6 +276,20 @@ if (isset($data['idBus'])) {
 					    $sb_log .=  'Не подключились к 1C;';
 					    $info_json = json_encode($soapFault);
 					    $sb_log .=  $info_json;
+
+					    $to = 'Udnlx@yandex.ru, info@niki-group.ru';
+					    $subject = 'Ошибка подключения к 1С';
+
+					    $message = "Не удалось подключиться к 1С.\n\n";
+					    $message .= "Время: " . date('Y-m-d H:i:s') . "\n";
+					    $message .= "Ошибка: " . $errorMessage . "\n";
+					    $message .= "Подробности: " . $info_json . "\n";
+					    $message .= "Не удалось проверить занятые места в 1С. По этой причине занимаемое место " . $forreg_seat . " может быть занятым в системе 1С, но в ситсеме Tickets посадка пассажира произойдет, так как на данный момент оно числиться свободным. В дальнейшем возможны расхождения.\n";
+
+					    $headers = "From: tickets@info.com\r\n";
+					    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+					    mail($to, $subject, $message, $headers);
 					}
 					//Подключаемся к 1С
 

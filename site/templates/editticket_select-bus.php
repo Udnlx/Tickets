@@ -106,6 +106,16 @@ if ($operator == 'no_operator' || $access == 'agent') {
                     <a class="uk-margin-small uk-button uk-button-default" href="/">Назад</a>
                     </div>
                 </form>
+                <h3 class="uk-margin-remove uk-card-title">Поиск по ID билета</h3>
+                <form class="uk-flex uk-flex-column" id="select_bus" action="/pravka-bileta-vybor-id/" method="post">
+                    <div class="uk-margin-small-top">
+                        <input class="uk-input" id="post_id_ticket" type="text" name="post_id_ticket" placeholder="Введите ID билета" autocomplete="off" required>
+                    </div>
+                    
+                    <div class="uk-margin-small-top uk-flex uk-flex-column">
+                    <button class="uk-margin-small-top uk-button uk-button-default" type="submit">Далее</button>
+                    </div>
+                </form>
             </div>
         </div>
         

@@ -178,6 +178,13 @@ $('button.uk-ticket-edit-seat').click(function() {
     $('#print_ticket_id').val(id_edited_seat);
 });
 
+$('button.uk-ticket-edit-id').click(function() {
+    let id_edited_ticket = $(this).attr('id');
+    $('#id_seat').val(id_edited_ticket);
+    $('#print_ticket_id').val(id_edited_ticket);
+});
+
+
 
 
 $('#pay_or_booking').change( function() {

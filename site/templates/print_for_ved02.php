@@ -59,6 +59,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
             'doc_passenger' => $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger,
             'citizenship_passenger' => $page_passenger->citizenship_passenger,
             'price_ticket' => $reserv_seat_item->price_ticket,
+            'comment' => $reserv_seat_item->comment,
         );
     } else {
         //echo 'Не добавляем элемент в массив отчета';
@@ -87,6 +88,7 @@ $headers = array(
         'doc_passenger' => '№ Документа',
         'citizenship_passenger' => 'Гражданство',
         'price_ticket' => 'Цена',
+        'comment' => 'Комментарий',
     ),    
 );
 

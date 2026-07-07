@@ -99,6 +99,7 @@ if ($operator == 'no_operator') {
                             <?php
                             $all_agents = $pages->get('template=agents');
                             $agents = '';
+                            $agents .= '<option>Все агенты</option>';
                             foreach ($all_agents->agent_items as $agent_itm) {
                                 $agents .= '
                                 <option>' . $agent_itm->agent . '</option>

@@ -38,7 +38,14 @@ if ($operator == 'no_operator') {
 ?>
 
 <?php
-$all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart');
+$selector = "template=purchased_tickets, id_bus=$selected_id_bus, date_depart>=$start_date, date_depart<=$finish_date";
+if ($agent && $agent !== 'Все агенты') {
+    $selector .= ", agent_ticket=" . $sanitizer->selectorValue($agent);
+}
+$selector .= ", sort=date_depart";
+
+// $all_agent_tickets = $pages->find('template=purchased_tickets, id_bus=' . $selected_id_bus . ', date_depart>=' . $start_date . ', date_depart<=' . $finish_date . ', agent_ticket=' . $agent . ', sort=date_depart');
+$all_agent_tickets = $pages->find($selector);
 $sum_price_ticket = 0;
 $sum_commission = 0;
 $sum_predoplata = 0;

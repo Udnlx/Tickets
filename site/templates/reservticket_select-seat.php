@@ -40,9 +40,11 @@ $mass_reserv_seats_page = $pages->get('template=reserv_seats, id_bus=' . $select
 //echo $mass_reserv_seats_page->mass_reserv_seats;
 if ($mass_reserv_seats_page->id > 0) {
     $arr_mass_reserv_seat_agent = explode(',', $mass_reserv_seats_page->mass_reserv_seats_agent);
+    $arr_mass_reserv_special_agent = explode(',', $mass_reserv_seats_page->mass_reserv_special_agent);
     $arr_mass_reserv_seat = explode(',', $mass_reserv_seats_page->mass_reserv_seats);
 } else {
     $arr_mass_reserv_seat_agent = [0];
+    $arr_mass_reserv_special_agent = [0];
     $arr_mass_reserv_seat = [0];
 }
 //echo '<pre>'; print_r($arr_mass_reserv_seat); echo '</pre>';
@@ -162,6 +164,11 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 $reserv_style = 'seat_select_mass_agent';
             }
         }
+        foreach ($arr_mass_reserv_special_agent as $itm) {
+            if ($num_seat == $itm) {
+                $reserv_style = 'seat_select_special_agent';
+            }
+        }
         foreach ($arr_mass_reserv_seat as $itm) {
             if ($num_seat == $itm) {
                 $reserv_style = 'seat_select_mass';
@@ -193,6 +200,9 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 <h4 class="uk-margin-remove">Выбранный рейс:<br><span style="font-weight: 700;"><?php echo $selected_bus; ?></span></h4>
                 <h4 class="uk-margin-remove">Дата: <span style="font-weight: 700;"><?php echo $selected_date; ?></span> отправление<span style="font-weight: 700;"><?php echo $selected_time; ?></span></h4>
                 <div class="uk-margin-small-top uk-hidden">
+                    <input class="uk-input" id="operator" type="text" name="operator" value="<?php echo $operator; ?>">
+                </div>
+                <div class="uk-margin-small-top uk-hidden">
                     <input class="uk-input" id="selected_bus" type="text" name="selected_bus" value="<?php echo $selected_bus; ?>">
                 </div>
                 <div class="uk-margin-small-top uk-hidden">
@@ -207,6 +217,9 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 
                 <div class="uk-margin-small-top uk-hidden">
                     <input class="uk-input readonly" id="select_reserv_seat" type="text" name="select_reserv_seat" value="" autocomplete="off" required>
+                </div>
+                <div class="uk-margin-small-top uk-hidden">
+                    <input class="uk-input readonly" id="select_special_reserv_seat" type="text" name="select_special_reserv_seat" value="" autocomplete="off" required>
                 </div>
                 
                 <div class="uk-margin-small-top uk-flex uk-flex-column">

@@ -123,9 +123,11 @@ $mass_reserv_seats_page = $pages->get('template=reserv_seats, id_bus=' . $select
 //echo $mass_reserv_seats_page->mass_reserv_seats;
 if ($mass_reserv_seats_page->id > 0) {
     $arr_mass_reserv_seat_agent = explode(',', $mass_reserv_seats_page->mass_reserv_seats_agent);
+    $arr_mass_reserv_special_agent = explode(',', $mass_reserv_seats_page->mass_reserv_special_agent);
     $arr_mass_reserv_seat = explode(',', $mass_reserv_seats_page->mass_reserv_seats);
 } else {
     $arr_mass_reserv_seat_agent = [0];
+    $arr_mass_reserv_special_agent = [0];
     $arr_mass_reserv_seat = [0];
 }
 //echo '<pre>'; print_r($arr_mass_reserv_seat); echo '</pre>';
@@ -254,6 +256,15 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
             if ($num_seat == $itm) {
                 $reserv_style = 'agent-seat_select_mass';
                 $disabled_ticket = '';
+            }
+        }
+        foreach ($arr_mass_reserv_special_agent as $itm) {
+            if ($num_seat == $itm) {
+                $reserv_style = 'seat_select_special_for_agent';
+                $disabled_ticket = 'disabled';
+                if ($operator == 'Котельники') {
+                    $disabled_ticket = '';
+                }
             }
         }
         foreach ($arr_mass_reserv_seat as $itm) {

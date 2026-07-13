@@ -66,11 +66,55 @@ $('#btn_for_reg').hover(function() {
 
 
 //Скрипты Выбор мест для резерва билетов
-$('button.uk-mass-reserv-seat').click(function() {
-    if ($(this).hasClass('seat_select_mass')) {
-        $(this).removeClass('seat_select_mass');
-    } else {
-        $(this).addClass('seat_select_mass');
+// $('button.uk-mass-reserv-seat').click(function() {
+//     if ($(this).hasClass('seat_select_mass')) {
+//         $(this).removeClass('seat_select_mass');
+//     } else {
+//         $(this).addClass('seat_select_mass');
+//     }
+// });
+
+$('button.uk-mass-reserv-seat').click(function () {
+    let operator = $('#operator').val();
+    let $seat = $(this);
+
+    // Если кнопка disabled — ничего не делаем
+    if ($seat.is(':disabled')) {
+        return;
+    }
+
+    // Спецоператор
+    if (operator === 'Вокзал') {
+        // Если это уже его метка — снимаем
+        if ($seat.hasClass('seat_select_special_agent')) {
+            $seat.removeClass('seat_select_special_agent');
+            return;
+        }
+
+        // Если место свободное и на нем нет чужой метки — ставим
+        if (
+            $seat.hasClass('seat_free') &&
+            !$seat.hasClass('seat_select_mass') &&
+            !$seat.hasClass('seat_select_mass_agent')
+        ) {
+            $seat.addClass('seat_select_special_agent');
+        }
+
+        return;
+    }
+
+    // Обычный оператор
+    if ($seat.hasClass('seat_select_mass')) {
+        $seat.removeClass('seat_select_mass');
+        return;
+    }
+
+    // Если место свободное и на нем нет чужой метки — ставим
+    if (
+        $seat.hasClass('seat_free') &&
+        !$seat.hasClass('seat_select_special_agent')
+    ) {
+        $seat.addClass('seat_select_mass');
     }
 });
 
@@ -80,6 +124,13 @@ $('#reserv_seat-btn').hover(function() {
         let selected_seat = $(this).text();
         console.log(selected_seat);
         $('#select_reserv_seat').val($('#select_reserv_seat').val() + selected_seat + ',');
+    })
+
+    $('#select_special_reserv_seat').val('');
+    $('div.buttons_seat').find('button.seat_select_special_agent').each(function (){
+        let selected_special_seat = $(this).text();
+        console.log(selected_special_seat);
+        $('#select_special_reserv_seat').val($('#select_special_reserv_seat').val() + selected_special_seat + ',');
     })
 });
 //Скрипты Выбор мест для резерва билетов
@@ -91,6 +142,7 @@ $('#reserv_seat-btn').click(function() {
     var selected_date = $('#selected_date').val();
     var selected_time = $('#selected_time').val();
     var select_reserv_seat = $('#select_reserv_seat').val();
+    var select_special_reserv_seat = $('#select_special_reserv_seat').val();
 $.ajax({
     type: "POST",
     url: '/add_reserv_seats.php',
@@ -100,6 +152,7 @@ $.ajax({
         'selected_date':selected_date,
         'selected_time':selected_time,
         'select_reserv_seat':select_reserv_seat,
+        'select_special_reserv_seat':select_special_reserv_seat,
     },
     beforeSend: function () {
         $('#seat_messages').html('<p class="messages" style="color: green;">Отправка и обработка данных...</p>');

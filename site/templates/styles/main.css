@@ -198,6 +198,10 @@ button.seat_select_mass_for_agent {
     position: relative;
     color: #333!important;
     background-color: #00a4ff!important;}
+button.seat_select_special_for_agent {
+    position: relative;
+    color: #333!important;
+    background-color: #00c700!important;}
 button.uk-mass-reserv-seat-agent {
     position: relative;
     margin: 5px;
@@ -218,6 +222,9 @@ button.agent-seat_select_mass {
 button.seat_select_mass_agent {
     position: relative;
     background-color: #dc80ff;}
+button.seat_select_special_agent {
+    position: relative;
+    background-color: #00c700;}
 button.seat_select {
     position: relative;
     background-color: #52af52!important;}

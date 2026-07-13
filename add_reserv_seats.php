@@ -19,8 +19,9 @@ $selected_id_bus = $_POST['selected_id_bus'];
 $selected_date = $_POST['selected_date'];
 $selected_time = $_POST['selected_time'];
 $select_reserv_seat = $_POST['select_reserv_seat'];
+$select_special_reserv_seat = $_POST['select_special_reserv_seat'];
 
-if ($selected_bus == '' || $selected_id_bus == '' || $selected_date == '' || $selected_time == '' || $select_reserv_seat == '') {
+if ($selected_bus == '' || $selected_id_bus == '' || $selected_date == '' || $selected_time == '') {
     echo '<p class="messages" style="color: red;">Ошибка. Изменения не внесены.<br>Ошибка в данных.</p>';    
 } else {
     $reserv_seats = '';
@@ -30,6 +31,7 @@ if ($selected_bus == '' || $selected_id_bus == '' || $selected_date == '' || $se
         $edit_page = $pages->get('template=reserv_seats, id=' . $reserv_seats->id . '');
         $edit_page->of(false);
         $edit_page->mass_reserv_seats = $select_reserv_seat;
+        $edit_page->mass_reserv_special_agent = $select_special_reserv_seat;
         $edit_page->save();
 
         echo '<p class="messages" style="color: green;">
@@ -47,6 +49,7 @@ if ($selected_bus == '' || $selected_id_bus == '' || $selected_date == '' || $se
             'id_bus' => $selected_id_bus,
             'date_depart' => $selected_date,
             'mass_reserv_seats' => $select_reserv_seat,
+            'mass_reserv_special_agent' => $select_special_reserv_seat,
         ]);
 
         echo '<p class="messages" style="color: green;">

@@ -95,6 +95,11 @@ $menu = '
                         <p class="uk-margin-remove">-</p>
                         <p class="legend-title">Место забронировано агентом</p>
                     </div>
+                    <div class="uk-flex uk-flex-middle">
+                        <button class="demo-seat uk-button seat_select_special_agent" disabled>00</button>
+                        <p class="uk-margin-remove">-</p>
+                        <p class="legend-title">Место забронировано Вокзалом</p>
+                    </div>
 
                 </div>
             </div>

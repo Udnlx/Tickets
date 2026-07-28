@@ -91,19 +91,13 @@ p {
     font-size: 12px;
     line-height: 1;}
 
-.qr-code {
-    width: 300px;
-    text-align: center;
-    position: absolute;
-    right: 0px;
-    margin: -240px 0 0 0;}
-
 .qr-code p.qr-code-text {
     margin: 0;
     font-size: 14px;}
 
 .qr-links {
-    display: flex;}
+    display: flex;
+    justify-content: center;}
 
 .qr-code a.qr-code-link {
     padding: 5px;
@@ -113,8 +107,8 @@ p {
     text-align: center;}
 
 .qr-images {
-    margin: 30px 0 0 0;
-    display: flex;}
+    display: flex;
+    justify-content: center;}
 
 .qr-code img.qr-code-img {
     padding: 5px;
@@ -164,25 +158,37 @@ if ($bus->information_ticket) {
     ';
 }
 
+$qrcode = '';
+if($bus->qrcode) {
+    $imgUrl = $config->httpHost . $bus->qrcode->url;
+    $imgUrl = 'http://' . $imgUrl;
+    $qrcode = '
+    <div style="page-break-before: always;"></div>
+    <div style="text-align: center;">
+        <p style="text-align: center;">QR код для предъявления на вокзале</p>
+        <div class="qr-images" style="text-align: center;">
+            <img class="qr-code-img" src="' . $imgUrl . '" alt="" style="display: inline-block;">
+        </div>
+    </div>
+    ';
+}
+
 $content .= '
-<img class="logo_ticket" src="http://tickets/site/assets/images/Logo_OlimpTickets.png" alt="">
+<img class="logo_ticket" src="https://lk.olimp-tickets.ru/site/assets/images/logo_t.png" alt="">
 <p class="maintext">ОЛИМП</p>
 <p class="textheader">г. Люберцы, ул. Комсомольская, 15</p>
 <p class="textheader_last">тел: 8(926)947-55-55</p>
 
 <h2 style="margin: 50px 0 20px 0;">Билет №' . $ticket->id . ' от ' . $ticket_date . '</h2>
 
-<!-- <p>Автобус: ' . $ticket->bus . '</p> -->
 <p>Перевозчик: ' . $transporter . '</p>
 <p>Статус билета: ' . $ticket->pay_or_booking . '</p>
 <p>Цена билета: ' . $ticket->price_ticket . ' руб.</p>
 
 <p class="pdf-big">О РЕЙСЕ:</p>
-<!-- <p>Отправление со станции ' . $ticket->name_station . ' ' . $date_depart . '</p> -->
 <p>Место № ' . $ticket->seat . '</p>
 ' . $start_station . '
 ' . $finish_station . '
-<!-- <p>Цена: [price] руб.</p> -->
 
 <p class="pdf-big">О ПАССАЖИРЕ:</p>
 <p>Ф.И.О.: ' . $passenger->name_passenger . '</p>
@@ -191,42 +197,61 @@ $content .= '
 <p>Дата рождения: ' . $passenger->birthday_passenger . '</p>
 <p>Телефон: ' . $passenger->phone_passenger . '</p>
 
-<p class="pdf-big">ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ:</p>
-<div class="smalltext">
-    ' . $information_ticket . '
-    <br>
-    <p>Наша компания Олимп Осуществляет рейсы по следующим маршрутам:</p>
-    <p>Москва – Таганрог</p>
-    <p>Москва – Мариуполь</p>
-    <p>Москва – Луганск</p>
-    <p>Москва  - Алчевск</p>
-    <p>Москва – Стаханов</p>
-    
-    <p><strong>Заказ Билетов не выходя из дома</strong></p>
-    <p>+7 (926) 947-55-55</p>
-    <p>+7 (959) 276-48-12</p>
-    <p>+7 (916) 021-30-05</p>
-    
-    <!--
-    <p><strong>Наше расписание:</strong></p>
-    <p>' . $station_list . '</p>
-    -->
-    
-    <p>Пришлем электронный билет Вам на телефон (Вотсап, Телеграм).</p>
-    <p>Оплата в Автобусе наличными водителю или на сайте olimp-tickets.ru</p>
+<div style="page-break-inside: avoid;">
+    <p class="pdf-big">ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ:</p>
 
-    <div class="qr-code">
-        <p class="qr-code-text" style="text-align:center;">Скидка 20% на заказ через приложение</p>
-        <div class="qr-links">
-            <a class="qr-code-link" href="https://apps.apple.com/ru/app/olimp-tickets/id6740780087?l=en-GB">IOS</a>
-            <a class="qr-code-link" href="https://play.google.com/store/apps/details?id=com.mycompany.olimptickets">Android</a>
-        </div>
-        <div class="qr-images">
-            <img class="qr-code-img" src="http://tickets/site/assets/images/qr-code1.png" alt="">
-            <img class="qr-code-img" src="http://tickets/site/assets/images/qr-code2.png" alt="">
-        </div>
-    </div>
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td class="smalltext" style="width: 70%; vertical-align: top; font-size: 14px; padding-right: 15px; line-height: 1.4;">
+                ' . $information_ticket . '
+                <p>Компания Олимп осуществляет рейсы по следующим маршрутам:</p>
+                <p>Москва – Таганрог</p>
+                <p>Москва – Мариуполь</p>
+                <p>Москва – Луганск</p>
+                <p>Москва - Алчевск</p>
+                <p>Москва – Стаханов</p>
+
+                <p><strong>Заказ билетов не выходя из дома</strong></p>
+                <p>+7 (926) 947-55-55</p>
+                <p>+7 (959) 276-48-12</p>
+                <p>+7 (916) 021-30-05</p>
+
+                <p>Пришлем электронный билет вам на телефон (Вотсап, Телеграм).</p>
+                <p>Оплата в автобусе наличными водителю или на сайте olimp-tickets.ru</p>
+            </td>
+
+            <td style="width: 30%; vertical-align: top; text-align: center; font-size: 12px;">
+                <p style="margin: 0 0 8px 0; text-align: center; line-height: 1.3;">
+                    <strong>Скидка 20% на заказ через приложение</strong>
+                </p>
+
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 8px;">
+                    <tr>
+                        <td style="width: 50%; text-align: center; font-size: 12px;">
+                            <a href="https://apps.apple.com/ru/app/olimp-tickets/id6740780087?l=en-GB" style="color: #0000EE; text-decoration: underline;">IOS</a>
+                        </td>
+                        <td style="width: 50%; text-align: center; font-size: 12px;">
+                            <a href="https://play.google.com/store/apps/details?id=com.mycompany.olimptickets" style="color: #0000EE; text-decoration: underline;">Android</a>
+                        </td>
+                    </tr>
+                </table>
+
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="width: 50%; text-align: center;">
+                            <img src="https://lk.olimp-tickets.ru/site/assets/images/qr-code1.png" alt="" style="width: 80px; height: 80px;">
+                        </td>
+                        <td style="width: 50%; text-align: center;">
+                            <img src="https://lk.olimp-tickets.ru/site/assets/images/qr-code2.png" alt="" style="width: 80px; height: 80px;">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </div>
+
+' . $qrcode . '
 ';
 
 include_once __DIR__ . '/dompdf/autoload.inc.php';
@@ -237,7 +262,7 @@ $dompdf->loadHtml($content, 'UTF-8');
 $dompdf->render();
  
 //Вывод файла в браузер:
-$dompdf->stream('Билет - ' . $ticket_id . ''); 
+//$dompdf->stream('Билет - ' . $ticket_id . ''); 
 ?>
 
 <div id="content" style="max-width: 700px;">

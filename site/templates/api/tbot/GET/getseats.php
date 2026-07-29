@@ -98,9 +98,11 @@ if ($input->get['bus'] && $input->get['data']) {
 	$mass_reserv_seats_page = $pages->get('template=reserv_seats, id_bus=' . $id_bus . ', date_depart=' . $data . '');
 	if ($mass_reserv_seats_page->id > 0) {
 	    $arr_mass_reserv_seat_agent = explode(',', $mass_reserv_seats_page->mass_reserv_seats_agent);
+	    $arr_mass_reserv_special_agent = explode(',', $mass_reserv_seats_page->mass_reserv_special_agent);
 	    $arr_mass_reserv_seat = explode(',', $mass_reserv_seats_page->mass_reserv_seats);
 	} else {
 	    $arr_mass_reserv_seat_agent = [0];
+	    $arr_mass_reserv_special_agent = [0];
 	    $arr_mass_reserv_seat = [0];
 	}
 	$mass_reserv_seat = [];
@@ -109,6 +111,9 @@ if ($input->get['bus'] && $input->get['data']) {
 	}
 	foreach ($arr_mass_reserv_seat_agent as $arr_mass_reserv_seat_agent_item) {
 	    $mass_reserv_seat[] = (int)$arr_mass_reserv_seat_agent_item;
+	}
+	foreach ($arr_mass_reserv_special_agent as $arr_mass_reserv_special_agent_item) {
+	    $mass_reserv_seat[] = (int)$arr_mass_reserv_special_agent_item;
 	}
 	$mass_reserv_seat = array_diff($mass_reserv_seat, [0]);
 	// echo '<pre>'; print_r($mass_reserv_seat); echo '</pre>';

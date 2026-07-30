@@ -170,6 +170,10 @@ if (isset($data['idBus'])) {
 			$message = '[typeTicket] значение должно быть только adult или child';
 		}
 
+		//найти в начале строки один или несколько символов, которые не являются ни буквой, ни цифрой
+		$data['passengerDocSerial'] = preg_replace('/^[^\p{L}\p{N}]+/u', '', $data['passengerDocSerial']);
+		$data['passengerDocNumber'] = preg_replace('/^[^\p{L}\p{N}]+/u', '', $data['passengerDocNumber']);
+
 		$passenger_page = $pages->get("template=passengers, title=" . $data['passenger'] . ", birthday_passenger=" . $data['birthdayPassenger'] . ", passport_passenger=" . $data['passengerDocSerial'] . ", num_doc_passenger=" . $data['passengerDocNumber'] . "");
 		if ($passenger_page->id) {
 			$forreg_passenger = $data['passenger'];

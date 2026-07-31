@@ -197,10 +197,18 @@ if ($bus_on == false) {
 // var_dump($sb_free_seats);
 // echo '</pre>';
 
-$max_seat = 53;
+if ($bus_page->bonus_seats) {
+    $max_seat = 63;
+} else {
+    $max_seat = 53;
+}
 $button_seat = '';
 $sb_title_error = '';
 for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
+    $bonus_style = '';
+    if ($num_seat >= 54) {
+        $bonus_style = 'border: 1px dashed #000000 !important;';
+    }
     $sb_disabled = '';
     $sb_occupied = '';
     $sb_on = '';
@@ -237,12 +245,12 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
 
                 if ($val['pay_or_booking'] == 'забронировано') {
                     $button_seat .= '
-                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_reserv" disabled title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . ', комментарий: ' . $val['comment'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '' . $sb_error . '</button>
+                    <button style="' . $bonus_style . '" class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_reserv" disabled title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . ', комментарий: ' . $val['comment'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '' . $sb_error . '</button>
                     ';
                 }
                 if ($val['pay_or_booking'] == 'оплачено') {
                     $button_seat .= '
-                    <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_pay" disabled title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . ', комментарий: ' . $val['comment'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '' . $sb_error . '</button>
+                    <button style="' . $bonus_style . '" class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_pay" disabled title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . ', комментарий: ' . $val['comment'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '' . $sb_error . '</button>
                     ';
                 }
         }
@@ -269,11 +277,11 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
         }
         if ($sb_disabled != 'disabled') {
             $button_seat .= '
-            <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '">' . $num_seat . '' . $sb_occupied . '</button>
+            <button style="' . $bonus_style . '" class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free ' . $reserv_style . '">' . $num_seat . '' . $sb_occupied . '</button>
             ';
         } else {
             $button_seat .= '
-            <button class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free" disabled>' . $num_seat . '' . $sb_occupied . '</button>
+            <button style="' . $bonus_style . '" class="uk-ticket-seat uk-margin-small-top uk-button uk-button-default seat_free" disabled>' . $num_seat . '' . $sb_occupied . '</button>
             ';
         }
     }

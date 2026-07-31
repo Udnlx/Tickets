@@ -117,6 +117,10 @@ if ($bus_on == false) {
 $button_seat = '';
 $sb_title_error = '';
 foreach ($arr_reserv_seat as $key => $val) {
+    $bonus_style = '';
+    if ($val['seat'] >= 54) {
+        $bonus_style = 'border: 1px dashed #000000 !important;';
+    }
     $sb_disabled = '';
     $sb_occupied = '';
     $sb_on = '';
@@ -150,12 +154,12 @@ foreach ($arr_reserv_seat as $key => $val) {
 
     if ($val['pay_or_booking'] == 'забронировано') {
         $button_seat .= '
-        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_reserv" title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . ', комментарий: ' . $val['comment'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '' . $sb_error . '</button>
+        <button style="' . $bonus_style . '" id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_reserv" title="Место забронировано: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . ', комментарий: ' . $val['comment'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '' . $sb_error . '</button>
         ';
     }
     if ($val['pay_or_booking'] == 'оплачено') {
         $button_seat .= '
-        <button id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_pay" title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . ', комментарий: ' . $val['comment'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '' . $sb_error . '</button>
+        <button style="' . $bonus_style . '" id="' . $val['id'] . '" class="uk-ticket-edit-seat uk-margin-small-top uk-button uk-button-default seat_pay" title="Место оплачено: ' . $val['passenger'] . ', телефон: ' . $phone_passenger . ', станция посадки: ' . $val['station'] . ', станция высадки: ' . $val['station_finish'] . ', комментарий: ' . $val['comment'] . '">' . $val['seat'] . '' . $conf_status . '' . $sb_occupied . '' . $sb_error . '</button>
         ';
     }
 }

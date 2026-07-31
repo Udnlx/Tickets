@@ -132,6 +132,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
         "id_passenger"=>$reserv_seat_item->id_passenger,
         "passenger"=>$reserv_seat_item->passenger,
         "type_ticket"=>$reserv_seat_item->type_ticket,
+        "price_ticket"=>$reserv_seat_item->price_ticket,
         "passenger_doc"=>$reserv_seat_item->passenger_doc,
         "operator"=>$reserv_seat_item->operator,
         "agent_ticket"=>$reserv_seat_item->agent_ticket,
@@ -153,7 +154,8 @@ $reestr_seat .= '
         Станция высадки: ' . $val['station_finish'] . '<br>' . 
         $val['passenger'] . '<br>' . 
         $birthday_passenger . '<br>
-        тип билета: ' . $val['type_ticket'] . '<br>' . 
+        тип билета: ' . $val['type_ticket'] . '<br> 
+        цена: ' . $val['price_ticket'] . '<br>' . 
         $val['passenger_doc'] . '<br>
         телефон: ' . $phone_passenger . '<br>
         агент: ' . $val['agent_ticket'] . '<br>

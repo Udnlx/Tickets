@@ -40,7 +40,7 @@ if ($operator == 'no_operator') {
 <?php
 $selector = "template=purchased_tickets, id_bus=$selected_id_bus, date_depart>=$start_date, date_depart<=$finish_date";
 if ($agent && $agent !== 'Все агенты') {
-    $selector .= ", agent_ticket=" . $sanitizer->selectorValue($agent);
+    $selector .= ", agent_ticket=" . $agent;
 }
 $selector .= ", sort=date_depart";
 

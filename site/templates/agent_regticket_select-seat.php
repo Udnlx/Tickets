@@ -116,6 +116,43 @@ if (count($bus_page->extra_calendar) > 0) {
     }
 }
 
+$prices_piece = '';
+if (count($bus_page->extra_calendar_piece) > 0) {
+    $year = date('Y');
+    $year_plus = strtotime('+1 year', strtotime($year));
+    $year_plus = date('Y', $year_plus);
+    foreach ($bus_page->extra_calendar_piece as $ec_item) {
+        if ($ec_item->days && $ec_item->month) {
+            $arr_extra_calendar_days = explode(',', $ec_item->days);
+            foreach ($arr_extra_calendar_days as $day) {
+                $prices_piece .= '
+                    <p class="price-piece-itm"
+                    ssp="' . $ec_item->name_station . '"
+                    sfp="' . $ec_item->name_station_finish . '"
+                    datep="' . $year . '-' . $ec_item->month . '-' . $day . '"
+                    extraprice="' . $ec_item->extra_price . '">
+                        ' . $ec_item->name_station . ' - ' . $ec_item->name_station_finish . ' - ' . $year . '-' . $ec_item->month . '-' . $day . ' - ' . $ec_item->extra_price . '
+                    </p>
+                    <p class="price-piece-itm"
+                    ssp="' . $ec_item->name_station . '"
+                    sfp="' . $ec_item->name_station_finish . '"
+                    datep="' . $year_plus . '-' . $ec_item->month . '-' . $day . '"
+                    extraprice="' . $ec_item->extra_price . '">
+                        ' . $ec_item->name_station . ' - ' . $ec_item->name_station_finish . ' - ' . $year_plus . '-' . $ec_item->month . '-' . $day . ' - ' . $ec_item->extra_price . '
+                    </p>
+                ';
+            }
+        }
+    }
+    //echo $prices_piece;
+} else {
+    $prices_piece = '
+    <p class="price-piece-itm" ss="" sf="" date="" extraprice="">
+        Таблицы цен по отрезкам у этого рейса нет
+    </p>
+    ';
+}
+
 ?>
 
 <?php
@@ -454,6 +491,10 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                 <h3 class="uk-margin-remove uk-card-title">Таблица цен</h3>
                 <div id="prices" class="uk-ticket-prices-items">
                     <?php echo $prices;?>
+                </div>
+                <h3 class="uk-margin-remove uk-card-title">Таблица цен по отрезкам</h3>
+                <div id="prices" class="uk-ticket-prices-items">
+                    <?php echo $prices_piece;?>
                 </div>
                 <h4 class="uk-margin-remove">Цена выбранного маршрута: <span id="sel_price"></span></h4>
             </div>

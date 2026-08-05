@@ -550,6 +550,23 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
             basePrice = 5000
         }
 
+        let piece_date = $('#dispatch_date').text();
+        console.log ('Узнаем наценку на отрезок маршрута');
+        let extraPricePieceText = $('[ssp="'+startStation+'"][sfp="'+finishStation+'"][datep="'+piece_date+'"]').attr('extraprice');
+        let extraPricePiece = parseInt(extraPricePieceText, 10);
+        if (Number.isNaN(extraPricePiece)) extraPricePiece = 0;
+        if (extraPricePiece > 0) {
+            console.log('Есть наценка по отрезку пути на эту дату');
+            console.log (extraPricePiece);
+            ticketPrice = parseInt(ticketPrice) + extraPricePiece;
+            basePrice = 5000 + extraPricePiece;
+        } else {
+            console.log('Нет наценки по отрезку пути на эту дату');
+            console.log (extraPricePiece);
+            ticketPrice = parseInt(ticketPrice);
+            basePrice = 5000
+        }
+
         if (ticketPrice) {
             $('#sel_price').text(ticketPrice);
             $('#price_ticket').val(ticketPrice);
@@ -650,6 +667,23 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
             basePrice = 5000 + ce_price;
         } else {
             console.log('Нет наценки по календарю');
+            ticketPrice = parseInt(ticketPrice);
+            basePrice = 5000
+        }
+
+        let piece_date = $('#dispatch_date').text();
+        console.log ('Узнаем наценку на отрезок маршрута');
+        let extraPricePieceText = $('[ssp="'+startStation+'"][sfp="'+finishStation+'"][datep="'+piece_date+'"]').attr('extraprice');
+        let extraPricePiece = parseInt(extraPricePieceText, 10);
+        if (Number.isNaN(extraPricePiece)) extraPricePiece = 0;
+        if (extraPricePiece > 0) {
+            console.log('Есть наценка по отрезку пути на эту дату');
+            console.log (extraPricePiece);
+            ticketPrice = parseInt(ticketPrice) + extraPricePiece;
+            basePrice = 5000 + extraPricePiece;
+        } else {
+            console.log('Нет наценки по отрезку пути на эту дату');
+            console.log (extraPricePiece);
             ticketPrice = parseInt(ticketPrice);
             basePrice = 5000
         }

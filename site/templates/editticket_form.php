@@ -71,21 +71,35 @@ $old_finish_station = preg_split('/[—]/u', $ticket->name_station_finish, -1, P
 $button_station_start = '';
 $bus_page = $pages->get('id=' . $ticket->id_bus . '');
 foreach ($bus_page->station_start as $item) {
-$array = preg_split('/[—]/u', $item->title, -1, PREG_SPLIT_NO_EMPTY);
-//print_r($array);
-$button_station_start .= '
-<button id="' . $item->id . '" param_btn="' . $item->title . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . $array[0] . '</button>
-';
+    $array = preg_split('/[—]/u', $item->title, -1, PREG_SPLIT_NO_EMPTY);
+
+    // Считаем дату для этой станции посадки
+    if ($item->next_day) {
+        $station_date = date('d.m.Y', strtotime($ticket->date_depart . ' +1 day'));
+    } else {
+        $station_date = date('d.m.Y', strtotime($ticket->date_depart));
+    }
+
+    $button_station_start .= '
+    <button style="width:100%;" id="' . $item->id . '" param_btn="' . $station_date . ' ' . $item->title . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . trim($array[0]) . ' <span style="color:#888888;">' . $station_date . '</span></button>
+    ';
 }
 
 $button_station_finish = '';
 $bus_page = $pages->get('id=' . $ticket->id_bus . '');
 foreach ($bus_page->station_finish as $item) {
-$array = preg_split('/[—]/u', $item->title, -1, PREG_SPLIT_NO_EMPTY);
-//print_r($array);
-$button_station_finish .= '
-<button id="' . $item->id . '" param_btn="' . $item->title . '" class="uk-ticket-button-station-finish uk-margin-small-top uk-button uk-button-default">' . $array[0] . '</button>
-';
+    $array = preg_split('/[—]/u', $item->title, -1, PREG_SPLIT_NO_EMPTY);
+
+    // Считаем дату для этой станции высадки
+    if ($item->next_day) {
+        $station_date = date('d.m.Y', strtotime($ticket->date_depart . ' +1 day'));
+    } else {
+        $station_date = date('d.m.Y', strtotime($ticket->date_depart));
+    }
+
+    $button_station_finish .= '
+    <button style="width:100%;" id="' . $item->id . '" param_btn="' . $station_date . ' ' . $item->title . '" class="uk-ticket-button-station-finish uk-margin-small-top uk-button uk-button-default">' . trim($array[0]) . ' <span style="color:#888888;">' . $station_date . '</span></button>
+    ';
 }
 
 $prices = '';

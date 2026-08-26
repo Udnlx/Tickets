@@ -126,12 +126,12 @@ $ticket_date = date("d.m.Y H:m:s", $ticket->created);
 $start_station = '';
 if ($array_param_start[1]) {
     $start_station = '
-    <p>Станция посадки: ' . $array_param_start[0] . ' ' . $date_depart . '</p>
+    <p>Станция посадки: ' . $array_param_start[0] . '</p>
     <p style="margin: -10px 0 0 0;font-size: 12px;">' . $array_param_start[1] . '</p>
     ';
 } else {
     $start_station = '
-    <p>Станция посадки: ' . $array_param_start[0] . ' ' . $date_depart . '</p>
+    <p>Станция посадки: ' . $array_param_start[0] . '</p>
     ';
 }
 

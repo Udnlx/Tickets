@@ -178,9 +178,45 @@ fclose($fp);
 //==========================================================
 $bus = $pages->get("template=buses_item, id=" . $data['idBus'] . "");
 
+
+
+$forreg_date = $data['dateDeparture'];
+
+// СТАНЦИЯ ПОСАДКИ
+$forreg_id_ss = $data['idStationStart'];
+$page_ss = $pages->get("id=" . $forreg_id_ss . "");
+if ($page_ss->template != 'repeater_station_start') {
+    $validation = false;
+    $message = '[idStationStart] не относится к станциям';
+}
+if ($page_ss->next_day) {
+    $ss_date = date('d.m.Y', strtotime($forreg_date . ' +1 day'));
+} else {
+    $ss_date = date('d.m.Y', strtotime($forreg_date));
+}
+$forreg_ss_name = $ss_date . ' ' . $page_ss->title;
+
+// СТАНЦИЯ ВЫСАДКИ
+$forreg_id_sf = $data['idStationFinish'];
+$page_sf = $pages->get("id=" . $forreg_id_sf . "");
+if ($page_sf->template != 'repeater_station_finish') {
+    $validation = false;
+    $message = '[idStationFinish] не относится к станциям';
+}
+if ($page_sf->next_day) {
+    $sf_date = date('d.m.Y', strtotime($forreg_date . ' +1 day'));
+} else {
+    $sf_date = date('d.m.Y', strtotime($forreg_date));
+}
+$forreg_sf_name = $sf_date . ' ' . $page_sf->title;
+
+
+
 $result["requestKey"] = $requestKey;
 $result["idBus"] = $bus->id;
 $result["informationTicket"] = $bus->information_ticket;
+$result["forreg_ss_name"] = $forreg_ss_name;
+$result["forreg_sf_name"] = $forreg_sf_name;
 //==========================================================
 
 

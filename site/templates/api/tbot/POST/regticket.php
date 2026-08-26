@@ -126,21 +126,35 @@ if (isset($data['idBus'])) {
 		$time_departure = $bus->option_bus;
 		$forreg_time_departure = mb_substr($time_departure, -7, 7);
 
+		$forreg_date = $data['dateDeparture'];
+
+		// СТАНЦИЯ ПОСАДКИ
 		$forreg_id_ss = $data['idStationStart'];
 		$page_ss = $pages->get("id=" . $forreg_id_ss . "");
 		if ($page_ss->template != 'repeater_station_start') {
-			$validation = false;
-			$message = '[idStationStart] не относится к станциям';
+		    $validation = false;
+		    $message = '[idStationStart] не относится к станциям';
 		}
-		$forreg_ss_name = $page_ss->title;
+		if ($page_ss->next_day) {
+		    $ss_date = date('d.m.Y', strtotime($forreg_date . ' +1 day'));
+		} else {
+		    $ss_date = date('d.m.Y', strtotime($forreg_date));
+		}
+		$forreg_ss_name = $ss_date . ' ' . $page_ss->title;
 
+		// СТАНЦИЯ ВЫСАДКИ
 		$forreg_id_sf = $data['idStationFinish'];
 		$page_sf = $pages->get("id=" . $forreg_id_sf . "");
 		if ($page_sf->template != 'repeater_station_finish') {
-			$validation = false;
-			$message = '[idStationFinish] не относится к станциям';
+		    $validation = false;
+		    $message = '[idStationFinish] не относится к станциям';
 		}
-		$forreg_sf_name = $page_sf->title;
+		if ($page_sf->next_day) {
+		    $sf_date = date('d.m.Y', strtotime($forreg_date . ' +1 day'));
+		} else {
+		    $sf_date = date('d.m.Y', strtotime($forreg_date));
+		}
+		$forreg_sf_name = $sf_date . ' ' . $page_sf->title;
 
 		$seat = $data['seat'];
 		$seat_padded = sprintf("%02d", $seat);

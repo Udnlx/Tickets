@@ -19,3 +19,8 @@
 2026-04-24 18:08:04 - Отлавливаем дубликат; 
 2026-04-24 18:08:04 - Дубликат запроса заблокирован; Данные={"idBus":12696,"dateDeparture":"2026-03-31","idStationStart":27416,"idStationFinish":27418,"seat":2,"typeTicket":"adult","passenger":"Тестовый Пассажир Тестович","genderPassenger":"М","citizenshipPassenger":"RU","birthdayPassenger":"01.01.1992","passengerDoc":"Паспорт РФ","passengerDocSerial":"1234","passengerDocNumber":"123456","passengerPhone":"12345678901","passengerCreate":"TestAPI","operator":"TestAPI","agentTicket":"TestAPI","priceTicket":4000,"comment":"zxc"}
 2026-04-24 18:08:08 - Отлавливаем дубликат; 
+2026-08-26 10:00:08 - Отлавливаем дубликат; 
+2026-08-26 10:00:51 - Отлавливаем дубликат; 
+2026-08-26 10:05:17 - Отлавливаем дубликат; 
+2026-08-26 10:06:45 - Отлавливаем дубликат; 
+2026-08-26 10:10:33 - Отлавливаем дубликат; 

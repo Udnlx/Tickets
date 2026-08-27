@@ -50,7 +50,7 @@ foreach ($bus_page->station_start as $item) {
         $button_station_start .= '';
     } else {
         $button_station_start .= '
-        <button style="width:100%;" id="' . $item->id . '" param_btn="' . $station_date . ' ' . $item->title . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . trim($array[0]) . ' <span style="color:#888888;">' . $station_date . '</span></button>
+        <button style="width:100%;" id="' . $item->id . '" param_btn="' . $station_date . ' ' . $item->title . '" class="uk-ticket-button-station-start uk-margin-small-top uk-button uk-button-default">' . trim($array[0]) . '</button>
         ';
         }    
     }
@@ -77,7 +77,7 @@ foreach ($bus_page->station_finish as $item) {
     }
 
     $button_station_finish .= '
-    <button style="width:100%;" id="' . $item->id . '" param_btn="' . $station_date . ' ' . $item->title . '" class="uk-ticket-button-station-finish uk-margin-small-top uk-button uk-button-default">' . trim($array[0]) . ' <span style="color:#888888;">' . $station_date . '</span></button>
+    <button style="width:100%;" id="' . $item->id . '" param_btn="' . $station_date . ' ' . $item->title . '" class="uk-ticket-button-station-finish uk-margin-small-top uk-button uk-button-default">' . trim($array[0]) . '</button>
     ';
 }
 

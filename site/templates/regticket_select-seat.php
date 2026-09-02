@@ -390,7 +390,7 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                         <input class="uk-input" id="selected_time" type="text" name="selected_time" value="<?php echo $selected_time; ?>">
                     </div>
                     <div class="uk-margin-small-top uk-hidden">
-                        <input class="uk-input" id="tech_time" type="text" name="tech_time" value="<?php echo $sb_dispatch_time; ?>" autocomplete="off" required>
+                        <input class="uk-input" id="tech_time" type="text" name="tech_time" value="<?php echo $sb_dispatch_time; ?>" autocomplete="off">
                     </div>
                     
                     <div class="uk-margin-small-top">

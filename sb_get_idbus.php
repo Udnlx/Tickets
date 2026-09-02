@@ -3,8 +3,10 @@
 $sbidStationStart = $_POST['sbidStationStart'];
 $sbidStationFinish = $_POST['sbidStationFinish'];
 $sb_dispatch_date = $_POST['sbDispatchDate'];
+$sb_dispatch_time = $_POST['sbDispatchTime'];
 
-// echo $sbidStationStart . ' - ' . $sbidStationFinish;
+// Собираем полную дату+время для поиска (формат как в API: "2026-09-30 21:00:00")
+$sb_dispatch_datetime = $sb_dispatch_date . ' ' . $sb_dispatch_time;
 
 $found = false;
 
@@ -27,8 +29,6 @@ catch (SoapFault $soapFault){
     // echo '</pre>';
 }
 
-
-
 try{
     $dataList = $client->getRaces(["dispatchPlaceId"=>$sbidStationStart,"arrivalPlaceId"=>$sbidStationFinish,"date"=>$sb_dispatch_date]);
     // echo '<h2>Функция на сервер отправлена</h2>';
@@ -41,16 +41,21 @@ catch (SoapFault $soapFault){
 }
 
 $dataListjson = json_decode($dataList->return, JSON_UNESCAPED_UNICODE);
-// echo '<pre>'; 
-// var_dump($dataListjson);
-// echo '</pre>';
 
 $uid_bus = '';
-$array = $dataListjson[0];
-if ($array['uid']) {
-	$uid_bus = $array['uid'];
-	echo $uid_bus;
-} else {
-	echo 'Автобус не найден';
+$found_race = null;
+
+// Ищем рейс с нужным временем отправления
+foreach ($dataListjson as $race) {
+    if (isset($race['dispatchDate']) && $race['dispatchDate'] === $sb_dispatch_datetime) {
+        $found_race = $race;
+        break;
+    }
 }
 
+if ($found_race && isset($found_race['uid'])) {
+    $uid_bus = $found_race['uid'];
+    echo $uid_bus;
+} else {
+    echo 'Автобус не найден';
+}

@@ -389,6 +389,9 @@ for ($num_seat = 1; $num_seat <= $max_seat; $num_seat++) {
                     <div class="uk-margin-small-top uk-hidden">
                         <input class="uk-input" id="selected_time" type="text" name="selected_time" value="<?php echo $selected_time; ?>">
                     </div>
+                    <div class="uk-margin-small-top uk-hidden">
+                        <input class="uk-input" id="tech_time" type="text" name="tech_time" value="<?php echo $sb_dispatch_time; ?>" autocomplete="off" required>
+                    </div>
                     
                     <div class="uk-margin-small-top">
                         <input class="uk-input readonly" id="selected_station_start" type="text" name="selected_station_start" value="" placeholder="Станция посадки" autocomplete="off" required>

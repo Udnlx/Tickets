@@ -579,6 +579,7 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
     let sbidStationStart = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('idss');
     let sbidStationFinish = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('idsf');
     let sbDispatchDate = $('#dispatch_date').text();
+    let sbDispatchTime = $('#tech_time').val();
     if (sbidStationStart && sbidStationFinish) {
         console.log ('Параметры по станциям получены, делаем запрос ID рейса в 1С');
         console.log (sbidStationStart + ' - ' + sbidStationFinish);
@@ -588,7 +589,8 @@ $(document).on('click', 'button.uk-ticket-button-station-start', function(){
             data: {
                 'sbidStationStart':sbidStationStart,
                 'sbidStationFinish':sbidStationFinish,
-                'sbDispatchDate':sbDispatchDate
+                'sbDispatchDate':sbDispatchDate,
+                'sbDispatchTime':sbDispatchTime
             },
             beforeSend: function () {
                 //Отрпавили данные
@@ -700,6 +702,7 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
     let sbidStationStart = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('idss');
     let sbidStationFinish = $('[ss="'+startStation+'"][sf="'+finishStation+'"]').attr('idsf');
     let sbDispatchDate = $('#dispatch_date').text();
+    let sbDispatchTime = $('#tech_time').val();
     if (sbidStationStart && sbidStationFinish) {
         console.log ('Параметры по станциям получены, делаем запрос ID рейса в 1С');
         console.log (sbidStationStart + ' - ' + sbidStationFinish);
@@ -709,7 +712,8 @@ $(document).on('click', 'button.uk-ticket-button-station-finish', function(){
             data: {
                 'sbidStationStart':sbidStationStart,
                 'sbidStationFinish':sbidStationFinish,
-                'sbDispatchDate':sbDispatchDate
+                'sbDispatchDate':sbDispatchDate,
+                'sbDispatchTime':sbDispatchTime
             },
             beforeSend: function () {
                 //Отрпавили данные

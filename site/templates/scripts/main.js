@@ -4,6 +4,27 @@ $(".readonly").keydown(function(e){
 
 
 
+document.querySelectorAll('input[type="number"]').forEach(function(input) {
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            e.preventDefault();
+        }
+    });
+});
+
+document.querySelectorAll('input[type="number"]').forEach(function(input) {
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            e.preventDefault();
+        }
+    });
+    input.addEventListener('wheel', function(e) {
+        e.preventDefault();
+    }, { passive: false });
+});
+
+
+
 // $(document).keydown(function (event) {
 //     if (event.keyCode == 123) { // Prevent F12
 //         return false;

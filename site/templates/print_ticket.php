@@ -33,12 +33,30 @@ $ticket = $pages->get('id=' . $ticket_id . '');
 $passenger = $pages->get('id=' . $ticket->id_passenger . '');
 $date_depart = date("d.m.Y",strtotime($ticket->date_depart));
 
-$transporter = '';
+$transporter = 'ООО Олимп';
+$header_ticket = '
+<img class="logo_ticket" src="https://lk.olimp-tickets.ru/site/assets/images/logo_t.png" alt="">
+<p class="maintext">ОЛИМП</p>
+<p class="textheader">г. Люберцы, ул. Комсомольская, 15</p>
+<p class="textheader_last">тел: 8(926)947-55-55</p>
+';
+
 $id_bus = $ticket->id_bus;
 if ($id_bus == '39265' || $id_bus == '39273') {
     $transporter = 'ООО Терек';
-} else {
-    $transporter = 'ООО Олимп';
+    $header_ticket = '
+    <img class="logo_ticket" src="https://lk.olimp-tickets.ru/site/assets/images/logo_t.png" alt="">
+    <p class="maintext">ОЛИМП</p>
+    <p class="textheader">г. Люберцы, ул. Комсомольская, 15</p>
+    <p class="textheader_last">тел: 8(926)947-55-55</p>
+';
+}
+if ($id_bus == '78777') {
+    $transporter = 'АТК';
+    $header_ticket = '
+    <p class="maintext">АТК</p>
+    <p class="textheader_last">тел: 8(925)047-30-30</p>
+';
 }
 
 $id_bus = $ticket->id_bus;
@@ -174,10 +192,7 @@ if($bus->qrcode) {
 }
 
 $content .= '
-<img class="logo_ticket" src="https://lk.olimp-tickets.ru/site/assets/images/logo_t.png" alt="">
-<p class="maintext">ОЛИМП</p>
-<p class="textheader">г. Люберцы, ул. Комсомольская, 15</p>
-<p class="textheader_last">тел: 8(926)947-55-55</p>
+' . $header_ticket . '
 
 <h2 style="margin: 50px 0 20px 0;">Билет №' . $ticket->id . ' от ' . $ticket_date . '</h2>
 

@@ -40,6 +40,35 @@ $header_ticket = '
 <p class="textheader">г. Люберцы, ул. Комсомольская, 15</p>
 <p class="textheader_last">тел: 8(926)947-55-55</p>
 ';
+$qr = '
+<td style="width: 30%; vertical-align: top; text-align: center; font-size: 12px;">
+    <p style="margin: 0 0 8px 0; text-align: center; line-height: 1.3;">
+        <strong>Скидка 20% на заказ через приложение</strong>
+    </p>
+
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 8px;">
+        <tr>
+            <td style="width: 50%; text-align: center; font-size: 12px;">
+                <a href="https://apps.apple.com/ru/app/olimp-tickets/id6740780087?l=en-GB" style="color: #0000EE; text-decoration: underline;">IOS</a>
+            </td>
+            <td style="width: 50%; text-align: center; font-size: 12px;">
+                <a href="https://play.google.com/store/apps/details?id=com.mycompany.olimptickets" style="color: #0000EE; text-decoration: underline;">Android</a>
+            </td>
+        </tr>
+    </table>
+
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="width: 50%; text-align: center;">
+                <img src="https://lk.olimp-tickets.ru/site/assets/images/qr-code1.png" alt="" style="width: 80px; height: 80px;">
+            </td>
+            <td style="width: 50%; text-align: center;">
+                <img src="https://lk.olimp-tickets.ru/site/assets/images/qr-code2.png" alt="" style="width: 80px; height: 80px;">
+            </td>
+        </tr>
+    </table>
+</td>
+';
 
 $id_bus = $ticket->id_bus;
 if ($id_bus == '39265' || $id_bus == '39273') {
@@ -49,14 +78,15 @@ if ($id_bus == '39265' || $id_bus == '39273') {
     <p class="maintext">ОЛИМП</p>
     <p class="textheader">г. Люберцы, ул. Комсомольская, 15</p>
     <p class="textheader_last">тел: 8(926)947-55-55</p>
-';
+    ';
 }
 if ($id_bus == '78777') {
     $transporter = 'АТК';
     $header_ticket = '
     <p class="maintext">АТК</p>
     <p class="textheader_last">тел: 8(925)047-30-30</p>
-';
+    ';
+    $qr = '';
 }
 
 $id_bus = $ticket->id_bus;
@@ -235,33 +265,7 @@ $content .= '
                 <p>Оплата в автобусе наличными водителю или на сайте olimp-tickets.ru</p>
             </td>
 
-            <td style="width: 30%; vertical-align: top; text-align: center; font-size: 12px;">
-                <p style="margin: 0 0 8px 0; text-align: center; line-height: 1.3;">
-                    <strong>Скидка 20% на заказ через приложение</strong>
-                </p>
-
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 8px;">
-                    <tr>
-                        <td style="width: 50%; text-align: center; font-size: 12px;">
-                            <a href="https://apps.apple.com/ru/app/olimp-tickets/id6740780087?l=en-GB" style="color: #0000EE; text-decoration: underline;">IOS</a>
-                        </td>
-                        <td style="width: 50%; text-align: center; font-size: 12px;">
-                            <a href="https://play.google.com/store/apps/details?id=com.mycompany.olimptickets" style="color: #0000EE; text-decoration: underline;">Android</a>
-                        </td>
-                    </tr>
-                </table>
-
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                        <td style="width: 50%; text-align: center;">
-                            <img src="https://lk.olimp-tickets.ru/site/assets/images/qr-code1.png" alt="" style="width: 80px; height: 80px;">
-                        </td>
-                        <td style="width: 50%; text-align: center;">
-                            <img src="https://lk.olimp-tickets.ru/site/assets/images/qr-code2.png" alt="" style="width: 80px; height: 80px;">
-                        </td>
-                    </tr>
-                </table>
-            </td>
+            ' . $qr . '
         </tr>
     </table>
 </div>

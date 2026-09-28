@@ -59,6 +59,7 @@ foreach ($reserv_seat as $reserv_seat_item) {
             'doc_passenger' => $page_passenger->passport_passenger . ' ' . $page_passenger->num_doc_passenger,
             'citizenship_passenger' => $page_passenger->citizenship_passenger,
             'price_ticket' => $reserv_seat_item->price_ticket,
+            'confirm' => $reserv_seat_item->confirm,
             'comment' => $reserv_seat_item->comment,
         );
     } else {
@@ -88,6 +89,7 @@ $headers = array(
         'doc_passenger' => '№ Документа',
         'citizenship_passenger' => 'Гражданство',
         'price_ticket' => 'Цена',
+        'confirm' => 'Статус подтверждения',
         'comment' => 'Комментарий',
     ),    
 );

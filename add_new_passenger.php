@@ -28,7 +28,7 @@ if ($add_name_passenger == '' || $add_gender_passenger == '' || $add_citizenship
     echo '<p class="messages" style="color: red;">Ошибка. Пассажир не добавлен.<br>Проверьте заполненность полей и повторите попытку.</p>';    
 } else {
     $passengers = '';
-    $passengers = $pages->find('template=passengers, num_doc_passenger=' . $add_num_doc_passenger . '');
+    $passengers = $pages->find('template=passengers, passport_passenger=' . $add_passport_passenger . ', num_doc_passenger=' . $add_num_doc_passenger . '');
     if ($passengers != '') {
         echo '<p class="messages" style="color: red;">Ошибка. Пассажир не добавлен.<br>Пассажир с таким номером документа уже существует:</p>';
         foreach($passengers as $passenger) {

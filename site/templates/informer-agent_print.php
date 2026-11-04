@@ -1,6 +1,12 @@
 <?php namespace ProcessWire;
 
 $agent = !empty($_POST['agent'])?$_POST['agent']:NULL;  
+$print_agent = !empty($_POST['print_agent'])?$_POST['print_agent']:NULL;
+if ($agent == 'Олимп|Site|APP') {
+    $agent = 'Олимп|Site|APP';
+    $print_agent = 'Олимп + API';
+}
+
 $start_date = !empty($_POST['start_date'])?$_POST['start_date']:NULL;
 $finish_date = !empty($_POST['finish_date'])?$_POST['finish_date']:NULL;
 
@@ -174,7 +180,7 @@ foreach ($all_transporters as $transporter) {
 
 $title = array
 (
-'Отчет по агенту - по дате выезда: ' . $agent . ' - ' . $start_date . ' - ' . $finish_date,
+'Отчет по агенту - по дате выезда: ' . $print_agent . ' - ' . $start_date . ' - ' . $finish_date,
 '',
 );
 
@@ -240,7 +246,7 @@ $footer = array(
 // );
 
 header('Content-Type: text/csv; charset=utf-8' );
-header(sprintf( 'Content-Disposition: attachment; filename=Отчет по агенту - по дате выезда ' . $agent . ' - %s.csv', date( 'dmY-His' ) ) );
+header(sprintf( 'Content-Disposition: attachment; filename=Отчет по агенту - по дате выезда ' . $print_agent . ' - %s.csv', date( 'dmY-His' ) ) );
 header('Content-Transfer-Encoding: binary');
 header('Expires: 0');
 header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -273,7 +279,7 @@ exit();
     <br> 
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
         <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
-        <h4 class="uk-margin-remove">Выбранный агент: <span style="font-weight: 700;"><?php echo $agent; ?></span></h4>
+        <h4 class="uk-margin-remove">Выбранный агент: <span style="font-weight: 700;"><?php echo $print_agent; ?></span></h4>
         <h4 class="uk-margin-remove">Дата: с <span style="font-weight: 700;"><?php echo $start_date; ?></span> по <span style="font-weight: 700;"><?php echo $finish_date; ?></span></h4>
         <a class="uk-margin-small uk-button uk-button-default" href="/">Домашняя страница</a>
     </div>

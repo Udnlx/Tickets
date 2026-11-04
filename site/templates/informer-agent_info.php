@@ -1,6 +1,11 @@
 <?php namespace ProcessWire;
 
 $agent = !empty($_POST['agent'])?$_POST['agent']:NULL;  
+$print_agent = !empty($_POST['agent'])?$_POST['agent']:NULL;
+if ($agent == 'Олимп + API') {
+    $agent = 'Олимп|Site|APP';
+}
+
 $start_date = !empty($_POST['start_date'])?$_POST['start_date']:NULL;
 $finish_date = !empty($_POST['finish_date'])?$_POST['finish_date']:NULL;
 
@@ -81,7 +86,7 @@ foreach ($all_transporters as $transporter) {
         <br>            
         <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-flex uk-flex-column">
             <p class="operator uk-position-absolute">Оператор: <?php echo $operator; ?></p>
-            <h4 class="uk-margin-remove">Выбранный агент: <span style="font-weight: 700;"><?php echo $agent; ?></span></h4>
+            <h4 class="uk-margin-remove">Выбранный агент: <span style="font-weight: 700;"><?php echo $print_agent; ?></span></h4>
             <h4 class="uk-margin-remove">Дата: с <span style="font-weight: 700;"><?php echo $start_date; ?></span> по <span style="font-weight: 700;"><?php echo $finish_date; ?></span></h4>
             
             <div class="uk-flex uk-flex-column">

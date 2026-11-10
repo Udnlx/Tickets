@@ -5,7 +5,7 @@ namespace ProcessWire;
 $all_station_start = [];
 if ($input->get['id']) {
 	$id = $input->get('id');
-	$bus_page = $pages->get("template=buses_item, id=" . $id);
+	$bus_page = $pages->get("template=buses_item, id=" . $id . ", status!=hidden, status!=unpublished");
 	if ($bus_page->station_start) {
 		foreach ($bus_page->station_start as $station_start) {
 			$all_station_start[] = [

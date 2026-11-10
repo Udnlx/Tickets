@@ -5,7 +5,7 @@ namespace ProcessWire;
 $arr_bus_calendar = [];
 if ($input->get['bus']) {
 	$id_bus = $input->get('bus');
-	$bus_page = $pages->get("template=buses_item, id=" . $id_bus);
+	$bus_page = $pages->get("template=buses_item, id=" . $id_bus . ", status!=hidden, status!=unpublished");
 	if ($bus_page->title) {
 		$year = date('Y');
 		$year_plus = strtotime('+1 year', strtotime($year));

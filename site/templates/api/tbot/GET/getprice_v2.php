@@ -18,7 +18,7 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 	$age = $input->get('age');
 	$departure = $input->get('departure');
 
-	$bus_page = $pages->get("template=buses_item, id=" . $id_bus);
+	$bus_page = $pages->get("template=buses_item, id=" . $id_bus . ", status!=hidden, status!=unpublished");
 
 	$arr_extra_calendar = [];
 	$calendar_extra_price = 0;
@@ -80,10 +80,13 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 
 	if ($bus_page->title) {
 
+		$next_day = 0;
+
 		$station_start = $bus_page->station_start->get("id=" . $id_sstation);
 		if ($station_start) {
 			$station_start_title = preg_split('/[—]/u', $station_start->title, -1, PREG_SPLIT_NO_EMPTY);
 			$start_title = trim($station_start_title[0]);
+			$next_day = $station_start->next_day ? 1 : 0;   // приводим к нормальному виду
 			//echo $start_title;
 		} else {
 			$start_title = '';
@@ -146,6 +149,14 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 			}
 		}
 
+		$departure_result = $departure;
+		if ($next_day === 1) {
+			$ts = strtotime($departure);
+			if ($ts !== false) {
+				$departure_result = date('Y-m-d', strtotime('+1 day', $ts));
+			}
+		}
+
 		$price = $received_price;
 
 		//$result["arr_prices_piece"] = $arr_prices_piece;
@@ -153,6 +164,9 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 		$result["extra_price"] = $extra_price;
 		$result["prices_piece"] = $prices_piece;
 		$result["price"] = $price;
+		$result["next_day"] = $next_day;
+		$result["departure"] = $departure_result;
+		$result["departure_original"] = $departure;
 
 	} else {
 		$result = setError('Автобуса с указанным ID не существует', $result, 404);

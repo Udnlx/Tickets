@@ -10,7 +10,7 @@ if ($input->get['bus'] && $input->get['sstation'] && $input->get['fstation'] && 
 	$id_fstation = $input->get('fstation');
 	$age = $input->get('age');
 
-	$bus_page = $pages->get("template=buses_item, id=" . $id_bus);
+	$bus_page = $pages->get("template=buses_item, id=" . $id_bus . ", status!=hidden, status!=unpublished");
 
 	if ($bus_page->title) {
 
